@@ -20932,7 +20932,7 @@
 			timer: null,
 			contentType: 0, /* 0 = info, 1 = train, 2 = build, 3 = research, 4 = resurrect, 5 = sanctuary, 6 = Dragon, 7 = Trade, 8 = Forge - these should be enums but Javascript doesn't support that type */
 			jobsStatTimer: null,
-			trainContentType: 0, /* 0 = train, 1 = config */
+			trainContentType: 0, /* 0 = train, 1 = config, 2 = accel */
 			sanctContentType: 0, /* 0 = dragons overview, 1 = breeding */
 			tradeContentType: 0, /* 0 = buy, 1 = sell */
 			forgeContentType: 0, /* 0 = adventurers, 1 = forge, 2 = inventory */
@@ -21395,7 +21395,22 @@
 
 				t.contentType = 1;
 
-				var n = '<div class=' + UID['title'] + '>' + translate('Train') + ' ' + translate('Automatically') + '</div>' + '<div class=' + UID['status_ticker'] + ' style="margin-bottom: 5px !important">' + '	<center><input id=' + setUID('tabJobTrain_OnOff') + ' type=button /></center>' + '	<div id=' + setUID('tabJobTrain_Report') + ' class=' + UID['status_report'] + '>' + '		<table id=' + setUID('tabJobTrain_Table') + ' class=' + UID['table'] + '>' + '		</table>' + '	</div>' + '	<br>' + '	<div id=' + setUID('tabJobTrain_Feedback') + ' class=' + UID['status_feedback'] + '></div>' + '</div>' + '<ul class=tabs>' + '	<li class="tab first"><a id=' + setUID('tabJobTrain_tabTrain') + '>' + translate('Train') + '</a></li>' + '	<li class="tab"><a id=' + setUID('tabJobTrain_tabConfig') + '>' + translate('Config') + '</a></li>' + '</ul>';
+				var n = '<div class=' + UID['title'] + '>' + translate('Train') + ' ' + translate('Automatically') + '</div>' 
+					+ '<div class=' + UID['status_ticker'] + ' style="margin-bottom: 5px !important">' 
+					+ '	<center><input id=' + setUID('tabJobTrain_OnOff') + ' type=button /></center>' 
+					+ '	<div id=' + setUID('tabJobTrain_Report') + ' class=' + UID['status_report'] + '>' 
+					+ '		<table id=' + setUID('tabJobTrain_Table') + ' class=' + UID['table'] + '>' 
+					+ '		</table>' 
+					+ '	</div>' 
+					+ '	<br>' 
+					+ '	<div id=' + setUID('tabJobTrain_Feedback') + ' class=' + UID['status_feedback'] + '></div>' 
+					+ '</div>' 
+					+ '<ul class=tabs>' 
+					+ '	<li class="tab first"><a id=' + setUID('tabJobTrain_tabTrain') + '>' + translate('Train') + '</a></li>'
+					+ '	<li class="tab"><a id=' + setUID('tabJobTrain_tabConfig') + '>' + translate('Config') + '</a></li>'
+					+ '	<li class="tab"><a id=' + setUID('tabJobTrain_tabSpeed') + '>' + translate('speed') + '</a></li>'
+					+ '</ul>';
+				
 				document.getElementById(UID['tabJob_Header']).style.height = "225px";
 				document.getElementById(UID['tabJob_Header']).innerHTML = n;
 
@@ -21409,6 +21424,7 @@
 				}, false);
 				document.getElementById(UID['tabJobTrain_tabTrain']).addEventListener('click', t.tabJobTrainSets, false);
 				document.getElementById(UID['tabJobTrain_tabConfig']).addEventListener('click', t.tabJobTrainConfig, false);
+				document.getElementById(UID['tabJobTrain_tabSpeed']).addEventListener('click', t.tabJobTrainSpeed, false);
 				t.refreshTrainButton(Data.options.training.enabled);
 
 				switch (t.trainContentType) {
@@ -21417,6 +21433,9 @@
 						break;
 					case 1:
 						t.tabJobTrainConfig();
+						break;
+					case 2:
+						t.tabJobTrainAutoSpeed();
 						break;
 				}
 				t.trainStatTick();
@@ -21430,6 +21449,8 @@
 
 				document.getElementById(UID['tabJobTrain_tabConfig']).className = '';
 				document.getElementById(UID['tabJobTrain_tabConfig']).style.zIndex = 0;
+				document.getElementById(UID['tabJobTrain_tabSpeed']).className = '';
+				document.getElementById(UID['tabJobTrain_tabSpeed']).style.zIndex = 0;
 				document.getElementById(UID['tabJobTrain_tabTrain']).className = 'selected';
 				document.getElementById(UID['tabJobTrain_tabTrain']).style.zIndex = 1;
 
@@ -21659,6 +21680,8 @@
 
 				document.getElementById(UID['tabJobTrain_tabTrain']).className = '';
 				document.getElementById(UID['tabJobTrain_tabTrain']).style.zIndex = 0;
+				document.getElementById(UID['tabJobTrain_tabSpeed']).className = '';
+				document.getElementById(UID['tabJobTrain_tabSpeed']).style.zIndex = 0;
 				document.getElementById(UID['tabJobTrain_tabConfig']).className = 'selected';
 				document.getElementById(UID['tabJobTrain_tabConfig']).style.zIndex = 1;
 
@@ -21765,6 +21788,137 @@
 				}
 			},
 
+			/** * config sub tab */
+			tabJobTrainAutoSpeed: function() {
+				var t = Tabs.Jobs;
+
+				document.getElementById(UID['tabJobTrain_tabTrain']).className = '';
+				document.getElementById(UID['tabJobTrain_tabTrain']).style.zIndex = 0;
+				document.getElementById(UID['tabJobTrain_tabConfig']).className = '';
+				document.getElementById(UID['tabJobTrain_tabConfig']).style.zIndex = 0;
+				document.getElementById(UID['tabJobTrain_tabSpeed']).className = 'selected';
+				document.getElementById(UID['tabJobTrain_tabSpeed']).style.zIndex = 1;
+
+				t.trainContentType = 2;
+
+				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' 
+					+ '<div class=' + UID['subtitle'] + '>' + translate('Training Configuration') + '</div>' 
+					+ '<div class="' + UID['scrollable'] + '">' 
+					+ '		<table class=' + UID['table'] + '>' 
+					+ '		<tr align=center class=' + UID['row_headers'] + '>' 
+					+ '			<td style="background:none !important;" colspan=2></td>' 
+					+ '		</tr>' 
+					+ '		<tr>' 
+					+ '			<td><label><input type=radio name=' + UID['tabTrainConfig_QRadio'] + ' value="min_housing" />' + translate('Only one training queue per city') + '</label></td>' 
+					+ '		</tr>' 
+					+ '		<tr>' 
+					+ '			<td><label><input type=radio name=' + UID['tabTrainConfig_QRadio'] + ' value="min_resource" />' + translate('Maximum training queues possible per city, according to available resources') + '</label></td>' 
+					+ '		</tr>' 
+					+ ' 	 <tr>' 
+					+ '			<td>' + translate('Tax Rate') + ' : <input disabled type=text id=' + setUID('TabJobTrainTaxRate') + ' maxlength=2 style="width:70px" size=3 value="' + Seed.cities[CAPITAL.id].figures.tax_rate + '"\>' + '% ' + ' <input disabled class=small id=' + setUID('TabJobTrainChangeTaxRate') + ' type=button style="width:auto !important;" value="' + translate('Change') + '" \>' 
+					+ ' 		</td>' 
+					+ '		</tr>' 
+					+ '	</table>'
+					+ '</div>' + '<br>';
+
+				var el = [];
+				var troopTypes = all_unit_types;
+				m += '<div class=' + UID['subtitle'] + ' style="background-color:#0044a0;">' + translate('Maximum Troops') + ' (0 = ' + translate('no max') + ')</div>' + '	<table class=' + UID['table'] + ' width=100%>' + '		<tr valign=top>' + '			<td width=33%>' + '			<table class=' + UID['table'] + ' width=100%>';
+
+				var i;
+				var nbre1 = Math.ceil(troopTypes.length / 2);
+				for (i = 0; i < nbre1; i++) {
+					m += '<tr>' + '	<td class=right width=70%>' + translate(troopTypes[i]) + ':</td>';
+					var num = Data.options.training.city[0].cap[i];
+					if (!num || isNaN(num)) num = 0;
+					m += '<td width=30%><input type=text id=' + setUID('tabTrainConfig_Cap_' + 0 + '_' + i) + ' ref=' + (0 + '_' + i) + ' maxlength=8 size=2 value="' + num + '" style="width:60px;text-align:right;" /></td>' + '</tr>';
+					el.push(UID['tabTrainConfig_Cap_' + 0 + '_' + i]);
+				}
+				m += '</table></td>' + '	<td width=33%>' + '	<table class=' + UID['table'] + ' width=100%>';
+				for (i = nbre1; i < troopTypes.length; i++) {
+					m += '<tr>' + '	<td class=right width=70%>' + translate(troopTypes[i]) + ':</td>';
+					var num = Data.options.training.city[0].cap[i];
+					if (!num || isNaN(num)) num = 0;
+					m += '<td width=30%>' + '<input type=text id=' + setUID('tabTrainConfig_Cap_' + 0 + '_' + i) + ' ref=' + (0 + '_' + i) + ' maxlength=8 size=2 value="' + num + '" style="width:60px;text-align:right;" /></td>' + '</tr>';
+					el.push(UID['tabTrainConfig_Cap_' + 0 + '_' + i]);
+				}
+				m += '			</table>' + '			</td>' + '		</tr>' + '	</table>' + '</div>' + '</div>';
+
+				document.getElementById(UID['tabJobTrain_Content']).innerHTML = m;
+				document.getElementById(UID['TabJobTrainChangeTaxRate']).addEventListener('click', changeTaxRate);
+				document.getElementById(UID['TabJobTrainTaxRate']).addEventListener('change', onChangeTaxRate);
+
+				var r = document.getElementsByName(UID['tabTrainConfig_QRadio']);
+				for (var i = 0; i < r.length; i++) {
+					r[i].addEventListener('change', enableChanged, false);
+					r[i].checked = (r[i].value == Data.options.training.mode);
+				}
+				for (var i = 0; i < el.length; i++) {
+					document.getElementById(el[i]).addEventListener('change', troopsChanged, false);
+				}
+
+				function onChangeTaxRate(event) {
+					var newRate = event.target.value;
+					if (isNaN(newRate) || newRate < 0 || newRate > 100) {
+						event.target.style.backgroundColor = 'red';
+						event.target.value = Seed.cities[CAPITAL.id].figures.tax_rate;
+					} else {
+						event.target.style.backgroundColor = 'white';
+					}
+				}
+
+				function changeTaxRate(event) {
+					var newRate = document.getElementById(UID['TabJobTrainTaxRate']).value;
+					var dial = new ModalDialog(document.getElementById(UID['tabJobTrain_Content']), 300, 165, '', false, null);
+					dial.getTopDiv().innerHTML = '<div class=' + UID['title'] + '><center><b>' + scriptName + ' : ' + translate('Message') + '</b></center></div>';
+					dial.getContentDiv().innerHTML = translate('Refreshing Tax Rate');
+
+					if (isNaN(newRate) || newRate < 0 || newRate > 100) {
+						document.getElementById(UID['TabJobTrainTaxRate']).style.backgroundColor = 'red';
+						document.getElementById(UID['TabJobTrainTaxRate']).value = Seed.cities[CAPITAL.id].figures.tax_rate;
+					} else {
+						new MyAjax.switchTaxRate(Seed.cities[CAPITAL.id].id, newRate, function(rslt) {
+							if (rslt.ok) {
+								actionLog('<B> ' + translate('Successfully'));
+							} else {
+								actionLog(translate('Refreshing Tax Rate') + ' : ' + rslt.ok +'. '+ translate('failed and returned error') +': '+ rslt.errmsg);
+							}
+							try {
+								dial.destroy();
+							} catch (e) {}
+						});
+					}
+				}
+
+				function enableChanged(event) {
+					var t = Tabs.Jobs;
+					if (Data.options.training.enabled) {
+						t.setTrainEnable(false); /*
+													 * It would be very bad to
+													 * leave training on when
+													 * switching queue types.
+													 */
+						if (t.contentType == 1)
+							t.jobFeedback(translate('Safe Mode') + ' ' + translate('Training') + ' ' + translate('Turned Off'));
+					}
+					t.selectedQ = event.target.value;
+					Data.options.training.mode = event.target.value;
+				}
+
+				function troopsChanged(event) {
+					var args = event.target.getAttribute('ref').split('_');
+					var x = toNum(event.target.value);
+					if (isNaN(x) || x < 0) {
+						event.target.style.backgroundColor = 'red';
+						dispError(translate('Invalid number of troops', t.container));
+					} else {
+						event.target.value = x;
+						Data.options.training.city[args[0]].cap[args[1]] = x;
+						event.target.style.backgroundColor = '';
+					}
+				}
+			},
+			
 			/** * Jobs Tab - Build Sub-tab ** */
 			tabJobBuild: function() {
 				var t = Tabs.Jobs;
