@@ -17320,7 +17320,7 @@
 				}
 			},
 
-			/** ALLIANCES TOP 100 SUB-TAB ** */
+/** ALLIANCES TOP 100 SUB-TAB ** */
 			tabAlliances: function() {
 				var t = Tabs.Alliance;
 				document.getElementById(UID[t.lastSubTab]).className = '';
@@ -17364,7 +17364,7 @@
 						}
 					}
 					var user_ids = Data.dynamic.players.alliances[i].id + '_' + Data.dynamic.players.alliances[i].lord_id;
-					m += '<tr><td align=center>' + Data.dynamic.players.alliances[i].rank + '</td>' + '	<td align=left>' + getAllianceRelationship(Data.dynamic.players.alliances[i].id, Data.dynamic.players.alliances[i].name) + '</td>' + '	<td align=left>' + Data.dynamic.players.alliances[i].lord + '</td>' + '	<td align=center>' + Data.dynamic.players.alliances[i].count + diff + '</td>' + '	<td align=right>' + mightF + '</td>' + '	<td align=right>' + evol + '</td>' + '	<td align=right>&nbsp;<input class=Xtrasmall id=' + UIDMsg + '_' + Data.dynamic.players.alliances[i].id + ' ref="' + user_ids + '" type=button  style="width:auto !important;" value="' + translate('Msg') + '" \></td>' + ((Seed.player.alliance && Seed.player.alliance.id > 0) ? '' : '<td align=right>&nbsp;<input class=Xtrasmall id=' + UIDInv + '_' + i + ' ref="' + Data.dynamic.players.alliances[i].id + '" type=button  style="width:auto !important;" value="' + translate('Invite') + '" \></td>') + '</tr>';
+					m += '<tr><td align=center>' + (i+1) + '</td>' + '	<td align=left>' + getAllianceRelationship(Data.dynamic.players.alliances[i].id, Data.dynamic.players.alliances[i].name) + '</td>' + '	<td align=left>' + Data.dynamic.players.alliances[i].lord + '</td>' + '	<td align=center>' + Data.dynamic.players.alliances[i].count + diff + '</td>' + '	<td align=right>' + mightF + '</td>' + '	<td align=right>' + evol + '</td>' + '	<td align=right>&nbsp;<input class=Xtrasmall id=' + UIDMsg + '_' + Data.dynamic.players.alliances[i].id + ' ref="' + user_ids + '" type=button  style="width:auto !important;" value="' + translate('Msg') + '" \></td>' + ((Seed.player.alliance && Seed.player.alliance.id > 0) ? '' : '<td align=right>&nbsp;<input class=Xtrasmall id=' + UIDInv + '_' + i + ' ref="' + Data.dynamic.players.alliances[i].id + '" type=button  style="width:auto !important;" value="' + translate('Invite') + '" \></td>') + '</tr>';
 					am.push(UIDMsg + '_' + Data.dynamic.players.alliances[i].id);
 					if (!Seed.player.alliance || Seed.player.alliance.id == 0) ai.push(UIDInv + '_' + i);
 				}
@@ -17526,7 +17526,7 @@
 							actionLog(translate('Search for alliance list') + ' ' + translate('complete'));
 							logit('*********  List retrieved ... Total members: ' + Data.dynamic.players.alliances.length);
 							Data.dynamic.players.alliances.sort(function(a, b) {
-								return a.rank - b.rank
+								return b.might - a.might;
 							});
 							Data.options.alliance.sort_alliance = '0';
 							progressBarPop.destroy();
