@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.307.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.607.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -23297,16 +23297,16 @@
 								}
 							}
 							if(!found) {
-								actionPossible = '<input ref="'+items[i].id+'" class="'+UID['btn_black']+' thin" id="'+setUID('btnForgeCrush_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('forge-crush')+'">&nbsp;';
-								actionPossible += '<input ref="'+items[i].id+'" class="Xtrasmall '+UID['btn_yellow']+' thin" id="'+setUID('btnForgeRepair_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('repair')+'">';
+								actionPossible = '<input '+(Data.options.forge.crush.itemToKeep[items[i].id] ? 'disabled' : '' )+' ref="'+items[i].id+'" class="' + (Data.options.forge.crush.itemToKeep[items[i].id] ? UID['btn_disabled'] : UID['btn_black'] ) + ' thin" id="'+setUID('btnForgeCrush_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('forge-crush')+'">&nbsp;';
+								actionPossible += '<input ref="'+items[i].id+'" class="'+UID['btn_yellow']+' thin" id="'+setUID('btnForgeRepair_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('repair')+'">';
 								bCrush.push('btnForgeCrush_'+items[i].id);
 								bRepair.push('btnForgeRepair_'+items[i].id);
 							}
 							itemStatus=translate('broken');
 							break;
 						case 'equipped':
-							actionPossible = '<input ref="'+items[i].id+'" class="Xtrasmall '+UID['btn_black']+' thin" id="'+setUID('btnForgeCrush_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('forge-crush')+'">&nbsp;';
-							actionPossible += '<input ref="'+items[i].id+'" class="Xtrasmall '+UID['btn_red']+' thin" id="'+setUID('btnForgeUnequip_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('unequip')+'">&nbsp;';
+							actionPossible = '<input '+(Data.options.forge.crush.itemToKeep[items[i].id] ? 'disabled' : '' )+' ref="'+items[i].id+'" class="' + (Data.options.forge.crush.itemToKeep[items[i].id] ? UID['btn_disabled'] : UID['btn_black'] ) + ' thin" id="'+setUID('btnForgeCrush_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('forge-crush')+'">&nbsp;';
+							actionPossible += '<input ref="'+items[i].id+'" class="'+UID['btn_red']+' thin" id="'+setUID('btnForgeUnequip_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('unequip')+'">&nbsp;';
 							actionPossible += '<input '+(powderNeeded>nbPowderGotten ? 'disabled' : '')+' ref="'+items[i].id+'" class="Xtrasmall '+(powderNeeded>nbPowderGotten ? UID['btn_disabled'] : UID['btn_blue'])+' thin" id="'+setUID('btnForgeUpgrade_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('upgrade')+'">&nbsp;';
 							actionPossible += display;
 							bCrush.push('btnForgeCrush_'+items[i].id);
@@ -23315,8 +23315,8 @@
 							itemStatus=translate('filter-equipped');
 							break;
 						case 'unequipped':
-							actionPossible = '<input ref="'+items[i].id+'" class="Xtrasmall '+UID['btn_black']+' thin" id="'+setUID('btnForgeCrush_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('forge-crush')+'">&nbsp;';
-							actionPossible += '<input ref="'+items[i].id+'" class="Xtrasmall '+UID['btn_green']+' thin" id="'+setUID('btnForgeEquip_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('equip')+'">&nbsp;';
+							actionPossible = '<input '+(Data.options.forge.crush.itemToKeep[items[i].id] ? 'disabled' : '' )+' ref="'+items[i].id+'" class="' + (Data.options.forge.crush.itemToKeep[items[i].id] ? UID['btn_disabled'] : UID['btn_black'] ) + ' thin" id="'+setUID('btnForgeCrush_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('forge-crush')+'">&nbsp;';
+							actionPossible += '<input ref="'+items[i].id+'" class="'+UID['btn_green']+' thin" id="'+setUID('btnForgeEquip_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('equip')+'">&nbsp;';
 							actionPossible += '<input '+(powderNeeded>nbPowderGotten ? 'disabled' : '')+' ref="'+items[i].id+'" class="Xtrasmall '+(powderNeeded>nbPowderGotten ? UID['btn_disabled'] : UID['btn_blue'])+' thin" id="'+setUID('btnForgeUpgrade_'+items[i].id)+'" type="button" style="width:auto !important;" value="'+translate('upgrade')+'">&nbsp;';
 							actionPossible += display;
 							bCrush.push('btnForgeCrush_'+items[i].id);
@@ -23481,10 +23481,12 @@
 					if(Data.options.forge.crush.itemToKeep[itemId]) {
 						if(!toKeep) {
 							delete Data.options.forge.crush.itemToKeep[itemId];
+                            setButtonStyle ($(UID['btnForgeCrush_'+itemId]), !toKeep, 'btn_black', 'btn_disabled');
 						}
 					} else {
 						if(toKeep) {
 							Data.options.forge.crush.itemToKeep[itemId] = itemId;
+                            setButtonStyle ($(UID['btnForgeCrush_'+itemId]), !toKeep, 'btn_black', 'btn_disabled');
 						}
 					}
 				}
