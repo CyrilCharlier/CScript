@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.607.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.607.2', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -36,7 +36,7 @@
 					child.style.width = '100%';
 					child.style.margin = '0';
 					child.style.border = '0';
-					child.style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+					child.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 				} else {
 					var depend = content_dependant(child);
 					if (!depend) {
@@ -50,7 +50,7 @@
 							child.style.width = '100%';
 							child.style.margin = '0';
 							child.style.border = '0';
-							child.style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							child.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 						}
 						hide_all(child, game_container);
 					}
@@ -64,7 +64,7 @@
 			setHD(parent_element);
 			if (parent_element.tagName == 'DIV' || parent_element.tagName == 'IFRAME' || parent_element.tagName == 'TABLE' || parent_element.tagName == 'TD') {
 				parent_element.style.width = '100%';
-				parent_element.style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+				parent_element.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 			}
 		}
 	}
@@ -131,7 +131,7 @@
 					document.getElementById('rightCol').style.display = 'none';
 					document.getElementById('blueBarDOMInspector').style.display = 'none';
                     document.getElementById('contentCol').style.margin = '0px';
-					document.getElementById('contentCol').style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+					document.getElementById('contentCol').style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 					var contentColChild = document.getElementById('contentCol').childNodes;
 					for (var i = 0; i < contentColChild.length; i++)
 						if (contentColChild[i].tagName == 'DIV')
@@ -140,7 +140,7 @@
 					if (USE_BACKGROUND) {
 						var body_elements = document.getElementsByTagName('body');
 						for (var el = 0; el < body_elements.length; el++)
-							body_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 					}
 					break;
 				case 'kabam':
@@ -156,7 +156,7 @@
 							iframe.style.width = '100%';
 							iframe.style.margin = '0';
 							iframe.style.border = '0';
-							iframe.style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							iframe.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 						}
 					}
 					break;
@@ -261,10 +261,10 @@
 					if (USE_BACKGROUND) {
 						var body_elements = document.getElementsByTagName('body');
 						for (var el = 0; el < body_elements.length; el++)
-							body_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 						var html_elements = document.getElementsByTagName('html');
 						for (var el = 0; el < html_elements.length; el++)
-							html_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							html_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 					}
 					break;
 				case 'google':
@@ -272,8 +272,8 @@
 					if (USE_BACKGROUND) {
 						var body_elements = document.getElementsByTagName('body');
 						for (var el = 0; el < body_elements.length; el++) {
-							body_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
-							body_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 						}
 					}
 					break;
@@ -282,9 +282,9 @@
 					var html_elements = document.getElementsByTagName('html');
 					for (var el = 0; el < html_elements.length; el++) {
 						html_elements[el].style.overflow = 'hidden'
-						html_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+						html_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 					}
-					if (!USE_BACKGROUND) document.body.style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+					if (!USE_BACKGROUND) document.body.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 					document.getElementById('cn').style.textAlign = 'left';
 					if (document.getElementById('castlemania_swf')) setHD(document.getElementById('castlemania_swf'));
 					break;
@@ -5953,7 +5953,7 @@
 						var last = serverTime();
 						var trains = [];
 						for (var j = 0; j < jobs.length; j++) {
-							if (type == 'units' && jobs[j].queue == 'units' && jobs[j].unit_type && jobs[j].run_at > last && !resurrect) trains.push(jobs[j]);
+							if (type == 'units' && jobs[j].queue == 'units' && jobs[j].unit_type && jobs[j].run_at > last && !resurrect)trains.push(jobs[j]);
 							if (type == 'resurrection' && jobs[j].queue == 'resurrection' && jobs[j].unit_type && jobs[j].run_at > last && resurrect) trains.push(jobs[j]);
 						}
 						var iRow, iCell;
@@ -6101,6 +6101,10 @@
 						break;
 					case 'ChronoJobs::Retreat': // Toujours le retour à la maison d'une marche ? 
 						break;
+                    case 'ChronoJobs::CreateUnits':
+                        //{"timestamp":1433684639.89885,"type":"job_completed","data":{"job_type":"ChronoJobs::CreateUnits","player_id":1101749580,"realm_id":459,"args":{"platform":"facebook","original_job_duration":101,"quantity":"20","unit_type":"Porter"},"city_id":1102109676,"result":true}}
+                        Seed.cities[CAPITAL.id].figures.population.armed_forces = Seed.cities[CAPITAL.id].figures.population.armed_forces - data.args.quantity;                        
+                        break;
 					default :
 						logit('Jobs.completed - Job type not taken : ' + data.job_type);
 				}
@@ -14961,7 +14965,22 @@
 
 					num = (num < 0) ? 0 : num;
 
-					var m = '<table style="margin-top:3px" width=100%>' + '	<tr class=' + UID['row_headers'] + ' align=center>' + '		<td width=20%>' + translate('Population') + '</td>' + '		<td width=20%>' + translate('Laborers') + '</td>' + '		<td width=20%>' + translate('Army') + '</td>' + '		<td width=20%>' + translate('IdlePopulation').replace(translate('Population'), '') + '</td>' + '		<td width=20%>' + translate('Capacity') + '</td>' + '	</tr>' + '	<tr>' + '		<td align=right>' + numf(city.current) + '</td>' + '		<td align=right>' + numf(city.laborers) + '</td>' + '		<td align=right>' + numf(city.armed_forces) + '</td>' + '		<td align=right>' + numf(num) + '</td>' + '		<td align=right>' + numf(city.limit) + '</td>' + '	</tr>' + '</table>';
+					var m = '<table style="margin-top:3px" width=100%>' 
+                    + '	<tr class=' + UID['row_headers'] + ' align=center>' 
+                    + '		<td width=20%>' + translate('Population') + '</td>' 
+                    + '		<td width=20%>' + translate('Laborers') + '</td>' 
+                    + '		<td width=20%>' + translate('Army') + '</td>' 
+                    + '		<td width=20%>' + translate('IdlePopulation').replace(translate('Population'), '') + '</td>' 
+                    + '		<td width=20%>' + translate('Capacity') + '</td>' 
+                    + '	</tr>' 
+                    + '	<tr>' 
+                    + '		<td align=right>' + numf(city.current) + '</td>' 
+                    + '		<td align=right>' + numf(city.laborers) + '</td>' 
+                    + '		<td align=right>' + numf(city.armed_forces) + '</td>' 
+                    + '		<td align=right>' + numf(num) + '</td>' 
+                    + '		<td align=right>' + numf(city.limit) + '</td>' 
+                    + '	</tr>' 
+                    + '</table>';
 
 					return m;
 				}
@@ -21028,7 +21047,6 @@
 				
 				window.addEventListener('unload', t.onUnload, false);
 			},
-
 			show: function() {
 				var t = Tabs.Jobs;
 				switch (t.contentType) {
@@ -21077,7 +21095,6 @@
 				var t = Tabs.Jobs;
 				clearInterval(t.jobsStatTimer);
 			},
-
 
 			/** Tab: Jobs - SubTab: Info * */
 			tabJobInfo: function() {
@@ -24695,7 +24712,8 @@
 				var usedQueue = 0;
 				if (isNaN(maxQueueLength) || !maxQueueLength) return 0;
 				for (var i = 0; i < jobs.length; i++) {
-					if (jobs[i].queue == queueType)
+                    var last = serverTime();
+					if (jobs[i].queue == queueType && jobs[i].run_at > last )
 					++usedQueue;
 				}
 				return maxQueueLength - usedQueue;
@@ -26116,7 +26134,7 @@
 				}
 				t.showStats();
 			}
-		}
+		};
 		Tabs.Multiple = {
 			tabOrder: MULTI_TAB_ORDER,
 			tabLabel: 'Multi',
