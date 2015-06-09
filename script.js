@@ -884,6 +884,7 @@
 						},
 						resurrect: {
 							enabled: false,
+                            full_queue: false,
 							res_enable: [{}, {}, {}, {}, {}, {}],
 							res_max: [{}, {}, {}, {}, {}, {}]
 						},
@@ -22889,7 +22890,7 @@
 					
 					var ret = '<table>';
 					ret += '<tr><td align=right><b>XP</b>&nbsp;:&nbsp;</td><td> '+mission.experience+'</td></tr>';
-					ret += '<tr><td align=right><b>'+translate('type')+'</b>&nbsp;:&nbsp;</td><td> '+(mission.mission_type==null ? '' : translate('forge-'+mission.mission_type.toLowerCase()))+'</td></tr>';
+					ret += '<tr><td align=right><b>'+translate('type')+'</b>&nbsp;:&nbsp;</td><td> '+(mission.mission_type=='' || mission.mission_type==null ? '' : translate('forge-'+mission.mission_type.toLowerCase()))+'</td></tr>';
 					var lDrop = '';
 					var first = true;
 					for(var i=0; i<mission.drops.length ; i++) {
@@ -23691,7 +23692,7 @@
 					var pct = cap.min / cap.max * 10000;
 					var capacity = numf(cap.min, ' ') + ' / ' + numf(cap.max, ' ') + ' (' + numf(Math.round(pct / 100), ' ') + '%)';
 				} else capacity = '';
-				m += '<div class=' + UID['subtitle'] + '>' + '	<table class=' + UID['table'] + ' width=100%>' + '	<tr>' + '		<td align=left width=25%>&nbsp;</td>' + '		<td align=center width=40%>' + translate(Seed.cities[SPECTRAL_OUTPOST.id].name) + '</td>' + '		<td align=right width=25%><font color=yellow>' + capacity + '</font></td>' + '	</tr>' + '</table></div>' + '<table class=' + UID['table'] + '>' + '	<tr class=' + UID['row_headers'] + '>' + '		<td></td><td>' + translate('Quantity') + '</td><td>' + translate('revive-troops-total-souls') + '</td><td>' + translate('Action') + '</td><td>' + translate('Total') + '</td></tr>';
+				m += '<div class=' + UID['subtitle'] + '>' + '	<table class=' + UID['table'] + ' width=100%>' + '	<tr>' + '		<td align=left width=25%>&nbsp;</td>' + '		<td align=center width=40%>' + translate(Seed.cities[SPECTRAL_OUTPOST.id].name) + '</td>' + '		<td align=right width=25%><font color=yellow>' + capacity + '</font></td>' + '	</tr>' + '</table></div>' + '<table class=' + UID['table'] + '>'+ '	<tr class=' + UID['row_headers'] + '>' + '		<td colspan=5><input ' + (Data.options.resurrect.full_queue ? 'checked' : '') + ' id=' + setUID('tabJobResurrect_CB_queue') + ' type=checkbox />' + translate('Only full queue') + '</td></tr>' + '	<tr class=' + UID['row_headers'] + '>' + '		<td></td><td>' + translate('Quantity') + '</td><td>' + translate('revive-troops-total-souls') + '</td><td>' + translate('Action') + '</td><td>' + translate('Total') + '</td></tr>';
 				for (var i = 0; i < all_unit_types.length; i++) {
 					var num = Data.options.resurrect.res_max[SPECTRAL_OUTPOST.id][all_unit_types[i]];
 					if (!num || isNaN(num)) num = 0;
@@ -23710,7 +23711,8 @@
 				document.getElementById(UID['tabJob_Content']).style.height = "450px";
 				document.getElementById(UID['tabJob_Content']).innerHTML = m;
 
-				for (var i = 0; i < sl.length; ++i) {
+                document.getElementById(UID['tabJobResurrect_CB_queue']).addEventListener('click', chechedFullQueue, false);
+                for (var i = 0; i < sl.length; ++i) {
 					document.getElementById(sl[i]).addEventListener('click', checkedResurrect, false);
 				}
 				for (var i = 0; i < bm.length; ++i) {
@@ -23754,7 +23756,10 @@
 					document.getElementById(UID['tabJobResurrect_Troop_' + n]).value = 0;
 				}
 
-				function checkedResurrect(event) {
+				function chechedFullQueue(event) {
+                    Data.options.resurrect.full_queue = event.target.checked;
+                }
+                function checkedResurrect(event) {
 					var t = Tabs.Jobs;
 					var n = toNum(event.target.getAttribute('ref'));
 					Data.options.resurrect.res_enable[SPECTRAL_OUTPOST.id][all_unit_types[n]] = event.target.checked;
@@ -25579,12 +25584,19 @@
 				if (sJob.length == 0) {
 					var toResurrect = 0;
 					for (var unit = 0; unit < all_unit_types.length; unit++) {
-						if (Data.options.resurrect.res_enable[SPECTRAL_OUTPOST.id][all_unit_types[unit]] == undefined)
-							continue;
+                        var currentSouls = Seed.cities[CAPITAL.id].souls[all_unit_types[unit]];
+                        var currentMax = Data.options.resurrect.res_max[SPECTRAL_OUTPOST.id][all_unit_types[unit]];
+                        if (!currentSouls || isNaN(currentSouls)) {
+                            currentSouls = 0;
+                        }
+						if (Data.options.resurrect.res_enable[SPECTRAL_OUTPOST.id][all_unit_types[unit]] == undefined) {
+                            continue;
+                        }
+                        if(Data.options.resurrect.full_queue && currentSouls < currentMax) {
+                            t.jobFeedback(translate(all_unit_types[unit]) + ' Souls are not >= Max souls. Skip resurrect.');
+                            continue;
+                        }
 						if (Data.options.resurrect.res_enable[SPECTRAL_OUTPOST.id][all_unit_types[unit]] == true) {
-							var currentSouls = Seed.cities[CAPITAL.id].souls[all_unit_types[unit]];
-							if (!currentSouls || isNaN(currentSouls)) currentSouls = 0;
-							var currentMax = Data.options.resurrect.res_max[SPECTRAL_OUTPOST.id][all_unit_types[unit]];
 							var checkQty = (currentSouls > currentMax) ? currentMax : currentSouls;
 							var reqs = t.checkResurrectReqs(all_unit_types[unit], checkQty);
 							var rRevive = false;
