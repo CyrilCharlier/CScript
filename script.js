@@ -23692,7 +23692,25 @@
 					var pct = cap.min / cap.max * 10000;
 					var capacity = numf(cap.min, ' ') + ' / ' + numf(cap.max, ' ') + ' (' + numf(Math.round(pct / 100), ' ') + '%)';
 				} else capacity = '';
-				m += '<div class=' + UID['subtitle'] + '>' + '	<table class=' + UID['table'] + ' width=100%>' + '	<tr>' + '		<td align=left width=25%>&nbsp;</td>' + '		<td align=center width=40%>' + translate(Seed.cities[SPECTRAL_OUTPOST.id].name) + '</td>' + '		<td align=right width=25%><font color=yellow>' + capacity + '</font></td>' + '	</tr>' + '</table></div>' + '<table class=' + UID['table'] + '>'+ '	<tr class=' + UID['row_headers'] + '>' + '		<td colspan=5><input ' + (Data.options.resurrect.full_queue ? 'checked' : '') + ' id=' + setUID('tabJobResurrect_CB_queue') + ' type=checkbox />' + translate('Only full queue') + '</td></tr>' + '	<tr class=' + UID['row_headers'] + '>' + '		<td></td><td>' + translate('Quantity') + '</td><td>' + translate('revive-troops-total-souls') + '</td><td>' + translate('Action') + '</td><td>' + translate('Total') + '</td></tr>';
+				m += '<div class=' + UID['subtitle'] + '>' 
+                    + '	<table class=' + UID['table'] + ' width=100%>' 
+                    + '	<tr>' 
+                    + '		<td align=left width=25%>&nbsp;</td>' 
+                    + '		<td align=center width=40%>' + translate(Seed.cities[SPECTRAL_OUTPOST.id].name) + '</td>' 
+                    + '		<td align=right width=25%><font color=yellow>' + capacity + '</font></td>' 
+                    + '	</tr>' 
+                    + '</table></div>' 
+                    + '<table class=' + UID['table'] + '>'
+                    + '	<tr class=' + UID['row_headers'] + '>' 
+                    + '		<td colspan=5><input ' + (Data.options.resurrect.full_queue ? 'checked' : '') + ' id=' + setUID('tabJobResurrect_CB_queue') + ' type=checkbox /><label for=' + UID['tabJobResurrect_CB_queue'] + '>' + translate('Only full queue') + '</label></td>' 
+                    + ' </tr>' 
+                    + '	<tr class=' + UID['row_headers'] + '>' 
+                    + '		<td></td>' 
+                    + '     <td>' + translate('Quantity') + '</td> ' 
+                    + '     <td>' + translate('revive-troops-total-souls') + '</td>' 
+                    + '     <td>' + translate('Action') + '</td>' 
+                    + '     <td>' + translate('Total') + '</td>' 
+                    + ' </tr>';
 				for (var i = 0; i < all_unit_types.length; i++) {
 					var num = Data.options.resurrect.res_max[SPECTRAL_OUTPOST.id][all_unit_types[i]];
 					if (!num || isNaN(num)) num = 0;
@@ -23748,12 +23766,22 @@
 
 				function setMaxSoul(event) {
 					var n = toNum(event.target.getAttribute('ref'));
-					document.getElementById(UID['tabJobResurrect_Troop_' + n]).value = Seed.cities[CAPITAL.id].souls[all_unit_types[n]];
+                    var elt = document.getElementById(UID['tabJobResurrect_Troop_' + n]);
+					var evt = document.createEvent('HTMLEvents');
+                    
+                    evt.initEvent('change', true, true);
+                    elt.value = Seed.cities[CAPITAL.id].souls[all_unit_types[n]];
+					elt.dispatchEvent(evt);
 				}
 
 				function clearTroop(event) {
 					var n = toNum(event.target.getAttribute('ref'));
-					document.getElementById(UID['tabJobResurrect_Troop_' + n]).value = 0;
+                    var elt = document.getElementById(UID['tabJobResurrect_Troop_' + n]);
+					var evt = document.createEvent('HTMLEvents');
+                    
+                    evt.initEvent('change', true, true);
+                    elt.value = 0;
+					elt.dispatchEvent(evt);
 				}
 
 				function chechedFullQueue(event) {
@@ -25593,7 +25621,7 @@
                             continue;
                         }
                         if(Data.options.resurrect.full_queue && currentSouls < currentMax) {
-                            t.jobFeedback(translate(all_unit_types[unit]) + ' Souls are not >= Max souls. Skip resurrect.');
+                            t.jobFeedback(translate(all_unit_types[unit]) + ' Souls ('+currentSouls+') are < Max souls ('+currentMax+'). Skip resurrect.');
                             continue;
                         }
 						if (Data.options.resurrect.res_enable[SPECTRAL_OUTPOST.id][all_unit_types[unit]] == true) {
