@@ -28,5 +28,5 @@
    "permissions": [ "background", "storage", "notifications", "unlimitedStorage", "*://*/*" ],
    "short_name": "DoA Calcium",
    "update_url": "http://clients2.google.com/service/update2/crx",
-   "version": "2015.607.2"
+   "version": "2015.615.1"
 }
