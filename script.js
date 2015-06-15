@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.615.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.615.2', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -18697,7 +18697,7 @@
 					for (var x = 1; x < 12; x++) {
 						var num = Data.options.attacks.units[x][attack_unit_types[i]];
 						if (!num) num = 0;
-						m += '<td><input type=text id=' + setUID('tabAttackLevels_LvlTroops_' + x + '_' + i) + ' ref=' + (x + '_' + i) + ' maxlength=6 size=2 style="width:38px;' + (num ? '' : 'color:#888;') + '" value="' + num + '" title="" /></td>';
+						m += '<td><input type=text id=' + setUID('tabAttackLevels_LvlTroops_' + x + '_' + i) + ' ref=' + (x + '_' + i) + ' maxlength=7 size=2 style="width:38px;' + (num ? '' : 'color:#888;') + '" value="' + num + '" title="" /></td>';
 					}
 					m += '</tr>';
 					currentTroops.push(i);
@@ -18771,7 +18771,7 @@
 				function troopsChanged(event) {
 					var args = event.target.getAttribute('ref').split('_');
 					var x = toNum(event.target.value);
-					if (isNaN(x) || x < 0 || x > 200000) {
+					if (isNaN(x) || x < 0 || x > toNum((getMusterPoint(CAPITAL.id)).max_troops)) {
 						event.target.style.backgroundColor = 'red';
 						dispError(translate('Invalid number of troops', t.container));
 					} else {
