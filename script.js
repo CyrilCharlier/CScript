@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.607.2', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.615.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -4329,6 +4329,18 @@
 					max: build_list[build_list.length - 1].level
 				};
 			},
+            getLevelMax: function (typeCity, type) {
+                var builds = Manifest.data.buildings;
+                var maxLevel = 0;
+                
+                for(var i=0;i<builds.length;i++) {
+                    if(builds[i].type == type) {
+                        maxLevel = builds[i].city_max[typeCity];
+                        break;
+                    }
+                }
+                return maxLevel;
+            },
 			getById: function(cityIdx, bid) {
 				for (var i = 0; i < Seed.cities[cityIdx].buildings.length; i++) {
 					if (Seed.cities[cityIdx].buildings[i].id == bid) return (Seed.cities[cityIdx].buildings[i]);
@@ -21940,6 +21952,7 @@
 			/** * Jobs Tab - Build Sub-tab ** */
 			tabJobBuild: function() {
 				var t = Tabs.Jobs;
+                var typeCity = '';
 				document.getElementById(UID[t.lastSubTab]).className = '';
 				document.getElementById(UID[t.lastSubTab]).style.zIndex = 0;
 				document.getElementById(UID['tabJobBuild']).className = 'selected';
@@ -21968,42 +21981,98 @@
 				for (var cityIdx = 0; cityIdx < Seed.cities.length; ++cityIdx) {
 					divClass = 'subtitle';
 					switch (cityIdx) {
-						case CAPITAL.id:
-							listC = capital_buildings;
+                        case CAPITAL.id:
+                            typeCity = CAPITAL.type;
+                            listC = capital_buildings;
 							listF = field_buildings;
 							verboseLog('cityIdx : ' + cityIdx + ', CAPITAL.id : ' + CAPITAL.id);
-							break;
-						case SPECTRAL_OUTPOST.id:
-							listC = spectral_buildings;
+                            break;
+                        case ICE_OUTPOST.id:
+                            typeCity = ICE_OUTPOST.type;
+                            listC = outpost_buildings;
+							listF = field_buildings;
+							verboseLog('cityIdx : ' + cityIdx + ', default ');
+                            break;
+                        case SWAMP_OUTPOST.id:
+                            typeCity = SWAMP_OUTPOST.type;
+                            listC = outpost_buildings;
+							listF = field_buildings;
+							verboseLog('cityIdx : ' + cityIdx + ', default ');
+                            break;
+                        case FOREST_OUTPOST.id:
+                            typeCity = FOREST_OUTPOST.type;
+                            listC = outpost_buildings;
+							listF = field_buildings;
+							verboseLog('cityIdx : ' + cityIdx + ', default ');
+                            break;
+                        case DESERT_OUTPOST.id:
+                            typeCity = DESERT_OUTPOST.type;
+                            listC = outpost_buildings;
+							listF = field_buildings;
+							verboseLog('cityIdx : ' + cityIdx + ', default ');
+                            break;
+                        case WATER_OUTPOST.id:
+                            typeCity = WATER_OUTPOST.type;
+                            listC = outpost_buildings;
+							listF = field_buildings;
+							verboseLog('cityIdx : ' + cityIdx + ', default ');
+                            break;
+                        case STONE_OUTPOST.id:
+                            typeCity = STONE_OUTPOST.type;
+                            listC = outpost_buildings;
+							listF = field_buildings;
+							verboseLog('cityIdx : ' + cityIdx + ', default ');
+                            break;
+                        case FIRE_OUTPOST.id:
+                            typeCity = FIRE_OUTPOST.type;
+                            listC = outpost_buildings;
+							listF = field_buildings;
+							verboseLog('cityIdx : ' + cityIdx + ', default ');
+                            break;
+                        case WIND_OUTPOST.id:
+                            typeCity = WIND_OUTPOST.type;
+                            listC = outpost_buildings;
+							listF = field_buildings;
+							verboseLog('cityIdx : ' + cityIdx + ', default ');
+                            break;
+                        case CHRONO_OUTPOST.id:
+                            typeCity = SWAMP_OUTPOST.type;
+                            listC = outpost_buildings;
+							listF = field_buildings;
+							verboseLog('cityIdx : ' + cityIdx + ', default ');
+                            break;
+                        case SPECTRAL_OUTPOST.id:
+                            typeCity = SPECTRAL_OUTPOST.type;
+                            listC = spectral_buildings;
 							listF = spectral_fields;
 							divClass = 'subtitle_sr';
 							verboseLog('cityIdx : ' + cityIdx + ', SPECTRAL_OUTPOST.id : ' + SPECTRAL_OUTPOST.id);
 							break;
-						case SKY_OUTPOST.id:
-							listC = skythrone_buildings;
+                        case SKY_OUTPOST.id:
+                            typeCity = SKY_OUTPOST.type;
+                            listC = skythrone_buildings;
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', SKY_OUTPOST.id : ' + SKY_OUTPOST.id);
-							break;
-						case CAVE_OUTPOST.id:
-							listC = cave_buildings;
+                            break;
+                        case CAVE_OUTPOST.id:
+                            typeCity = CAVE_OUTPOST.type;
+                            listC = cave_buildings;
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', CAVE_OUTPOST.id : ' + CAVE_OUTPOST.id);
 							break;
-						case LUNA_OUTPOST.id:
-							listC = luna_buildings;
+                        case LUNA_OUTPOST.id:
+                            typeCity = LUNA_OUTPOST.type;
+                            listC = luna_buildings;
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', LUNA_OUTPOST.id : ' + LUNA_OUTPOST.id);
-							break;
-						case COLOSSUS_OUTPOST.id:
-							listC = colossus_buildings;
+                            break;
+                        case COLOSSUS_OUTPOST.id:
+                            typeCity = COLOSSUS_OUTPOST.type;
+                            listC = colossus_buildings;
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', COLOSSUS_OUTPOST.id : ' + COLOSSUS_OUTPOST.id);
-							break;
-						default:
-							listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-							break;
+                            break;
+                            
 					}
 
 					if (Seed.cities[cityIdx]) {
@@ -22015,10 +22084,10 @@
 						cl.push(UID[cityBuildId]);
 						if (!Data.options.building.hide_fields && listF) {
 							for (var i = 0; i < listF.length; ++i) {
-								var max_level = Seed.stats.building[listF[i]].level.length - 1;
+								var max_level = Buildings.getLevelMax(typeCity, listF[i]);
 								var min_level = (Buildings.getLevel(cityIdx, listF[i])).min;
 								if (min_level < max_level) {
-									m += '	<tr>' + '			<td>' + '			<label><input type=checkbox id=' + setUID('tabJobBuild_CB_' + (cityIdx + '_' + listF[i])) + ' ref=' + (cityIdx + '_' + listF[i]) + ' ' + (Data.options.building.level_enable[cityIdx][listF[i]] ? 'checked' : '') + ' /> ' + translate(listF[i]) + '</label>' + '			</td>' + '			<td>' + '			&nbsp;<span class=jewel>' + min_level + '</span>' + '			</td>' + '			<td>' + buildDisplayCap(cityIdx, (listC.length + i), listF[i]) + '</td>' + '		</tr>';
+									m += '	<tr>' + '			<td>' + '			<label><input type=checkbox id=' + setUID('tabJobBuild_CB_' + (cityIdx + '_' + listF[i])) + ' ref=' + (cityIdx + '_' + listF[i]) + ' ' + (Data.options.building.level_enable[cityIdx][listF[i]] ? 'checked' : '') + ' /> ' + translate(listF[i]) + '</label>' + '			</td>' + '			<td>' + '			&nbsp;<span class=jewel>' + min_level + '</span>' + '			</td>' + '			<td>' + buildDisplayCap(cityIdx, (listC.length + i), listF[i], typeCity) + '</td>' + '		</tr>';
 									el.push(UID['tabJobBuild_CB_' + (cityIdx + '_' + listF[i])]);
 								} else {
 									Data.options.building.level_enable[cityIdx][listF[i]] = false;
@@ -22027,10 +22096,10 @@
 							m += '<tr><td colspan=5><hr></td></tr>';
 						}
 						for (var i = 0; i < listC.length; ++i) {
-							var max_level = Seed.stats.building[listC[i]].level.length - 1;
+							var max_level = Buildings.getLevelMax(typeCity, listC[i]);
 							var min_level = (Buildings.getLevel(cityIdx, listC[i])).min;
 							if (min_level < max_level) {
-								m += '	<tr>' + '			<td>' + '			<label><input type=checkbox id=' + setUID('tabJobBuild_CB_' + (cityIdx + '_' + listC[i])) + ' ref=' + (cityIdx + '_' + listC[i]) + ' ' + (Data.options.building.level_enable[cityIdx][listC[i]] ? 'checked' : '') + ' /> ' + translate(listC[i]) + '</label>' + '			</td>' + '			<td>' + '			&nbsp;<span class=jewel>' + min_level + '</span>' + '			</td>' + '			<td>' + buildDisplayCap(cityIdx, i, listC[i]) + '</td>' + '		</tr>';
+								m += '	<tr>' + '			<td>' + '			<label><input type=checkbox id=' + setUID('tabJobBuild_CB_' + (cityIdx + '_' + listC[i])) + ' ref=' + (cityIdx + '_' + listC[i]) + ' ' + (Data.options.building.level_enable[cityIdx][listC[i]] ? 'checked' : '') + ' /> ' + translate(listC[i]) + '</label>' + '			</td>' + '			<td>' + '			&nbsp;<span class=jewel>' + min_level + '</span>' + '			</td>' + '			<td>' + buildDisplayCap(cityIdx, i, listC[i], typeCity) + '</td>' + '		</tr>';
 								el.push(UID['tabJobBuild_CB_' + (cityIdx + '_' + listC[i])]);
 							} else {
 								Data.options.building.level_enable[cityIdx][listC[i]] = false;
@@ -22114,7 +22183,7 @@
 							}
 						}
 						for (var i = 0; i < buildList.length; ++i) {
-							var max_level = Seed.stats.building[buildList[i]].level.length - 1;
+							var max_level = Buildings.getLevelMax(typeCity, buildList[i]);
 							var min_level = (Buildings.getLevel(cityIdx, buildList[i])).min;
 							if (min_level >= max_level) continue;
 							var selectMenu = document.getElementById(UID['tabJobBuild_Cap_' + cityIdx + '_' + buildList[i]]);
@@ -22187,10 +22256,15 @@
 					if (Data.options.building.enabled && event.target.checked) t.buildTick();
 				}
 
-				function buildDisplayCap(cityIdx, listIdx, type) {
+                function buildDisplayCap(cityIdx, listIdx, type, cityType) {
 					var maxLvl = Seed.stats.building[type].level.length - 1;
-					var minLvl = (Buildings.getLevel(cityIdx, type)).min;
-					var m = '<td>' + '	<select id=' + setUID('tabJobBuild_Cap_' + cityIdx + '_' + type) + ' ref=' + (cityIdx + '_' + listIdx) + '>' + '		<option value=0' + (minLvl > 0 ? ' style="display:none;"' : '') + '>0</option>' + '		<option value=1' + (minLvl > 1 ? ' style="display:none;"' : '') + '>1</option>' + '		<option value=2' + (minLvl > 2 ? ' style="display:none;"' : '') + '>2</option>' + '		<option value=3' + (minLvl > 3 ? ' style="display:none;"' : '') + '>3</option>' + '		<option value=4' + (minLvl > 4 ? ' style="display:none;"' : '') + '>4</option>' + '		<option value=5' + (minLvl > 5 ? ' style="display:none;"' : '') + '>5</option>' + '		<option value=6' + (minLvl > 6 ? ' style="display:none;"' : '') + '>6</option>' + '		<option value=7' + (minLvl > 7 ? ' style="display:none;"' : '') + '>7</option>' + '		<option value=8' + (minLvl > 8 ? ' style="display:none;"' : '') + '>8</option>' + '		<option value=9' + (minLvl > 9 ? ' style="display:none;"' : '') + '>9</option>' + '		<option value=10' + ((minLvl > 10 || maxLvl < 10) ? ' style="display:none;"' : '') + '>10</option>' + '		<option value=11' + ((minLvl > 11 || maxLvl < 11) ? ' style="display:none;"' : '') + '>11</option>' + '		<option value=12' + ((minLvl > 12 || maxLvl < 12) ? ' style="display:none;"' : '') + '>12</option>' + '		<option value=13' + ((minLvl > 13 || maxLvl < 13) ? ' style="display:none;"' : '') + '>13</option>' + '		<option value=14' + ((minLvl > 14 || maxLvl < 14) ? ' style="display:none;"' : '') + '>14</option>' + '		<option value=15' + ((minLvl > 15 || maxLvl < 15) ? ' style="display:none;"' : '') + '>15</option>' + '		<option value=16' + ((minLvl > 16 || maxLvl < 16) ? ' style="display:none;"' : '') + '>16</option>' + '		<option value=17' + ((minLvl > 17 || maxLvl < 17) ? ' style="display:none;"' : '') + '>17</option>' + '		<option value=18' + ((minLvl > 18 || maxLvl < 18) ? ' style="display:none;"' : '') + '>18</option>' + '		<option value=19' + ((minLvl > 19 || maxLvl < 19) ? ' style="display:none;"' : '') + '>19</option>' + '		<option value=20' + ((minLvl > 20 || maxLvl < 20) ? ' style="display:none;"' : '') + '>20</option>' + '	</select></td>' + '		<td id=' + setUID('tabJobBuild_FB_' + cityIdx + '_' + type) + ' class=jewel valign=top style="width:250px;white-space:normal;"></td>';
+					maxLvl = Buildings.getLevelMax(cityType, type);
+                    var minLvl = (Buildings.getLevel(cityIdx, type)).min;
+					var m = '<td>' + '	<select id=' + setUID('tabJobBuild_Cap_' + cityIdx + '_' + type) + ' ref=' + (cityIdx + '_' + listIdx) + '>';
+                    for(var i=0;i<=maxLvl;i++) {
+                        m += '		<option value='+ i + ' ' + ((minLvl > i || maxLvl < i) ? ' style="display:none;"' : '') + '>' + i + '</option>'; 
+                    }
+                    m += '	</select></td>' + '		<td id=' + setUID('tabJobBuild_FB_' + cityIdx + '_' + type) + ' class=jewel valign=top style="width:250px;white-space:normal;"></td>';
 					return m;
 				}
 
