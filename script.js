@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.615.2', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.617.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -12150,7 +12150,10 @@
 				case WIND_OUTPOST.id:
 					type = WIND_OUTPOST.type;
 					break;
-				case ICE_OUTPOST.id:
+				case SPECTRAL_OUTPOST.id:
+					type = SPECTRAL_OUTPOST.type;
+					break;
+                case ICE_OUTPOST.id:
 					type = ICE_OUTPOST.type;
 					break;
 				case SWAMP_OUTPOST.id:
@@ -21982,100 +21985,47 @@
 					divClass = 'subtitle';
 					switch (cityIdx) {
                         case CAPITAL.id:
-                            typeCity = CAPITAL.type;
                             listC = capital_buildings;
 							listF = field_buildings;
 							verboseLog('cityIdx : ' + cityIdx + ', CAPITAL.id : ' + CAPITAL.id);
                             break;
-                        case ICE_OUTPOST.id:
-                            typeCity = ICE_OUTPOST.type;
-                            listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-                            break;
-                        case SWAMP_OUTPOST.id:
-                            typeCity = SWAMP_OUTPOST.type;
-                            listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-                            break;
-                        case FOREST_OUTPOST.id:
-                            typeCity = FOREST_OUTPOST.type;
-                            listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-                            break;
-                        case DESERT_OUTPOST.id:
-                            typeCity = DESERT_OUTPOST.type;
-                            listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-                            break;
-                        case WATER_OUTPOST.id:
-                            typeCity = WATER_OUTPOST.type;
-                            listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-                            break;
-                        case STONE_OUTPOST.id:
-                            typeCity = STONE_OUTPOST.type;
-                            listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-                            break;
-                        case FIRE_OUTPOST.id:
-                            typeCity = FIRE_OUTPOST.type;
-                            listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-                            break;
-                        case WIND_OUTPOST.id:
-                            typeCity = WIND_OUTPOST.type;
-                            listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-                            break;
-                        case CHRONO_OUTPOST.id:
-                            typeCity = SWAMP_OUTPOST.type;
-                            listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-                            break;
                         case SPECTRAL_OUTPOST.id:
-                            typeCity = SPECTRAL_OUTPOST.type;
                             listC = spectral_buildings;
 							listF = spectral_fields;
 							divClass = 'subtitle_sr';
 							verboseLog('cityIdx : ' + cityIdx + ', SPECTRAL_OUTPOST.id : ' + SPECTRAL_OUTPOST.id);
 							break;
                         case SKY_OUTPOST.id:
-                            typeCity = SKY_OUTPOST.type;
                             listC = skythrone_buildings;
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', SKY_OUTPOST.id : ' + SKY_OUTPOST.id);
                             break;
                         case CAVE_OUTPOST.id:
-                            typeCity = CAVE_OUTPOST.type;
                             listC = cave_buildings;
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', CAVE_OUTPOST.id : ' + CAVE_OUTPOST.id);
 							break;
                         case LUNA_OUTPOST.id:
-                            typeCity = LUNA_OUTPOST.type;
                             listC = luna_buildings;
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', LUNA_OUTPOST.id : ' + LUNA_OUTPOST.id);
                             break;
                         case COLOSSUS_OUTPOST.id:
-                            typeCity = COLOSSUS_OUTPOST.type;
                             listC = colossus_buildings;
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', COLOSSUS_OUTPOST.id : ' + COLOSSUS_OUTPOST.id);
                             break;
+                        default:
+                            listC = outpost_buildings;
+							listF = field_buildings;
+							verboseLog('cityIdx : ' + cityIdx + ', default ');
+                            break;
                             
 					}
 
-					if (Seed.cities[cityIdx]) {
+                    typeCity = getCityShortType(cityIdx);
+					
+                    if (Seed.cities[cityIdx]) {
 						var city = Seed.cities[cityIdx];
 						var cityBuildId = 'tabJobBuild_cityId_' + cityIdx;
 						var accordionId = 'tabJobBuild_accordion_' + cityIdx;
@@ -22157,7 +22107,8 @@
 									buildList = outpost_buildings.concat(field_buildings);
 									break;
 							}
-						} else {
+						}
+                        else {
 							switch (cityIdx) {
 								case CAPITAL.id:
 									buildList = capital_buildings;
@@ -22183,7 +22134,8 @@
 							}
 						}
 						for (var i = 0; i < buildList.length; ++i) {
-							var max_level = Buildings.getLevelMax(typeCity, buildList[i]);
+                            typeCity = getCityShortType(cityIdx);
+                            var max_level = Buildings.getLevelMax(typeCity, buildList[i]);
 							var min_level = (Buildings.getLevel(cityIdx, buildList[i])).min;
 							if (min_level >= max_level) continue;
 							var selectMenu = document.getElementById(UID['tabJobBuild_Cap_' + cityIdx + '_' + buildList[i]]);
@@ -22257,8 +22209,7 @@
 				}
 
                 function buildDisplayCap(cityIdx, listIdx, type, cityType) {
-					var maxLvl = Seed.stats.building[type].level.length - 1;
-					maxLvl = Buildings.getLevelMax(cityType, type);
+					var maxLvl = Buildings.getLevelMax(cityType, type);
                     var minLvl = (Buildings.getLevel(cityIdx, type)).min;
 					var m = '<td>' + '	<select id=' + setUID('tabJobBuild_Cap_' + cityIdx + '_' + type) + ' ref=' + (cityIdx + '_' + listIdx) + '>';
                     for(var i=0;i<=maxLvl;i++) {
@@ -24746,7 +24697,7 @@
 				var cap = 0;
 
 				var cityType;
-				switch (cityIdx) {
+				switch (parseInt(cityIdx)) {
 					case CAPITAL.id:
 						cityType = capital_buildings.concat(field_buildings);
 						break;
@@ -25449,8 +25400,7 @@
 									});
 									buildOrder = buildOrder.concat(buildList);
 								}
-							}
-							buildOrder.sort(function(a, b) {
+							}							buildOrder.sort(function(a, b) {
 								return a.level - b.level
 							});
 							/*
