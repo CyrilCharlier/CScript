@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.617.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.620.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -457,6 +457,7 @@
 			CAVE_OUTPOST =		{ id: 12,	type: 'cave',		name: 'CaveDragonOutpost',		dragon_name: 'CaveDragon'},
 			LUNA_OUTPOST =		{ id: 13,	type: 'luna',		name: 'LunaDragonOutpost',		dragon_name: 'LunaDragon'},
 			COLOSSUS_OUTPOST = 	{ id: 14,	type: 'colossus',	name: 'ColossusDragonOutpost',	dragon_name: 'ColossusDragon'};
+            LEVIATHAN_OUTPOST = { id: 15,   type: 'leviathan',  name: 'LeviathanDragonOutpost', dragon_name: 'LeviathanDragon'};
 
 		var IsChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 
@@ -500,6 +501,7 @@
 		var cave_buildings =		['CaveDragonKeep', 'CaveCathedral', 'CaveDepot', 'CaveForge', 'CaveGreenhouse', 'CaveLibrary', 'CaveTrainingCamp', 'CaveWorkshop'];
 		var luna_buildings =		['DragonKeep', 'LunaCathedral', 'LunaDepot', 'LunaForge', 'LunaGreenhouse', 'LunaLibrary', 'LunaWorkshop', 'LunaShrine'];
 		var colossus_buildings =	['ColossusDragonKeep', 'ColossusWall', 'Warehouse', 'TroopQuarters', 'WarpGate', 'ColossusDefensiveTower'];
+        var leviathan_buidings =    ['LeviathanMarketplace', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
 		
 		var time_item_list =
 		   [{name: 'Blink', 				text: '1m',		type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
@@ -752,17 +754,10 @@
 						building: {
 							enabled: false,
 							hide_fields: false,
-							level_enable: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-							/* Add 1 for new outpost - luna added */
-							level_cap: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] /*
-																							 * Add
-																							 * 1
-																							 * for
-																							 * new
-																							 * outpost -
-																							 * luna
-																							 * added
-																							 */
+							level_enable: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+							/* Add 1 for new outpost - abyssal added */
+							level_cap: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+                            /** Add 1 for new outpost - abyssal added */
 						},
 						research: {
 							enabled: false,
@@ -877,7 +872,11 @@
 									enabled: true,
 									units: [],
 									cap: []
-								} /* colossus */
+								}, /* colossus */ {
+									enabled: true,
+									units: [],
+									cap: []
+								} /* abyssal */
 
 							],
 							mode: 'min_resource'
@@ -1045,20 +1044,14 @@
 							/* Delay before sending a primary wave */
 							delay_max: 45,
 							delay_b4_secondary: 20,
-							/*
-							 * Delay before sending first secondary after
-							 * primary wave
-							 */
+							/* Delay before sending first secondary after primary wave */
 							delay_min2: 10,
 							/* Delay between seconday waves */
 							delay_max2: 15,
 							max_marches: null,
 							/* Total marches that can send by multi tab */
 							max_secondary: null,
-							/*
-							 * Number of secondary before sending again a
-							 * primary
-							 */
+							/* Number of secondary before sending again a primary */
 							stop_on_loss: true,
 							delete_reports: true,
 							target: {
@@ -1523,10 +1516,7 @@
 							}
 						}
 					},
-					/*
-					 * Dynamic data - Will be stored in local storage and WON'T
-					 * be backup in local file
-					 */
+					/* Dynamic data - Will be stored in local storage and WON'T be backup in local file */
 					dynamic: {
 						recall_marches: [],
 						players: {
@@ -5690,7 +5680,7 @@
 				}
 				for (var cityIdx = 0; cityIdx < Seed.cities.length; ++cityIdx) {
 					if (!Data.options.Rcheat_enabled && cityIdx != CAPITAL.id) continue;
-					if (Seed.cities[cityIdx] && cityIdx >= 0 && cityIdx < Seed.cities.length && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id &&
+					if (Seed.cities[cityIdx] && cityIdx >= 0 && cityIdx < Seed.cities.length && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id &&
 						Seed.cities[cityIdx].figures.queue_lengths && Seed.cities[cityIdx].figures.queue_lengths['research']) {
 						var city = Seed.cities[cityIdx];
 						var jobs = Jobs.getJobs('research', true, cityIdx);
@@ -6466,6 +6456,8 @@
 				var caveDragonLvlsManifest = Manifest.data.cave_dragon_levels;
 				var lunaDragonLvlsManifest = Manifest.data.luna_dragon_levels;
 				var colossusDragonLvlsManifest = Manifest.data.colossus_dragon_levels;
+				var leviathanDragonLvlsManifest = Manifest.data.leviathan_dragon_levels;
+				
 				for (var m = 1; m < 20; m++) {
 					if (greatDragonLvlsManifest[m]) {
 						if (!Seed.greatDragons.GreatDragon[m]) Seed.greatDragons.GreatDragon[m] = [];
@@ -6527,6 +6519,10 @@
 						if (!Seed.greatDragons.ColossusDragon[m]) Seed.greatDragons.ColossusDragon[m] = [];
 						Seed.greatDragons.ColossusDragon[m] = colossusDragonLvlsManifest[m];
 					}
+					if (leviathanDragonLvlsManifest[m]) {
+						if (!Seed.greatDragons.LeviathanDragon[m]) Seed.greatDragons.LeviathanDragon[m] = [];
+						Seed.greatDragons.LeviathanDragon[m] = leviathanDragonLvlsManifest[m];
+					}
 				}
 			}
 		};
@@ -6561,6 +6557,7 @@
 					21: 'Cave',
 					22: 'Luna',
 					23: 'Colossus',
+					24: 'Leviathan',
 					'bog': 0,
 					'plain': 1,
 					'mountain': 2,
@@ -6584,7 +6581,8 @@
 					'Sky': 20,
 					'Cave': 21,
 					'Luna': 22,
-					'Colossus': 23
+					'Colossus': 23,
+					'Leviathan':24
 				}
 			},
 			targets: {
@@ -8911,6 +8909,9 @@
 												case 'Dragons::ColossusDragon':
 													typeAb = 'colossus';
 													break;
+												case 'Dragons::LeviathanDragon':
+													typeAb = 'leviathan';
+													break;
 											}
 					
 											for(var ba=0 ; ba<rep.battle_record[1].march.length ; ba++) {
@@ -9941,7 +9942,8 @@
 					[47, 'DragonRider', 'DrgRid'],
 					[48, 'ColossusDragon', 'ColDrg'],
 					[49, 'ColossalMite', 'Mite'],
-					[50, 'AbyssalRavager', 'AbyRava']
+					[50, 'AbyssalRavager', 'AbyRava'],
+					[51, 'LeviathanDragon', 'LeviaDrg']
 				]
 			},
 
@@ -10111,6 +10113,10 @@
 						ret.reason.push('Pas assez de '+translate(it.toLowerCase()));
 					}
 				}
+                if(t.getNbPlayerItem(objName) == 256) {
+                    ret.result = false;
+                    ret.reason.push('Inventory full for '+translate(objName));
+                }
 				return ret;
 			},
 			getBlackSmithLevel: function() {
@@ -10255,7 +10261,8 @@
 				KaiserDragon: [],
 				CaveDragon: [],
 				LunaDragon: [],
-				ColossusDragon: []
+				ColossusDragon: [],
+				LeviathanDragon: []
 			},
 			dragonList: [],
 			dragons: {},
@@ -10602,6 +10609,7 @@
 											if (march.units['CaveDragon']) t.addToRefresh(t.cities[CAVE_OUTPOST.id].id, false);
 											if (march.units['LunaDragon']) t.addToRefresh(t.cities[LUNA_OUTPOST.id].id, false);
 											if (march.units['ColossusDragon']) t.addToRefresh(t.cities[COLOSSUS_OUTPOST.id].id, false);
+											if (march.units['LeviathanDragon']) t.addToRefresh(t.cities[LEVIATHAN_OUTPOST.id].id, false);
 											Marches.remove(march.id);
 											break;
 									}
@@ -10760,6 +10768,9 @@
 						case COLOSSUS_OUTPOST.name:
 							cityIdx = COLOSSUS_OUTPOST.id;
 							break;
+						case LEVIATHAN_OUTPOST.name:
+							cityIdx = LEVIATHAN_OUTPOST.id;
+							break;
 						default:
 							cityIdx = SPECTRAL_OUTPOST.id;
 					}
@@ -10820,6 +10831,9 @@
 						break;
 					case COLOSSUS_OUTPOST.id:
 						dragon = city.colossus_dragon;
+						break;
+					case LEVIATHAN_OUTPOST.id:
+						dragon = city.leviathan_dragon;
 						break;
 					default:
 						dragon = null;
@@ -12120,6 +12134,9 @@
 							case 'ColossusDragonOutpost':
 								type = 'Colossus';
 								break;
+							case 'LeviathanDragonOutpost':
+								type = 'Leviathan';
+								break;
 							default:
 								type = '';
 						}
@@ -12179,6 +12196,9 @@
 					break;
 				case COLOSSUS_OUTPOST.id:
 					type = COLOSSUS_OUTPOST.type;
+					break;
+				case LEVIATHAN_OUTPOST.id:
+					type = LEVIATHAN_OUTPOST.type;
 					break;
 				default:
 					break;
@@ -15764,6 +15784,10 @@
 							var stats = Seed.greatDragons.ColossusDragon[10];
 							nivDrg = 10;
 							break;
+						case 'LeviathanDragon':
+							var stats = Seed.greatDragons.LeviathanDragon[10];
+							nivDrg = 10;
+							break;
 						case 'SpectralDragon':
 							var stats = Seed.greatDragons.SpectralDragon[10];
 							nivDrg = 10;
@@ -15985,7 +16009,7 @@
 					wallStatus = ' &nbsp ';
 
 				// Met le % de stockage de ressources de l'outpost
-				if (city.type == 'Outpost' && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id) {
+				if (city.type == 'Outpost' && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id) {
 					var total_capacity = 0;
 					var current_stock = 0;
 					var buildList = Buildings.getList(cityIdx, 'Silo');
@@ -21393,7 +21417,10 @@
 						case LUNA_OUTPOST.id:
 							break;
 						case COLOSSUS_OUTPOST.id:
-							break;*/
+							break;
+						case LEVIATHAN_OUTPOST.id:
+							break;
+							*/
 						default:
 							break;
 					}
@@ -22015,6 +22042,11 @@
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', COLOSSUS_OUTPOST.id : ' + COLOSSUS_OUTPOST.id);
                             break;
+						case LEVIATHAN_OUTPOST.id:
+                            listC = leviathan_buidings;
+							listF = false;
+							verboseLog('cityIdx : ' + cityIdx + ', LEVIATHAN_OUTPOST.id : ' + LEVIATHAN_OUTPOST.id);
+                            break;
                         default:
                             listC = outpost_buildings;
 							listF = field_buildings;
@@ -22103,6 +22135,9 @@
 								case COLOSSUS_OUTPOST.id:
 									buildList = colossus_buildings;
 									break;
+								case LEVIATHAN_OUTPOST.id:
+									buildList = leviathan_buildings;
+									break;
 								default:
 									buildList = outpost_buildings.concat(field_buildings);
 									break;
@@ -22127,6 +22162,9 @@
 									break;
 								case COLOSSUS_OUTPOST.id:
 									buildList = colossus_buildings;
+									break;
+								case LEVIATHAN_OUTPOST.id:
+									buildList = leviathan_buildings;
 									break;
 								default:
 									buildList = outpost_buildings;
@@ -22185,6 +22223,9 @@
 									list = false;
 									break;
 								case COLOSSUS_OUTPOST.id:
+									list = false;
+									break;
+								case LEVIATHAN_OUTPOST.id:
 									list = false;
 									break;
 								default:
@@ -22372,6 +22413,11 @@
 							dragon = Seed.dragons['ColossusDragon'];
 							stat = Seed.greatDragons.ColossusDragon[dragon.level];
 							typeAb = COLOSSUS_OUTPOST.type;
+							break;
+						case LEVIATHAN_OUTPOST.id:
+							dragon = Seed.dragons['LeviathanDragon'];
+							stat = Seed.greatDragons.LeviathanDragon[dragon.level];
+							typeAb = LEVIATHAN_OUTPOST.type;
 							break;
 					}
 
@@ -24539,6 +24585,9 @@
 									case COLOSSUS_OUTPOST.id:
 										buildList = colossus_buildings;
 										break;
+									case LEVIATHAN_OUTPOST.id:
+										buildList = leviathan_buildings;
+										break;
 									default:
 										buildList = outpost_buildings.concat(field_buildings);
 										break;
@@ -24716,6 +24765,9 @@
 					case COLOSSUS_OUTPOST.id:
 						cityType = colossus_buildings;
 						break;
+					case LEVIATHAN_OUTPOST.id:
+						cityType = leviathan_buildings;
+						break;
 					default:
 						cityType = outpost_buildings.concat(field_buildings);
 						break;
@@ -24838,6 +24890,9 @@
 						break;
 					case COLOSSUS_OUTPOST.id:
 						typeCity = COLOSSUS_OUTPOST.type;
+						break;
+					case LEVIATHAN_OUTPOST.id:
+						typeCity = LEVIATHAN_OUTPOST.type;
 						break;
 				}
 				var requirements = {};
@@ -25526,8 +25581,22 @@
 						}
 					}
 				}
-				if(t.typeToForge=='ingredient' && Data.options.forge.equipment.cbAuto) {
+                
+				if(t.typeToForge=='ingredient') {
+                    if(!canCrush && Data.options.forge.ingredient.cbAuto) {
+                        var req = Forge.checkForgeRequirements(Data.options.forge.ingredient.select, 'ingredients');
+						if(!req.result) {
+							var message=req.reason.join(', ');
+							fdb +=  ' - ' + translate('forge-blacksmith') + ' : ' + message;
+						}
+						else {
+							t.forgeItem(Data.options.forge.ingredient.select, true);
+						}
+                    }
 				}
+                
+                (t.typeToForge=='equipment' ? t.typeToForge='ingredient' : t.typeToForge='equipment'); 
+                
 				t.jobFeedback(fdb);	
 			},
 			missionForgeTick: function() {
@@ -25584,7 +25653,7 @@
 				for (var cityIdx = 0; cityIdx < Seed.cities.length && !rBuilt; ++cityIdx) {
 					if (!Data.options.Rcheat_enabled && cityIdx != CAPITAL.id) continue;
 					if (Seed.cities[cityIdx] && cityIdx != undefined && !isNaN(cityIdx) && cityIdx >= 0 && cityIdx < Seed.cities.length && cityIdx != SPECTRAL_OUTPOST.id &&
-						cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && Seed.cities[cityIdx].figures.queue_lengths && Seed.cities[cityIdx].figures.queue_lengths['research']) {
+						cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id && Seed.cities[cityIdx].figures.queue_lengths && Seed.cities[cityIdx].figures.queue_lengths['research']) {
 						var rJob = Jobs.getJobs('research', true, cityIdx);
 						var city = Seed.cities[cityIdx];
 						var cityId = city.id;
@@ -31823,6 +31892,7 @@
 			},
 			onClickBackupManifest: function() {
 				var t = Tabs.Options;
+                Manifest.data;
 				dialogConfirm(translate('Do you want to save Manifest in local file') + ' ?',
 					function() {
 						try {
