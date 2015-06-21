@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.620.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.621.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -632,7 +632,7 @@
 				var retry = 0;
 				var startupDelay = Math.randRange(10000, 15000);
 				progressBar.start({
-					steps: 21,
+					steps: 23,
 					delay: startupDelay,
 					title: translate('Initializing...'),
 					stepText: translate('Loading basic data')
@@ -1025,6 +1025,7 @@
 							stop_on_loss: true,
 							delete_reports: true,
 							targets: [],
+                            loop: false,
 							new_bookmark: {
 								x: 0,
 								y: 0,
@@ -1563,9 +1564,10 @@
 				}
 				
 				/** To be sure that remaining setting is reset to its default */
-				if (Data.options.Rcheat_enabled)
+				if (Data.options.Rcheat_enabled) {
 					Data.options.Rcheat_enabled = false;
-				
+                }
+                
 				/* Check basic initialization */
 
 				function stepStarting(current_step) {
@@ -1769,7 +1771,7 @@
 									}
 								}
 								/** Set progress bar steps / city */
-								citySteps = Math.floor(16 / (Seed.cityInit.length - 1));
+								citySteps = Math.floor(17 / (Seed.cityInit.length - 1));
 								progressBar.update({
 									step: current_step,
 									title: progress_title,
@@ -19708,13 +19710,35 @@
 
 				t.contentType = 3;
 
-				var m = '<div class=' + UID['title'] + '>' + translate('Bookmarks Configuration') + '</div>' + '<div id=' + setUID('tabBookmarksConfig_Status') + ' class=' + UID['status_ticker'] + ' style="overflow:auto">' + '	<table class=' + UID['table'] + ' width=100%>' + '	<tr>' + '		<td width=50% class=right>' + translate('Delay Between Attacks') + ':&nbsp;</td>' + '		<td width=50%>' + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMin') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_min + '" />&nbsp;' + translate('to') + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMax') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_max + '" />&nbsp;' + translate('seconds') + '		</td>' + '	</tr><tr>' + '		<td class=right>' + translate('Delete Battle Reports') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabBookmarksConfig_DelAttacks') + ' ' + (Data.options.bookmarks.delete_reports ? 'CHECKED ' : '') + ' type=checkbox /></td>' + '	</tr><tr>' + '		<td class=right>' + translate('Stop if any troops lost') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabBookmarksConfig_StopOnLoss') + ' ' + (Data.options.bookmarks.stop_on_loss ? 'CHECKED ' : '') + ' type=checkbox /></td>' + '	</tr><tr>' + '		<td class=right>' + translate('Maximum simultaneous marches') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabBookmarksConfig_MaxMarches') + ' class=short maxlength=2 type=text value="' + Data.options.bookmarks.max_marches + '" /></td>' + '	</tr></table>';
-				document.getElementById(UID['tabBookmarks_Content']).innerHTML = m;
+				var m = '<div class=' + UID['title'] + '>' + translate('Bookmarks Configuration') + '</div>' 
+                + '<div id=' + setUID('tabBookmarksConfig_Status') + ' class=' + UID['status_ticker'] + ' style="overflow:auto">' 
+                + '	<table class=' + UID['table'] + ' width=100%>' 
+                + '	<tr>' 
+                + '		<td width=50% class=right>' + translate('Delay Between Attacks') + ':&nbsp;</td>' 
+                + '		<td width=50%>' + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMin') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_min + '" />&nbsp;' + translate('to') + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMax') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_max + '" />&nbsp;' + translate('seconds') + '		</td>' 
+                + '	</tr><tr>' 
+                + '		<td class=right>' + translate('Delete Battle Reports') + ':&nbsp;</td>' 
+                + '		<td><input id=' + setUID('tabBookmarksConfig_DelAttacks') + ' ' + (Data.options.bookmarks.delete_reports ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
+                + '	</tr><tr>' 
+                + '		<td class=right>' + translate('Stop if any troops lost') + ':&nbsp;</td>' 
+                + '		<td><input id=' + setUID('tabBookmarksConfig_StopOnLoss') + ' ' + (Data.options.bookmarks.stop_on_loss ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
+                + '	</tr><tr>' 
+                + '		<td class=right>' + translate('Loop attack on bookmark') + ':&nbsp;</td>' 
+                + '		<td><input id=' + setUID('tabBookmarksConfig_Loop') + ' ' + (Data.options.bookmarks.loop ? 'CHECKED ' : '') + ' type=checkbox /></td>'
+                + '	</tr><tr>' 
+                + '		<td class=right>' + translate('Maximum simultaneous marches') + ':&nbsp;</td>' 
+                + '		<td><input id=' + setUID('tabBookmarksConfig_MaxMarches') + ' class=short maxlength=2 type=text value="' + Data.options.bookmarks.max_marches + '" /></td>' 
+                + '	</tr></table>';
+				
+                document.getElementById(UID['tabBookmarks_Content']).innerHTML = m;
 				document.getElementById(UID['tabBookmarksConfig_DelAttacks']).addEventListener('change', function(event) {
 					Data.options.bookmarks.delete_reports = event.target.checked;
 				}, false);
 				document.getElementById(UID['tabBookmarksConfig_StopOnLoss']).addEventListener('change', function(event) {
 					Data.options.bookmarks.stop_on_loss = event.target.checked;
+				}, false);
+                document.getElementById(UID['tabBookmarksConfig_Loop']).addEventListener('change', function(event) {
+					Data.options.bookmarks.loop = event.target.checked;
 				}, false);
 				document.getElementById(UID['tabBookmarksConfig_DelayMin']).addEventListener('change', delayChanged, false);
 				document.getElementById(UID['tabBookmarksConfig_DelayMax']).addEventListener('change', delayChanged, false);
@@ -19819,11 +19843,16 @@
 						raiseMessage(actionMsg, feedback_element, attackUnits, true, retryDelay);
 						t.attackTimer = setTimeout(t.autoCheckTargets, retryDelay * 1000);
 					}
-				} else {
+				}
+                else {
 					t.last_target_idx = -1;
 					clearTimeout(t.attackTimer);
 					t.setBookmarksEnable(false);
 					dispFeedback(feedback_element, translate('Requirements Unmet') + ': ' + translate('Attacks') + ' ' + translate('Turned Off'));
+                    if(Data.options.bookmarks.loop) {
+                        t.setBookmarksEnable(true);
+                        dispFeedback(feedback_element, translate('Attacks') + ' ' + translate('Turned On'));
+                    }
 				}
 			},
 			clearStats: function() {
