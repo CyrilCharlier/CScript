@@ -1,48 +1,48 @@
 // ==UserScript==
-// @name		DoA Power Tools Plus V (modded by Calcium)
-// @namespace	http://userscripts.org/scripts/show/173473
-// @icon		http://img66.xooimage.com/files/3/6/d/jaws64-2b5041c.png
-// @description	Enhanced Power Tools for Dragons of Atlantis, modded by Calcium
-// @grant		GM_xmlhttpRequest
-// @grant		GM_info
-// @grant		GM_setValue
-// @grant		GM_getValue
-// @match		*://apps.facebook.com/dragonsofatlantis/*
-// @match		*://*.castle.wonderhill.com/platforms/*/game
-// @match		*://www.kabam.com/dragons-of-atlantis/play
-// @match		*://www.kongregate.com/games/kabam/dragons-of-atlantis
-// @match		*://plus.google.com/games/659749063556*
-// @match		*://*.googleusercontent.com/gadgets/ifr?url=app://659749063556*
-// @include		*://plus.google.com/games/659749063556*
-// @include		*://plus.google.com/*/games/659749063556*
-// @include		*://www.kongregate.com/games/kabam/dragons-of-atlantis*
-// @include		*://*.castle.wonderhill.com/platforms/*/game
-// @include		*://*.googleusercontent.com/gadgets/ifr?url=app://659749063556*
-// @include		*://www.kabam.com/dragons-of-atlantis/play
-// @include		*://apps.facebook.com/dragonsofatlantis/*
-// @include		*://*.castle.wonderhill.com/platforms/*/game
-// @exclude		*://apps.facebook.com/dragonsofatlantis/rubies
-// @exclude		*://apps.facebook.com/ai.php*
-// @exclude		*://www.facebook.com/plugins/like.php*
-// @exclude		*://kabam1-a.akamaihd.net/pixelkabam/*
-// @exclude		*://*.akamaihd.net/pixelkabam/*
-// @exclude		*://plus.google.com/_/apps-static/*
-// @exclude		*://plus.google.com/u/0/_/gadgets/contactPicker*
-// @exclude		*://accounts.google.com/*
-// @exclude		*://talkgadget.google.com/*
-// @exclude		*://www.googleapis.com/static*
-// @include		*://*realm*doa.altervista.org*
-// @exclude		*://realmtheraindoa.altervista.org/Jeux/*
-// @version		1.36
+// @name DoA Power Tools Plus V (modded by Calcium)
+// @namespace http://userscripts.org/scripts/show/173473
+// @icon http://img66.xooimage.com/files/3/6/d/jaws64-2b5041c.png
+// @description Enhanced Power Tools for Dragons of Atlantis, modded by Calcium
+// @grant GM_xmlhttpRequest
+// @grant GM_info
+// @grant GM_setValue
+// @grant GM_getValue
+// @match *://apps.facebook.com/dragonsofatlantis/*
+// @match *://*.castle.wonderhill.com/platforms/*/game
+// @match *://www.kabam.com/dragons-of-atlantis/play
+// @match *://www.kongregate.com/games/kabam/dragons-of-atlantis
+// @match *://plus.google.com/games/659749063556*
+// @match *://*.googleusercontent.com/gadgets/ifr?url=app://659749063556*
+// @include *://plus.google.com/games/659749063556*
+// @include *://plus.google.com/*/games/659749063556*
+// @include *://www.kongregate.com/games/kabam/dragons-of-atlantis*
+// @include *://*.castle.wonderhill.com/platforms/*/game
+// @include *://*.googleusercontent.com/gadgets/ifr?url=app://659749063556*
+// @include *://www.kabam.com/dragons-of-atlantis/play
+// @include *://apps.facebook.com/dragonsofatlantis/*
+// @include *://*.castle.wonderhill.com/platforms/*/game
+// @exclude *://apps.facebook.com/dragonsofatlantis/rubies
+// @exclude *://apps.facebook.com/ai.php*
+// @exclude *://www.facebook.com/plugins/like.php*
+// @exclude *://kabam1-a.akamaihd.net/pixelkabam/*
+// @exclude *://*.akamaihd.net/pixelkabam/*
+// @exclude *://plus.google.com/_/apps-static/*
+// @exclude *://plus.google.com/u/0/_/gadgets/contactPicker*
+// @exclude *://accounts.google.com/*
+// @exclude *://talkgadget.google.com/*
+// @exclude *://www.googleapis.com/static*
+// @include *://*realm*doa.altervista.org*
+// @exclude *://realmtheraindoa.altervista.org/Jeux/*
+// @version 1.31
 // @grant GM_addStyle
 // @grant unsafeWindow
-// @homepageURL	http://script.wygopro.com/script/
-// @updateURL 	http://script.wygopro.com/script/173473.user.meta.js
-// @downloadURL	http://script.wygopro.com/script/173473.user.js
+// @homepageURL http://script.wygopro.com/script/
+// @updateURL https://www.calcium-pro-tool.com/CPT/script/173473.user.meta.js
+// @downloadURL https://www.calcium-pro-tool.com/CPT/script/173473.user.js
 // ==/UserScript== 
 (function() {
 
-	var CHROME_EXT = false, scriptVersion = '2014.1227.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+	var CHROME_EXT = false, scriptVersion = '2014.825.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -521,9 +521,9 @@
 		var sanctuaryDragonRank = new Array('common', 'lesser', 'heightened', 'royal', 'exalted', 'omniscient', 'legendary');
 		/* Troops arrays */
 		var all_dragon_list =		['GreatDragon', 'WaterDragon', 'StoneDragon', 'FireDragon', 'WindDragon', 'IceDragon', 'SwampDragon', 'ForestDragon', 'DesertDragon', 'ChronoDragon', 'SpectralDragon', 'KaiserDragon', 'CaveDragon', 'LunaDragon', 'ColossusDragon'];
-		var all_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager'];
-		var attack_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager'];
-		var wave_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager'];
+		var all_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite'];
+		var attack_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite'];
+		var wave_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite'];
 		var spy_unit_types =		['Spy'];
 		var transport_unit_types =	['Porter', 'ATrans', 'PackDrg']; // Beware : Use abbreviations here
 		/* Resources arrays */
@@ -788,36 +788,6 @@
 							enabled: false,
 							res_enable: [{}, {}, {}, {}, {}, {}],
 							res_cap: [{}, {}, {}, {}, {}, {}]
-						},
-						forge: {
-							current_tab : 0,
-							enableAutoMission : false,
-							crush: {
-								cbAuto:false,
-								select:'',
-								max:10,
-								nbAuto:0
-							},
-							equipment: {
-								cbAuto: false,
-								select: '',
-								max: 50,
-								nbAuto:0
-							},
-							ingredient: {
-								cbAuto: false,
-								select: '',
-								max: 50,
-								nbAuto:0
-							},
-							CapitalAdventurer : {
-								cbAuto : false,
-								mission : '' 
-							},
-							WaterOutpostAdventurer : {
-								cbAuto : false,
-								mission : ''
-							}
 						},
 						trade: {
 							sell : {
@@ -1289,12 +1259,6 @@
 							},
 							last_refresh: ''
 						},
-						forgeAdv: {
-							start_at: 0,
-							run_time: 0,
-							total_missions: {},
-							items: {}
-						},
 						multiple: {
 							start_at: 0,
 							run_time: 0,
@@ -1464,14 +1428,6 @@
 									time: [],
 									error: []
 								},
-								trade: {
-									time: [],
-									error: []
-								},
-								forge: {
-									time: [],
-									error: []
-								},
                                 other: {
                                     time: [],
                                     error: []
@@ -1508,10 +1464,6 @@
 								[],
 								[]
 							]
-						},
-						forge: {
-							missions: [],
-							hammer: []
 						}
 					},
 					/* Dynamic data - Will be stored in local storage and WON'T be backup in local file */
@@ -1911,6 +1863,7 @@
 			}
 		}
 
+		/******************************** CalciumNotification package ****************/
 		var CalciumNotifications = {
 			nAlliance : null,
 			nMonde : null,
@@ -2187,7 +2140,10 @@
 				}
 				return result;
 			}
-		};
+		}
+		/******************************** CalciumNotification package ****************/
+
+		/******************************** Socket Teamwork package ****************/
 		var Socket = {
 			SWF_SOCKET_URL : 'https://wackoscripts.com/files/teamwork_socket_bridge.swf',
 
@@ -2573,7 +2529,9 @@
 			doNothing : function(obj) {
 				return;
 			}
-		};
+		}; // END Socket
+
+		/******************************** Wall package ***************************/
 		var Wall = {
 			
 			checkSetDefenseBusy : false,
@@ -2756,8 +2714,10 @@
 					});
 				}
 			}
-		};
-
+		}
+		/******************************** END Wall package ***********************/
+		
+		/******************************** CalciumWall package ************************/
 		var CalciumWall = {
 
 			messages: new Array(),
@@ -2864,7 +2824,9 @@
 				}
 			}
 		}
+		/******************************** CalciumWall package ************************/
 
+		/******************************** MyAjax package *****************************/
 		var MyAjax = {
 			addMainParams: function() {
 				var t = MyAjax;
@@ -2875,136 +2837,6 @@
 				p['version'] = api_version;
 				p['timestamp'] = toNum(serverTime());
 				return p;
-			},
-			getForge: function() {
-				var t = MyAjax;
-				var p = {};
-				p = t.addMainParams();
-				
-				new MyAjaxRequest('forge', 'forge/forge.json', p, mycb, false);
-				
-				function mycb(rslt) {
-					if (rslt.ok) {
-						Forge.data = rslt.dat.forge;
-					} else {
-						verboseLog('Ajax.getForge ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-					return;
-				}
-			},
-			repairHammer: function(callback) {
-				var t = MyAjax;
-				var p = {};
-				p = t.addMainParams();
-				
-				new MyAjaxRequest('forge', 'forge/repair_hammer', p, mycb, true);
-				
-				function mycb(rslt) {
-					if (rslt.ok) {
-						Seed.checkAddJob(rslt.dat.result.repair_job);
-					} else {
-						verboseLog('Ajax.repairHammer ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-					if (callback) callback(rslt);
-					return;
-				}
-			},
-			claimMission: function(missionType,adventurerId, callback) {
-				var t = MyAjax;
-				var p = {};
-				p = t.addMainParams();
-				p['mission_type'] = missionType;
-				p['adventurer_id'] = adventurerId;
-				
-				new MyAjaxRequest('forge', 'player_missions/claim_mission.json', p, mycb, true);
-
-				function mycb(rslt) {
-					if (rslt.ok) {
-						Seed.player.forge.adventurers = rslt.dat.result.adventurers;
-					} else {
-						verboseLog('Ajax.claimMission ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-					if (callback) callback(rslt);
-					return;
-				}
-			},
-			playerMission: function(missionType,adventurerId, callback) {
-				var t = MyAjax;
-				var p = {};
-				p = t.addMainParams();
-				p['mission_type'] = missionType;
-				p['adventurer_id'] = adventurerId;
-				
-				new MyAjaxRequest('forge', 'player_missions.json', p, mycb, true);
-
-				function mycb(rslt) {
-					if (rslt.ok) {
-						Seed.checkAddJob(rslt.dat.result.job);
-					} else {
-						verboseLog('Ajax.playerMission ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-					if (callback) callback(rslt);
-					return;
-				}
-			},
-			forgeItem: function(name, callback) {
-				var t = MyAjax;
-				var p = {};
-				p = t.addMainParams();
-				p['output_name']=name;
-				
-				new MyAjaxRequest('forge', 'forge/forge_item', p, mycb, true);
-				
-				function mycb(rslt) {
-					if (rslt.ok) {
-						Seed.blacksmith = rslt.dat.result.blacksmith;
-						Seed.player.forge.items.equipments = rslt.dat.result.forge_items.equipments;
-						Seed.player.forge.items.ingredients = rslt.dat.result.forge_items.ingredients;
-					} else {
-						verboseLog('Ajax.forgeCrush ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-					if (callback) callback(rslt);
-					return;
-				}
-			},
-			forgeCrush: function(equipmentId, callback) {
-				var t = MyAjax;
-				var p = {};
-				p = t.addMainParams();
-				p['player_forge_equipment_id']=equipmentId;
-				
-				new MyAjaxRequest('forge', 'forge/disenchant_equipment', p, mycb, true);
-				
-				function mycb(rslt) {
-					if (rslt.ok) {
-						Seed.blacksmith = rslt.dat.result.blacksmith;
-						Seed.player.forge.items.equipments = rslt.dat.result.forge_items.equipments;
-						Seed.player.forge.items.ingredients = rslt.dat.result.forge_items.ingredients;
-					} else {
-						verboseLog('Ajax.forgeCrush ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-					if (callback) callback(rslt);
-					return;
-				}
-			},
-			forgeInfo: function(callback) {
-				var t = MyAjax;
-				var p = {};
-				p = t.addMainParams();
-				
-				new MyAjaxRequest('forge', 'forge/player_forge_info', p, mycb, true);
-				
-				function mycb(rslt) {
-					if (rslt.ok) {
-						Seed.blacksmith = rslt.dat.result.blacksmith;
-						Seed.player.forge.items.equipments = rslt.dat.result.forge_items.equipments;
-						Seed.player.forge.items.ingredients = rslt.dat.result.forge_items.ingredients;
-					} else {
-						verboseLog('Ajax.forgeInfo ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-					if (callback) callback(rslt);
-					return;
-				}
 			},
 			tradeSell: function(product, nbProduct, price, callback) {
 				var t = MyAjax;
@@ -3998,7 +3830,9 @@
 				}
 			}
 		};
+		/******************************** MyAjax package *****************************/
 
+		/******************************** Auto-collect package ***********************/
 		var AutoCollect = {
 			init: function() {
 				var t = AutoCollect;
@@ -4044,7 +3878,9 @@
 				}
 			}
 		};
+		/******************************** Auto-collect package ***********************/
 
+		/******************************** Falsh auto-refresh package *****************/
 		var AutoRefresh = {
 			timer: null,
 			current_mouse: [0, 0],
@@ -4089,7 +3925,9 @@
 				}
 			}
 		}
+		/******************************** Falsh auto-refresh package *****************/
 
+		/******************************** Buildings package **************************/
 		var Buildings = {
 			getCount: function(cityIdx, type) {
 				var nb = 0;
@@ -4134,7 +3972,9 @@
 				return null;
 			}
 		};
+		/******************************** Buildings package **************************/
 
+		/******************************** Data package *******************************/
 		var Data = {
 			log: [
 				[],
@@ -4682,7 +4522,9 @@
 				function setWheelDefaults() {}
 			}
 		};
+		/******************************** Data package *******************************/
 
+		/******************************** Jobs package *******************************/
 		var Jobs = {
 			deleteJob: function(cityIdx, job) {
 				var cid = Seed.cities[cityIdx].id;
@@ -4701,18 +4543,6 @@
 					});
 				}
 				return null;
-			},
-			getForgeJob: function(cityIdx) {
-				var ret = [];
-				var cid = Seed.cities[cityIdx].id;
-				for (var p in Seed.jobs[cid]) {
-					var job = Seed.jobs[cid][p];
-					if (job.queue.endsWith('adventurer_mission'))
-						ret.push(job);
-					if(job.queue == 'repair_hammer')
-						ret.push(job);
-				}
-				return ret;
 			},
 			getDefenseTowerHealing : function(cityIdx) {
 				var cid = Seed.cities[cityIdx].id;
@@ -4813,7 +4643,7 @@
 										if (r.ok && r.dat.result.success) {
 											if (r.dat.result.item_response) {
 												itmResp = r.dat.result.item_response;
-												if (/(units|dragon|building|build_tower|research|breeding|hatching|feeding|resurrection|trade|repair_hammer|water_outpost_adventurer_mission|capital_adventurer_mission)/.test(itmResp.queue)) {
+												if (/(units|dragon|building|build_tower|research|breeding|hatching|feeding|resurrection)/.test(itmResp.queue)) {
 													var found = false;
 													var jobs = Seed.cities[ids[1]].jobs;
 													for (var x = 0; x < jobs.length && !found; x++) {
@@ -4847,8 +4677,8 @@
 							MyAjax.useItem(Seed.cities[ids[1]].id, ids[0], ids[2], function(r) {
 								if (r.ok && r.dat.result.success) {
 									if (r.dat.result.item_response) {
-										var itmResp = r.dat.result.item_response;
-										if (/(units|building|dragon|build_tower|research|breeding|hatching|feeding|resurrection|trade|repair_hammer|water_outpost_adventurer_mission|capital_adventurer_mission)/.test(itmResp.queue)) {
+										itmResp = r.dat.result.item_response;
+										if (/(units|building|dragon|build_tower|research|breeding|hatching|feeding|resurrection)/.test(itmResp.queue)) {
 											var found = false;
 											var jobs = Seed.cities[ids[1]].jobs;
 											for (var x = 0; x < jobs.length && !found; x++) {
@@ -4888,9 +4718,9 @@
 				for (var i = 0; i < time_item_list.length; i++)
 					tot += toNum(Seed.player.items[time_item_list[i].name]);
 				if (tot > 0) {
-					var iRow = table.insertRow(-1);
+					iRow = table.insertRow(-1);
 					iRow.className = mtClass;
-					var iCell = iRow.insertCell(-1);
+					iCell = iRow.insertCell(-1);
 					iCell.style.textAlign = 'left';
 					iCell.style.width = '100%';
 					iCell.setAttribute('colspan', '4');
@@ -5209,98 +5039,6 @@
 						}
 					}
 				}
-				for (var cityIdx = 0; cityIdx < idle_cities.length; ++cityIdx) {
-					if (Seed.cities[idle_cities[cityIdx]]) {
-						var city = Seed.cities[idle_cities[cityIdx]];
-						var iRow, iCell;
-						iRow = table.insertRow(-1);
-						iRow.className = mtClass;
-						iCell = iRow.insertCell(-1);
-						iCell.style.textAlign = 'left';
-						iCell.style.width = '20%';
-						iCell.innerHTML = '<b>' + ((cityIdx == CAPITAL.id) ? city.name : translate(city.name)) + '</b>';
-						iCell = iRow.insertCell(-1);
-						iCell.innerHTML = translate('Idle');
-					}
-				}
-			},
-			updateForgeTable: function(table) {
-				var now = toNum(serverTime()),
-					idle_cities = [];
-				var mtClass = UID['row_marchMine'];
-				/* Clear table */
-				for (var row = 0; row < table.rows.length; row++) {
-					table.deleteRow(row);
-					row--;
-				}
-				var cityIdx = 0;
-					if (Seed.cities[cityIdx]) {
-						var options = {
-							noPlayer: true,
-							cities: []
-						};
-						var city = Seed.cities[cityIdx];
-						var jobs = Jobs.getForgeJob(cityIdx);
-						
-						if(jobs.length != 0) {
-							for(var nbT = 0 ; nbT < jobs.length ; nbT++) {
-								var iRow, iCell;
-								var current_mission = '';
-								var advName = '';
-								if(jobs[nbT].queue != 'repair_hammer') {
-									for(var adv in Forge.data.adventurers) {
-										if(jobs[nbT].queue == Forge.data.adventurers[adv].queue) {
-											for(var advP=0;advP<Seed.player.forge.adventurers.length;advP++) {
-												if(Seed.player.forge.adventurers[advP].type == Forge.data.adventurers[adv].type) {
-													current_mission = translate('mission-'+Seed.player.forge.adventurers[advP].current_mission.replace(/_/g, "-"));
-													advName = translate('adventurer-'+Seed.player.forge.adventurers[advP].type.toLowerCase());
-													break;
-												}
-											}
-											break;
-										}
-									}
-								}
-								iRow = table.insertRow(-1);
-								iRow.className = mtClass;
-								iRow.title = '';
-								iCell = iRow.insertCell(-1);
-								iCell.style.textAlign = 'left';
-								iCell.style.width = '20%';
-								iCell.innerHTML = '<b>' + ((cityIdx == CAPITAL.id) ? city.name : translate(city.name)) + '</b>';
-								var timeRemaining = ((jobs[nbT].run_at - serverTime()) > 0) ? timestr(jobs[nbT].run_at - serverTime()) : 0;
-								if (timeRemaining == 0) {
-									iCell = iRow.insertCell(-1);
-									iCell.setAttribute('colspan', '3');
-									iCell.innerHTML = translate('Awaiting task completion notification') + '...';
-									Jobs.deleteJob(cityIdx, jobs[nbT]);
-									if (cityIdx != 0) options.cities.push(Seed.cities[CAPITAL.id].id);
-									options.cities.push(city.id);
-									Seed.fetchPlayer(options);
-								} else {
-									iRow.setAttribute('ref', cityIdx + '_' + jobs[nbT].id);
-									iCell = iRow.insertCell(-1);
-									iCell.style.textAlign = 'left';
-									iCell.style.width = '35%';
-									var adventurer = advName;
-									if(jobs[nbT].queue == 'repair_hammer') {
-										iCell.innerHTML = translateByKey('forge', null, 'dialogs') + ' - ' + translate('forge-repair-hammer');
-									} else {
-										iCell.innerHTML = translateByKey('forge', null, 'dialogs') + ' - ' + adventurer + ' - ' + current_mission;
-									}
-									iCell = iRow.insertCell(-1);
-									iCell.style.width = '10%';
-									iCell = iRow.insertCell(-1);
-									iCell.style.textAlign = 'left';
-									iCell.style.width = '25%';
-									iCell.innerHTML = '<font color=' + TIMER_COLOR + '>' + timeRemaining + '</font>';
-									if (!jobs[nbT].cancelled && Data.options.jobs_speedups_enabled)
-										Jobs.addSpeedUpButtons(table, 'tabJobsForge_speedups_0', 'jobs', cityIdx + '_' + jobs[nbT].id);
-								}
-							}
-						}
-					}
-				
 				for (var cityIdx = 0; cityIdx < idle_cities.length; ++cityIdx) {
 					if (Seed.cities[idle_cities[cityIdx]]) {
 						var city = Seed.cities[idle_cities[cityIdx]];
@@ -5803,7 +5541,9 @@
 				}
 			}
 		};
+		/******************************** Jobs package *******************************/
 
+		/******************************** Manifest package ***************************/
 		var Manifest = {
 			data: {},
 
@@ -6204,7 +5944,9 @@
 				}
 			}
 		};
+		/******************************** Manifest package ***************************/
 
+		/******************************** Map package ********************************/
 		var Map = {
 			map_bin: null,
 			is_refreshing: false,
@@ -7101,7 +6843,9 @@
 				if (done) Map.is_refreshing = false;
 			}
 		};
+		/******************************** Map package ********************************/
 
+		/******************************** March package ******************************/
 		var Marches = {
 			table_output: {
 				attacks: {},
@@ -7726,7 +7470,9 @@
 				nCell.appendChild(button);
 			}
 		};
+		/******************************** March package ******************************/
 
+		/******************************** MemberShips package ************************/
 		var MemberShips = {
 			fetchMembership: function(id, callback, doDetail) {
 				var t = MemberShips;
@@ -7974,7 +7720,9 @@
 				}, MAP_DELAY * Math.floor(Math.random() * (-1) + 2));
 			}
 		}
+		/******************************** MemberShips package ************************/
 
+		/******************************** Messages package ***************************/
 		var Messages = {
 			readList: [],
 			fetchTimer: null,
@@ -8347,28 +8095,11 @@
 				}
 				m += '			</table>' + '		</td>' + '	</tr>' + '</table><br>' + '<div style="height:350px; max-height:350px; overflow-y:auto; white-space:pre-wrap;" width=98%>';
 				/* Battle report troops section */
-				if (att.location) {
-					att_loc = att.location.x + ', ' + att.location.y;
-				}
-				else {
-					att_loc = rep.location.x + ', ' + rep.location.y;
-				}
-				if (def.location) { 
-					def_loc = def.location.x + ', ' + def.location.y;
-				}
-				else {
-					def_loc = rep.location.x + ', ' + rep.location.y;
-				}
-				m += '<table style="margin-top:1px" width=98%>' + '	<tr valign=top align=center>' + '		<td width=49%>' 
-				+ '			<table class=' + UID['row_style'] + ' width=100%>' 
-				+ '				<tr>' 
-				+ '					<td valign=middle colspan=3><b>' + att.name + '</b> (' + att_loc + ')&nbsp;<span class=' + UID['red'] + '>' + ((rep.winner == 'attacker') ? translate('victorious') : translate('defeated')) + '</span></td>' 
-				+ '				</tr><tr class=' + UID['row_headers'] + '>' 
-				+ '					<td valign=middle width=47%><b>' + translate('Troops') + '</b></td>' 
-				+ '					<td valign=middle width=19%><b>' + translate('Fought') + '</b></td>' 
-				+ '					<td valign=middle width=17%><b>' + translate('lost') + '</b></td>' 
-				+ '					<td valign=middle width=17%><b>' + translate('Might') + '</b></td>' 
-				+ '				</tr>';
+				if (att.location) att_loc = att.location.x + ', ' + att.location.y;
+				else att_loc = rep.location.x + ', ' + rep.location.y;
+				if (def.location) def_loc = def.location.x + ', ' + def.location.y;
+				else def_loc = rep.location.x + ', ' + rep.location.y;
+				m += '<table style="margin-top:1px" width=98%>' + '	<tr valign=top align=center>' + '		<td width=49%>' + '			<table class=' + UID['row_style'] + ' width=100%>' + '				<tr>' + '					<td valign=middle colspan=3><b>' + att.name + '</b> (' + att_loc + ')&nbsp;<span class=' + UID['red'] + '>' + ((rep.winner == 'attacker') ? translate('victorious') : translate('defeated')) + '</span></td>' + '				</tr><tr class=' + UID['row_headers'] + '>' + '					<td valign=middle width=40%><b>' + translate('Troops') + '</b></td>' + '					<td valign=middle width=20%><b>' + translate('Fought') + '</b></td>' + '					<td valign=middle width=20%><b>' + translate('lost') + '</b></td>' + '					<td valign=middle width=20%><b>' + translate('Might') + '</b></td>' + '				</tr>';
 				if (att.units) {
 					var total_might_lost = 0;
 					for (var p in att.units) {
@@ -8376,8 +8107,7 @@
 							var lost_troops_nb = (att.units[p][0] != att.units[p][1] ? att.units[p][0] - att.units[p][1] : 0);
 							var lost_troops = (att.units[p][0] != att.units[p][1] ? '<span class=' + UID['red'] + '><b>' + numf(att.units[p][0] - att.units[p][1]) + '</b></span>' : 0);
 							var total_might = 0;
-							var descEqp = '';
-							
+
 							for (var i = 0; i < all_unit_types.length; i++) {
 								if (all_unit_types[i] == p) {
 									total_might = lost_troops_nb * Seed.stats.unit[all_unit_types[i]].power;
@@ -8385,94 +8115,75 @@
 									break;
 								}
 							}
-							for (var idg = 0; idg < all_dragon_list.length; idg++) {
-								if (all_dragon_list[idg] == p) {
-									if(rep.battle_record[1]) {
-										if(rep.battle_record[1].march) {
-											var typeAb = '';
-											switch (rep.attacker.great_dragon_info.type) {
-												case 'Dragons::GreatDragon':
-													break;
-												case 'Dragons::WaterDragon':
-													typeAb = 'water';
-													break;
-												case 'Dragons::StoneDragon':
-													typeAb = 'stone';
-													break;
-												case 'Dragons::FireDragon':
-													typeAb = 'fire';
-													break;
-												case 'Dragons::WindDragon':
-													typeAb = 'wind';
-													break;
-												case 'Dragons::SpectralDragon':
-													break;
-												case 'Dragons::IceDragon':
-													typeAb = 'ice';
-													break;
-												case 'Dragons::SwampDragon':
-													typeAb = 'swamp';
-													break;
-												case 'Dragons::ForestDragon':
-													typeAb = 'forest';
-													break;
-												case 'Dragons::DesertDragon':
-													typeAb = 'desert';
-													break;
-												case 'Dragons::ChronoDragon':
-													typeAb = 'chrono';
-													break;
-												case 'Dragons::KaiserDragon':
-													typeAb = 'kaiser';
-													break;
-												case 'Dragons::CaveDragon':
-													typeAb = 'cave';
-													break;
-												case 'Dragons::LunaDragon':
-													typeAb = 'luna';
-													break;
-												case 'Dragons::ColossusDragon':
-													typeAb = 'colossus';
-													break;
-											}
-					
-											for(var ba=0 ; ba<rep.battle_record[1].march.length ; ba++) {
-												descEqp += translate('dragonpower-' + rep.battle_record[1].march[ba].name.replace(/_/g, '')) + '\n\t' + (translate(typeAb+'dragonpower-'+rep.battle_record[1].march[ba].slot+'-report')).replace('%num', numf(rep.battle_record[1].march[ba].amount, ' ')).replace(/"/g, '\"') + '\n';
-											}
-										}
-									}
-									break;
-								}
-							}
-							
-							if(att.equipment) {
-								for(var ieqp=0; ieqp<att.equipment.length; ieqp++) {
-									var eqpTroop = att.equipment[ieqp];
-									if(eqpTroop.troop_type==p) {
-										descEqp += translate(eqpTroop.name) + '\n';
-										for(var istat in eqpTroop.stats) {
-											descEqp += '\t' + translate(istat) + ' => +' + eqpTroop.stats[istat] + '\n';
-										}
-										descEqp += '\n';
-									}
-								}
-							}
 
-							m += '			<tr>' + '				<td class=left>' + translate(p) + (descEqp=='' ? '' : '	<span class="' + UID['information'] + '" style="width:auto !important;" title="' + descEqp + '"></span>') + ' </td>' + '				<td align=right>' + numf(att.units[p][0]) + '</td>' + '				<td align=right>' + lost_troops + '</td>' + '				<td align=right>' + numf(total_might) + '</td>' + '			</tr>';
+							m += '			<tr>' + '				<td class=left>' + translate(p) + '</td>' + '				<td align=right>' + numf(att.units[p][0]) + '</td>' + '				<td align=right>' + lost_troops + '</td>' + '				<td align=right>' + numf(total_might) + '</td>' + '			</tr>';
 						}
 					}
 					m += '	<tr>' + '		<td class=left><b>' + translate('Total lost') + '</b></td>' + '		<td align=right colspan=3><span class=' + UID['green'] + '><b>' + numf(total_might_lost) + '</b></span></td>' + '	</tr>';
 				}
-				m += '			</table>' + '		</td>' + '		<td width=2%>&nbsp</td>' + '		<td width=49%>' + '			<table class=' + UID['row_style'] + ' width=100%>' + '				<tr>' + '					<td valign=middle colspan=3><b>' + def.name + '</b> (' + def_loc + ')&nbsp;<span class=' + UID['red'] + '>' + ((rep.winner != 'attacker') ? translate('victorious') : translate('defeated')) + '</span></td>' + '				</tr><tr class=' + UID['row_headers'] + '>' + '					<td valign=middle width=47%><b>' + translate('Troops') + '</b></td>' + '					<td valign=middle width=19%><b>' + translate('Fought') + '</b></td>' + '					<td valign=middle width=17%><b>' + translate('lost') + '</b></td>' + '					<td valign=middle width=17%><b>' + translate('Might') + '</b></td>' + '				</tr>';
+				m += '			</table>' + '		</td>' + '		<td width=2%>&nbsp</td>' + '		<td width=49%>' + '			<table class=' + UID['row_style'] + ' width=100%>' + '				<tr>' + '					<td valign=middle colspan=3><b>' + def.name + '</b> (' + def_loc + ')&nbsp;<span class=' + UID['red'] + '>' + ((rep.winner != 'attacker') ? translate('victorious') : translate('defeated')) + '</span></td>' + '				</tr><tr class=' + UID['row_headers'] + '>' + '					<td valign=middle width=40%><b>' + translate('Troops') + '</b></td>' + '					<td valign=middle width=20%><b>' + translate('Fought') + '</b></td>' + '					<td valign=middle width=20%><b>' + translate('lost') + '</b></td>' + '					<td valign=middle width=20%><b>' + translate('Might') + '</b></td>' + '				</tr>';
+				if(rep.battle_record[1]) {
+					var typeAb = '';
+					switch (rep.attacker.great_dragon_info.type) {
+						case 'Dragons::GreatDragon':
+							break;
+						case 'Dragons::WaterDragon':
+							typeAb = 'water';
+							break;
+						case 'Dragons::StoneDragon':
+							typeAb = 'stone';
+							break;
+						case 'Dragons::FireDragon':
+							typeAb = 'fire';
+							break;
+						case 'Dragons::WindDragon':
+							typeAb = 'wind';
+							break;
+						case 'Dragons::SpectralDragon':
+							break;
+						case 'Dragons::IceDragon':
+							typeAb = 'ice';
+							break;
+						case 'Dragons::SwampDragon':
+							typeAb = 'swamp';
+							break;
+						case 'Dragons::ForestDragon':
+							typeAb = 'forest';
+							break;
+						case 'Dragons::DesertDragon':
+							typeAb = 'desert';
+							break;
+						case 'Dragons::ChronoDragon':
+							typeAb = 'chrono';
+							break;
+						case 'Dragons::KaiserDragon':
+							typeAb = 'kaiser';
+							break;
+						case 'Dragons::CaveDragon':
+							typeAb = 'cave';
+							break;
+						case 'Dragons::LunaDragon':
+							typeAb = 'luna';
+							break;
+						case 'Dragons::ColossusDragon':
+							typeAb = 'colossus';
+							break;
+					}
+
+					for(var ba=0 ; ba<rep.battle_record[1].march.length ; ba++) {
+						m 	+= '	<tr>' + '<td class=left><b>' + translate('battle-arts') + '</b></td>' 
+							+ '<td class=left colspan=2>' + translate('dragonpower-' + rep.battle_record[1].march[ba].name.replace(/_/g, '')) + '</td>' 
+							+ '<td class=left>' 
+							+ '	<span class="' + UID['defending'] + '" style="width:auto !important;" title="' + (translate(typeAb+'dragonpower-'+rep.battle_record[1].march[ba].slot+'-report')).replace('%num', numf(rep.battle_record[1].march[ba].amount, ' ')).replace(/"/g, '\"') + '">' + translate('Info') + '</span>';
+							+ '</td></tr>';
+					}
+				}
 				if (def.units) {
 					var total_might_lost = 0;
 					for (var p in def.units) {
 						if (p && def.units[p]) {
 							var name = translate(p),
 								multiplier = 1;
-							if(p=='DefensiveTowerUnit') {
-								name = translate(def.equipped_part.type);
-							}
 							if (def.anthropus) {
 								switch (p) {
 									case 'Porter':
@@ -8543,7 +8254,7 @@
 
 							var lost_troops_nb = (qty != survival ? qty - survival : 0);
 							var lost_troops = (qty != survival ? '<span class=' + UID['red'] + '><b>' + numf(qty - survival) + '</b></span>' : 0);
-							var descEqp = '';
+
 							var total_might = 0;
 
 							for (var i = 0; i < all_unit_types.length; i++) {
@@ -8553,21 +8264,8 @@
 									break;
 								}
 							}
-							
-							if(def.equipment) {
-								for(var ieqp=0; ieqp<def.equipment.length; ieqp++) {
-									var eqpTroop = def.equipment[ieqp];
-									if(eqpTroop.troop_type==p) {
-										descEqp += translate(eqpTroop.name) + '\n';
-										for(var istat in eqpTroop.stats) {
-											descEqp += '\t' + translate(istat) + ' => +' + eqpTroop.stats[istat] + '\n';
-										}
-										descEqp += '\n';
-									}
-								}
-							}
 
-							m += '			<tr>' + '				<td class=left>' + name + (descEqp=='' ? '' : '	<span class="' + UID['information'] + '" style="width:auto !important;" title="' + descEqp + '"></span>') + ' </td>' + '				<td align=right>' + numf(qty) + '</td>' + '				<td align=right>' + lost_troops + '</td>' + '				<td align=right>' + numf(total_might) + '</td>' + '			</tr>';
+							m += '			<tr>' + '				<td class=left>' + name + '</td>' + '				<td align=right>' + numf(qty) + '</td>' + '				<td align=right>' + lost_troops + '</td>' + '				<td align=right>' + numf(total_might) + '</td>' + '			</tr>';
 						}
 					}
 					m += '	<tr>' + '		<td class=left><b>' + translate('Total lost') + '</b></td>' + '		<td align=right colspan=3><span class=' + UID['green'] + '><b>' + numf(total_might_lost) + '</b></span></td>' + '	</tr>';
@@ -9369,7 +9067,9 @@
 				t.messageDeletion = false;
 			}
 		};
+		/******************************** Messages package ***************************/
 
+		/******************************** Names package ******************************/
 		var Names = {
 			troops: {
 				'names': [
@@ -9422,8 +9122,7 @@
 					[46, 'VoltRanger', 'Ranger'],
 					[47, 'DragonRider', 'DrgRid'],
 					[48, 'ColossusDragon', 'ColDrg'],
-					[49, 'ColossalMite', 'Mite'],
-					[50, 'AbyssalRavager', 'AbyRava']
+					[49, 'ColossalMite', 'Mite']
 				]
 			},
 
@@ -9478,7 +9177,9 @@
 				o.byName = byName;
 			}
 		};
+		/******************************** Names package ******************************/
 
+		/******************************** Recall march package ***********************/
 		var RecallMarch = {
 			init: function() {
 				var t = RecallMarch;
@@ -9535,7 +9236,9 @@
 				return found;
 			}
 		};
+		/******************************** Recall march package ***********************/
 
+		/******************************** RequestQueue package ***********************/
 		var RequestQueue = {
 			que: {},
 			add: function(id, func, maxWaitMillis, can_be_bypassed) {
@@ -9577,80 +9280,10 @@
 				} else return t.que[id] ? true : false;
 			}
 		};
+		/******************************** RequestQueue package ***********************/
 
-		var Forge = {
-			data: {},
-			
-			checkForgeRequirements: function(objName, type) {
-				var t = Forge;
-				var req = Forge.data.recipes[objName].requirements;
-				var ret = {
-					result : true,
-					reason : []
-				};
-				if(t.getBlackSmithLevel() < req.blacksmith_level) {
-					ret.result = false;
-					ret.reason.push('Niveau du Forgeron non atteint');
-				}
-				for(var it in req.items) {
-					if(t.getNbPlayerItem(it, type)<req.items[it]) {
-						ret.result = false;
-						ret.reason.push('Pas assez de '+translate(it.toLowerCase()));
-					}
-				}
-				return ret;
-			},
-			getBlackSmithLevel: function() {
-				var bs = Seed.blacksmith;
-				var j=0;
-				if(bs.experience >= 20000) {
-					ret = 10;
-				} else {
-					for(var i in Forge.data.blacksmith_experience){
-						var nextLvlXp = Forge.data.blacksmith_experience[i];
-						if(bs.experience<nextLvlXp) {
-							if(j != 0)
-								j = j-1;
-							break;
-						}
-						j++;
-					}
-				}
-				return j;
-			},
-			getNbPlayerItem: function(itN, type) {
-				return 
-				var ret=0;
-				var itsP = Seed.player.forge.items[type];
-				for(var i=0;i<itsP.length;i++) {
-					ret = itsP[i].quantity;
-					break;
-				}
-				return ret;
-			},
-			getStatByUnit: function (unit) {
-				var ret = { 
-					melee:0,
-					defense:0,
-					speed:0,
-					range:0,
-					ranged:0,
-					life:0
-				};
-				var itsP = Seed.player.forge.items['equipments'];
-				for(var i=0;i<itsP.length;i++) {
-					if(itsP[i].troop_type==unit && itsP[i].state == 'equipped') {
-						for(var sta in itsP[i].stats){
-							ret[sta] += itsP[i].stats[sta];
-						}
-					}
-				}
-				return ret;
-			}
-		};
-		
+		/******************************** Seed package *******************************/
 		var Seed = {
-			blacksmith: {},
 			cities: [],
 			/* cities */
 			cityIdx: {},
@@ -9724,7 +9357,6 @@
 				});
 				clearInterval(t.tickTimer);
 				t.tickTimer = setInterval(t.tick, 1000);
-				MyAjax.getForge();
 			},
 
 			fetchPlayer: function(callback, options) {
@@ -10431,7 +10063,9 @@
 				}
 			}
 		};
+		/******************************** Seed package *******************************/
 
+		/******************************** SoundPlayer package ************************/
 		var SoundPlayer = {
 			alertString: '',
 			shortString: '',
@@ -10697,7 +10331,9 @@
 				MyAjax.messageSend(Data.options.tower.msg_subject, body, Seed.player.alliance.id, false);
 			}
 		}
+		/******************************** SoundPlayer package ************************/
 
+		/******************************** Player package *****************************/
 		var Player = {
 			
 			getWildernesses : function() {
@@ -10715,7 +10351,9 @@
 			removeWildernesses : function(w) {
 			}
 		};
-
+		/******************************** End Player package *************************/
+		
+		/******************************** Translation package ************************/
 		var Translation = {
 			loaded: false,
 			xml: {},
@@ -11054,7 +10692,9 @@
 			}
 			return str;
 		}
+		/******************************** Translation package ************************/
 
+		/*********************************** VerboseLog package *********************************************/
 		var VerboseLog = {
 			init: function() {
 				VerboseLog.setEnable(Data.options.verboseLog.enabled);
@@ -11064,7 +10704,9 @@
 				Data.options.verboseLog.enabled = onOff;
 			}
 		};
+		/*********************************** VerboseLog package *********************************************/
 
+		/*********************************** Wackoscript package ********************************************/
 		var WackoScript = {
 			/* Didi  : Internet Ressource manager */
 			url_binary_file: [],
@@ -11115,7 +10757,9 @@
 				}
 			}
 		};
+		/*********************************** Wackoscript package ********************************************/
 
+		/****************  Functions  ****************/
 
 		function buttonSpyNow(container, target) {
 			function checkSpy(targetObj, notify) {
@@ -13220,11 +12864,17 @@
 				var ws = [];
 				for ( var i=0; i < w.length; i++ ) {
 					m += '<tr><td>' + translate(w[i].type) + '</td><td>' + w[i].level + '</td><td>' + w[i].x + '</td><td>' + w[i].y + '</td>';
+					//m += '<td><input id=' + setUID('tabInfoWilderness_' + i) + ' ref=' + w[i].x + '_' + w[i].y + ' class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value=" ' + translate('X') +' " /></td>';
 					m += '<td>&nbsp;</td>'
 					m += '</tr>';
+					//ws.push('tabInfoWilderness_' + i);
 				}
 				m += '</table></div>';
 				document.getElementById(UID['tabInfo_Content']).innerHTML = m;
+				
+				//for(var i=0; i<ws.length; i++) {
+					//$(UID[ws[i]]).observe('click', abandonWilderness);
+				//}
 				
 				function abandonWilderness() {
 					var ids = event.target.getAttribute('ref').split('_');
@@ -13381,6 +13031,8 @@
 				Tabs.Info.diff = [];
 			}
 		}
+		/******************************** Info Tab ***********************************/
+
 
 		/******************************** Alliance features Tab **********************/
 		Tabs.Alliance = {
@@ -15530,6 +15182,8 @@
 				}
 			},
 		}
+		/******************************** Alliance features Tab **********************/
+
 
 		/******************************** Attacks Tab ********************************/
 		Tabs.Attacks = {
@@ -16622,6 +16276,8 @@
 				}
 			}
 		};
+		/******************************** Attacks Tab ********************************/
+
 
 		/******************************** Bookmarks Tab ******************************/
 		Tabs.Bookmarks = {
@@ -17343,6 +16999,8 @@
 				Data.options.bookmarks.current_tab = t.contentType;
 			}
 		};
+		/******************************** Bookmarks Tab ******************************/
+
 
 		/******************************** Inbox Tab **********************************/
 		Tabs.Inbox = {
@@ -18208,6 +17866,8 @@
 				t.show();
 			}
 		}
+		/******************************** Inbox Tab **********************************/
+
 
 		/******************************** Jobs Tab ***********************************/
 		Tabs.Jobs = {
@@ -18217,11 +17877,17 @@
 			lastSubTab: 'tabJobInfo',
 			container: null,
 			timer: null,
-			contentType: 0, /* 0 = info, 1 = train, 2 = build, 3 = research, 4 = resurrect, 5 = sanctuary, 6 = Dragon, 7 = Trade, 8 = Forge - these should be enums but Javascript doesn't support that type */
-			trainContentType: 0, /* 0 = train, 1 = config */
-			sanctContentType: 0, /* 0 = dragons overview, 1 = breeding */
-			tradeContentType: 0, /* 0 = buy, 1 = sell */
-			forgeContentType: 0, /* 0 = adventurers, 1 = forge, 2 = inventory */
+			contentType: 0,
+			/*
+			 * 0 = info, 1 = train, 2 = build, 3 = research, 4 = resurrect, 5 = sanctuary, 6 = Dragon, 7 = Trade - these should be enums but Javascript
+			 * doesn't support that type
+			 */
+			trainContentType: 0,
+			/* 0 = train, 1 = config */
+			sanctContentType: 0,
+			/* 0 = dragons overview, 1 = breeding */
+			tradeContentType: 0,
+			/* 0 = buy, 1 = sell */
 			buildScrollPos: 0,
 			selectedQ: 'min_resource',
 			refreshPlayerBusy: false,
@@ -18236,14 +17902,7 @@
 			buildRefreshTab: false,
 			buildRefreshLvl: false,
 			last_built: {},
-			
-			runningForge: {
-				start_at: 0
-			},
-			forgeTimer: null,
-			foErrorCount: 0,
-			foRetryTime: 20000,
-			
+
 			researchTimer: null,
 			resErrorCount: 0,
 			resRetryTime: 20000,
@@ -18274,7 +17933,6 @@
 				m += '<li class="tab line1"><a id=' + setUID('tabJobSanctuary') + '>' + translate('dragon-sanctuary') + '</a></li>' +
 					'</ul><ul class="tabs first line2"><li class="tab line2"><a id=' + setUID('tabJobDragon') + '>' + translate('dragon') + '</a></li>' +
 					'<li class="tab line2"><a id=' + setUID('tabJobTrade') + '>' + translate('trade') + '</a></li>' +
-					'<li class="tab line2"><a id=' + setUID('tabJobForge') + '>' + translateByKey('forge', null, 'dialogs') + '</a></li>' +
 					'</ul>' +
 					'<div id=' + setUID('tabJob_Header') + ' style="height:225px; max-height:225px; margin-bottom:5px;"></div>' +
 					'<div id=' + setUID('tabJob_Content') + ' class="' + UID['scrollable'] + '" style="padding-top:5px; height:435px; max-height:700px;"></div>';
@@ -18290,20 +17948,17 @@
 					document.getElementById(UID['tabJobResurrect']).addEventListener('click', t.tabJobResurrect, false);
 				}
 				document.getElementById(UID['tabJobTrade']).addEventListener('click', t.tabJobTrade, false);
-				document.getElementById(UID['tabJobForge']).addEventListener('click', t.tabJobForge, false);
 
 				/* Restore the views */
 				t.contentType = Data.options.jobs.current_tab;
 				t.trainContentType = Data.options.training.current_tab;
 				t.sanctContentType = Data.options.sanctuary.current_tab;
-				t.forgeContentType = Data.options.forge.current_tab;
 
 				/* Enable the jobs */
 				t.setTrainEnable(Data.options.training.enabled);
 				t.selectedQ = Data.options.training.mode;
 				t.setBuildEnable(Data.options.building.enabled);
 				t.setResearchEnable(Data.options.research.enabled);
-				t.setForgeMissionEnable(Data.options.forge.enableAutoMission);
 				if (Seed.cities[SPECTRAL_OUTPOST.id])
 					t.setResurrectEnable(Data.options.resurrect.enabled);
 
@@ -18338,9 +17993,6 @@
 					case 7:
 						t.tabJobTrade();
 						break;
-					case 8:
-						t.tabJobForge();
-						break;
 				}
 			},
 			hide: function() {
@@ -18352,7 +18004,6 @@
 				Data.options.jobs.current_tab = t.contentType;
 				Data.options.training.current_tab = t.trainContentType;
 				Data.options.sanctuary.current_tab = t.sanctContentType;
-				Data.options.forge.current_tab = t.forgeContentType;
 				Data.options.training.mode = t.selectedQ;
 			},
 			clearTimers: function() {
@@ -19828,591 +19479,6 @@
 				
 			},
 			
-			/** * Jobs Tab - Forge Sub-tab ** */
-			tabJobForge: function() {
-				var t = Tabs.Jobs;
-				document.getElementById(UID[t.lastSubTab]).className = '';
-				document.getElementById(UID[t.lastSubTab]).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge']).className = 'selected';
-				document.getElementById(UID['tabJobForge']).style.zIndex = 1;
-				
-				t.lastSubTab = 'tabJobForge';
-				t.contentType = 8;
-				
-				var n = '<div class=' + UID['title'] + '>' + translateByKey('forge', null, 'dialogs') + '</div>' + '<div class=' + UID['status_ticker'] + '>' 
-						+ '	<div id=' + setUID('tabJobForge_Report') + ' class=' + UID['status_report'] + '>'
-						+ '		<center><input id=' + setUID('tabJobForge_OnOff') + ' type=button /></center>'
-						+ '		<table id=' + setUID('tabJobForge_Table') + ' class=' + UID['table'] + '>' 
-						+ '		</table>' 
-						+ '	</div><br>' 
-						+ '	<div id=' + setUID('tabJobForge_Feedback') + ' class=' + UID['status_feedback'] + '></div>' 
-						+ '</div>'
-						+ '<ul class=tabs>' 
-						+ '	<li class="tab first"><a id=' + setUID('tabJobForge_tabAdventurers') + '>' + translate('adventurers') + '</a></li>' 
-						+ '	<li class="tab"><a id=' + setUID('tabJobForge_tabForge') + '>' + translateByKey('forge', null, 'dialogs') + '</a></li>'
-						+ '	<li class="tab"><a id=' + setUID('tabJobForge_tabInventory') + '>' + translate('items-panel') + '</a></li>'
-						+ '	<li class="tab"><a id=' + setUID('tabJobForge_tabStats') + '>' + translate('Stats') + '</a></li>'						
-						+ '</ul>';
-
-				document.getElementById(UID['tabJob_Header']).style.height = "205px";
-				document.getElementById(UID['tabJob_Header']).innerHTML = n;
-				document.getElementById(UID['tabJob_Content']).innerHTML = '<div id=' + setUID('tabJobForge_Content') + '></div>';
-				document.getElementById(UID['tabJob_Content']).style.height = "455px";
-				document.getElementById(UID['tabJobForge_tabAdventurers']).addEventListener('click', t.tabJobForgeAdventurers, false);
-				document.getElementById(UID['tabJobForge_tabForge']).addEventListener('click', t.tabJobForgeForge, false);
-				document.getElementById(UID['tabJobForge_tabInventory']).addEventListener('click', t.tabJobForge_tabInventory, false);
-				document.getElementById(UID['tabJobForge_tabStats']).addEventListener('click', t.tabJobForge_tabStats, false);
-				document.getElementById(UID['tabJobForge_OnOff']).addEventListener('click', function() {
-					var t = Tabs.Jobs;
-					t.setForgeMissionEnable(!Data.options.forge.enableAutoMission);
-				}, false);
-				
-				t.refreshForgeButton(Data.options.forge.enableAutoMission);
-				
-				switch (t.forgeContentType) {
-					case 0:
-						t.tabJobForgeAdventurers();
-						break;
-					case 1:
-						t.tabJobForgeForge();
-						break;
-					case 2:
-						t.tabJobForge_tabInventory();
-						break;
-					case 3:
-						t.tabJobForge_tabStats();
-						break;
-				}
-				
-				t.forgeStatTick();
-				t.clearTimers();
-				t.jobsStatTimer = setInterval(t.forgeStatTick, 1000);
-			},
-			
-			/** * adventurers sub tab */
-			tabJobForgeAdventurers: function() {
-				var t = Tabs.Jobs;
-
-				document.getElementById(UID['tabJobForge_tabForge']).className = '';
-				document.getElementById(UID['tabJobForge_tabForge']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabInventory']).className = '';
-				document.getElementById(UID['tabJobForge_tabInventory']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabStats']).className = '';
-				document.getElementById(UID['tabJobForge_tabStats']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabAdventurers']).className = 'selected';
-				document.getElementById(UID['tabJobForge_tabAdventurers']).style.zIndex = 1;
-
-				t.forgeContentType = 0;
-				var advs = Seed.player.forge.adventurers;
-				var lBC = [], lBG = [], lS = [], lCB = [];
-				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">';
-				
-				for(var i=0;i<advs.length;i++) {
-					var inMission=(Jobs.getJobs(Forge.data.adventurers[advs[i].type].queue, false, -1).length > 0 ? true : false); 
-					var isClaimable=(inMission ? false : (advs[i].current_mission == null ? false : true));
-					var adventurer = translate('adventurer-'+advs[i].type.toLowerCase());
-					
-					m += '<div class=' + UID['subtitle'] + '><b>' + adventurer + getXPNextLevel(advs[i].experience, advs[i].type)+ '</b></div>';
-					m += '<table><tr><td><INPUT type="checkbox" id="'+setUID('ckAdv_' + advs[i].type)+'" ref="'+advs[i].type+'" '+(Data.options.forge[advs[i].type].cbAuto ? 'checked' : '')+'> ';
-					m += translate('missions') + ' : <SELECT ref="'+advs[i].type+'_'+advs[i].adventurer_id+'" id='+setUID('selMission_' + advs[i].type)+'>';
-					for(var missionN in Forge.data.missions){
-						var mission = Forge.data.missions[missionN];
-						m += '<option value="'+mission.type+'" '+(Data.options.forge[advs[i].type].mission==mission.type ?  'selected' : '')+'>'+translate('mission-'+mission.type.replace(/_/g, '-'))+'</option>';
-					}
-					m += '</SELECT> </td>';
-					m += '<td align=right> <input class="Xtrasmall '+UID['btn_blue']+'" id="'+setUID('btnMissionAdvGo_'+advs[i].adventurer_id)+'" ref="'+advs[i].type+'_'+advs[i].adventurer_id+'" type="button" style="width:auto !important;" value="'+translate('missions-begin')+'"></td>';
-					m += '<td align=right> <input class="Xtrasmall '+UID['btn_blue']+'" id="'+setUID('btnMissionAdvClaim_'+advs[i].adventurer_id)+'" ref="'+advs[i].adventurer_id+'_'+(isClaimable ? advs[i].current_mission.replace(/_/g, "-") : '')+'" type="button" style="width:auto !important;" value="'+translate('adventurer-claimable')+'"></td>';
-					m += '</tr>';
-					m += '</table>';
-					m += '<span id='+setUID(advs[i].type+'_descMission')+'></span>';
-					
-					lBG.push('btnMissionAdvGo_'+advs[i].adventurer_id);
-					lBC.push('btnMissionAdvClaim_'+advs[i].adventurer_id);
-					lS.push('selMission_' + advs[i].type);
-					lCB.push('ckAdv_' + advs[i].type);
-				}
-					
-				m += '</div>';
-				
-				document.getElementById(UID['tabJobForge_Content']).innerHTML = m;
-				
-				for(var i=0; i<lS.length ; i++) {
-					document.getElementById(UID[lS[i]]).addEventListener('change', onChangeMission, false);
-					if(document.getElementById(UID[lBG[i]]))
-						document.getElementById(UID[lBG[i]]).addEventListener('click', doMission, false);
-					if(document.getElementById(UID[lBC[i]]))
-						document.getElementById(UID[lBC[i]]).addEventListener('click', claimMission, false);
-					document.getElementById(UID[lCB[i]]).addEventListener('click', checkedAdventurer, false);
-					document.getElementById(UID[lCB[i]]).addEventListener('change', checkedAdventurer, false);
-					
-					var evt = document.createEvent('HTMLEvents');
-					evt.initEvent('change', true, true);
-					document.getElementById(UID[lS[i]]).dispatchEvent(evt);
-				}
-				
-				function checkedAdventurer(event) {
-					var advType = event.target.getAttribute('ref');
-					Data.options.forge[advType].cbAuto = event.target.checked;
-				}
-				
-				function onChangeMission(event) {
-					var ref = event.target.getAttribute('ref').split('_');
-					var idSel = UID['selMission_'+ref[0]+'_'+ref[1]];
-					var missionType = event.target.options[event.target.selectedIndex].value;
-					var mission = Forge.data.missions[missionType];
-					
-					Data.options.forge[ref[0]].mission = missionType;
-					
-					var ret = '<table>';
-					ret += '<tr><td align=right><b>XP</b>&nbsp;:&nbsp;</td><td> '+mission.experience+'</td></tr>';
-					ret += '<tr><td align=right><b>'+translate('type')+'</b>&nbsp;:&nbsp;</td><td> '+(mission.mission_type==null ? '' : translate('forge-'+mission.mission_type.toLowerCase()))+'</td></tr>';
-					var lDrop = '';
-					var first = true;
-					for(var i=0; i<mission.drops.length ; i++) {
-						if(mission.drops[i] != 'no_drop') {
-							lDrop += (first ? '' : ', ') + translate(mission.drops[i]);
-							first = false;
-						}
-						
-					}
-					ret += '<tr><td align=right><b>'+translate('missions-chance-to-find').replace(/ /g, '&nbsp;')+'</b>&nbsp;:&nbsp;</td><td>'+lDrop+'</td></tr>';
-					
-					var pr = '<table>';
-					if(mission.requirements.adventurer_level != 0) {
-						pr += '<tr><td align=right>'+translate('adventurers')+'&nbsp;:&nbsp;</td><td>'+mission.requirements.adventurer_level+'</td></tr>';
-					}
-					if(!Array.isArray(mission.requirements.items)) {
-						for(var it in mission.requirements.items) {
-							var qtyP = 0;
-							var ing = Seed.player.forge.items.ingredients;
-							for(var i=0;i<ing.length;i++) {
-								if(ing[i].name==it) {
-									qtyP=ing[i].quantity;
-									break;
-								}
-							}
-							pr += '<tr><td align=right>'+translate(it.toLowerCase())+'</td><td>&nbsp;:&nbsp;'+(qtyP<mission.requirements.items[it] ? '<font color="#C33">' : '')+qtyP+'&nbsp;/&nbsp;'+mission.requirements.items[it]+(qtyP<mission.requirements.items[it] ? '</font>' : '')+'</td></tr>';
-						}
-					}
-					pr += '</table>';
-					ret += '<tr><td align=right><b>'+translate('requirements')+'</b>&nbsp;:&nbsp;</td><td>'+pr+'</td></tr>';
-					ret += '</table>';
-					document.getElementById(UID[ref[0]+'_descMission']).innerHTML = ret;
-				}
-								
-				function getXPNextLevel(nbXp, type) {
-					var j=0;
-					var ret = '';
-					if(nbXp >= 20000) {
-						ret = ' ( Lvl : 10, Xp : ' + nbXp + ')';
-					}
-					else {
-						var first = true;
-						var lvlXpBefore = 0;
-						var nextLvlXp = 0
-						for(var i in Forge.data.adventurers[type].level_exp){
-							if(!first) {
-								lvlXpBefore = nextLvlXp;
-							}
-							first = false;
-							nextLvlXp = Forge.data.adventurers[type].level_exp[i];
-							if(nbXp<nextLvlXp) {
-								if(j != 0)
-									j = j-1;
-								ret = ' ( Lvl : ' + j + ', Xp : ' + (nbXp-lvlXpBefore) + ' / ' + (nextLvlXp-lvlXpBefore) + ')';
-								break;
-							}
-							j++;
-						}
-					}
-					return ret;
-				}
-			
-				function doMission(event) {
-					var ref = event.target.getAttribute('ref').split('_');
-					var idSel = UID['selMission_'+ref[0]];
-					var missionType = Data.options.forge[ref[0]].mission;
-					
-					Tabs.Jobs.doMission(missionType, ref[1]);
-				}
-				
-				function claimMission(event) {
-					var ref = event.target.getAttribute('ref').split('_');
-					var missionType = '';
-					
-					for(var i=0;i<Seed.player.forge.adventurers.length;i++) {
-						if(Seed.player.forge.adventurers[i].adventurer_id == ref[0]) {
-							missionType = Seed.player.forge.adventurers[i].current_mission;
-							break;
-						}
-					}
-					
-					Tabs.Jobs.doClaim(missionType, ref[0]);
-				}
-			},
-
-			/** * forge sub tab */
-			tabJobForgeForge: function() {
-				var t = Tabs.Jobs;
-
-				document.getElementById(UID['tabJobForge_tabAdventurers']).className = '';
-				document.getElementById(UID['tabJobForge_tabAdventurers']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabInventory']).className = '';
-				document.getElementById(UID['tabJobForge_tabInventory']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabStats']).className = '';
-				document.getElementById(UID['tabJobForge_tabStats']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabForge']).className = 'selected';
-				document.getElementById(UID['tabJobForge_tabForge']).style.zIndex = 1;
-
-				t.forgeContentType = 1;
-				
-				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' 
-					+ '		<div class=' + UID['subtitle'] + '>' + translateByKey('forge', null, 'dialogs') + '</div>';
-				var n = '<table>'
-					+ '	<tr>'
-					+ '		<td><INPUT type="checkbox" ref="ingredient" id="'+setUID('ckForge_Ingredients')+'" '+(Data.options.forge.ingredient.cbAuto ? 'checked' : '')+'></td>'
-					+ '		<td>' + getSelect("ingredient") + '</td>'
-					+ '		<td>&nbsp;<input ref="ingredient" id="'+setUID('txtForge_MaxIngredients')+'" class="short" type="textbox" value="'+(Data.options.forge.ingredient.max)+'">'
-					+ '		<td>&nbsp;<input ref="ingredient" class="Xtrasmall '+UID['btn_blue']+'" id="'+setUID('btnForge_Ingredient')+'" type="button" style="width:auto !important;" value="'+translateByKey('forge', null, 'dialogs')+' !"></td>'
-					+ '	</tr>'
-					+ '<tr><td colspan=4>&nbsp;</td></tr>'
-					+ '	<tr>'
-					+ '		<td>'+translate('requirements')+'&nbsp;:&nbsp;</td>'
-					+ '		<td colspan=3><span id="'+setUID('tabForgeForge_Req_ingredient')+'"></span></td>'
-					+ '	</tr>'
-					+ '<tr><td colspan=4>&nbsp;</td></tr>'
-					+ '	<tr>'
-					+ '		<td><INPUT type="checkbox" ref="equipment" id="'+setUID('ckForge_Equipements')+'" '+(Data.options.forge.equipment.cbAuto ? 'checked' : '')+'></td>'
-					+ '		<td>' + getSelect("equipment") + '</td>'
-					+ '		<td>&nbsp;<input  ref="equipment" id="'+setUID('txtForge_MaxEquipments')+'" class="short" type="textbox" value="'+(Data.options.forge.equipment.max)+'">'
-					+ '		<td>&nbsp;<input  ref="equipment" class="Xtrasmall '+UID['btn_blue']+'" id="'+setUID('btnForge_Equipement')+'" type="button" style="width:auto !important;" value="'+translateByKey('forge', null, 'dialogs')+' !"></td>'
-					+ '	</tr>'
-					+ '<tr><td colspan=4>&nbsp;</td></tr>'
-					+ '	<tr>'
-					+ '		<td>'+translate('requirements')+'&nbsp;:&nbsp;</td>'
-					+ '		<td colspan=3><span id="'+setUID('tabForgeForge_Req_equipment')+'"></span></td>'
-					+ '	</tr>'
-					+ '</table>'
-					+ '		<div class=' + UID['subtitle'] + '>' + translate('forge-crush') + '</div>'
-					+ '<table>'
-					+ '	<tr>'
-					+ '		<td><INPUT ref="crush" type="checkbox" id="'+setUID('ckForge_Crush')+'" '+(Data.options.forge.crush.cbAuto ? 'checked' : '')+'></td>'
-					+ '		<td>' + getCrushSelect() + '</td>'
-					+ '		<td>&nbsp;<input ref="crush" id="'+setUID('txtForgeCrush_Max')+'" class="short" type="textbox" value="'+(Data.options.forge.crush.max)+'">'
-					+ '		<td>&nbsp;<input ref="crush" class="Xtrasmall '+UID['btn_blue']+'" id="'+setUID('btnForgeCrush')+'" type="button" style="width:auto !important;" value="'+translate('forge-crush')+' !"></td>'
-					+ '	</tr>'
-					+ '</table>';
-				//m += n;
-				m += '		<div class=' + UID['subtitle'] + '>' + translate('forge-blacksmith') + '<span id=' + setUID('blacksmith_lvl') + '></span></div>'
-					+ '		<table>'
-					+ '		<tr><td>&nbsp;</td><td>&nbsp;</td></tr>'
-					+ '			<tr>'
-					+ '				<td>'+translate('forge-repair-hammer')+' : <span id='+setUID('blacksmith_durability')+'></span></td>'
-					+ '				<td>&nbsp;&nbsp;&nbsp;<input class="Xtrasmall '+UID['btn_blue']+'" id="'+setUID('btnHammerRepair')+'" type="button" style="width:auto !important;" value="'+translate('blacksmith-repair')+'"></td></tr>'
-					+ '		</table>'
-					+ '</div>';
-
-				document.getElementById(UID['tabJobForge_Content']).innerHTML = m;
-				document.getElementById(UID['btnHammerRepair']).addEventListener('click', lunchRepairHammer, false);
-				if(document.getElementById(UID['txtForge_MaxIngredients'])) {
-					document.getElementById(UID['txtForge_MaxIngredients']).addEventListener('change', onChangeQty, false);
-					document.getElementById(UID['txtForge_MaxIngredients']).addEventListener('click', onChangeQty, false);
-				}
-				if(document.getElementById(UID['txtForge_MaxEquipments'])) {
-					document.getElementById(UID['txtForge_MaxEquipments']).addEventListener('change', onChangeQty, false);
-					document.getElementById(UID['txtForge_MaxEquipments']).addEventListener('click', onChangeQty, false);
-				}
-				if(document.getElementById(UID['txtForgeCrush_Max'])) {
-					document.getElementById(UID['txtForgeCrush_Max']).addEventListener('change', onChangeQty, false);
-					document.getElementById(UID['txtForgeCrush_Max']).addEventListener('click', onChangeQty, false);
-				}
-				if(document.getElementById(UID['ckForge_Ingredients'])) {
-					document.getElementById(UID['ckForge_Ingredients']).addEventListener('change', checkedCb, false);
-					document.getElementById(UID['ckForge_Ingredients']).addEventListener('click', checkedCb, false);
-				}
-				if(document.getElementById(UID['ckForge_Equipements'])) {
-					document.getElementById(UID['ckForge_Equipements']).addEventListener('change', checkedCb, false);
-					document.getElementById(UID['ckForge_Equipements']).addEventListener('click', checkedCb, false);
-				}
-				if(document.getElementById(UID['ckForge_Crush'])) {
-					document.getElementById(UID['ckForge_Crush']).addEventListener('change', checkedCb, false);
-					document.getElementById(UID['ckForge_Crush']).addEventListener('click', checkedCb, false);
-				}
-				if(document.getElementById(UID['selForgeCrush_equipment'])) {
-					document.getElementById(UID['selForgeCrush_equipment']).addEventListener('change', onChangeSelectCrush, false);
-				}
-				if(document.getElementById(UID['btnForge_Ingredient'])) {
-					document.getElementById(UID['btnForge_Ingredient']).addEventListener('click', onClickForge, false);
-				}
-				if(document.getElementById(UID['btnForge_Equipement'])) {
-					document.getElementById(UID['btnForge_Equipement']).addEventListener('click', onClickForge, false);
-				}
-				if(document.getElementById(UID['btnForgeCrush'])) {
-					document.getElementById(UID['btnForgeCrush']).addEventListener('click', onClickCrush, false);
-				}
-				var evt = document.createEvent('HTMLEvents');
-				evt.initEvent('change', true, true);
-				
-				if(document.getElementById(UID['selForge_equipment'])) {
-					document.getElementById(UID['selForge_equipment']).addEventListener('change', onChangeSelect, false);
-					document.getElementById(UID['selForge_equipment']).dispatchEvent(evt);
-				}
-				if(document.getElementById(UID['selForge_equipment'])) {
-					document.getElementById(UID['selForge_ingredient']).addEventListener('change', onChangeSelect, false);
-					document.getElementById(UID['selForge_ingredient']).dispatchEvent(evt);
-				}
-				
-				MyAjax.forgeInfo(function(rslt) {
-					var j=0;
-					var ret = '';
-					var bs = Seed.blacksmith;
-					if(bs.experience >= 20000) {
-						ret = ' ( Lvl : 10, Xp : ' + bs.experience + ')';
-					} else {
-						for(var i in Forge.data.blacksmith_experience){
-							var nextLvlXp = Forge.data.blacksmith_experience[i];
-							if(bs.experience<nextLvlXp) {
-								if(j != 0)
-									j = j-1;
-								ret = ' ( Lvl : ' + j + ', Xp : ' + bs.experience + ' / ' + nextLvlXp + ')';
-								break;
-							}
-							j++;
-						}
-					}
-					document.getElementById(UID['blacksmith_lvl']).innerHTML = ret;
-					
-					for(var i in Forge.data.hammer_durability){
-						if(i == bs.level) {
-							var maxDura = Forge.data.hammer_durability[i];
-							ret = bs.durability+' / ' +maxDura;
-							if(bs.durability==maxDura)
-								bs.available = false;
-							setButtonStyle($(UID['btnHammerRepair']), (bs.available), 'btn_blue', 'btn_disabled');
-							break;
-						}
-					}
-					document.getElementById(UID['blacksmith_durability']).innerHTML = ret;
-				});
-			
-				function lunchRepairHammer() {
-					MyAjax.repairHammer(cb);
-					
-					function cb(rslt) {
-						if(rslt.dat.result.success) {
-							setButtonStyle(document.getElementById(UID['btnHammerRepair']), (rslt.dat.result.blacksmith.available), 'btn_blue', 'btn_disabled');
-						}
-					}
-				}
-				function getSelect(type) {
-					var ret = translate('filter-'+type) + '&nbsp;:&nbsp;<SELECT id='+setUID('selForge_'+type)+' ref="'+type+'">';
-					for(var item in Forge.data.items){
-						if(Forge.data.items[item].type == type)
-							ret += '<option value="'+item+'" '+(Data.options.forge[type].select==item ?  'selected' : '')+'>'+translate(item.toLowerCase())+'</option>';
-					}
-					ret += '</SELECT>';
-					return ret;
-				}
-				function getCrushSelect() {
-				    var eq = Seed.player.forge.items.equipments;
-					var ret = translate('filter-equipment') + '&nbsp;:&nbsp;<SELECT id='+setUID('selForgeCrush_equipment')+'>';
-					for(var i=0;i<eq.length;i++){
-						ret += '<option value="'+eq[i].name+'" '+(Data.options.forge.crush.select==eq[i].name ?  'selected' : '')+'>'+translate(eq[i].name.toLowerCase())+'</option>';
-					}
-					ret += '</SELECT>';
-					return ret;
-				}
-				function onChangeSelect(event) {
-					var type = document.getElementById(event.target.id).readAttribute('ref');
-					var nameItem = event.target.options[event.target.selectedIndex].value;
-					var reqItem = Forge.data.recipes[nameItem].requirements;
-					
-					Data.options.forge[type].select = nameItem;
-					
-					var ret = '<table>';
-					if(reqItem.blacksmith_level)
-						ret += '<tr><td align=right><b>'+translate('forge-blacksmith')+'</b>&nbsp;:&nbsp;</td><td> '+(reqItem.blacksmith_level)+'</td></tr>';
-					var reqI = '<table>';
-					for(var it in reqItem.items) {
-						var ing = Seed.player.forge.items.ingredients;
-						var qtyP = 0;
-						
-						for(var ii=0;ii<ing.length;ii++) {
-							if(ing[ii].name==it) {
-								qtyP=ing[ii].quantity;
-								break;
-							}
-						}
-						reqI += '<tr><td>'+translate(it.toLowerCase())+'&nbsp;:&nbsp;</td><td>'+(qtyP<reqItem.items[it] ? '<font color="#C33">' : '')+qtyP+'&nbsp;/&nbsp;'+reqItem.items[it]+(qtyP<reqItem.items[it] ? '</font>' : '')+'</td></tr>';
-					}
-					ret += '<tr><td align=right><b>'+translate('Items')+'</b>&nbsp;:&nbsp;</td><td>'+reqI+'</td></tr>';
-					
-					ret += '</table>';
-					document.getElementById(UID['tabForgeForge_Req_'+type]).innerHTML = ret;
-				}
-				function onChangeSelectCrush(event) {
-					Data.options.forge.crush.select = event.target.options[event.target.selectedIndex].value;
-				}
-				function checkedCb(event) {
-					var type = event.target.getAttribute('ref');
-					Data.options.forge[type].cbAuto = event.target.checked;
-				}
-				function onChangeQty(event) {
-					var type = event.target.getAttribute('ref');
-					var qty = toNum(event.target.value);
-					
-					if (isNaN(qty) || qty < 0) {
-						event.target.style.backgroundColor = 'red';
-						dispError(translate('Invalid number of '+type, t.container));
-					} else {
-						event.target.value = qty;
-						Data.options.forge[type].max = qty;
-						event.target.style.backgroundColor = '';
-					}
-				}
-				function onClickForge(event) {
-					var t=Tabs.Jobs;
-					var type = event.target.getAttribute('ref');
-					var nameItem = Data.options.forge[type].select;
-					var req = Forge.checkForgeRequirements(nameItem, type+'s');
-					if(!req.result) {
-						var message=req.reason.join(', ');
-						t.jobFeedback(translate('forge-blacksmith') + ' : ' + message);
-					}
-					else {
-						t.forgeItem(nameItem, false);
-					}
-				}
-				function onClickCrush(event) {
-					var t=Tabs.Jobs;
-					var nameItem = Data.options.forge.crush.select;
-					t.crushItem(nameItem, false);
-				}
-			},
-			
-			/** * inventory sub tab */
-			tabJobForge_tabInventory: function() {
-				var t = Tabs.Jobs;
-
-				document.getElementById(UID['tabJobForge_tabAdventurers']).className = '';
-				document.getElementById(UID['tabJobForge_tabAdventurers']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabForge']).className = '';
-				document.getElementById(UID['tabJobForge_tabForge']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabStats']).className = '';
-				document.getElementById(UID['tabJobForge_tabStats']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabInventory']).className = 'selected';
-				document.getElementById(UID['tabJobForge_tabInventory']).style.zIndex = 1;
-				t.forgeContentType = 2;
-				
-				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' 
-					+ '		<div class=' + UID['subtitle'] + '>' + translate('filter-equipment') + '</b></div><div id='+setUID('tabJobForge_tabInventory_equipment')+'></div>'
-					+ '		<div class=' + UID['subtitle'] + '>' + translate('filter-ingredient') + '</b></div><div id='+setUID('tabJobForge_tabInventory_ingredient')+'></div>'
-					+ '</div>';
-
-				document.getElementById(UID['tabJobForge_Content']).innerHTML = m;
-				
-				document.getElementById(UID['tabJobForge_tabInventory_equipment']).innerHTML = getEquipment();
-				document.getElementById(UID['tabJobForge_tabInventory_ingredient']).innerHTML = getIngredient();
-				
-				
-				function getEquipment() {
-					var items = Seed.player.forge.items.equipments;
-					items.sort(function(a, b) {
-							a = a.troop_type.toLowerCase();
-							b = b.troop_type.toLowerCase();
-							if (a > b) return 1;
-							if (a < b) return -1;
-							return 0;
-						}); 
-					var ret = '' 
-					+ '<table class=' + UID['row_style'] + '>'
-					+ '	<tr class=' + UID['row_headers'] + ' align=center>' 
-					+ '		<td>&nbsp;'+translate('name')+'&nbsp;</td>' 
-					+ '		<td>&nbsp;'+translate('level')+'&nbsp;</td>'
-					+ '		<td>&nbsp;'+translate('troops')+'&nbsp;</td>'
-					+ '		<td>&nbsp;'+translate('status')+'&nbsp;</td>'
-					+ '		<td>&nbsp;'+translate('action')+'&nbsp;</td>'					
-					+ '	</tr>';
-					for(var i=0; i<items.length; i++){
-						ret += '<tr>' 
-						+ '	<td>&nbsp;'+translate(items[i].name)+'&nbsp;'+getInfoEquipment(items[i])+'&nbsp;</td>' 
-						+ '	<td align=center>&nbsp;'+items[i].level+'&nbsp;</td>' 
-						+ '	<td>&nbsp;'+translate(items[i].troop_type.toLowerCase())+'&nbsp;</td>' 
-						+ '	<td>&nbsp;'+( items[i].state=='equipped' ? translate('filter-equipped') : '' )+'&nbsp;</td>' 
-						+ '	<td align=center>&nbsp;'+'&nbsp;</td>'
-						+ '</tr>';
-					}
-					ret += '</table>';
-					return ret;
-				}
-				
-				function getIngredient() {
-					var items = Seed.player.forge.items.ingredients;
-					var ret = '<table class=' + UID['row_style'] + '><tr>';
-					for(var i=0; i<items.length; i++){
-						ret += '<td>'+translate(items[i].name)+'</td> ' 
-						+ '<td> x '+  items[i].quantity + '<td>' 
-						+ '</td>'+(((i+1)%3!==0) ? '<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>' : '' );
-						if((i+1)%3===0) {
-							ret+='</tr><tr>';
-						}
-					}
-					ret += '</tr></table>';
-					return ret;
-				}
-				
-				function getInfoEquipment(item) {
-					var display = '';
-					for(var s in item.stats) {
-						display += translate(s) + ' : ' + item.stats[s] + '\n';
-					}
-					return '<span class="'+UID['information']+'" title="'+display+'" />';
-				}
-			},
-
-			/** * stat sub tab */
-			tabJobForge_tabStats: function() {
-				var t = Tabs.Jobs;
-				
-				document.getElementById(UID['tabJobForge_tabAdventurers']).className = '';
-				document.getElementById(UID['tabJobForge_tabAdventurers']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabForge']).className = '';
-				document.getElementById(UID['tabJobForge_tabForge']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabInventory']).className = '';
-				document.getElementById(UID['tabJobForge_tabInventory']).style.zIndex = 0;
-				document.getElementById(UID['tabJobForge_tabStats']).className = 'selected';
-				document.getElementById(UID['tabJobForge_tabStats']).style.zIndex = 1;
-
-				t.forgeContentType = 3;
-
-				var m = '<div class=' + UID['title'] + '>' + translate('Mission Stats') + '</div>' 
-				+ '<div id=' + setUID('tabJobForge_tabStats_Statbox') + ' class=' + UID['status_ticker'] + '>' 
-				+ '	<div id=' + setUID('tabJobForge_tabStats_Status') + '></div>' 
-				+ '	<div id=' + setUID('tabJobForge_tabStats_Percent') + '></div>' 
-				+ '	<br/>' 
-				+ '	<center><input id=' + setUID('tabJobForge_tabStats_Clear') + ' type=button value="' + translate('Clear Stats') + '" /></center>' 
-				+ '	<br>'
-				+ '</div>';
-				document.getElementById(UID['tabJobForge_Content']).innerHTML = m;
-				document.getElementById(UID['tabJobForge_tabStats_Clear']).addEventListener('click', function() {
-					clearStats();
-					t.showStats();
-				}, false);
-				t.showStats();
-
-				function clearStats() {
-					var t = Tabs.Jobs;
-					var now = serverTime();
-					Data.stats.forgeAdv = {
-						start_at: now,
-						run_time: 0,
-						total_missions: {},
-						items: {}
-					};
-					t.showStats();
-				}
-			},
-			
 			/*** Jobs Tab - Research Sub-tab ***/
 			tabJobResearch: function() {
 				var t = Tabs.Jobs;
@@ -21092,22 +20158,6 @@
 				if (onOff) t.trainTimer = setTimeout(t.trainTick, 3000);
 				else t.jobFeedback("");
 			},
-			setForgeMissionEnable: function(onOff) {
-				var t = Tabs.Jobs;
-				t.refreshForgeButton(onOff);
-				Data.options.forge.enableAutoMission = onOff;
-				clearTimeout(t.forgeTimer);
-				if (onOff) {
-					t.forgeTimer = setInterval(t.missionForgeTick, 3000);
-					t.runningForge.start_at = serverTime();
-					Data.stats.forgeAdv.start_at = serverTime();
-					
-				} else {
-					if (t.runningForge.start_at !== 0) {
-						Data.stats.forgeAdv.run_time += (serverTime() - t.runningForge.start_at);
-					}
-				}
-			},
 			setBuildEnable: function(onOff) {
 				var t = Tabs.Jobs;
 				t.refreshBuildButton(onOff);
@@ -21155,18 +20205,6 @@
 				if (!but) return;
 				if (onOff) {
 					but.value = translate('Training').toUpperCase();
-					but.className = UID['btn_on'];
-				} else {
-					but.value = translate('Disabled').toUpperCase();
-					but.className = UID['btn_off'];
-				}
-			},
-			refreshForgeButton: function(onOff) {
-				var t = Tabs.Jobs;
-				var but = document.getElementById(UID['tabJobForge_OnOff']);
-				if (!but) return;
-				if (onOff) {
-					but.value = translate('filter-adventuring').toUpperCase();
 					but.className = UID['btn_on'];
 				} else {
 					but.value = translate('Disabled').toUpperCase();
@@ -21328,23 +20366,6 @@
 					}
 				}
 			},
-			forgeStatTick: function() {
-				var t = Tabs.Jobs;
-				var statElement = document.getElementById(UID['tabJobForge_Table']);
-				if (statElement != null) {
-					Jobs.updateForgeTable(statElement);
-					if(t.forgeContentType == 0) {
-						var advs = Seed.player.forge.adventurers;
-						for(var i=0;i<advs.length;i++) {
-							var inMission=(Jobs.getJobs(Forge.data.adventurers[advs[i].type].queue, false, -1).length > 0 ? true : false); 
-							var isClaimable=(inMission ? false : (advs[i].current_mission == null ? false : true));
-							
-							setButtonStyle(UID['btnMissionAdvGo_'+advs[i].adventurer_id], (!inMission && !isClaimable));
-							setButtonStyle(UID['btnMissionAdvClaim_'+advs[i].adventurer_id], isClaimable);
-						}
-					}
-				}				
-			},
 			/* Build statistics - timer set to fire every 1 seconds */
 			resStatFetch: false,
 			researchStatTick: function() {
@@ -21389,9 +20410,6 @@
 						break;
 					case 5:
 						elementId = 'tabJobSanct_Feedback';
-						break;
-					case 8:
-						elementId = 'tabJobForge_Feedback';
 						break;
 				}
 				if (elementId) dispFeedback(UID[elementId], msg);
@@ -22224,36 +21242,6 @@
 				}
 				t.sanctuaryTimer = setTimeout(t.feedingTick, 5000);
 			},
-			missionForgeTick: function() {
-				var t = Tabs.Jobs;
-				if(!Data.options.forge.enableAutoMission) return;
-				var advs = Seed.player.forge.adventurers;
-				
-				for(var i=0;i<advs.length;i++) {
-					if(Data.options.forge[advs[i].type].cbAuto) {
-						var inMission=(Jobs.getJobs(Forge.data.adventurers[advs[i].type].queue, false, -1).length > 0 ? true : false); 
-						var isClaimable=(inMission ? false : (advs[i].current_mission == null ? false : true));	
-						
-						if(isClaimable) {
-							t.doClaim(advs[i].current_mission, advs[i].adventurer_id);
-						}
-						else if ((!inMission && !isClaimable)) {
-							var missionTaken = false;
-							for(var ii in Data.options.forge) {
-								if(ii != advs[i].type) {
-									if(Data.options.forge[ii].mission == Data.options.forge[advs[i].type].mission) {
-										t.jobFeedback('Mission ('+translate(missionType.replace(/_/g, '-')) + ') alreay taken by another adventurer ! Canceling Mission.');
-										missionTaken = true;
-									}
-								}
-							}
-							if(!missionTaken) {
-								t.doMission(Data.options.forge[advs[i].type].mission, advs[i].adventurer_id);
-							}
-						}
-					}
-				}
-			},
 			researchTick: function() {
 				var t = Tabs.Jobs;
 
@@ -22587,160 +21575,9 @@
 					}
 				});
 				if (t.contentType == 4) setTimeout(t.tabJobResurrect, 2000); /* to refresh souls qties */
-			},
-			doMission: function(missionId, adventurerId) {
-				function cb(rslt) {
-					if(rslt.ok) {
-						Seed.player.forge.adventurers = rslt.dat.result.adventurers
-						Tabs.Jobs.jobFeedback(translate('adventurer-in-progress') + ' ! ');
-						
-					} else {
-						Tabs.Jobs.jobFeedback(translate('adventurer-in-progress') + ' : ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-				}
-				Tabs.Jobs.trackStats('mission', missionId);
-				MyAjax.playerMission(missionId, adventurerId, cb);
-			},
-			doClaim: function(mission, adventurerId) {
-				function cb(rslt) {
-					if(rslt.ok) {
-						var ret=[];
-						for(var i=0;i<rslt.dat.result.items.length;i++) {
-							ret.push(translate(rslt.dat.result.items[i].toLowerCase()));
-						}
-						Tabs.Jobs.jobFeedback(translate('claim') + ' : ' + ret.join(', '));
-						Tabs.Jobs.trackStats('claim', rslt.dat.result.items);
-					} else {
-						Tabs.Jobs.jobFeedback(translate('adventurer-claimable') + ' : ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-				}
-				MyAjax.claimMission(mission, adventurerId, cb);
-			},
-			crushItem: function(nameItem, isAuto) {
-				function cb(rslt) {
-					if(rslt.ok) {
-						for(var i=0;i<rslt.dat.result.disenchant_ingrendients.length;i++) {
-							rslt.dat.result.disenchant_ingrendients[i] = translate(rslt.dat.result.disenchant_ingrendients[i].toLowerCase());
-						}
-						Tabs.Jobs.jobFeedback(translate('forge-salvage-materials') + ' ' + rslt.dat.result.disenchant_ingrendients.joint(', '));
-						if(isAuto)
-							Data.options.forge[type].nbAuto++;
-					}
-					else {
-						Tabs.Jobs.jobFeedback(translate('forge-blacksmith') + ' : ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-				}
-				
-				MyAjax.forgeCrush(nameItem, cb);
-			},
-			forgeItem: function (nameItem, isAuto) {
-				function cb(rslt) {
-					if(rslt.ok) {
-						if(rslt.dat.result.forge_result) {
-							Tabs.Jobs.jobFeedback(translate('forge-success-title') + ' ' + translate(nameItem.toLowerCase()));
-							if(isAuto)
-								Data.options.forge[type].nbAuto++;
-						}
-						else {
-							Tabs.Jobs.jobFeedback(translate('forge-fail-title') + ' ' + translate(nameItem.toLowerCase()));
-						}
-					}
-					else {
-						Tabs.Jobs.jobFeedback(translate('forge-blacksmith') + ' : ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
-					}
-				}
-				
-				MyAjax.forgeItem(nameItem, cb);
-			},
-			showStats: function() {
-				var t = Tabs.Jobs;
-				var div = document.getElementById(UID['tabJobForge_tabStats_Status']);
-				if (div == null)
-					return;
-
-				var run_time = Data.stats.forgeAdv.run_time;
-				if (Data.options.forge.enableAutoMission)
-					run_time += (serverTime() - t.runningForge.start_at);
-
-				var trueRunTime = (run_time > 0) ? (run_time / 3600) : 1;
-
-				var m = '<div class=' + UID['subtitle'] + '><b>' + translate('adventurers') + '</b></div>'
-				+ '<table class=' + UID['table'] + '>' 
-				+ '	<tr>' 
-				+ '		<td class=right>' + translate('Start Date') + ': </td>' 
-				+ '		<td colspan=>' + new Date(Data.stats.forgeAdv.start_at * 1000).myString() + '</td>' 
-				+ '	</tr><tr>' 
-				+ '		<td class=right>' + translate('Run Time') + ': </td>' 
-				+ '		<td>' + timestr(run_time, true) + '</td>' 
-				+ '	</tr>' 
-				+ '	<tr valign=top align=right>' 
-				+ '		<td class=right>' + translate('missions') + ': </td>';
-				
-				var first = true;
-				for (var name in Data.stats.forgeAdv.total_missions) {
-					var perHour = Math.round(Data.stats.forgeAdv.total_missions[name] / trueRunTime);
-					if (first) first = false;
-					else m += '	<tr align=right><td></td>';
-					m += '		<td>' + translate('mission-'+name.replace(/_/g, '-')) + ':</td>' 
-					+ '		<td>' + numf(Data.stats.forgeAdv.total_missions[name], ' ') + '</td>' 
-					+ '		<td>(' + numf(perHour, ' ') + ' /' + translate('h') + ')</td>' 
-					+ '	</tr>';
-				}
-	
-				m += '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr valign=top align=right>' 
-				+ '		<td class=right>' + translate('Items') + ': </td>';
-				var first = true;
-				for (var name in Data.stats.forgeAdv.items) {
-					var perHour = Math.round(Data.stats.forgeAdv.items[name] / trueRunTime);
-					if (first) first = false;
-					else m += '	<tr align=right><td></td>';
-					m += '			<td>' + translate(name) + ':</td>' 
-					+ '			<td>' + numf(Data.stats.forgeAdv.items[name], ' ') + '</td>' 
-					+ '			<td>(' + numf(perHour, ' ') + ' /' + translate('h') + ')</td>' 
-					+ '		</tr>';
-				}
-				m += '</table>'
-				+ '<div class=' + UID['subtitle'] + '><b>' + translate('forge-blacksmith') + '</b></div>'
-				+ '<table class=' + UID['table'] + '>'
-				+ '	<tr valign=top align=right>' 
-				+ '		<td class=right>' + translate('forge-equipment') + ': </td>'
-				+ '		<td>' + Data.options.forge.equipment.nbAuto + ' / ' + Data.options.forge.equipment.max + '</td>'
-				+ ' </tr>'
-				+ '	<tr valign=top align=right>' 
-				+ '		<td class=right>' + translate('forge-ingredient') + ': </td>'
-				+ '		<td>' + Data.options.forge.ingredient.nbAuto + ' / ' + Data.options.forge.ingredient.max + '</td>'
-				+ ' </tr>'
-				+ '	<tr valign=top align=right>' 
-				+ '		<td class=right>' + translate('forge-crush') + ': </td>'
-				+ '		<td>' + Data.options.forge.crush.nbAuto + ' / ' + Data.options.forge.crush.max + '</td>'
-				+ ' </tr>'
-				+ '</table>';
-				
-				div.innerHTML = m;
-			},
-			trackStats: function(type, obj) {
-				var t = Tabs.Jobs;
-				if(type == 'mission') {
-					if(is_null(Data.stats.forgeAdv.total_missions[obj])) {
-						Data.stats.forgeAdv.total_missions[obj] = 1;
-					}
-					else {
-						Data.stats.forgeAdv.total_missions[obj] = Data.stats.forgeAdv.total_missions[obj] + 1;
-					}
-				}
-				if(type == 'claim') {
-					for(var i=0;i<obj.length;i++) {
-						if(is_null(Data.stats.forgeAdv.items[obj[i]])) {
-							Data.stats.forgeAdv.items[obj[i]] = 1;
-						}
-						else {
-							Data.stats.forgeAdv.items[obj[i]] = Data.stats.forgeAdv.items[obj[i]] + 1;
-						}
-					}
-				}
-				t.showStats();
 			}
 		}
+		/******************************** Jobs Tab ***********************************/
 
 		/******************************** Multi Tab **********************************/
 		Tabs.Multiple = {
@@ -23321,6 +22158,7 @@
 				Data.options.multiple.current_tab = t.contentType;
 			}
 		}
+		/******************************** Multi Tab **********************************/
 
 		/******************************** Map search Tab *****************************/
 		Tabs.Search = {
@@ -24205,6 +23043,8 @@
 				}
 			}
 		};
+		/******************************** Map search Tab *****************************/
+
 
 		/******************************** Single attack Tab **************************/
 		Tabs.Single = {
@@ -24676,6 +23516,8 @@
 				Data.options.single.current_tab = t.contentType;
 			}
 		}
+		/******************************** Single attack Tab **************************/
+
 
 		/******************************** Spy Tab ************************************/
 		Tabs.Spies = {
@@ -25118,6 +23960,8 @@
 				t.marchTimer = setTimeout(t.marchTick, 1000);
 			}
 		}
+		/******************************** Spy Tab ************************************/
+
 
 		/******************************** Tower Tab **********************************/
 		Tabs.Tower = {
@@ -25812,6 +24656,8 @@
 				return result;
 			}
 		}
+		/******************************** Tower Tab **********************************/
+
 
 		/******************************** Wall features Tab **************************/
 		Tabs.Wall = {
@@ -26471,6 +25317,8 @@
 			}
 
 		}
+		/******************************** Wall features Tab **************************/
+
 
 		/******************************** Wave Tab ***********************************/
 		Tabs.Waves = {
@@ -27082,6 +25930,8 @@
 				Data.options.waves.current_tab = t.contentType;
 			}
 		};
+		/******************************** Wave Tab ***********************************/
+
 
 		/******************************** Fortuna's Wheel Tab ************************/
 		Tabs.Wheel = {
@@ -27656,6 +26506,8 @@
 				if (t.refreshTimer) clearInterval(t.refreshTimer);
 			}
 		}
+		/******************************** Fortuna's Wheel Tab ************************/
+
 
 		/******************************** Options Tab ********************************/
 		Tabs.Options = {
@@ -28199,6 +27051,7 @@
 				SoundPlayer.StopSound(task);
 			}
 		}
+		/******************************** Options Tab ********************************/
 
         /******************************** CPT Tab ************************************/
 		Tabs.Cpt = {
@@ -28784,6 +27637,7 @@
 		function verboseLog(msg) {
 			if (Data.options && Data.options.verboseLog.enabled) consoleLog(msg);
 		}
+		/******************************** Log Tab ************************************/
 
 		/********************************************************************************
 		 * MyAjaxRequest : Performs the following actions:
@@ -28956,14 +27810,6 @@
 						error: []
 					},
 					customization: {
-						time: [],
-						error: []
-					},
-					trade: {
-						time: [],
-						error: []
-					},
-					forge: {
 						time: [],
 						error: []
 					},
@@ -42103,13 +40949,6 @@
 	hr.thin {\
 		margin:0px;\
 		padding:0px;\
-	}\
-	.' + UID['information'] + ' {\
-		background:url(http://doa.wygopro.com/images/information.png) no-repeat top left;\
-		background-position:center center;\
-		color: white;\
-		padding-right: 10px;\
-		margin: 0 auto;\
 	}\
 	div#' + UID['tooltip'] + ' {\
 		position: absolute;\
