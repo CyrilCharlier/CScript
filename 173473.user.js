@@ -76,7 +76,7 @@
 					child.style.width = '100%';
 					child.style.margin = '0';
 					child.style.border = '0';
-					child.style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+					child.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 				} else {
 					var depend = content_dependant(child);
 					if (!depend) {
@@ -90,7 +90,7 @@
 							child.style.width = '100%';
 							child.style.margin = '0';
 							child.style.border = '0';
-							child.style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							child.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 						}
 						hide_all(child, game_container);
 					}
@@ -105,7 +105,7 @@
 			setHD(parent_element);
 			if (parent_element.tagName == 'DIV' || parent_element.tagName == 'IFRAME' || parent_element.tagName == 'TABLE' || parent_element.tagName == 'TD') {
 				parent_element.style.width = '100%';
-				parent_element.style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+				parent_element.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 			}
 		}
 	}
@@ -171,7 +171,7 @@
 					document.getElementById('rightCol').style.display = 'none';
 					document.getElementById('blueBarDOMInspector').style.display = 'none';
 					document.getElementById('contentCol').style.margin = '0px';
-					document.getElementById('contentCol').style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+					document.getElementById('contentCol').style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 					var contentColChild = document.getElementById('contentCol').childNodes;
 					for (var i = 0; i < contentColChild.length; i++)
 						if (contentColChild[i].tagName == 'DIV')
@@ -180,7 +180,7 @@
 					if (USE_BACKGROUND) {
 						var body_elements = document.getElementsByTagName('body');
 						for (var el = 0; el < body_elements.length; el++)
-							body_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 					}
 					break;
 				case 'kabam':
@@ -196,7 +196,7 @@
 							iframe.style.width = '100%';
 							iframe.style.margin = '0';
 							iframe.style.border = '0';
-							iframe.style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							iframe.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 						}
 					}
 					break;
@@ -279,7 +279,7 @@
 			var USE_BACKGROUND = (background_118446 && background_118446 != undefined && background_118446 != null) ? eval(background_118446) : true;
 			switch (platform) {
 				case 'facebook':
-					REALM_URL = 'http://apps.facebook.com/dragonsofatlantis/realm/';
+					REALM_URL = 'https://apps.facebook.com/dragonsofatlantis/realm/';
 					for (var i = 0; i < object.length; i++) {
 						switch (object[i].parentNode.id) {
 							case 'hd':
@@ -301,10 +301,10 @@
 					if (USE_BACKGROUND) {
 						var body_elements = document.getElementsByTagName('body');
 						for (var el = 0; el < body_elements.length; el++)
-							body_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 						var html_elements = document.getElementsByTagName('html');
 						for (var el = 0; el < html_elements.length; el++)
-							html_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							html_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 					}
 					break;
 				case 'google':
@@ -312,18 +312,19 @@
 					if (USE_BACKGROUND) {
 						var body_elements = document.getElementsByTagName('body');
 						for (var el = 0; el < body_elements.length; el++) {
-							body_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
-							body_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 						}
 					}
 					break;
 				case 'kabam':
+					REALM_URL = 'https://www.kabam.com/fr/games/dragons-of-atlantis/play/';
 					var html_elements = document.getElementsByTagName('html');
 					for (var el = 0; el < html_elements.length; el++) {
 						html_elements[el].style.overflow = 'hidden'
-						html_elements[el].style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+						html_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 					}
-					if (!USE_BACKGROUND) document.body.style.background = '#888 url(https://images.alphacoders.com/117/117053.jpg)';
+					if (!USE_BACKGROUND) document.body.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
 					document.getElementById('cn').style.textAlign = 'left';
 					if (document.getElementById('castlemania_swf')) setHD(document.getElementById('castlemania_swf'));
 					break;
@@ -397,6 +398,8 @@
 			USER_ID = attrs.user_id;
 			S3_SERVER = attrs.s3_server;
 			S3_SWF_PREFIX = attrs.s3_swf_prefix;
+			ASSETS_SERVER = attrs.assets_server;
+			ASSETS_PREFIX = attrs.assets_prefix;
 			PUB_SERVER = attrs.pub_server;
 			PUB_PORT = attrs.pub_port;
 			MAP_BIN_CACHEBREAKER = attrs.map_bin_cachebreaker;
@@ -410,18 +413,18 @@
 		var api_version = 'overarch',
 			scriptName = 'CalciumScript',
 			mainAuthor = 'Calcium',
-            CPT_SEARCH = {  players:'playerSearchName', playersHisto:'playerSearchHistoName', playerDetail: 'detailPlayer',
-                            alliances:'allianceSearchName', allianceDetail: 'detailAlliance' };
+            CPT_SEARCH = {  players:'playerSearchName', playersHisto:'playerSearchHistoName', playerDetail: 'detailPlayer', alliances:'allianceSearchName', allianceDetail: 'detailAlliance' };
+		
 		/* Skins */
 		var urlBackgroundImage = '',
-			urlBackgroundLogo = 'https://images.alphacoders.com/117/117053.jpg';
+			urlBackgroundLogo = '';
 		/* Styles List */
 		var styleList = ['btn_blue', 'blue', 'btn_cyan', 'btn_green', 'btn_on', 'btn_off', 'btn_red', 'btn_purple', 'btn_red', 'btn_yellow', 'bold_red', 'compact_table',
 			'content', 'content_table', 'defending', 'hiding', 'popup_bar', 'popup_close', 'popup_main', 'popup_outer', 'popup_top', 'row_headers', 'row_style', 'row_top_headers',
-			'row_headers_left', 'scrollable', 'status_feedback', 'status_report', 'status_ticker', 'subtitle', 'support_link', 'table', 'table_console', 'table_headers', 'table_targets',
-			'table_wrap', 'title', 'red', 'green', 'btn_disabled', 'title_sr', 'title_main', 'info_protect', 'info_alerts', 'info_boosts'
+			'row_headers_left', 'scrollable', 'status_feedback', 'status_report', 'status_ticker', 'subtitle_light', 'subtitle', 'support_link', 'table', 'table_console', 'table_headers', 'table_targets',
+			'table_wrap', 'title', 'red', 'green', 'btn_disabled', 'title_sr', 'title_main', 'info_protect', 'info_alerts', 'info_boosts','information', 'btn_black', 
+			'warninggreen', 'warningorange', 'warningred', 'warningblack', 'number1', 'number2', 'number3'
 		];
-
 		/* Tab order */
 		var INFO_TAB_ORDER = 1,
 			JOBS_TAB_ORDER = 2,
@@ -496,7 +499,8 @@
 			SKY_OUTPOST =		{	id: 11,	type: 'skythrone',	name: 'SkythroneOutpost',		dragon_name: 'KaiserDragon'},
 			CAVE_OUTPOST =		{	id: 12,	type: 'cave',		name: 'CaveDragonOutpost',		dragon_name: 'CaveDragon'},
 			LUNA_OUTPOST =		{	id: 13,	type: 'luna',		name: 'LunaDragonOutpost',		dragon_name: 'LunaDragon'},
-			COLOSSUS_OUTPOST = 	{	id: 14, type: 'colossus',	name: 'ColossusDragonOutpost',	dragon_name: 'ColossusDragon'};
+			COLOSSUS_OUTPOST = 	{	id: 14, type: 'colossus',	name: 'ColossusDragonOutpost',	dragon_name: 'ColossusDragon'},
+			LEVIATHAN_OUTPOST = {	id: 15,	type: 'leviathan',	name: 'LeviathanDragonOutpost',	dragon_name: 'LeviathanDragon'};
 
 		var IsChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 
@@ -540,7 +544,8 @@
 		var cave_buildings =		['CaveDragonKeep', 'CaveCathedral', 'CaveDepot', 'CaveForge', 'CaveGreenhouse', 'CaveLibrary', 'CaveTrainingCamp', 'CaveWorkshop'];
 		var luna_buildings =		['DragonKeep', 'LunaCathedral', 'LunaDepot', 'LunaForge', 'LunaGreenhouse', 'LunaLibrary', 'LunaWorkshop', 'LunaShrine'];
 		var colossus_buildings =	['ColossusDragonKeep', 'ColossusWall', 'Warehouse', 'TroopQuarters', 'WarpGate', 'ColossusDefensiveTower'];
-		
+		var leviathan_buidings =    ['LeviathanMarketplace', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
+ 
 		/* Items arrays */
 		var time_item_list =
 		   [{name: 'Blink', 				text: '1m',		type: 'JMTR',	confirmation: false },
@@ -671,7 +676,7 @@
 				var retry = 0;
 				var startupDelay = Math.randRange(10000, 15000);
 				progressBar.start({
-					steps: 21,
+					steps: 23,
 					delay: startupDelay,
 					title: translate('Initializing...'),
 					stepText: translate('Loading basic data')
@@ -780,9 +785,8 @@
 						building: {
 							enabled: false,
 							hide_fields: false,
-							level_enable: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-							/* Add 1 for new outpost - luna added */
-							level_cap: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] /* Add 1 for new outpost - luna added */
+							level_enable: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}], /* Add 1 for new outpost - leviathan added */
+							level_cap: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] /* Add 1 for new outpost - leviathan added */
 						},
 						research: {
 							enabled: false,
@@ -894,7 +898,11 @@
 									enabled: true,
 									units: [],
 									cap: []
-								} /* colossus */
+								}, /* colossus */ {
+									enabled: true,
+									units: [],
+									cap: []
+								} /* abyssal */
 
 							],
 							mode: 'min_resource'
@@ -1042,6 +1050,7 @@
 							stop_on_loss: true,
 							delete_reports: true,
 							targets: [],
+							loop : false,
 							new_bookmark: {
 								x: 0,
 								y: 0,
@@ -1559,8 +1568,10 @@
 				if (Data.options.cheat_enabled) {
 					transportable_resource_types = cloneProps(all_resource_types);
 				}
-				if (Data.options.Rcheat_enabled)
-					Data.options.Rcheat_enabled = false; /* To be sure that remaining setting is reset to its default */
+				/* To be sure that remaining setting is reset to its default */
+				if (Data.options.Rcheat_enabled) {
+					Data.options.Rcheat_enabled = false;
+				}
 				/*  Check basic initialization */
 
 				function stepStarting(current_step) {
@@ -1752,7 +1763,7 @@
 								break;
 							case 7:
 								/* Fetch capital data */
-									progress_title = translate('Getting cities data...');
+								progress_title = translate('Getting cities data...');
 								var cityIdx;
 								/* We make sure to first start the capital */
 								for (var i = 0; i < Seed.cityInit.length; i++) {
@@ -1761,7 +1772,7 @@
 									}
 								}
 								/* Set progress bar steps / city */
-								citySteps = Math.floor(14 / (Seed.cityInit.length - 1));
+								citySteps = Math.floor(16 / (Seed.cityInit.length - 1));
 								progressBar.update({
 									step: current_step,
 									title: progress_title,
@@ -1769,7 +1780,7 @@
 								});
 								Seed.fetchCity(cityIdx, function(res) {
 									if (res.ok) {
-										wait_time = Math.randRange(2500, 6000);
+										wait_time = 1000;
 										onSuccess(translate('Capital data successfully fetched'), wait_time, current_step + 1);
 									} else {
 										onError(res.status, res.errmsg, translate('Capital data'), wait_time, current_step);
@@ -1795,10 +1806,7 @@
 									var cityIdx = Seed.cityInit[i].id;
 									Seed.fetchCity(cityIdx, function(res) {
 										if (res.ok) {
-											wait_time = Math.randRange(2500, 6000);
-											if (current_index == Seed.cityInit.length - 1) {
-												wait_time = 2500;
-											}
+											wait_time = 1000;
 											onSuccess(translate('Outpost') + ' #' + (i + 1) + ' ' + translate('data successfully fetched'), wait_time, current_step);
 										} else {
 											onError(res.status, res.errmsg, translate('Outpost') + ' #' + (i + 1), wait_time, current_step);
@@ -5422,7 +5430,7 @@
 				}
 				for (var cityIdx = 0; cityIdx < Seed.cities.length; ++cityIdx) {
 					if (!Data.options.Rcheat_enabled && cityIdx != CAPITAL.id) continue;
-					if (Seed.cities[cityIdx] && cityIdx >= 0 && cityIdx < Seed.cities.length && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id &&
+					if (Seed.cities[cityIdx] && cityIdx >= 0 && cityIdx < Seed.cities.length && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id &&
 						Seed.cities[cityIdx].figures.queue_lengths && Seed.cities[cityIdx].figures.queue_lengths['research']) {
 						var city = Seed.cities[cityIdx];
 						var jobs = Jobs.getJobs('research', true, cityIdx);
@@ -6162,6 +6170,8 @@
 				var caveDragonLvlsManifest = Manifest.data.cave_dragon_levels;
 				var lunaDragonLvlsManifest = Manifest.data.luna_dragon_levels;
 				var colossusDragonLvlsManifest = Manifest.data.colossus_dragon_levels;
+				var leviathanDragonLvlsManifest = Manifest.data.leviathan_dragon_levels;
+				
 				for (var m = 1; m < 20; m++) {
 					if (greatDragonLvlsManifest[m]) {
 						if (!Seed.greatDragons.GreatDragon[m]) Seed.greatDragons.GreatDragon[m] = [];
@@ -6223,6 +6233,10 @@
 						if (!Seed.greatDragons.ColossusDragon[m]) Seed.greatDragons.ColossusDragon[m] = [];
 						Seed.greatDragons.ColossusDragon[m] = colossusDragonLvlsManifest[m];
 					}
+					if (leviathanDragonLvlsManifest[m]) {
+						if (!Seed.greatDragons.LeviathanDragon[m]) Seed.greatDragons.LeviathanDragon[m] = [];
+						Seed.greatDragons.LeviathanDragon[m] = leviathanDragonLvlsManifest[m];
+					}
 				}
 			}
 		};
@@ -6260,6 +6274,7 @@
 					21: 'Cave',
 					22: 'Luna',
 					23: 'Colossus',
+					24: 'Leviathan',
 					'bog': 0,
 					'plain': 1,
 					'mountain': 2,
@@ -6283,7 +6298,8 @@
 					'Sky': 20,
 					'Cave': 21,
 					'Luna': 22,
-					'Colossus': 23
+					'Colossus': 23,
+					'Leviathan': 24
 				}
 			},
 			targets: {
@@ -6347,7 +6363,7 @@
 				var now = new Date().getTime() / 1000;
 				var params = {};
 				params['b'] = MAP_BIN_CACHEBREAKER;
-				new MyAjaxRequest('map', S3_SERVER + S3_SWF_PREFIX + '/map.bin', params, function(res) {
+				new MyAjaxRequest('map', ASSETS_SERVER + ASSETS_PREFIX + '/map.bin', params, function(res) {
 					if (res.errors) {
 						res.ok = false;
 						res.errmsg = res.errors;
@@ -8464,6 +8480,9 @@
 												case 'Dragons::ColossusDragon':
 													typeAb = 'colossus';
 													break;
+												case 'Dragons::LeviathanDragon':
+													typeAb = 'leviathan';
+													break;
 											}
 					
 											for(var ba=0 ; ba<rep.battle_record[1].march.length ; ba++) {
@@ -9455,7 +9474,8 @@
 					[47, 'DragonRider', 'DrgRid'],
 					[48, 'ColossusDragon', 'ColDrg'],
 					[49, 'ColossalMite', 'Mite'],
-					[50, 'AbyssalRavager', 'AbyRava']
+					[50, 'AbyssalRavager', 'AbyRava'],
+					[51, 'LeviathanDragon', 'LeviaDrg']
 				]
 			},
 
@@ -9629,6 +9649,10 @@
 					ret.result = false;
 					ret.reason.push('Niveau du Forgeron non atteint');
 				}
+				if(t.getNbPlayerItem(objName) == 256) {
+					ret.result = false;
+					ret.reason.push('Inventory full for '+translate(objName));
+				}
 				for(var it in req.items) {
 					if(t.getNbPlayerItem(it, type)<req.items[it]) {
 						ret.result = false;
@@ -9731,7 +9755,8 @@
 				KaiserDragon: [],
 				CaveDragon: [],
 				LunaDragon: [],
-				ColossusDragon: []
+				ColossusDragon: [],
+				LeviathanDragon: []
 			},
 			dragonList: [],
 			dragons: {},
@@ -10059,6 +10084,7 @@
 											if (march.units['CaveDragon']) t.addToRefresh(t.cities[CAVE_OUTPOST.id].id, false);
 											if (march.units['LunaDragon']) t.addToRefresh(t.cities[LUNA_OUTPOST.id].id, false);
 											if (march.units['ColossusDragon']) t.addToRefresh(t.cities[COLOSSUS_OUTPOST.id].id, false);
+											if (march.units['LeviathanDragon']) t.addToRefresh(t.cities[LEVIATHAN_OUTPOST.id].id, false);
 											Marches.remove(march.id);
 											break;
 									}
@@ -10175,49 +10201,51 @@
 				} else {
 					logit(city.outpost_type);
 					switch (city.outpost_type) {
-						case 'WaterDragonOutpost':
+						case WATER_OUTPOST.name:
 							cityIdx = WATER_OUTPOST.id;
 							break;
-						case 'StoneDragonOutpost':
+						case STONE_OUTPOST.name:
 							cityIdx = STONE_OUTPOST.id;
 							break;
-						case 'FireDragonOutpost':
+						case FIRE_OUTPOST.name:
 							cityIdx = FIRE_OUTPOST.id;
 							break;
-						case 'WindDragonOutpost':
+						case WIND_OUTPOST.name:
 							cityIdx = WIND_OUTPOST.id;
 							break;
-						case 'IceDragonOutpost':
+						case ICE_OUTPOST.name:
 							cityIdx = ICE_OUTPOST.id;
 							break;
-						case 'SwampDragonOutpost':
+						case SWAMP_OUTPOST.name:
 							cityIdx = SWAMP_OUTPOST.id;
 							break;
-						case 'ForestDragonOutpost':
+						case FOREST_OUTPOST.name:
 							cityIdx = FOREST_OUTPOST.id;
 							break;
-						case 'DesertDragonOutpost':
+						case DESERT_OUTPOST.name:
 							cityIdx = DESERT_OUTPOST.id;
 							break;
-						case 'SpectralDragonOutpost':
+						case SPECTRAL_OUTPOST.name:
 							cityIdx = SPECTRAL_OUTPOST.id;
 							break;
-						case 'ChronoDragonOutpost':
+						case CHRONO_OUTPOST.name:
 							cityIdx = CHRONO_OUTPOST.id;
 							break;
-						case 'SkythroneOutpost':
+						case SKY_OUTPOST.namme:
 							cityIdx = SKY_OUTPOST.id;
 							break;
-						case 'CaveDragonOutpost':
+						case CAVE_OUTPOST.name:
 							cityIdx = CAVE_OUTPOST.id;
 							break;
-						case 'LunaDragonOutpost':
+						case LUNA_OUTPOST.name:
 							cityIdx = LUNA_OUTPOST.id;
 							break;
-						case 'ColossusDragonOutpost':
+						case COLOSSUS_OUTPOST.name:
 							cityIdx = COLOSSUS_OUTPOST.id;
 							break;
-						
+						case LEVIATHAN_OUTPOST.name:
+							cityIdx = LEVIATHAN_OUTPOST.id;
+							break;
 						default:
 							cityIdx = SPECTRAL_OUTPOST.id;
 					}
@@ -10278,6 +10306,9 @@
 						break;
 					case COLOSSUS_OUTPOST.id:
 						dragon = city.colossus_dragon;
+						break;
+					case LEVIATHAN_OUTPOST.id:
+						dragon = city.leviathan_dragon;
 						break;
 					default:
 						dragon = null;
@@ -11568,6 +11599,9 @@
 							case 'ColossusDragonOutpost':
 								type = 'Colossus';
 								break;
+							case 'LeviathanDragonOutpost':
+								type = 'Leviathan';
+								break;
 							default:
 								type = '';
 						}
@@ -11625,6 +11659,9 @@
 					break;
 				case COLOSSUS_OUTPOST.id:
 					type = COLOSSUS_OUTPOST.type;
+					break;
+				case LEVIATHAN_OUTPOST.id:
+					type = LEVIATHAN_OUTPOST.type;
 					break;
 				default:
 					break;
@@ -13204,6 +13241,10 @@
 							var stats = Seed.greatDragons.ColossusDragon[10];
 							nivDrg = 10;
 							break;
+						case 'LeviathanDragon':
+							var stats = Seed.greatDragons.LeviathanDragon[10];
+							nivDrg = 10;
+							break;
 						case 'SpectralDragon':
 							var stats = Seed.greatDragons.SpectralDragon[10];
 							nivDrg = 10;
@@ -13392,7 +13433,7 @@
 					wallStatus = ' &nbsp ';
 
 				// Met le % de stockage de ressources de l'outpost
-				if (city.type == 'Outpost' && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id) {
+				if (city.type == 'Outpost' && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id) {
 					var total_capacity = 0;
 					var current_stock = 0;
 					var buildList = Buildings.getList(cityIdx, 'Silo');
@@ -17014,8 +17055,30 @@
 
 				t.contentType = 3;
 
-				var m = '<div class=' + UID['title'] + '>' + translate('Bookmarks Configuration') + '</div>' + '<div id=' + setUID('tabBookmarksConfig_Status') + ' class=' + UID['status_ticker'] + ' style="overflow:auto">' + '	<table class=' + UID['table'] + ' width=100%>' + '	<tr>' + '		<td width=50% class=right>' + translate('Delay Between Attacks') + ':&nbsp;</td>' + '		<td width=50%>' + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMin') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_min + '" />&nbsp;' + translate('to') + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMax') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_max + '" />&nbsp;' + translate('seconds') + '		</td>' + '	</tr><tr>' + '		<td class=right>' + translate('Delete Battle Reports') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabBookmarksConfig_DelAttacks') + ' ' + (Data.options.bookmarks.delete_reports ? 'CHECKED ' : '') + ' type=checkbox /></td>' + '	</tr><tr>' + '		<td class=right>' + translate('Stop if any troops lost') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabBookmarksConfig_StopOnLoss') + ' ' + (Data.options.bookmarks.stop_on_loss ? 'CHECKED ' : '') + ' type=checkbox /></td>' + '	</tr><tr>' + '		<td class=right>' + translate('Maximum simultaneous marches') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabBookmarksConfig_MaxMarches') + ' class=short maxlength=2 type=text value="' + Data.options.bookmarks.max_marches + '" /></td>' + '	</tr></table>';
+				var m = '<div class=' + UID['title'] + '>' + translate('Bookmarks Configuration') + '</div>' 
+                + '<div id=' + setUID('tabBookmarksConfig_Status') + ' class=' + UID['status_ticker'] + ' style="overflow:auto">' 
+                + '	<table class=' + UID['table'] + ' width=100%>' 
+                + '	<tr>' 
+                + '		<td width=50% class=right>' + translate('Delay Between Attacks') + ':&nbsp;</td>' 
+                + '		<td width=50%>' + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMin') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_min + '" />&nbsp;' + translate('to') + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMax') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_max + '" />&nbsp;' + translate('seconds') + '		</td>' 
+                + '	</tr><tr>' 
+                + '		<td class=right>' + translate('Delete Battle Reports') + ':&nbsp;</td>' 
+                + '		<td><input id=' + setUID('tabBookmarksConfig_DelAttacks') + ' ' + (Data.options.bookmarks.delete_reports ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
+                + '	</tr><tr>' 
+                + '		<td class=right>' + translate('Stop if any troops lost') + ':&nbsp;</td>' 
+                + '		<td><input id=' + setUID('tabBookmarksConfig_StopOnLoss') + ' ' + (Data.options.bookmarks.stop_on_loss ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
+                + '	</tr><tr>' 
+                + '		<td class=right>' + translate('Loop attack on bookmark') + ':&nbsp;</td>' 
+                + '		<td><input id=' + setUID('tabBookmarksConfig_Loop') + ' ' + (Data.options.bookmarks.loop ? 'CHECKED ' : '') + ' type=checkbox /></td>'
+                + '	</tr><tr>' 
+                + '		<td class=right>' + translate('Maximum simultaneous marches') + ':&nbsp;</td>' 
+                + '		<td><input id=' + setUID('tabBookmarksConfig_MaxMarches') + ' class=short maxlength=2 type=text value="' + Data.options.bookmarks.max_marches + '" /></td>' 
+                + '	</tr></table>';
+
 				document.getElementById(UID['tabBookmarks_Content']).innerHTML = m;
+				document.getElementById(UID['tabBookmarksConfig_Loop']).addEventListener('change', function(event) {
+					Data.options.bookmarks.loop = event.target.checked;
+				}, false);
 				document.getElementById(UID['tabBookmarksConfig_DelAttacks']).addEventListener('change', function(event) {
 					Data.options.bookmarks.delete_reports = event.target.checked;
 				}, false);
@@ -17126,10 +17189,13 @@
 						t.attackTimer = setTimeout(t.autoCheckTargets, retryDelay * 1000);
 					}
 				} else {
-					t.last_target_idx = -1;
-					clearTimeout(t.attackTimer);
-					t.setBookmarksEnable(false);
-					dispFeedback(feedback_element, translate('Requirements Unmet') + ': ' + translate('Attacks') + ' ' + translate('Turned Off'));
+					if(!Data.options.bookmarks.loop) {
+						t.last_target_idx = -1;
+						clearTimeout(t.attackTimer);
+						t.setBookmarksEnable(false);
+						dispFeedback(feedback_element, translate('Requirements Unmet') + ': ' + translate('Attacks') + ' ' + translate('Turned Off'));
+                    }
+					
 				}
 			},
 			clearStats: function() {
@@ -18680,6 +18746,8 @@
 							break;
 						case COLOSSUS_OUTPOST.id:
 							break;
+						case LEVIATHAN_OUTPOST.id:
+							break;
 						default:
 							break;
 					}
@@ -19142,6 +19210,11 @@
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', COLOSSUS_OUTPOST.id : ' + COLOSSUS_OUTPOST.id);
 							break;
+						case LEVIATHAN_OUTPOST.id:
+                            listC = leviathan_buidings;
+							listF = false;
+							verboseLog('cityIdx : ' + cityIdx + ', LEVIATHAN_OUTPOST.id : ' + LEVIATHAN_OUTPOST.id);
+                            break;
 						default:
 							listC = outpost_buildings;
 							listF = field_buildings;
@@ -19227,6 +19300,9 @@
 								case COLOSSUS_OUTPOST.id:
 									buildList = colossus_buildings;
 									break;
+								case LEVIATHAN_OUTPOST.id:
+									buildList = leviathan_buildings;
+									break;
 								default:
 									buildList = outpost_buildings.concat(field_buildings);
 									break;
@@ -19250,6 +19326,9 @@
 									break;
 								case COLOSSUS_OUTPOST.id:
 									buildList = colossus_buildings;
+									break;
+								case LEVIATHAN_OUTPOST.id:
+									buildList = leviathan_buildings;
 									break;
 								default:
 									buildList = outpost_buildings;
@@ -19307,6 +19386,9 @@
 									list = false;
 									break;
 								case COLOSSUS_OUTPOST.id:
+									list = false;
+									break;
+								case LEVIATHAN_OUTPOST.id:
 									list = false;
 									break;
 								default:
@@ -19492,6 +19574,11 @@
 							dragon = Seed.dragons['ColossusDragon'];
 							stat = Seed.greatDragons.ColossusDragon[dragon.level];
 							typeAb = 'colossus';
+							break;
+						case LEVIATHAN_OUTPOST.id:
+							dragon = Seed.dragons['LeviathanDragon'];
+							stat = Seed.greatDragons.LeviathanDragon[dragon.level];
+							typeAb = LEVIATHAN_OUTPOST.type;
 							break;
 					}
 
@@ -21365,6 +21452,9 @@
 									case COLOSSUS_OUTPOST.id:
 										buildList = colossus_buildings;
 										break;
+									case LEVIATHAN_OUTPOST.id:
+										buildList = leviathan_buildings;
+										break;
 									default:
 										buildList = outpost_buildings.concat(field_buildings);
 										break;
@@ -21528,6 +21618,9 @@
 					case COLOSSUS_OUTPOST.id:
 						cityType = colossus_buildings;
 						break;
+					case LEVIATHAN_OUTPOST.id:
+						cityType = leviathan_buildings;
+						break;
 					default:
 						cityType = outpost_buildings.concat(field_buildings);
 						break;
@@ -21649,6 +21742,9 @@
 						break;
 					case COLOSSUS_OUTPOST.id:
 						typeCity = COLOSSUS_OUTPOST.type;
+						break;
+					case LEVIATHAN_OUTPOST.id:
+						typeCity = LEVIATHAN_OUTPOST.type;
 						break;
 				}
 				var requirements = {};
@@ -22328,7 +22424,7 @@
 				for (var cityIdx = 0; cityIdx < Seed.cities.length && !rBuilt; ++cityIdx) {
 					if (!Data.options.Rcheat_enabled && cityIdx != CAPITAL.id) continue;
 					if (Seed.cities[cityIdx] && cityIdx != undefined && !isNaN(cityIdx) && cityIdx >= 0 && cityIdx < Seed.cities.length && cityIdx != SPECTRAL_OUTPOST.id &&
-						cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && Seed.cities[cityIdx].figures.queue_lengths && Seed.cities[cityIdx].figures.queue_lengths['research']) {
+						cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id && Seed.cities[cityIdx].figures.queue_lengths && Seed.cities[cityIdx].figures.queue_lengths['research']) {
 						var rJob = Jobs.getJobs('research', true, cityIdx);
 						var city = Seed.cities[cityIdx];
 						var cityId = city.id;

@@ -77,10 +77,7 @@
 			to_remove.parentNode.removeChild(to_remove);
 		}, 7000);
 
-	/*
-	 * Check to see if script is running in an iframe or not and removes
-	 * unnecessary elements before continuing with the script.
-	 */
+	/* Check to see if script is running in an iframe or not and removes unnecessary elements before continuing with the script. */
 	if (/(pixelkabam|akamaihd|plugins|ai\.php|talkgadget|notifications|contactPicker|accounts|googleapis\.com\/static)/.test(window.location.href)) return;
 
 	if (!((/apps\.facebook\.com\/dragonsofatlantis/.test(window.location.href) && /rubies/.test(window.location.pathname) === false) ||
@@ -352,6 +349,8 @@
 			USER_ID = attrs.user_id;
 			S3_SERVER = attrs.s3_server;
 			S3_SWF_PREFIX = attrs.s3_swf_prefix;
+			ASSETS_SERVER = attrs.assets_server;
+			ASSETS_PREFIX = attrs.assets_prefix;
 			PUB_SERVER = attrs.pub_server;
 			PUB_PORT = attrs.pub_port;
 			MAP_BIN_CACHEBREAKER = attrs.map_bin_cachebreaker;
@@ -367,8 +366,8 @@
 		 */
 		var api_version = 'overarch',
 			scriptName = 'CalciumScript',
-			mainAuthor = 'Calcium'
-      CPT_SEARCH = {  players:'playerSearchName', playersHisto:'playerSearchHistoName', playerDetail: 'detailPlayer', alliances:'allianceSearchName', allianceDetail: 'detailAlliance' };
+			mainAuthor = 'Calcium',
+			CPT_SEARCH = {  players:'playerSearchName', playersHisto:'playerSearchHistoName', playerDetail: 'detailPlayer', alliances:'allianceSearchName', allianceDetail: 'detailAlliance' };
 		
 		/* Skins */
 		var urlBackgroundImage = '',
@@ -1779,7 +1778,7 @@
 								});
 								Seed.fetchCity(cityIdx, function(res) {
 									if (res.ok) {
-										wait_time = Math.randRange(2500, 6000);
+										wait_time = 1000;
 										onSuccess(translate('Capital data successfully fetched'), wait_time, current_step + 1);
 									} else {
 										onError(res.status, res.errmsg, translate('Capital data'), wait_time, current_step);
@@ -1805,10 +1804,7 @@
 									var cityIdx = Seed.cityInit[i].id;
 									Seed.fetchCity(cityIdx, function(res) {
 										if (res.ok) {
-											wait_time = Math.randRange(2500, 6000);
-											if (current_index == Seed.cityInit.length - 1) {
-												wait_time = 2500;
-											}
+											wait_time = 1000;
 											onSuccess(translate('Outpost') + ' #' + (i + 1) + ' ' + translate('data successfully fetched'), wait_time, current_step);
 										} else {
 											onError(res.status, res.errmsg, translate('Outpost') + ' #' + (i + 1), wait_time, current_step);
@@ -6655,7 +6651,7 @@
 				var now = new Date().getTime() / 1000;
 				var params = {};
 				params['b'] = MAP_BIN_CACHEBREAKER;
-				new MyAjaxRequest('map', S3_SERVER + S3_SWF_PREFIX + '/map.bin', params, function(res) {
+				new MyAjaxRequest('map', ASSETS_SERVER + ASSETS_PREFIX + '/map.bin', params, function(res) {
 					if (res.errors) {
 						res.ok = false;
 						res.errmsg = res.errors;
@@ -19845,13 +19841,11 @@
 					}
 				}
                 else {
-					t.last_target_idx = -1;
-					clearTimeout(t.attackTimer);
-					t.setBookmarksEnable(false);
-					dispFeedback(feedback_element, translate('Requirements Unmet') + ': ' + translate('Attacks') + ' ' + translate('Turned Off'));
-                    if(Data.options.bookmarks.loop) {
-                        t.setBookmarksEnable(true);
-                        dispFeedback(feedback_element, translate('Attacks') + ' ' + translate('Turned On'));
+					if(Data.options.bookmarks.loop) {
+						t.last_target_idx = -1;
+						clearTimeout(t.attackTimer);
+						t.setBookmarksEnable(false);
+						dispFeedback(feedback_element, translate('Requirements Unmet') + ': ' + translate('Attacks') + ' ' + translate('Turned Off'));
                     }
 				}
 			},
