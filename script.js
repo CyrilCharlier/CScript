@@ -13381,7 +13381,12 @@
 				}
 
 				var m = '<div class=' + UID['title_main'] + ' style="padding-top:5px; padding-bottom:5px;"><table width=95% align=center>' + '	<tr align=center><td width=45% align=left>' + scriptName + ' by ' + mainAuthor + ' - v' + scriptVersion + '&nbsp(' + api_version + ')</td>' + '		<td width=33% align=center><SPAN id=' + setUID('tabManager_Alert') + '></span></td>' + '		<td width=22% align=left><SPAN id=' + setUID('tabManager_Time') + '></span></td>' + '	</tr></table></div>';
-
+                m += '<table width=100%><tr>' 
+                    + '	<td width=20%><input id=' + setUID('tabInfo_Refresh') + ' type=button value="' + translate('Refresh') + '"></input></td>' 
+                    + '	<td width=20% align=center><input id=' + setUID('tabInfo_Toggle') + ' type=button value="' + translate('Toggle Flash') + '"></input></td>' 
+                    + '	<td width=20% align=center>' + ((REALM_URL == null || REALM_URL == '' || !REALM_URL) ? '' : '<input id=' + setUID('tabInfo_Reload') + ' type=button value="' + translate('Reload') + '"></input>') + '</td>'
+					+ '	<td width=20% align=center><input style="margin-left:5px;width:100px;" class="' + UID[t.show_fulscreen ? 'btn_on' : 'btn_off'] + '" type=button value="Fullscreen" id=' + setUID('Tabs.Info.fullScreen') + ' /></td>' 
+                    + '</tr></table>';
 				m += '<ul class=tabs ' + addStyle + '>';
 				m += '<li class="tab first' + addClass + '"><a id=' + sorter[0][1].uid + '>' + sorter[0][1].label + '</a></li>';
 				for (var i = 1; i < line1; i++)
@@ -13400,6 +13405,13 @@
 				m += '<div id=' + div_player_attack + '></div>' + '<div id=' + div_player_spy + '></div>' + '<div id=' + div_player_building + '></div>' + '<div id=' + div_player_units + '></div>' + '<div id=' + div_player_research + '></div>' + '<div id=' + div_player_fortuna + '></div>';
 				mainPop.getTopDiv().innerHTML = m;
 
+                document.getElementById(UID['tabInfo_Toggle']).addEventListener('click', toggleFlash);
+                document.getElementById(UID['Tabs.Info.fullScreen']).addEventListener('click', toggleFulscreen);
+                document.getElementById(UID['tabInfo_Refresh']).addEventListener('click', refreshScriptData);
+                if (REALM_URL && REALM_URL != null && REALM_URL != '') {
+					document.getElementById(UID['tabInfo_Reload']).addEventListener('click', reloadTools);
+				}
+                
 				t.currentTab = null;
 				for (k in t.tabList) {
 					if (t.tabList[k].name == Data.options.currentTab)
@@ -14478,7 +14490,36 @@
 				if (perc >= 200) t.stop();
 			}
 		};
-		
+		var toggleFulscreen = function(event) {
+            var maxWidth = document.body.offsetWidth - 570;
+            if (maxWidth < 760) {
+                maxWidth = 760;
+            }
+            Tabs.Info.show_fulscreen = !Tabs.Info.show_fulscreen;
+            event.target.className = UID[Tabs.Info.show_fulscreen ? 'btn_on' : 'btn_off'];
+            swf_width = Tabs.Info.show_fulscreen ? '99%' : maxWidth + 'px';
+
+            document.getElementById('container').setStyle({
+                width: swf_width
+            });
+            document.getElementById('castlemania_swf').setStyle({
+                width: swf_width
+            });
+            document.getElementById('castlemania_swf_container').setStyle({
+                width: swf_width
+            });
+        };
+        var refreshScriptData = function() {
+            logit('fetchPlayer from Top Script refresh');
+            var t = Tabs.Info;
+            if (t.refreshPlayerBusy) return false;
+            t.refreshPlayerBusy = true;
+            refreshPlayerData(document.getElementById(UID['main_bar']), function() {
+                logit(translate('Player data retrieved'));
+                Tabs.Info.refreshPlayerBusy = false;
+            });
+        };
+        
 		Tabs.Info = {
 			tabOrder: INFO_TAB_ORDER,
 			tabLabel: 'Info',
@@ -14515,9 +14556,8 @@
 				}
 				t.container = div;
 
-				t.container.innerHTML = '<div class=' + UID['title_main'] + ' style="padding-top:3px; padding-bottom:3px;">' + '<table width=80% align=center>' + '	<tr align=center><td width="100px"><a id=' + setUID('tabInfo_ScriptUpdate') + ' style="color:#FFFFFF;text-decoration:none;">' + translate('Version update') + '</a></td>' + '		<td width="100px"><a href="' + Data.options.wikiUrl + '" target="_blank" style="color:#FFFFFF;text-decoration:none;">' + kWikiLink + '</a></td>' + '		<td width="100px"><a href="' + Data.options.forumUrl + '" target="_blank" style="color:#FFFFFF;text-decoration:none;">' + kForumLink + '</a></td>' + '</tr></table></div>' + '<table width=100%><tr>' + '	<td width=20%><input id=' + setUID('tabInfo_Refresh') + ' type=button value="' + translate('Refresh') + '"></input></td>' + '	<td width=20% align=center><input id=' + setUID('tabInfo_Toggle') + ' type=button value="' + translate('Toggle Flash') + '"></input></td>' + '	<td width=20% align=center>' + ((REALM_URL == null || REALM_URL == '' || !REALM_URL) ? '' : '<input id=' + setUID('tabInfo_Reload') + ' type=button value="' + translate('Reload') + '"></input>') + '</td>'
-					+ '	<td width=20% align=center><input style="margin-left:5px;width:100px;" class="' + UID[t.show_fulscreen ? 'btn_on' : 'btn_off'] + '" type=button value="Fullscreen" id=' + setUID('Tabs.Info.fullScreen') + ' /></td>' + '</tr></table>' 
-					+ '<ul class=tabs style="border-bottom:none; padding-bottom:0;height:23px">' 
+				t.container.innerHTML = '<div class=' + UID['title_main'] + ' style="padding-top:3px; padding-bottom:3px;">' + '<table width=80% align=center>' + '	<tr align=center><td width="100px"><a id=' + setUID('tabInfo_ScriptUpdate') + ' style="color:#FFFFFF;text-decoration:none;">' + translate('Version update') + '</a></td>' + '		<td width="100px"><a href="' + Data.options.wikiUrl + '" target="_blank" style="color:#FFFFFF;text-decoration:none;">' + kWikiLink + '</a></td>' + '		<td width="100px"><a href="' + Data.options.forumUrl + '" target="_blank" style="color:#FFFFFF;text-decoration:none;">' + kForumLink + '</a></td>' + '</tr></table></div>' 
+                    + '<ul class=tabs style="border-bottom:none; padding-bottom:0;height:23px">' 
 					+ '	<li class="tab first line1"><a id=' + setUID('tabInfoOverview') + '>' + translate('Overview') + '</a></li>' 
 					+ '	<li class="tab line1"><a id=' + setUID('tabInfoInventory') + '>' + translate('items-panel') + '</a></li>' 
 					+ '	<li class="tab line1"><a id=' + setUID('tabInfoQuests') + '>' + translate('Quests') + '</a></li>' 
@@ -14530,8 +14570,7 @@
 					+ '</ul>'
 					+ '<div id=' + setUID('tabInfo_Content') + ' class="' + UID['scrollable'] + '" style="margin-top:1px !important; height:650px; max-height:650px;"></div>';
 
-				document.getElementById(UID['tabInfo_Refresh']).addEventListener('click', t.refresh);
-				document.getElementById(UID['tabInfo_Toggle']).addEventListener('click', toggleFlash);
+				//document.getElementById(UID['tabInfo_Refresh']).addEventListener('click', t.refresh);
 				document.getElementById(UID['tabInfoOverview']).addEventListener('click', t.tabInfoOverview);
 				document.getElementById(UID['tabInfo_ScriptUpdate']).addEventListener('click', AutoUpdater.manualCheck);
 				document.getElementById(UID['tabInfoInventory']).addEventListener('click', t.tabInfoInventory);
@@ -14540,41 +14579,9 @@
 				document.getElementById(UID['tabInfoStats']).addEventListener('click', t.tabInfoStats);
 				document.getElementById(UID['tabInfoHelp']).addEventListener('click', t.tabInfoHelp);
 				document.getElementById(UID['tabInfoWilderness']).addEventListener('click', t.tabInfoWilderness);
-				document.getElementById(UID['Tabs.Info.fullScreen']).addEventListener('click', toggleFulscreen);
-				if (REALM_URL && REALM_URL != null && REALM_URL != '') {
-					document.getElementById(UID['tabInfo_Reload']).addEventListener('click', reloadTools);
-				}
-
+				
 				t.contentType = Data.options.info.current_tab;
 				t.show();
-
-				function switchOffSound() {
-					try {
-						logit('Mute sound');
-						swf_object.musicMute();
-					} catch (e) {}
-					MyAjax.save_sound();
-				}
-
-				function toggleFulscreen(event) {
-						var maxWidth = document.body.offsetWidth - 570;
-					if (maxWidth < 760) {
-						maxWidth = 760;
-					}
-					t.show_fulscreen = !t.show_fulscreen;
-					event.target.className = UID[t.show_fulscreen ? 'btn_on' : 'btn_off'];
-					swf_width = t.show_fulscreen ? '99%' : maxWidth + 'px';
-
-					document.getElementById('container').setStyle({
-						width: swf_width
-					});
-					document.getElementById('castlemania_swf').setStyle({
-						width: swf_width
-					});
-					document.getElementById('castlemania_swf_container').setStyle({
-						width: swf_width
-					});
-				}
 			},
 			show: function() {
 				var t = Tabs.Info;
