@@ -500,7 +500,7 @@
 		var cave_buildings =		['CaveDragonKeep', 'CaveCathedral', 'CaveDepot', 'CaveForge', 'CaveGreenhouse', 'CaveLibrary', 'CaveTrainingCamp', 'CaveWorkshop'];
 		var luna_buildings =		['DragonKeep', 'LunaCathedral', 'LunaDepot', 'LunaForge', 'LunaGreenhouse', 'LunaLibrary', 'LunaWorkshop', 'LunaShrine'];
 		var colossus_buildings =	['ColossusDragonKeep', 'ColossusWall', 'Warehouse', 'TroopQuarters', 'WarpGate', 'ColossusDefensiveTower'];
-        var leviathan_buidings =    ['LeviathanMarketplace', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
+        var leviathan_buildings =    ['LeviathanMarketplace', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
 		
 		var time_item_list =
 		   [{name: 'Blink', 				text: '1m',		type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
@@ -8421,7 +8421,7 @@
 					new MyAjaxRequest('activity', jsonType, p, t.updateActivity, false);
 				}, MAP_DELAY * Math.floor(Math.random() * (-1) + 2));
 			}
-		}
+		};
 		var Messages = {
 			readList: [],
 			fetchTimer: null,
@@ -10210,7 +10210,7 @@
 				}
 				return ret;
 			}
-		}
+		};
 		var Seed = {
 			loginMessages: {},
 			challenges: {},
@@ -11302,7 +11302,7 @@
 				body = body.replace("%7", city.x + ',' + city.y);
 				MyAjax.messageSend(Data.options.tower.msg_subject, body, Seed.player.alliance.id, false);
 			}
-		}
+		};
 		var Player = {
 			getWildernesses : function() {
 				return Seed.player.player_wildernesses;
@@ -11639,7 +11639,7 @@
 				}
 			}
 			return str;
-		}
+		};
 		var translateByKey = function(str, key, section) {
 			if (Translation.loaded) {
 				var newStr;
@@ -11661,7 +11661,7 @@
 				if (Tabs.Log) logit('( Translate ) -> "' + str + '"');
 			}
 			return str;
-		}
+		};
 		var VerboseLog = {
 			init: function() {
 				VerboseLog.setEnable(Data.options.verboseLog.enabled);
@@ -11846,7 +11846,7 @@
 						logit('checkCoords : UID[' + tab + '_Tile] not defined');
 				}
 			});
-		}
+		};
 		var checkMarch = function(targetMsg, feedback_element, marchCount, retryDelay, count_type, max_type, generalId, checkGeneral) {
 			var checkresult = 0;
 			if (MyAjax.marchBusy) {
@@ -14519,6 +14519,32 @@
                 Tabs.Info.refreshPlayerBusy = false;
             });
         };
+        var wordwrap = function (str, int_width, str_break, cut) {
+          var m = ((arguments.length >= 2) ? arguments[1] : 75);
+          var b = ((arguments.length >= 3) ? arguments[2] : '\n');
+          var c = ((arguments.length >= 4) ? arguments[3] : false);
+
+          var i, j, l, s, r;
+
+          str += '';
+
+          if (m < 1) {
+            return str;
+          }
+
+          for (i = -1, l = (r = str.split(/\r\n|\n|\r/))
+            .length; ++i < l; r[i] += s) {
+            for (s = r[i], r[i] = ''; s.length > m; r[i] += s.slice(0, j) + ((s = s.slice(j))
+              .length ? b : '')) {
+              j = c == 2 || (j = s.slice(0, m + 1)
+                .match(/\S*(\s)?$/))[1] ? m : j.input.length - j[0].length || c == 1 && m || j.input.length + (j = s.slice(
+                  m)
+                .match(/^\S*/))[0].length;
+            }
+          }
+
+          return r.join('\n');
+        };
         
 		Tabs.Info = {
 			tabOrder: INFO_TAB_ORDER,
@@ -16050,7 +16076,7 @@
 				}
 				Tabs.Info.diff = [];
 			}
-		}
+		};
 		Tabs.Alliance = {
 			tabOrder: ALLIANCE_TAB_ORDER,
 			tabLabel: 'Alliance',
@@ -17384,7 +17410,7 @@
 				}
 			},
 
-/** ALLIANCES TOP 100 SUB-TAB ** */
+            /** ALLIANCES TOP 100 SUB-TAB ** */
 			tabAlliances: function() {
 				var t = Tabs.Alliance;
 				document.getElementById(UID[t.lastSubTab]).className = '';
@@ -20780,16 +20806,6 @@
 						dialogSendMsg(ids[1], ids[0], true);
 					});
 				}
-
-				function wordwrap( str, width, brk, cut ) {
-					brk = brk || '\n';
-					width = width || 75;
-					cut = cut || false;
-					if (!str) { return str; }
-					var regex = '.{1,' +width+ '}(\\s|document.getElementById)' + (cut ? '|.{' +width+ '}|.+document.getElementById' : '|\\S+?(\\s|document.getElementById)');
-					return str.match( RegExp(regex, 'g') ).join( brk );				 
-				}
-
 			},
 			tabInboxTchatRealm: function() {
 				var t=Tabs.Inbox;
@@ -20849,15 +20865,6 @@
 						var ids = event.target.getAttribute('ref').split('_');
 						dialogSendMsg(ids[1], ids[0], true);
 					});
-				}
-				
-				function wordwrap( str, width, brk, cut ) {
-					brk = brk || '\n';
-					width = width || 75;
-					cut = cut || false;
-					if (!str) { return str; }
-					var regex = '.{1,' +width+ '}(\\s|document.getElementById)' + (cut ? '|.{' +width+ '}|.+document.getElementById' : '|\\S+?(\\s|document.getElementById)');
-					return str.match( RegExp(regex, 'g') ).join( brk );
 				}
 			},
 
@@ -21011,7 +21018,7 @@
 				});
 				t.show();
 			}
-		}
+		};
 		Tabs.Jobs = {
 			tabOrder: JOBS_TAB_ORDER,
 			tabLabel: 'Tasks',
@@ -22073,7 +22080,7 @@
 							verboseLog('cityIdx : ' + cityIdx + ', COLOSSUS_OUTPOST.id : ' + COLOSSUS_OUTPOST.id);
                             break;
 						case LEVIATHAN_OUTPOST.id:
-                            listC = leviathan_buidings;
+                            listC = leviathan_buildings;
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', LEVIATHAN_OUTPOST.id : ' + LEVIATHAN_OUTPOST.id);
                             break;
@@ -26875,7 +26882,7 @@
 				clearTimeout(t.marchTimer);
 				Data.options.multiple.current_tab = t.contentType;
 			}
-		}
+		};
 		Tabs.Search = {
 			tabOrder: SEARCH_TAB_ORDER,
 			tabLabel: 'Map',
@@ -28232,7 +28239,7 @@
 				var t = Tabs.Single;
 				Data.options.single.current_tab = t.contentType;
 			}
-		}
+		};
 		Tabs.Spies = {
 			tabOrder: SPY_TAB_ORDER,
 			tabLabel: 'Spy',
@@ -28675,7 +28682,7 @@
 				Marches.updateTable(document.getElementById(UID['tabSpy_Marches']), 'spies');
 				t.marchTimer = setTimeout(t.marchTick, 1000);
 			}
-		}
+		};
 		Tabs.Tower = {
 			tabOrder: TOWER_TAB_ORDER,
 			tabLabel: 'Tower',
@@ -29371,7 +29378,7 @@
 				}
 				return result;
 			}
-		}
+		};
 		Tabs.Wall = {
 			tabOrder: WALL_TAB_ORDER,
 			tabLabel: 'Wall',
@@ -30038,7 +30045,7 @@
 				}
 
 			}
-		}
+		};
 		Tabs.Waves = {
 			tabOrder: WAVE_TAB_ORDER,
 			tabLabel: 'Wave',
@@ -31231,7 +31238,7 @@
 				var t = Tabs.Wheel;
 				if (t.refreshTimer) clearInterval(t.refreshTimer);
 			}
-		}
+		};
 		Tabs.Options = {
 			tabOrder: OPTIONS_TAB_ORDER,
 			tabLabel: 'Opts',
@@ -32060,7 +32067,7 @@
 				}
 				SoundPlayer.StopSound(task);
 			}
-		}
+		};
 		Tabs.Log = {
 			tabOrder: LOG_TAB_ORDER,
 			tabLabel: 'Log',
