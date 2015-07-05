@@ -544,7 +544,7 @@
 		var cave_buildings =		['CaveDragonKeep', 'CaveCathedral', 'CaveDepot', 'CaveForge', 'CaveGreenhouse', 'CaveLibrary', 'CaveTrainingCamp', 'CaveWorkshop'];
 		var luna_buildings =		['DragonKeep', 'LunaCathedral', 'LunaDepot', 'LunaForge', 'LunaGreenhouse', 'LunaLibrary', 'LunaWorkshop', 'LunaShrine'];
 		var colossus_buildings =	['ColossusDragonKeep', 'ColossusWall', 'Warehouse', 'TroopQuarters', 'WarpGate', 'ColossusDefensiveTower'];
-		var leviathan_buidings =    ['LeviathanMarketplace', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
+		var leviathan_buildings =    ['LeviathanMarketplace', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
  
 		/* Items arrays */
 		var time_item_list =
@@ -757,6 +757,13 @@
 						sanctuaryAbilities: {},
 
 						autoCollect: {
+							enabled: true,
+							last_time: 0,
+							delay: 60,
+							unit: 60
+						},
+						
+						autoCollectRune: {
 							enabled: true,
 							last_time: 0,
 							delay: 60,
@@ -3277,6 +3284,19 @@
 					return;
 				}
 			},
+			collectRune: function (callback) {
+				var t = MyAjax;
+				var p = {};
+				p = t.addMainParams();
+				p['item'] = 'EternalRune';
+				
+				new MyAjaxRequest('collect', 'daily_item/claim', p, mycb, true);
+				
+				function mycb(rslt) {
+					if (callback) callback(rslt.ok);
+					return;
+				}
+			},
 			dragonBreeding: function(male_id, female_id, callback) {
 				var t = MyAjax;
 				var p = {};
@@ -4023,6 +4043,7 @@
 			init: function() {
 				var t = AutoCollect;
 				t.setEnable(Data.options.autoCollect.enabled);
+				t.setEnableRune(Data.options.autoCollectRune.enabled);
 			},
 
 			setEnable: function(onOff) {
@@ -4035,6 +4056,20 @@
 						t.doit();
 					} else {
 						t.timer = setTimeout(t.doit, time * 1000);
+					}
+				}
+			},
+			
+			setEnableRune: function(onOff) {
+				var t = AutoCollect;
+				clearTimeout(t.timerRune);
+				Data.options.autoCollect.enabled = onOff;
+				if (onOff) {
+					var time = (Data.options.autoCollectRune.delay * Data.options.autoCollectRune.unit) - serverTime() + Data.options.autoCollectRune.last_time;
+					if (time <= 0) {
+						t.doitRune();
+					} else {
+						t.timerRune = setTimeout(t.doitRune, time * 1000);
 					}
 				}
 			},
@@ -4061,6 +4096,26 @@
 						MyAjax.collectResources(Seed.cities[cityIdx].id);
 						actionLog(translate('Collected resources at outpost') + ' <B>#' + cityIdx + '</B>');
 					}, delay);
+				}
+			},
+			
+			doitRune: function() {
+				function cbRune(rslt) {
+					var d = new Date();
+					if(rslt) {
+						dialogConfirm(translate('colossus-daily-description'), null, null, false);
+						Data.options.lastCollectEternalRune = d.toLocaleDateString(LANG_CODE, {"year":"numeric","month":"2-digit","day":"2-digit","hour":"numeric","minute":"numeric","second":"2-digit"});
+					} else {
+						logit('no Eternal Rune to collect');
+					}
+					Data.options.lastTryCollectEternalRune = d.toLocaleDateString(LANG_CODE, {"year":"numeric","month":"2-digit","day":"2-digit","hour":"numeric","minute":"numeric","second":"2-digit"});
+				}
+				if(Seed.cities.length >= 15) {
+					MyAjax.collectRune(cbRune);
+					var time = (Data.options.autoCollectRune.delay * Data.options.autoCollectRune.unit) * 1000;
+					setTimeout(AutoCollect.doitRune, time); // toutes les heures
+				} else {
+					logit('No '+translate('colossus_dragon outpost'));
 				}
 			}
 		};
@@ -11873,7 +11928,7 @@
 			dispFeedback(element, feedbackMsg + ': ' + translate('Retry in') + ' ' + delay + ' ' + translate('seconds'));
 		}
 
-		function refreshPlayerData(container, notify) {
+		var refreshPlayerData = function(container, notify) {
 			var options = {
 				cities: [],
 				jobs: true,
@@ -11900,9 +11955,8 @@
 					return;
 				}
 			}, options);
-		}
-
-		function saveBookmark(container, x, y, type, level, id, name, units, ai, include_great_dragon, include_exclude, great_dragons, comment, cptDESC) {
+		};
+		var saveBookmark = function(container, x, y, type, level, id, name, units, ai, include_great_dragon, include_exclude, great_dragons, comment, cptDESC) {
 			var target_desc = '';
             if( typeof(cptDESC) !== 'undefined' )
                 target_desc = cptDESC;
@@ -11975,9 +12029,8 @@
 			setTimeout(function() {
 				dial.destroy()
 			}, 1000);
-		}
-
-		function setButtonStyle(button, enabled, class_enabled, class_disabled) {
+		};
+		var setButtonStyle = function(button, enabled, class_enabled, class_disabled) {
 			if (!button) return;
 			if (enabled) {
 				button.disabled = false;
@@ -11988,9 +12041,8 @@
 				Element.removeClassName(button, (class_enabled ? UID[class_enabled] : UID['btn_blue']));
 				Element.addClassName(button, (class_disabled ? UID[class_disabled] : UID['btn_disabled']));
 			}
-		}
-
-		function set_defense_forces(container, city_id, units, notify) {
+		};
+		var set_defense_forces = function(container, city_id, units, notify) {
 			var dial = new ModalDialog(container, 300, 165, '', false, null);
 			dial.getTopDiv().innerHTML = '<div class=' + UID['title'] + '><center><b>' + scriptName + ' : ' + translate('Message') + '</b></center></div>';
 			dial.getContentDiv().innerHTML = translate('wall-choose-defenders');
@@ -12007,9 +12059,8 @@
 					return;
 				}
 			}
-		}
-
-		function setTroopTable(tab, rownum, prefix, unit_types, units, units_save, listener, multilines) {
+		};
+		var setTroopTable = function(tab, rownum, prefix, unit_types, units, units_save, listener, multilines) {
 			var row = [];
 			row.push(tab.insertRow(rownum));
 			row.push(tab.insertRow(rownum + 1));
@@ -12049,11 +12100,10 @@
 				c++;
 			}
 			return tab;
-		}
-
-		function is_protected() {
+		};
+		var is_protected = function() {
 			return Seed.cities[CAPITAL.id].protected
-		}
+		};
         var toggleFulscreen = function(event) {
             var maxWidth = document.body.offsetWidth - 570;
             if (maxWidth < 760) {
@@ -12083,7 +12133,32 @@
                 Tabs.Info.refreshPlayerBusy = false;
             });
         };
+        var wordwrap = function (str, int_width, str_break, cut) {
+          var m = ((arguments.length >= 2) ? arguments[1] : 75);
+          var b = ((arguments.length >= 3) ? arguments[2] : '\n');
+          var c = ((arguments.length >= 4) ? arguments[3] : false);
 
+          var i, j, l, s, r;
+
+          str += '';
+
+          if (m < 1) {
+            return str;
+          }
+
+          for (i = -1, l = (r = str.split(/\r\n|\n|\r/))
+            .length; ++i < l; r[i] += s) {
+            for (s = r[i], r[i] = ''; s.length > m; r[i] += s.slice(0, j) + ((s = s.slice(j))
+              .length ? b : '')) {
+              j = c == 2 || (j = s.slice(0, m + 1)
+                .match(/\S*(\s)?$/))[1] ? m : j.input.length - j[0].length || c == 1 && m || j.input.length + (j = s.slice(
+                  m)
+                .match(/^\S*/))[0].length;
+            }
+          }
+
+          return r.join('\n');
+        };
 
 		/******************************** Info Tab ***********************************/
 		Tabs.Info = {
@@ -13468,7 +13543,7 @@
 				}
 				Tabs.Info.diff = [];
 			}
-		}
+		};
 
 		/******************************** Alliance features Tab **********************/
 		Tabs.Alliance = {
@@ -15617,7 +15692,7 @@
 					}
 				}
 			},
-		}
+		};
 
 		/******************************** Attacks Tab ********************************/
 		Tabs.Attacks = {
@@ -18099,16 +18174,6 @@
 						dialogSendMsg(ids[1], ids[0], true);
 					});
 				}
-
-				function wordwrap( str, width, brk, cut ) {
-					brk = brk || '\n';
-					width = width || 75;
-					cut = cut || false;
-					if (!str) { return str; }
-					var regex = '.{1,' +width+ '}(\\s|$)' + (cut ? '|.{' +width+ '}|.+$' : '|\\S+?(\\s|$)');
-					return str.match( RegExp(regex, 'g') ).join( brk );				 
-				}
-
 			},
 			tabInboxTchatRealm: function() {
 				var t=Tabs.Inbox;
@@ -18158,15 +18223,6 @@
 						var ids = event.target.getAttribute('ref').split('_');
 						dialogSendMsg(ids[1], ids[0], true);
 					});
-				}
-				
-				function wordwrap( str, width, brk, cut ) {
-					brk = brk || '\n';
-					width = width || 75;
-					cut = cut || false;
-					if (!str) { return str; }
-					var regex = '.{1,' +width+ '}(\\s|$)' + (cut ? '|.{' +width+ '}|.+$' : '|\\S+?(\\s|$)');
-					return str.match( RegExp(regex, 'g') ).join( brk );
 				}
 			},
 
@@ -18320,7 +18376,7 @@
 				});
 				t.show();
 			}
-		}
+		};
 
 		/******************************** Jobs Tab ***********************************/
 		Tabs.Jobs = {
@@ -19208,7 +19264,7 @@
 							verboseLog('cityIdx : ' + cityIdx + ', COLOSSUS_OUTPOST.id : ' + COLOSSUS_OUTPOST.id);
 							break;
 						case LEVIATHAN_OUTPOST.id:
-                            listC = leviathan_buidings;
+                            listC = leviathan_buildings;
 							listF = false;
 							verboseLog('cityIdx : ' + cityIdx + ', LEVIATHAN_OUTPOST.id : ' + LEVIATHAN_OUTPOST.id);
                             break;
@@ -22883,7 +22939,7 @@
 				}
 				t.showStats();
 			}
-		}
+		};
 
 		/******************************** Multi Tab **********************************/
 		Tabs.Multiple = {
@@ -23463,7 +23519,7 @@
 				clearTimeout(t.marchTimer);
 				Data.options.multiple.current_tab = t.contentType;
 			}
-		}
+		};
 
 		/******************************** Map search Tab *****************************/
 		Tabs.Search = {
@@ -24818,7 +24874,7 @@
 				var t = Tabs.Single;
 				Data.options.single.current_tab = t.contentType;
 			}
-		}
+		};
 
 		/******************************** Spy Tab ************************************/
 		Tabs.Spies = {
@@ -25260,7 +25316,7 @@
 				Marches.updateTable(document.getElementById(UID['tabSpy_Marches']), 'spies');
 				t.marchTimer = setTimeout(t.marchTick, 1000);
 			}
-		}
+		};
 
 		/******************************** Tower Tab **********************************/
 		Tabs.Tower = {
@@ -25954,7 +26010,7 @@
 				}
 				return result;
 			}
-		}
+		};
 
 		/******************************** Wall features Tab **************************/
 		Tabs.Wall = {
@@ -26613,7 +26669,7 @@
 
 			}
 
-		}
+		};
 
 		/******************************** Wave Tab ***********************************/
 		Tabs.Waves = {
@@ -27798,7 +27854,7 @@
 				var t = Tabs.Wheel;
 				if (t.refreshTimer) clearInterval(t.refreshTimer);
 			}
-		}
+		};
 
 		/******************************** Options Tab ********************************/
 		Tabs.Options = {
@@ -28341,7 +28397,7 @@
 				}
 				SoundPlayer.StopSound(task);
 			}
-		}
+		};
 
         /******************************** CPT Tab ************************************/
 		Tabs.Cpt = {
@@ -28592,7 +28648,7 @@
 						break;
 				}
 			}
-        }
+        };
 
 		/******************************** Log Tab ************************************/
 		Tabs.Log = {
@@ -28914,7 +28970,7 @@
 					ts: ts
 				});
 			}
-		}
+		};
 
 		function actionLog(msg) {
 			Tabs.Log.addMsg(msg, 0);
