@@ -14517,6 +14517,9 @@
             refreshPlayerData(document.getElementById(UID['main_bar']), function() {
                 logit(translate('Player data retrieved'));
                 Tabs.Info.refreshPlayerBusy = false;
+                if(Data.options.currentTab == 'Info' && Tabs.Info.contentType == 1) {
+                    Tabs.Info.tabInfoInventory();
+                }
             });
         };
         var wordwrap = function (str, int_width, str_break, cut) {
@@ -19874,11 +19877,14 @@
 					}
 				}
                 else {
+                    t.last_target_idx = -1;
+ 					clearTimeout(t.attackTimer);
+ 					t.setBookmarksEnable(false);
+ 					dispFeedback(feedback_element, translate('Requirements Unmet') + ': ' + translate('Attacks') + ' ' + translate('Turned Off'));
+                    
 					if(Data.options.bookmarks.loop) {
-						t.last_target_idx = -1;
-						clearTimeout(t.attackTimer);
-						t.setBookmarksEnable(false);
-						dispFeedback(feedback_element, translate('Requirements Unmet') + ': ' + translate('Attacks') + ' ' + translate('Turned Off'));
+						t.setBookmarksEnable(true);
+                        dispFeedback(feedback_element, translate('Attacks') + ' ' + translate('Turned On'));
                     }
 				}
 			},
