@@ -525,9 +525,9 @@
 		var sanctuaryDragonRank = new Array('common', 'lesser', 'heightened', 'royal', 'exalted', 'omniscient', 'legendary');
 		/* Troops arrays */
 		var all_dragon_list =		['GreatDragon', 'WaterDragon', 'StoneDragon', 'FireDragon', 'WindDragon', 'IceDragon', 'SwampDragon', 'ForestDragon', 'DesertDragon', 'ChronoDragon', 'SpectralDragon', 'KaiserDragon', 'CaveDragon', 'LunaDragon', 'ColossusDragon'];
-		var all_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager'];
-		var attack_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager'];
-		var wave_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager'];
+		var all_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren'];
+		var attack_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren'];
+		var wave_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren'];
 		var spy_unit_types =		['Spy'];
 		var transport_unit_types =	['Porter', 'ATrans', 'PackDrg']; // Beware : Use abbreviations here
 		/* Resources arrays */
@@ -9530,7 +9530,8 @@
 					[48, 'ColossusDragon', 'ColDrg'],
 					[49, 'ColossalMite', 'Mite'],
 					[50, 'AbyssalRavager', 'AbyRava'],
-					[51, 'LeviathanDragon', 'LeviaDrg']
+					[51, 'LeviathanDragon', 'LeviaDrg'],
+					[52, ,'SeaSiren', 'Siren']
 				]
 			},
 
