@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.709.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.801.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -5196,13 +5196,9 @@
 								iCell.innerHTML = '<b>' + ((cityIdx == CAPITAL.id) ? city.name : translate(city.name)) + '</b>';
 								var timeRemaining = ((jobs[0].run_at - serverTime()) > 0) ? timestr(jobs[0].run_at - serverTime()) : 0;
 								if (timeRemaining == 0) {
-									/*
-									 * If we have a job and the timeRemaining is
-									 * negative or zero we delete the job and
-									 * fetch the Seed - although this does not
-									 * always work because the server is laggy
-									 * and may not return the correct
-									 * information
+									/** If we have a job and the timeRemaining is negative or zero we delete the job and
+									 *  fetch the Seed - although this does not always work because the server is laggy
+									 *  and may not return the correct information 
 									 */
 									iCell = iRow.insertCell(-1);
 									iCell.setAttribute('colspan', '3');
@@ -6808,27 +6804,9 @@
 						if (to_skip) continue;
 						/* Skip Clouds */
 						if ((!type || type == 9) || (_type != 'all' &&
-							(_type == 'C' && type != 7 && type <= 9) && /*
-																		 * Search
-																		 * for
-																		 * Cities &
-																		 * outposts ;
-																		 * and
-																		 * type
-																		 * is
-																		 * not
-																		 * corresponding
-																		 */
-							(_type == 'W' && (type == 0 || type >= 7)))) /*
-																			 * Search
-																			 * for
-																			 * Wildernesses ;
-																			 * and
-																			 * type
-																			 * is
-																			 * not
-																			 * corresponding
-																			 */ {
+							(_type == 'C' && type != 7 && type <= 9) && /** Search for Cities & outposts ; and type is not corresponding */
+							(_type == 'W' && (type == 0 || type >= 7)))) /** Search for Wildernesses ; and type is not corresponding */
+						{
 							continue;
 						}
 						if (!Data.map.coords[xy]) Data.map.coords[xy] = {
@@ -6845,10 +6823,10 @@
 						};
 						var terrain = Data.map.terrains[xy];
 						if (terrain) {
-							obj.id = terrain[0] || 0; /* player_id */
-							obj.cn = terrain[1]; /* city name */
-							obj.t = t.checkType(terrain[2]); /* city type */
-							obj.l = (terrain[3] || obj.l); /* level */
+							obj.id = terrain[0] || 0; /** player_id */
+							obj.cn = terrain[1]; /** city name */
+							obj.t = t.checkType(terrain[2]); /** city type */
+							obj.l = (terrain[3] || obj.l); /** level */
 							if (obj.id) {
 								var player = Data.map.players[obj.id];
 								if (player) {
@@ -6868,20 +6846,7 @@
 						obj.d = getDistance(_x, _y, coord_x, coord_y);
 						var terrain_type = t.names.type[type];
 						if (obj.t > 9) terrain_type = 'Outpost';
-						if ((obj.t == 7 && is_null(obj.n) && is_null(obj.cn))) continue; /*
-																							 * City
-																							 * without
-																							 * name,
-																							 * should
-																							 * be a
-																							 * wamp.
-																							 * Do
-																							 * not
-																							 * take
-																							 * it
-																							 * into
-																							 * account
-																							 */
+						if ((obj.t == 7 && is_null(obj.n) && is_null(obj.cn))) continue; /** City without name, should be a wamp. Do not take it into account */
 						terrains[terrain_type].push(obj);
 					}
 				}
