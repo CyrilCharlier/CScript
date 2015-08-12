@@ -29444,10 +29444,23 @@
 
 				function dispUnits(cityIdx) {
 					var city = Seed.cities[cityIdx];
-					var m = '<table class=' + UID['row_style'] + ' style="margin-top:3px" width=100%>' + '	<tr class=' + UID['row_headers'] + ' align=center>' + '		<td width=40%>' + translate('Troops') + '</td>' + '		<td width=15%>' + translate('Total') + '</td>' + '		<td width=15%>' + translate('Defense') + '</td>' + '		<td width=15%>' + translate('In city') + '</td>' + '		<td width=15%>' + translate('In march') + '</td>' + '	</tr>';
+					var m = '<table class=' + UID['row_style'] + ' style="margin-top:3px" width=100%>' 
+						+ '	<tr class=' + UID['row_headers'] + ' align=center>' 
+						+ '		<td width=40%>' + translate('Troops') + '</td>' 
+						+ '		<td width=15%>' + translate('Total') + '</td>' 
+						+ '		<td width=15%>' + translate('Defense') + '</td>' 
+						+ '		<td width=15%>' + translate('In city') + '</td>' 
+						+ '		<td width=15%>' + translate('In march') + '</td>' 
+						+ '	</tr>';
 					for (var i = 0; i < all_unit_types.length; i++) {
 						var numTroops = getTroopNumbers(city, all_unit_types[i]);
-						m += '	<tr valign=top>' + '		<td class=right width=40%>' + translate(all_unit_types[i]) + ':</td>' + '		<td align=right width=15%>' + numf(numTroops.total, ' ') + '</td>' + '		<td align=right width=15%>' + ((numTroops.indefense > 0) ? '<b>' + numf(numTroops.indefense, ' ') + '</b>' : numf(numTroops.indefense, ' ')) + '</td>' + '		<td align=right width=15%>' + numf(numTroops.incity, ' ') + '</td>' + '		<td align=right width=15%>' + (numTroops.marches ? '&nbsp;+&nbsp;<b>' + numf(numTroops.marches, ' ') + '</b>' : '') + '</td>' + '	</tr>';
+						m += '	<tr valign=top>' 
+							+ '		<td class=right width=40%>' + translate(all_unit_types[i]) + ':</td>' 
+							+ '		<td align=right width=15%>' + numf(numTroops.total, ' ') + '</td>' 
+							+ '		<td align=right width=15%>' + ((numTroops.indefense > 0) ? '<b>' + numf(numTroops.indefense, ' ') + '</b>' : numf(numTroops.indefense, ' ')) + '</td>' 
+							+ '		<td align=right width=15%>' + numf(numTroops.incity, ' ') + '</td>' 
+							+ '		<td align=right width=15%>' + (numTroops.marches ? '&nbsp;+&nbsp;<b>' + numf(numTroops.marches, ' ') + '</b>' : '') + '</td>' 
+							+ '	</tr>';
 					}
 					m += '</table>';
 					return m;
