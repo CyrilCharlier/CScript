@@ -33,7 +33,7 @@
 // @exclude		*://www.googleapis.com/static*
 // @include		*://*realm*doa.altervista.org*
 // @exclude		*://realmtheraindoa.altervista.org/Jeux/*
-// @version		1.43
+// @version		1.44
 // @grant GM_addStyle
 // @grant unsafeWindow
 // @homepageURL	http://script.wygopro.com/script/
@@ -42,7 +42,7 @@
 // ==/UserScript== 
 (function() {
 
-	var CHROME_EXT = false, scriptVersion = '2015.813.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+	var CHROME_EXT = false, scriptVersion = '2015.813.2', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -9531,7 +9531,7 @@
 					[49, 'ColossalMite', 'Mite'],
 					[50, 'AbyssalRavager', 'AbyRava'],
 					[51, 'LeviathanDragon', 'LeviaDrg'],
-					[52, ,'SeaSiren', 'Siren']
+					[52, 'SeaSiren', 'Siren']
 				]
 			},
 
