@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.813.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.823.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -456,8 +456,8 @@
 			CAVE_OUTPOST =		{ id: 12,	type: 'cave',		name: 'CaveDragonOutpost',		dragon_name: 'CaveDragon'},
 			LUNA_OUTPOST =		{ id: 13,	type: 'luna',		name: 'LunaDragonOutpost',		dragon_name: 'LunaDragon'},
 			COLOSSUS_OUTPOST = 	{ id: 14,	type: 'colossus',	name: 'ColossusDragonOutpost',	dragon_name: 'ColossusDragon'};
-            LEVIATHAN_OUTPOST = { id: 15,   type: 'leviathan',  name: 'LeviathanDragonOutpost', dragon_name: 'LeviathanDragon'};
-
+            LEVIATHAN_OUTPOST = { id: 15,   type: 'leviathan',  name: 'LevithanDragonOutpost', dragon_name: 'LeviathanDragon'};
+			
 		var IsChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 
 		/* Error messages */
