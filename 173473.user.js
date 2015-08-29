@@ -33,7 +33,7 @@
 // @exclude		*://www.googleapis.com/static*
 // @include		*://*realm*doa.altervista.org*
 // @exclude		*://realmtheraindoa.altervista.org/Jeux/*
-// @version		1.45
+// @version		1.46
 // @grant GM_addStyle
 // @grant unsafeWindow
 // @homepageURL	http://script.wygopro.com/script/
@@ -42,7 +42,7 @@
 // ==/UserScript== 
 (function() {
 
-	var CHROME_EXT = false, scriptVersion = '2015.823.2', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+	var CHROME_EXT = false, scriptVersion = '2015.829.2', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -544,7 +544,7 @@
 		var cave_buildings =		['CaveDragonKeep', 'CaveCathedral', 'CaveDepot', 'CaveForge', 'CaveGreenhouse', 'CaveLibrary', 'CaveTrainingCamp', 'CaveWorkshop'];
 		var luna_buildings =		['DragonKeep', 'LunaCathedral', 'LunaDepot', 'LunaForge', 'LunaGreenhouse', 'LunaLibrary', 'LunaWorkshop', 'LunaShrine'];
 		var colossus_buildings =	['ColossusDragonKeep', 'ColossusWall', 'Warehouse', 'TroopQuarters', 'WarpGate', 'ColossusDefensiveTower'];
-		var leviathan_buildings =    ['LeviathanMarketplace', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
+		var leviathan_buildings =    ['LeviathanMarketplace', 'LeviathanTroopQuarters', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
  
 		/* Items arrays */
 		var time_item_list =
@@ -3284,11 +3284,11 @@
 					return;
 				}
 			},
-			collectRune: function (callback) {
+			collectRune: function (callback, item) {
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-				p['item'] = 'EternalRune';
+				p['item'] = item;
 				
 				new MyAjaxRequest('collect', 'daily_item/claim', p, mycb, true);
 				
@@ -4110,12 +4110,25 @@
 					}
 					Data.options.lastTryCollectEternalRune = d.toLocaleDateString(LANG_CODE, {"year":"numeric","month":"2-digit","day":"2-digit","hour":"numeric","minute":"numeric","second":"2-digit"});
 				}
-				if(Seed.cities.length >= 15) {
-					MyAjax.collectRune(cbRune);
+				function cbCoral(rslt) {
+					var d = new Date();
+					if(rslt) {
+						dialogConfirm(translate('leviathan-daily-description'), null, null, false);
+						Data.options.lastCollectCoralDoubloon = d.toLocaleDateString(LANG_CODE, {"year":"numeric","month":"2-digit","day":"2-digit","hour":"numeric","minute":"numeric","second":"2-digit"});
+					} else {
+						logit('no Coral Doubloon to collect');
+					}
+					Data.options.lastTryCollectEternalRune = d.toLocaleDateString(LANG_CODE, {"year":"numeric","month":"2-digit","day":"2-digit","hour":"numeric","minute":"numeric","second":"2-digit"});
+				}
+				if(Player.hasAbyssalOP()) {
+					MyAjax.collectRune(cbRune, 'EternalRune');
+				}
+				if(Player.hasLeviathanOP()) {
+					MyAjax.collectRune(cbCoral, 'CoralDoubloon');
+				}
+				if(Player.hasAbyssalOP() || Player.hasLeviathanOP()) {
 					var time = (Data.options.autoCollectRune.delay * Data.options.autoCollectRune.unit) * 1000;
 					setTimeout(AutoCollect.doitRune, time); // toutes les heures
-				} else {
-					logit('No '+translate('colossus_dragon outpost'));
 				}
 			}
 		};
@@ -10828,19 +10841,56 @@
 
 		/******************************** Player package *****************************/
 		var Player = {
-			
+			Inventory : {
+				getNbItem: function(item) {
+					var nb = 0;
+					var found = false;
+					for (var type in Seed.items) {
+						for(var i=0;i<Seed.items[type].length;i++) {
+							if(item.toLowerCase() == Seed.items[type][i].type.toLowerCase()) {
+								nb = Seed.player.items[Seed.items[type][i].type];
+								found = true;
+								break;
+							}
+						}
+						if(found) {
+							break;
+						}
+					}
+					return nb;
+				}
+			},
+			hasAbyssalOP: function() {
+				var retour = false;
+				for(var i=0;i<Seed.cities.length;i++) {
+					if (Seed.cities[i].type == 'Outpost') {
+						if(Seed.cities[i].outpost_type == COLOSSUS_OUTPOST.name) {
+							retour = true;
+						}
+					}
+				}
+				return retour;
+			},
+			hasLeviathanOP: function() {
+				var retour = false;
+				for(var i=0;i<Seed.cities.length;i++) {
+					if (Seed.cities[i].type == 'Outpost') {
+						if(Seed.cities[i].outpost_type == LEVIATHAN_OUTPOST.name) {
+							retour = true;
+						}
+					}
+				}
+				return retour;
+			},
 			getWildernesses : function() {
 				return Seed.player.player_wildernesses;
 			},
-			
 			getNbWildernesses : function() {
 				return Player.getWildernesses().length;
 			},
-			
 			addWildernesses : function(w) {
 				Player.getWildernesses().push(w);
 			},
-			
 			removeWildernesses : function(w) {
 			}
 		};
@@ -12284,7 +12334,28 @@
 				}
 				m += '</tr></table></div>';
 			
-				m += dispCurrRessources(CAPITAL.id) + dispCurrPopulation(CAPITAL.id) + dispOneHourBan() + SoundPlayer.alertString.replace('&incoming_spy&', (SoundPlayer.getFirstAlert()).spy).replace('&incoming_attack&', (SoundPlayer.getFirstAlert()).attack) + dispUnits(CAPITAL.id) + '<br>' + '<table class=' + UID['table'] + ' width=100%>' + dispBoosts() + '	<tr>' + '		<td class=right width=20%>' + translate('Marching') + ': </td>' + '		<td width=30%>' + Seed.numMarches + dispMarchesCount() + '</td>' + '		<td class=right width=20%>' + translate('Wildernesses') + ': </td>' + '		<td width=30%>' + dispWildsCount() + '</td>' + '	</tr>' + dispOutpostJob('dragon', CAPITAL.id) + dispDefenseTowerHealing(CAPITAL.id) + dispOutpostJob('outpost', CAPITAL.id) + dispBuildingJob(CAPITAL.id) + dispDefenseTowerJob(CAPITAL.id) + dispResearchJob(CAPITAL.id) + dispTrainingJobs(CAPITAL.id) + '</table>' + '</div>';
+				m += dispCurrRessources(CAPITAL.id) 
+				+ dispCurrPopulation(CAPITAL.id) 
+				+ dispOneHourBan() 
+				+ SoundPlayer.alertString.replace('&incoming_spy&', (SoundPlayer.getFirstAlert()).spy).replace('&incoming_attack&', (SoundPlayer.getFirstAlert()).attack) 
+				+ dispUnits(CAPITAL.id) 
+				+ '<br>' 
+				+ '<table class=' + UID['table'] + ' width=100%>' 
+				+ dispBoosts() 
+				+ '	<tr>' 
+				+ '		<td class=right width=20%>' + translate('Marching') + ': </td>' 
+				+ '		<td width=30%>' + Seed.numMarches + dispMarchesCount() + '</td>' 
+				+ '		<td class=right width=20%>' + translate('Wildernesses') + ': </td>' 
+				+ '		<td width=30%>' + dispWildsCount() + '</td>' 
+				+ '	</tr>' 
+				+ dispOutpostJob('dragon', CAPITAL.id) 
+				+ dispDefenseTowerHealing(CAPITAL.id) 
+				+ dispOutpostJob('outpost', CAPITAL.id) + dispBuildingJob(CAPITAL.id) 
+				+ dispDefenseTowerJob(CAPITAL.id) 
+				+ dispResearchJob(CAPITAL.id) 
+				+ dispTrainingJobs(CAPITAL.id)
+				+ dispCollectRune()
+				+ '</table>' + '</div>';
 
 				/* Outposts ... */
 				if (Seed.cities.length > 0) {
@@ -12391,6 +12462,20 @@
 
 				t.timer = setTimeout(t.show, 5000);
 
+				function dispCollectRune(cityIdx) {
+					var ret = '';
+					if(Player.hasAbyssalOP()) {
+						ret += '<tr><td width=20% class=right>' + translate('eternalrune') + ': </td>'+'<td align=left width=80% colspan=3><b>' + Data.options.lastCollectEternalRune + '</b></td></tr>';
+					}
+					if(Player.hasLeviathanOP()) {
+						ret += '<tr><td width=20% class=right>' + translate('coraldoubloon') + ': </td>'+'<td align=left width=80% colspan=3><b>' + Data.options.lastCollectCoralDoubloon + '</b></td></tr>';
+					}
+					if(Player.hasLeviathanOP() || Player.hasAbyssalOP()) {
+						ret += '<tr><td width=20% class=right>' + translate('leaderboard-last-refresh') + ': </td>'+'<td align=left width=80% colspan=3><b>' + Data.options.lastTryCollectEternalRune + '</b></td></tr>';
+					}
+ 					return ret;
+				}
+				
 				function onScroll(event) {
 					if (t.contentType == 0) {
 						t.infoScrollPos = document.getElementById(UID['tabInfo_Content']).scrollTop;
@@ -19283,11 +19368,18 @@
 					}
 
 					if (Seed.cities[cityIdx]) {
+						var titleCompl = '';
+						if(cityIdx == COLOSSUS_OUTPOST.id) {
+							titleCompl = ' - ' + translate('eternalrune') + ' : ' + Player.Inventory.getNbItem('eternalrune');
+						}
+						if(cityIdx == LEVIATHAN_OUTPOST.id) {
+							titleCompl = ' - ' + translate('coraldoubloon') + ' : ' + Player.Inventory.getNbItem('coraldoubloon');
+						}
 						var city = Seed.cities[cityIdx];
 						var cityBuildId = 'tabJobBuild_cityId_' + cityIdx;
 						var accordionId = 'tabJobBuild_accordion_' + cityIdx;
 						var cityBuildListId = 'tabJobBuild_cityList_' + cityIdx;
-						m += '<div class=' + UID['content'] + ' style="margin-bottom:5px;">' + '<A><div id=' + setUID(cityBuildId) + ' class=' + UID[divClass] + ' ref="' + cityIdx + '">' + '<table width=100%>' + '	<tr><td align=center width=100% style="border-right:none">' + ((city.type == 'Outpost') ? translate(city.name) : city.name) + '</td>' + '		<td align=right style="border-right:none"><div id=' + setUID(accordionId) + ' ref="' + cityIdx + '"></div></td>' + '</tr></table></div></A>' + '<div id=' + setUID(cityBuildListId) + '>' + '<table class=' + UID['table'] + '>';
+						m += '<div class=' + UID['content'] + ' style="margin-bottom:5px;">' + '<A><div id=' + setUID(cityBuildId) + ' class=' + UID[divClass] + ' ref="' + cityIdx + '">' + '<table width=100%>' + '	<tr><td align=center width=100% style="border-right:none">' + ((city.type == 'Outpost') ? translate(city.name) : city.name) + ' ' + titleCompl + '</td>' + '		<td align=right style="border-right:none"><div id=' + setUID(accordionId) + ' ref="' + cityIdx + '"></div></td>' + '</tr></table></div></A>' + '<div id=' + setUID(cityBuildListId) + '>' + '<table class=' + UID['table'] + '>';
 						cl.push(UID[cityBuildId]);
 						if (!Data.options.building.hide_fields && listF) {
 							for (var i = 0; i < listF.length; ++i) {

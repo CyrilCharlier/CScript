@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.823.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.829.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -70,12 +70,13 @@
 	}
 
 	/* Set layout on kabam.com */
-	if ((/dragons-of-atlantis\/play/.test(window.location.href)) && window.location.href.indexOf("kabam.com") !== -1)
+	if ((/dragons-of-atlantis\/play/.test(window.location.href)) && window.location.href.indexOf("kabam.com") !== -1) {
 		setTimeout(function() {
 			document.getElementById('promo-sidebar').style.display = 'none';
 			var to_remove = document.getElementById('promo-sidebar').parentNode;
 			to_remove.parentNode.removeChild(to_remove);
 		}, 7000);
+	}
 
 	/* Check to see if script is running in an iframe or not and removes unnecessary elements before continuing with the script. */
 	if (/(pixelkabam|akamaihd|plugins|ai\.php|talkgadget|notifications|contactPicker|accounts|googleapis\.com\/static)/.test(window.location.href)) return;
@@ -500,7 +501,7 @@
 		var cave_buildings =		['CaveDragonKeep', 'CaveCathedral', 'CaveDepot', 'CaveForge', 'CaveGreenhouse', 'CaveLibrary', 'CaveTrainingCamp', 'CaveWorkshop'];
 		var luna_buildings =		['DragonKeep', 'LunaCathedral', 'LunaDepot', 'LunaForge', 'LunaGreenhouse', 'LunaLibrary', 'LunaWorkshop', 'LunaShrine'];
 		var colossus_buildings =	['ColossusDragonKeep', 'ColossusWall', 'Warehouse', 'TroopQuarters', 'WarpGate', 'ColossusDefensiveTower'];
-        var leviathan_buildings =    ['LeviathanMarketplace', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
+        var leviathan_buildings =    ['LeviathanMarketplace', 'LeviathanTroopQuarters', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
 		
 		var time_item_list =
 		   [{name: 'Blink', 				text: '1m',		type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
@@ -654,6 +655,7 @@
 							y: 0
 						},
 						lastCollectEternalRune: 0,
+						lastCollectCoralDoubloon: 0,
 						lastTryCollectEternalRune: 0,
 						background: true,
 						currentTab: false,
@@ -3363,11 +3365,11 @@
 					return;
 				}
 			},
-			collectRune: function (callback) {
+			collectRune: function (callback, item) {
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-				p['item'] = 'EternalRune';
+				p['item'] = item;
 				
 				new MyAjaxRequest('collect', 'daily_item/claim', p, mycb, true);
 				
@@ -4198,6 +4200,7 @@
 					}
 				}
 			},
+			
 
 			doit: function() {
 				var t = AutoCollect,
@@ -4235,12 +4238,25 @@
 					}
 					Data.options.lastTryCollectEternalRune = d.toLocaleDateString(LANG_CODE, {"year":"numeric","month":"2-digit","day":"2-digit","hour":"numeric","minute":"numeric","second":"2-digit"});
 				}
-				if(Seed.cities.length >= 15) {
-					MyAjax.collectRune(cbRune);
+				function cbCoral(rslt) {
+					var d = new Date();
+					if(rslt) {
+						dialogConfirm(translate('leviathan-daily-description'), null, null, false);
+						Data.options.lastCollectCoralDoubloon = d.toLocaleDateString(LANG_CODE, {"year":"numeric","month":"2-digit","day":"2-digit","hour":"numeric","minute":"numeric","second":"2-digit"});
+					} else {
+						logit('no Coral Doubloon to collect');
+					}
+					Data.options.lastTryCollectEternalRune = d.toLocaleDateString(LANG_CODE, {"year":"numeric","month":"2-digit","day":"2-digit","hour":"numeric","minute":"numeric","second":"2-digit"});
+				}
+				if(Player.hasAbyssalOP()) {
+					MyAjax.collectRune(cbRune, 'EternalRune');
+				}
+				if(Player.hasLeviathanOP()) {
+					MyAjax.collectRune(cbCoral, 'CoralDoubloon');
+				}
+				if(Player.hasAbyssalOP() || Player.hasLeviathanOP()) {
 					var time = (Data.options.autoCollectRune.delay * Data.options.autoCollectRune.unit) * 1000;
 					setTimeout(AutoCollect.doitRune, time); // toutes les heures
-				} else {
-					logit('No '+translate('colossus_dragon outpost'));
 				}
 			}
 		};
@@ -6099,7 +6115,6 @@
 					case 'ChronoJobs::Retreat': // Toujours le retour à la maison d'une marche ? 
 						break;
                     case 'ChronoJobs::CreateUnits':
-                        //{"timestamp":1433684639.89885,"type":"job_completed","data":{"job_type":"ChronoJobs::CreateUnits","player_id":1101749580,"realm_id":459,"args":{"platform":"facebook","original_job_duration":101,"quantity":"20","unit_type":"Porter"},"city_id":1102109676,"result":true}}
                         Seed.cities[CAPITAL.id].figures.population.armed_forces = Seed.cities[CAPITAL.id].figures.population.armed_forces - data.args.quantity;                        
                         break;
 					default :
@@ -11270,6 +11285,47 @@
 			}
 		};
 		var Player = {
+			Inventory : {
+				getNbItem: function(item) {
+					var nb = 0;
+					var found = false;
+					for (var type in Seed.items) {
+						for(var i=0;i<Seed.items[type].length;i++) {
+							if(item.toLowerCase() == Seed.items[type][i].type.toLowerCase()) {
+								nb = Seed.player.items[Seed.items[type][i].type];
+								found = true;
+								break;
+							}
+						}
+						if(found) {
+							break;
+						}
+					}
+					return nb;
+				}
+			},
+			hasAbyssalOP: function() {
+				var retour = false;
+				for(var i=0;i<Seed.cities.length;i++) {
+					if (Seed.cities[i].type == 'Outpost') {
+						if(Seed.cities[i].outpost_type == COLOSSUS_OUTPOST.name) {
+							retour = true;
+						}
+					}
+				}
+				return retour;
+			},
+			hasLeviathanOP: function() {
+				var retour = false;
+				for(var i=0;i<Seed.cities.length;i++) {
+					if (Seed.cities[i].type == 'Outpost') {
+						if(Seed.cities[i].outpost_type == LEVIATHAN_OUTPOST.name) {
+							retour = true;
+						}
+					}
+				}
+				return retour;
+			},
 			getWildernesses : function() {
 				return Seed.player.player_wildernesses;
 			},
@@ -14661,7 +14717,8 @@
 					+ dispBuildingJob(CAPITAL.id) 
 					+ dispDefenseTowerJob(CAPITAL.id) 
 					+ dispResearchJob(CAPITAL.id) 
-					+ dispTrainingJobs(CAPITAL.id) 
+					+ dispTrainingJobs(CAPITAL.id)
+					+ dispCollectRune()
 					+ '</table>' 
 					+ '</div>';
 
@@ -14676,8 +14733,7 @@
 								+ dispBuildingJob(cityIdx) 
 								+ dispResearchJob(cityIdx) 
 								+ dispTrainingJobs(cityIdx) 
-								+ dispResurrectionJobs(cityIdx) 
-								+ dispCollectRune(cityIdx)
+								+ dispResurrectionJobs(cityIdx)
 							+ '</table>' 
 							+ '</div>';
 						}
@@ -14920,14 +14976,17 @@
 					return m;
 				}
 				function dispCollectRune(cityIdx) {
-					if(cityIdx==14) {
-						var ret = '<tr><td width=20% class=right>' + translate('eternalrune') + ': </td>'+'<td align=left width=80% colspan=3><b>' + Data.options.lastCollectEternalRune + '</b></td></tr>';
-						ret += '<tr><td width=20% class=right>' + translate('leaderboard-last-refresh') + ': </td>'+'<td align=left width=80% colspan=3><b>' + Data.options.lastTryCollectEternalRune + '</b></td></tr>';
-						return ret;
-
-					} else {
-						return '';
+					var ret = '';
+					if(Player.hasAbyssalOP()) {
+						ret += '<tr><td width=20% class=right>' + translate('eternalrune') + ': </td>'+'<td align=left width=80% colspan=3><b>' + Data.options.lastCollectEternalRune + '</b></td></tr>';
 					}
+					if(Player.hasLeviathanOP()) {
+						ret += '<tr><td width=20% class=right>' + translate('coraldoubloon') + ': </td>'+'<td align=left width=80% colspan=3><b>' + Data.options.lastCollectCoralDoubloon + '</b></td></tr>';
+					}
+					if(Player.hasLeviathanOP() || Player.hasAbyssalOP()) {
+						ret += '<tr><td width=20% class=right>' + translate('leaderboard-last-refresh') + ': </td>'+'<td align=left width=80% colspan=3><b>' + Data.options.lastTryCollectEternalRune + '</b></td></tr>';
+					}
+ 					return ret;
 				}
 				function dispBuildingJob(cityIdx) {
 					var m = '<tr><td width=20% class=right>' + translate('Building') + ': </td>',
@@ -22067,11 +22126,18 @@
                     typeCity = getCityShortType(cityIdx);
 					
                     if (Seed.cities[cityIdx]) {
+						var titleCompl = '';
+						if(cityIdx == COLOSSUS_OUTPOST.id) {
+							titleCompl = ' - ' + translate('eternalrune') + ' : ' + Player.Inventory.getNbItem('eternalrune');
+						}
+						if(cityIdx == LEVIATHAN_OUTPOST.id) {
+							titleCompl = ' - ' + translate('coraldoubloon') + ' : ' + Player.Inventory.getNbItem('coraldoubloon');
+						}
 						var city = Seed.cities[cityIdx];
 						var cityBuildId = 'tabJobBuild_cityId_' + cityIdx;
 						var accordionId = 'tabJobBuild_accordion_' + cityIdx;
 						var cityBuildListId = 'tabJobBuild_cityList_' + cityIdx;
-						m += '<div class=' + UID['content'] + ' style="margin-bottom:5px;">' + '<A><div id=' + setUID(cityBuildId) + ' class=' + UID[divClass] + ' ref="' + cityIdx + '">' + '<table width=100%>' + '	<tr><td align=center width=100% style="border-right:none">' + ((city.type == 'Outpost') ? translate(city.name) : city.name) + '</td>' + '		<td align=right style="border-right:none"><div id=' + setUID(accordionId) + ' ref="' + cityIdx + '"></div></td>' + '</tr></table></div></A>' + '<div id=' + setUID(cityBuildListId) + '>' + '<table class=' + UID['table'] + '>';
+						m += '<div class=' + UID['content'] + ' style="margin-bottom:5px;">' + '<A><div id=' + setUID(cityBuildId) + ' class=' + UID[divClass] + ' ref="' + cityIdx + '">' + '<table width=100%>' + '	<tr><td align=center width=100% style="border-right:none">' + ((city.type == 'Outpost') ? translate(city.name) : city.name) + ' ' + titleCompl + '</td>' + '		<td align=right style="border-right:none"><div id=' + setUID(accordionId) + ' ref="' + cityIdx + '"></div></td>' + '</tr></table></div></A>' + '<div id=' + setUID(cityBuildListId) + '>' + '<table class=' + UID['table'] + '>';
 						cl.push(UID[cityBuildId]);
 						if (!Data.options.building.hide_fields && listF) {
 							for (var i = 0; i < listF.length; ++i) {
@@ -31286,7 +31352,7 @@
 					+ '		<td>' + '		<label>' + '		<input id=' + setUID('tabOptions_CB_Collect') + ' type=checkbox ' + (Data.options.autoCollect.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Auto harvest resources from outposts every') + '		</label> ' + '		<input id=' + setUID('tabOptions_collectTime') + ' size=1 maxlength=2 type=text value="' + Data.options.autoCollect.delay + '" />' + '		<select id=' + setUID('tabOptions_collectUnit') + ' size=1>' + '			<option value=1 ' + selected[1] + '>' + translate('Seconds') + '</option>' + '			<option value=60 ' + selected[2] + '>' + translate('minutes') + '</option>' + '			<option value=3600 ' + selected[3] + '>' + translate('hours') + '</option>' + '			<option value=86400 ' + selected[4] + '>' + translate('days') + '</option>' + '		</select>' 
 					+ '		</td>' 
 					+ '	</tr><tr valign=top>' 
-					+ '		<td>' + '		<label>' + '		<input id=' + setUID('tabOptions_CB_CollectRune') + ' type=checkbox ' + (Data.options.autoCollectRune.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Auto collect Eternal Rune every') + '		</label> ' + '		<input id=' + setUID('tabOptions_collectRuneTime') + ' size=1 maxlength=2 type=text value="' + Data.options.autoCollectRune.delay + '" />' + '		<select id=' + setUID('tabOptions_collectRuneUnit') + ' size=1>' + '			<option value=1 ' + selectedRune[1] + '>' + translate('Seconds') + '</option>' + '			<option value=60 ' + selectedRune[2] + '>' + translate('minutes') + '</option>' + '			<option value=3600 ' + selectedRune[3] + '>' + translate('hours') + '</option>' + '			<option value=86400 ' + selectedRune[4] + '>' + translate('days') + '</option>' + '		</select>' 
+					+ '		<td>' + '		<label>' + '		<input id=' + setUID('tabOptions_CB_CollectRune') + ' type=checkbox ' + (Data.options.autoCollectRune.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Auto collect') + ' ' + translate('eternalrune') + ' ' + translate('and')  + ' ' +  translate('coraldoubloon') + ' ' + translate('every') + '		</label> ' + '		<input id=' + setUID('tabOptions_collectRuneTime') + ' size=1 maxlength=2 type=text value="' + Data.options.autoCollectRune.delay + '" />' + '		<select id=' + setUID('tabOptions_collectRuneUnit') + ' size=1>' + '			<option value=1 ' + selectedRune[1] + '>' + translate('Seconds') + '</option>' + '			<option value=60 ' + selectedRune[2] + '>' + translate('minutes') + '</option>' + '			<option value=3600 ' + selectedRune[3] + '>' + translate('hours') + '</option>' + '			<option value=86400 ' + selectedRune[4] + '>' + translate('days') + '</option>' + '		</select>' 
 					+ '		</td>' 
 					+ '	</tr><tr valign=top>' 
 					+ '		<td>' 
