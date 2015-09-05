@@ -209,7 +209,8 @@
 			}
 		}
 		setWide();
-	} else {
+	}
+	else {
 		platform = document.body.className.split(' ');
 		if (platform && platform[0]) {
 			platform = platform[0].replace(/(platforms_|_game)/g, '');
@@ -431,9 +432,6 @@
 			EMULATE_NET_ERROR = 0,
 			MIN_DELAY_BETWEEN_WAVE = 3;
 
-		var BUTTON_BGCOLOR = '#436',
-			JOB_BUTTON_BGCOLOR = '#436';
-
 		/* Message handling */
 		var MESSAGES_ALL = 0,
 			MESSAGES_ONLY = 1,
@@ -481,7 +479,7 @@
 		/* Main arrays used in the script */
 		var sanctuaryDragonRank = new Array('common', 'lesser', 'heightened', 'royal', 'exalted', 'omniscient', 'legendary');
 		/* Troops arrays */
-		var all_dragon_list =		['GreatDragon', 'WaterDragon', 'StoneDragon', 'FireDragon', 'WindDragon', 'IceDragon', 'SwampDragon', 'ForestDragon', 'DesertDragon', 'ChronoDragon', 'SpectralDragon', 'KaiserDragon', 'CaveDragon', 'LunaDragon', 'ColossusDragon'];
+		var all_dragon_list =		['GreatDragon', 'WaterDragon', 'StoneDragon', 'FireDragon', 'WindDragon', 'IceDragon', 'SwampDragon', 'ForestDragon', 'DesertDragon', 'ChronoDragon', 'SpectralDragon', 'KaiserDragon', 'CaveDragon', 'LunaDragon', 'ColossusDragon','LeviathanDragon'];
 		var all_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren'];
 		var attack_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren'];
 		var wave_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren'];
@@ -491,17 +489,9 @@
 		var all_resource_types =			['gold', 'food', 'wood', 'ore', 'stone', 'blue_energy', 'lunar_energy', 'enchanting'];
 		var transportable_resource_types = 	['gold', 'food', 'wood', 'ore', 'stone'];
 		var trade_resource_types = 			['food', 'wood', 'ore', 'stone'];
-		/* Buildings arrays */
-		var capital_buildings =		['Home', 'Garrison', 'ScienceCenter', 'Metalsmith', 'OfficerQuarter', 'MusterPoint', 'Rookery', 'StorageVault', 'Theater', 'Sentinel', 'Factory', 'Fortress', 'DragonKeep', 'Wall', 'DefensiveTower'];
-		var outpost_buildings =		['TrainingCamp', 'Home', 'Silo', 'MusterPoint', 'DragonKeep', 'Wall'];
-		var field_buildings =		['Mine', 'Farm', 'Lumbermill', 'Quarry'];
-		var spectral_buildings =	['DarkPortal', 'Mausoleum', 'SpectralDragonKeep'];
-		var spectral_fields =		['EnergyCollector'];
-		var skythrone_buildings =	['KaiserDragonKeep', 'Cathedral', 'Forge', 'Greenhouse', 'Library', 'Workshop'];
-		var cave_buildings =		['CaveDragonKeep', 'CaveCathedral', 'CaveDepot', 'CaveForge', 'CaveGreenhouse', 'CaveLibrary', 'CaveTrainingCamp', 'CaveWorkshop'];
-		var luna_buildings =		['DragonKeep', 'LunaCathedral', 'LunaDepot', 'LunaForge', 'LunaGreenhouse', 'LunaLibrary', 'LunaWorkshop', 'LunaShrine'];
-		var colossus_buildings =	['ColossusDragonKeep', 'ColossusWall', 'Warehouse', 'TroopQuarters', 'WarpGate', 'ColossusDefensiveTower'];
-        var leviathan_buildings =    ['LeviathanMarketplace', 'LeviathanTroopQuarters', 'LeviathanDragonKeep', 'LeviathanDefensiveTower', 'LeviathanWall', 'LeviathanWarehouse'];
+		
+		var cssByQueue = { "march" : "btn_cyan", "units" : "btn_blue", "resurrection" : "btn_black" };
+		var confirmationTimeMaxForUse = 86400;
 		
 		var time_item_list =
 		   [{name: 'Blink', 				text: '1m',		type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
@@ -4358,6 +4348,15 @@
 				}
 				Tabs.Jobs.buildRefreshLvl = false;
 				return null;
+			},
+			getBuildingByCityType: function(cityType, location) {
+				var retour = [];
+				for(var i=0;i<Manifest.data.buildings.length;i++) {
+					if(Manifest.data.buildings[i].city_max[cityType.toLowerCase()] !== 0 && Manifest.data.buildings[i].location === location) {
+						retour.push(Manifest.data.buildings[i].type);
+					}
+				}
+				return retour;
 			}
 		};
 		var Data = {
@@ -10276,7 +10275,7 @@
 				MyAjax.getCustomization();
 				MyAjax.getForge();
 			},
-
+			
 			fetchPlayer: function(callback, options) {
 				var city;
 				if (callback instanceof Function) {
@@ -22078,52 +22077,66 @@
 				verboseLog('' + inspectObj(Seed.cities, 8, 1));
 				for (var cityIdx = 0; cityIdx < Seed.cities.length; ++cityIdx) {
 					divClass = 'subtitle';
+					var cityTemp;
 					switch (cityIdx) {
                         case CAPITAL.id:
-                            listC = capital_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', CAPITAL.id : ' + CAPITAL.id);
+                            cityTemp = CAPITAL
                             break;
                         case SPECTRAL_OUTPOST.id:
-                            listC = spectral_buildings;
-							listF = spectral_fields;
+                            cityTemp = SPECTRAL_OUTPOST;
 							divClass = 'subtitle_sr';
-							verboseLog('cityIdx : ' + cityIdx + ', SPECTRAL_OUTPOST.id : ' + SPECTRAL_OUTPOST.id);
 							break;
                         case SKY_OUTPOST.id:
-                            listC = skythrone_buildings;
-							listF = false;
-							verboseLog('cityIdx : ' + cityIdx + ', SKY_OUTPOST.id : ' + SKY_OUTPOST.id);
+                            cityTemp = SKY_OUTPOST;
                             break;
                         case CAVE_OUTPOST.id:
-                            listC = cave_buildings;
-							listF = false;
-							verboseLog('cityIdx : ' + cityIdx + ', CAVE_OUTPOST.id : ' + CAVE_OUTPOST.id);
+                            cityTemp = CAVE_OUTPOST;
 							break;
                         case LUNA_OUTPOST.id:
-                            listC = luna_buildings;
-							listF = false;
-							verboseLog('cityIdx : ' + cityIdx + ', LUNA_OUTPOST.id : ' + LUNA_OUTPOST.id);
+							cityTemp = LUNA_OUTPOST;
                             break;
                         case COLOSSUS_OUTPOST.id:
-                            listC = colossus_buildings;
-							listF = false;
-							verboseLog('cityIdx : ' + cityIdx + ', COLOSSUS_OUTPOST.id : ' + COLOSSUS_OUTPOST.id);
-                            break;
+							cityTemp = COLOSSUS_OUTPOST;
+							break;
 						case LEVIATHAN_OUTPOST.id:
-                            listC = leviathan_buildings;
-							listF = false;
-							verboseLog('cityIdx : ' + cityIdx + ', LEVIATHAN_OUTPOST.id : ' + LEVIATHAN_OUTPOST.id);
-                            break;
-                        default:
-                            listC = outpost_buildings;
-							listF = field_buildings;
-							verboseLog('cityIdx : ' + cityIdx + ', default ');
-                            break;
-                            
+                            cityTemp = LEVIATHAN_OUTPOST;
+							break;
+						case ICE_OUTPOST.id:
+                            cityTemp = ICE_OUTPOST;
+							break;
+						case SWAMP_OUTPOST.id:
+                            cityTemp = SWAMP_OUTPOST;
+							break;
+						case FOREST_OUTPOST.id:
+                            cityTemp = FOREST_OUTPOST;
+							break;
+						case DESERT_OUTPOST.id:
+                            cityTemp = DESERT_OUTPOST;
+							break;
+						case WATER_OUTPOST.id:
+                            cityTemp = WATER_OUTPOST;
+							break;
+						case STONE_OUTPOST.id:
+                            cityTemp = STONE_OUTPOST;
+							break;
+						case FIRE_OUTPOST.id:
+                            cityTemp = FIRE_OUTPOST;
+							break;
+						case WIND_OUTPOST.id:
+                            cityTemp = WIND_OUTPOST;
+							break;
+						case CHRONO_OUTPOST.id:
+                            cityTemp = CHRONO_OUTPOST;
+							break;
+						case CHRONO_OUTPOST.id:
+                            cityTemp = CHRONO_OUTPOST;
+							break;
 					}
 
-                    typeCity = getCityShortType(cityIdx);
+					listC = Buildings.getBuildingByCityType(cityTemp.type, 'city');
+					listF = Buildings.getBuildingByCityType(cityTemp.type, 'field');
+                    
+					typeCity = getCityShortType(cityIdx);
 					
                     if (Seed.cities[cityIdx]) {
 						var titleCompl = '';
@@ -22139,7 +22152,7 @@
 						var cityBuildListId = 'tabJobBuild_cityList_' + cityIdx;
 						m += '<div class=' + UID['content'] + ' style="margin-bottom:5px;">' + '<A><div id=' + setUID(cityBuildId) + ' class=' + UID[divClass] + ' ref="' + cityIdx + '">' + '<table width=100%>' + '	<tr><td align=center width=100% style="border-right:none">' + ((city.type == 'Outpost') ? translate(city.name) : city.name) + ' ' + titleCompl + '</td>' + '		<td align=right style="border-right:none"><div id=' + setUID(accordionId) + ' ref="' + cityIdx + '"></div></td>' + '</tr></table></div></A>' + '<div id=' + setUID(cityBuildListId) + '>' + '<table class=' + UID['table'] + '>';
 						cl.push(UID[cityBuildId]);
-						if (!Data.options.building.hide_fields && listF) {
+						if (!Data.options.building.hide_fields && listF.length>0) {
 							for (var i = 0; i < listF.length; ++i) {
 								var max_level = Buildings.getLevelMax(typeCity, listF[i]);
 								var min_level = (Buildings.getLevel(cityIdx, listF[i])).min;
@@ -22189,63 +22202,64 @@
 				}
 				for (var cityIdx = 0; cityIdx < Seed.cities.length; ++cityIdx) {
 					if (Seed.cities[cityIdx]) {
+						var cityTemp;
+						switch (cityIdx) {
+							case CAPITAL.id:
+								cityTemp = CAPITAL
+								break;
+							case SPECTRAL_OUTPOST.id:
+								cityTemp = SPECTRAL_OUTPOST;
+								divClass = 'subtitle_sr';
+								break;
+							case SKY_OUTPOST.id:
+								cityTemp = SKY_OUTPOST;
+								break;
+							case CAVE_OUTPOST.id:
+								cityTemp = CAVE_OUTPOST;
+								break;
+							case LUNA_OUTPOST.id:
+								cityTemp = LUNA_OUTPOST;
+								break;
+							case COLOSSUS_OUTPOST.id:
+								cityTemp = COLOSSUS_OUTPOST;
+								break;
+							case LEVIATHAN_OUTPOST.id:
+								cityTemp = LEVIATHAN_OUTPOST;
+								break;
+							case ICE_OUTPOST.id:
+								cityTemp = ICE_OUTPOST;
+								break;
+							case SWAMP_OUTPOST.id:
+								cityTemp = SWAMP_OUTPOST;
+								break;
+							case FOREST_OUTPOST.id:
+								cityTemp = FOREST_OUTPOST;
+								break;
+							case DESERT_OUTPOST.id:
+								cityTemp = DESERT_OUTPOST;
+								break;
+							case WATER_OUTPOST.id:
+								cityTemp = WATER_OUTPOST;
+								break;
+							case STONE_OUTPOST.id:
+								cityTemp = STONE_OUTPOST;
+								break;
+							case FIRE_OUTPOST.id:
+								cityTemp = FIRE_OUTPOST;
+								break;
+							case WIND_OUTPOST.id:
+								cityTemp = WIND_OUTPOST;
+								break;
+							case CHRONO_OUTPOST.id:
+								cityTemp = CHRONO_OUTPOST;
+								break;
+							case CHRONO_OUTPOST.id:
+								cityTemp = CHRONO_OUTPOST;
+								break;
+						}
 						var buildList;
-						if (!Data.options.building.hide_fields) {
-							switch (cityIdx) {
-								case CAPITAL.id:
-									buildList = capital_buildings.concat(field_buildings);
-									break;
-								case SPECTRAL_OUTPOST.id:
-									buildList = spectral_buildings.concat(spectral_fields);
-									break;
-								case SKY_OUTPOST.id:
-									buildList = skythrone_buildings;
-									break;
-								case CAVE_OUTPOST.id:
-									buildList = cave_buildings;
-									break;
-								case LUNA_OUTPOST.id:
-									buildList = luna_buildings;
-									break;
-								case COLOSSUS_OUTPOST.id:
-									buildList = colossus_buildings;
-									break;
-								case LEVIATHAN_OUTPOST.id:
-									buildList = leviathan_buildings;
-									break;
-								default:
-									buildList = outpost_buildings.concat(field_buildings);
-									break;
-							}
-						}
-                        else {
-							switch (cityIdx) {
-								case CAPITAL.id:
-									buildList = capital_buildings;
-									break;
-								case SPECTRAL_OUTPOST.id:
-									buildList = spectral_buildings;
-									break;
-								case SKY_OUTPOST.id:
-									buildList = skythrone_buildings;
-									break;
-								case CAVE_OUTPOST.id:
-									buildList = cave_buildings;
-									break;
-								case LUNA_OUTPOST.id:
-									buildList = luna_buildings;
-									break;
-								case COLOSSUS_OUTPOST.id:
-									buildList = colossus_buildings;
-									break;
-								case LEVIATHAN_OUTPOST.id:
-									buildList = leviathan_buildings;
-									break;
-								default:
-									buildList = outpost_buildings;
-									break;
-							}
-						}
+						( Data.options.building.hide_fields ? buildList = Buildings.getBuildingByCityType(cityTemp.type, 'city') :  buildList = Buildings.getBuildingByCityType(cityTemp.type, 'city').concat(Buildings.getBuildingByCityType(cityTemp.type, 'field')) );
+					
 						for (var i = 0; i < buildList.length; ++i) {
                             typeCity = getCityShortType(cityIdx);
                             var max_level = Buildings.getLevelMax(typeCity, buildList[i]);
@@ -22281,35 +22295,67 @@
 					if (Data.options.building.hide_fields) {
 						for (var cityIdx = 0; cityIdx < Seed.cities.length; ++cityIdx) {
 							var list = [];
+							var cityTemp;
 							switch (cityIdx) {
 								case CAPITAL.id:
-									list = field_buildings;
+									cityTemp = CAPITAL
 									break;
 								case SPECTRAL_OUTPOST.id:
-									list = spectral_fields;
+									cityTemp = SPECTRAL_OUTPOST;
+									divClass = 'subtitle_sr';
 									break;
 								case SKY_OUTPOST.id:
-									list = false;
+									cityTemp = SKY_OUTPOST;
 									break;
 								case CAVE_OUTPOST.id:
-									list = false;
+									cityTemp = CAVE_OUTPOST;
 									break;
 								case LUNA_OUTPOST.id:
-									list = false;
+									cityTemp = LUNA_OUTPOST;
 									break;
 								case COLOSSUS_OUTPOST.id:
-									list = false;
+									cityTemp = COLOSSUS_OUTPOST;
 									break;
 								case LEVIATHAN_OUTPOST.id:
-									list = false;
+									cityTemp = LEVIATHAN_OUTPOST;
 									break;
-								default:
-									list = field_buildings;
+								case ICE_OUTPOST.id:
+									cityTemp = ICE_OUTPOST;
+									break;
+								case SWAMP_OUTPOST.id:
+									cityTemp = SWAMP_OUTPOST;
+									break;
+								case FOREST_OUTPOST.id:
+									cityTemp = FOREST_OUTPOST;
+									break;
+								case DESERT_OUTPOST.id:
+									cityTemp = DESERT_OUTPOST;
+									break;
+								case WATER_OUTPOST.id:
+									cityTemp = WATER_OUTPOST;
+									break;
+								case STONE_OUTPOST.id:
+									cityTemp = STONE_OUTPOST;
+									break;
+								case FIRE_OUTPOST.id:
+									cityTemp = FIRE_OUTPOST;
+									break;
+								case WIND_OUTPOST.id:
+									cityTemp = WIND_OUTPOST;
+									break;
+								case CHRONO_OUTPOST.id:
+									cityTemp = CHRONO_OUTPOST;
+									break;
+								case CHRONO_OUTPOST.id:
+									cityTemp = CHRONO_OUTPOST;
 									break;
 							}
-							if (list)
-								for (var i = 0; i < list.length; ++i)
+							list = Buildings.getBuildingByCityType(cityTemp.type, 'field');
+							if (list.length>0) {
+								for (var i = 0; i < list.length; ++i) {
 									Data.options.building.level_enable[cityIdx][list[i]] = false;
+								}
+							}
 						}
 					}
 					setTimeout(t.tabJobBuild, 1000);
@@ -24641,32 +24687,62 @@
 								}, 1000);
 							else {
 								var buildList;
+								var cityTemp;
 								switch (cityIdx) {
 									case CAPITAL.id:
-										buildList = capital_buildings.concat(field_buildings);
+										cityTemp = CAPITAL
 										break;
 									case SPECTRAL_OUTPOST.id:
-										buildList = spectral_buildings.concat(spectral_fields);
+										cityTemp = SPECTRAL_OUTPOST;
+										divClass = 'subtitle_sr';
 										break;
 									case SKY_OUTPOST.id:
-										buildList = skythrone_buildings;
+										cityTemp = SKY_OUTPOST;
 										break;
 									case CAVE_OUTPOST.id:
-										buildList = cave_buildings;
+										cityTemp = CAVE_OUTPOST;
 										break;
 									case LUNA_OUTPOST.id:
-										buildList = luna_buildings;
+										cityTemp = LUNA_OUTPOST;
 										break;
 									case COLOSSUS_OUTPOST.id:
-										buildList = colossus_buildings;
+										cityTemp = COLOSSUS_OUTPOST;
 										break;
 									case LEVIATHAN_OUTPOST.id:
-										buildList = leviathan_buildings;
+										cityTemp = LEVIATHAN_OUTPOST;
 										break;
-									default:
-										buildList = outpost_buildings.concat(field_buildings);
+									case ICE_OUTPOST.id:
+										cityTemp = ICE_OUTPOST;
+										break;
+									case SWAMP_OUTPOST.id:
+										cityTemp = SWAMP_OUTPOST;
+										break;
+									case FOREST_OUTPOST.id:
+										cityTemp = FOREST_OUTPOST;
+										break;
+									case DESERT_OUTPOST.id:
+										cityTemp = DESERT_OUTPOST;
+										break;
+									case WATER_OUTPOST.id:
+										cityTemp = WATER_OUTPOST;
+										break;
+									case STONE_OUTPOST.id:
+										cityTemp = STONE_OUTPOST;
+										break;
+									case FIRE_OUTPOST.id:
+										cityTemp = FIRE_OUTPOST;
+										break;
+									case WIND_OUTPOST.id:
+										cityTemp = WIND_OUTPOST;
+										break;
+									case CHRONO_OUTPOST.id:
+										cityTemp = CHRONO_OUTPOST;
+										break;
+									case CHRONO_OUTPOST.id:
+										cityTemp = CHRONO_OUTPOST;
 										break;
 								}
+								buildList = Buildings.getBuildingByCityType(cityTemp.type, 'city').concat(Buildings.getBuildingByCityType(cityTemp.type, 'field'));
 								for (var i = 0; i < buildList.length; ++i) {
 									if (Data.options.building.level_enable[cityIdx][buildList[i]])
 										t.checkBuildReqs(cityIdx, buildList[i]);
@@ -24821,32 +24897,62 @@
 				var cap = 0;
 
 				var cityType;
-				switch (parseInt(cityIdx)) {
+				var cityTemp;
+				switch (cityIdx) {
 					case CAPITAL.id:
-						cityType = capital_buildings.concat(field_buildings);
+						cityTemp = CAPITAL
 						break;
 					case SPECTRAL_OUTPOST.id:
-						cityType = spectral_buildings.concat(spectral_fields);
+						cityTemp = SPECTRAL_OUTPOST;
+						divClass = 'subtitle_sr';
 						break;
 					case SKY_OUTPOST.id:
-						cityType = skythrone_buildings;
+						cityTemp = SKY_OUTPOST;
 						break;
 					case CAVE_OUTPOST.id:
-						cityType = cave_buildings;
+						cityTemp = CAVE_OUTPOST;
 						break;
 					case LUNA_OUTPOST.id:
-						cityType = luna_buildings;
+						cityTemp = LUNA_OUTPOST;
 						break;
 					case COLOSSUS_OUTPOST.id:
-						cityType = colossus_buildings;
+						cityTemp = COLOSSUS_OUTPOST;
 						break;
 					case LEVIATHAN_OUTPOST.id:
-						cityType = leviathan_buildings;
+						cityTemp = LEVIATHAN_OUTPOST;
 						break;
-					default:
-						cityType = outpost_buildings.concat(field_buildings);
+					case ICE_OUTPOST.id:
+						cityTemp = ICE_OUTPOST;
+						break;
+					case SWAMP_OUTPOST.id:
+						cityTemp = SWAMP_OUTPOST;
+						break;
+					case FOREST_OUTPOST.id:
+						cityTemp = FOREST_OUTPOST;
+						break;
+					case DESERT_OUTPOST.id:
+						cityTemp = DESERT_OUTPOST;
+						break;
+					case WATER_OUTPOST.id:
+						cityTemp = WATER_OUTPOST;
+						break;
+					case STONE_OUTPOST.id:
+						cityTemp = STONE_OUTPOST;
+						break;
+					case FIRE_OUTPOST.id:
+						cityTemp = FIRE_OUTPOST;
+						break;
+					case WIND_OUTPOST.id:
+						cityTemp = WIND_OUTPOST;
+						break;
+					case CHRONO_OUTPOST.id:
+						cityTemp = CHRONO_OUTPOST;
+						break;
+					case CHRONO_OUTPOST.id:
+						cityTemp = CHRONO_OUTPOST;
 						break;
 				}
+				cityType = Buildings.getBuildingByCityType(cityTemp.type, 'city').concat(Buildings.getBuildingByCityType(cityTemp.type, 'field'));
 				for (var i = 0; i < cityType.length; ++i) {
 					if (cityType[i] == buildingType) {
 						try {
@@ -32835,8 +32941,6 @@
 				document.getElementById(UID['tabCity_LunarOutpost']).style.zIndex = 1;
                 t.contentType = 0;
                 
-                //var luna_buildings = ['DragonKeep', 'LunaCathedral', 'LunaDepot', 'LunaForge', 'LunaGreenhouse', 'LunaLibrary', 'LunaWorkshop', 'LunaShrine'];
-                
                 var levelShrine = Buildings.getLevel(LUNA_OUTPOST.id, 'LunaShrine').max;
                 var maxEnergyLunar = Manifest.lunaData.shrine.capacity[levelShrine];
                 var btSum=[], tbNbSum=[];
@@ -32845,6 +32949,7 @@
                     + ' <div class=' + UID['content'] + '>'
                     + '   <div id='+setUID('tabCity_lunaDiv')+'>'
                     + '		<table class='+UID['table']+' style="width:100%">';
+				var luna_buildings = Buildings.getBuildingByCityType(LUNA_OUTPOST.type, 'city');
                 for(var i=0;i<luna_buildings.length;i++) {
                 	if(luna_buildings[i] != 'DragonKeep' && luna_buildings[i] != 'LunaShrine') {
                 		var tmpTroop = Manifest.lunaData.troops[luna_buildings[i]];
