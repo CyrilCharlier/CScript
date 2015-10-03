@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.829.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.1003.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -370,7 +370,7 @@
 			scriptName = 'CalciumScript',
 			mainAuthor = 'Calcium',
 			CPT_SEARCH = {  players:'playerSearchName', playersHisto:'playerSearchHistoName', playerDetail: 'detailPlayer', alliances:'allianceSearchName', allianceDetail: 'detailAlliance' };
-		
+
 		/* Skins */
 		var urlBackgroundImage = '',
 			urlBackgroundLogo = '';
@@ -378,7 +378,7 @@
 		var styleList = ['btn_blue', 'blue', 'btn_cyan', 'btn_green', 'btn_on', 'btn_off', 'btn_red', 'btn_purple', 'btn_red', 'btn_yellow', 'bold_red', 'compact_table',
 			'content', 'content_table', 'defending', 'hiding', 'popup_bar', 'popup_close', 'popup_main', 'popup_outer', 'popup_top', 'row_headers', 'row_style', 'row_top_headers',
 			'row_headers_left', 'scrollable', 'status_feedback', 'status_report', 'status_ticker', 'subtitle_light', 'subtitle', 'support_link', 'table', 'table_console', 'table_headers', 'table_targets',
-			'table_wrap', 'title', 'red', 'green', 'btn_disabled', 'title_sr', 'title_main', 'info_protect', 'info_alerts', 'info_boosts','information', 'btn_black', 
+			'table_wrap', 'title', 'red', 'green', 'btn_disabled', 'title_sr', 'title_main', 'info_protect', 'info_alerts', 'info_boosts','information', 'btn_black',
 			'warninggreen', 'warningorange', 'warningred', 'warningblack', 'number1', 'number2', 'number3'
 		];
 		/* Tab order */
@@ -456,7 +456,7 @@
 			LUNA_OUTPOST =		{ id: 13,	type: 'luna',		name: 'LunaDragonOutpost',		dragon_name: 'LunaDragon'},
 			COLOSSUS_OUTPOST = 	{ id: 14,	type: 'colossus',	name: 'ColossusDragonOutpost',	dragon_name: 'ColossusDragon'};
             LEVIATHAN_OUTPOST = { id: 15,   type: 'leviathan',  name: 'LevithanDragonOutpost', dragon_name: 'LeviathanDragon'};
-			
+
 		var IsChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 
 		/* Error messages */
@@ -489,10 +489,10 @@
 		var all_resource_types =			['gold', 'food', 'wood', 'ore', 'stone', 'blue_energy', 'lunar_energy', 'enchanting'];
 		var transportable_resource_types = 	['gold', 'food', 'wood', 'ore', 'stone'];
 		var trade_resource_types = 			['food', 'wood', 'ore', 'stone'];
-		
+
 		var cssByQueue = { "march" : "btn_cyan", "units" : "btn_blue", "resurrection" : "btn_black" };
 		var confirmationTimeMaxForUse = 86400;
-		
+
 		var time_item_list =
 		   [{name: 'Blink', 				text: '1m',		type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
 			{name: 'Hop',					text: '5m',		type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
@@ -781,7 +781,7 @@
 							},
 							CapitalAdventurer : {
 								cbAuto : false,
-								mission : '' 
+								mission : ''
 							},
 							WaterOutpostAdventurer : {
 								cbAuto : false,
@@ -1553,12 +1553,12 @@
 				if (Data.options.cheat_enabled) {
 					transportable_resource_types = cloneProps(all_resource_types);
 				}
-				
+
 				/** To be sure that remaining setting is reset to its default */
 				if (Data.options.Rcheat_enabled) {
 					Data.options.Rcheat_enabled = false;
                 }
-                
+
 				/* Check basic initialization */
 
 				function stepStarting(current_step) {
@@ -1917,7 +1917,7 @@
 			nMonde : null,
 			timerAlliance : null,
 			timerMonde : null,
-			
+
 			init: function() {
 				var t = CalciumNotifications;
 				Messages.addAlarmReportListener(t.gotAlarmReport);
@@ -1935,15 +1935,15 @@
 				try {
 					verboseLog('IsChrome = ' + IsChrome);
 					var Notification = window.Notification || window.mozNotification || window.webkitNotification;
-					
+
 					Notification.requestPermission(function (permission) {});
-					
+
 					var instance = new Notification(title, {
 						body: body,
 						tag: tag,
 						icon: iconUrl
 					});
-					
+
 					instance.onclick = function () {
 						// Something to do
 					};
@@ -1956,7 +1956,7 @@
 					instance.onclose = function () {
 						// Something to do
 					};
-					
+
 					return instance;
 					/*Notification.requestPermission(function(perm) {
 						verboseLog('perm = ' + perm);
@@ -1999,7 +1999,7 @@
 					time: data.timestamp,
 					id: data.player_id
 				};
-				
+
 				if(tabTemp[1] == 0) {
 					if(Data.options.tchat.enable_notif_realm) {
 						if(t.nMonde != null) {
@@ -2036,7 +2036,7 @@
 					verboseLog('Add message to alliance tchat :' + inspectObj(message, 4, 1));
 				}
 			},
-			
+
 			gotAlarmReport: function(rpt_alm, msgid) {
 				var t = CalciumNotifications;
 				var nbSpy = 0;
@@ -2108,7 +2108,7 @@
 					if(Data.options.wall.auto.enable && (Buildings.getLevel(CAPITAL.id, 'Sentinel')).min >= 9) {
 						logit('Wall auto enable and sentinel >= 9');
 						var detAlert = SoundPlayer.getNbCurrentAlertForAutoWall();
-						
+
 						// Spy in progress ?
 						if(detAlert.nbSpyInProgress > 0) {
 							logit('nbSpyInProgress : ' + detAlert.nbSpyInProgress);
@@ -2119,9 +2119,9 @@
 									setTimeout(function() { Wall.useMomentaryTruce(); }, 2000);
 								}
 							}
-							
+
 							var idSpyPreset = 0;
-							if(detAlert.maxSpy <= 100) { 
+							if(detAlert.maxSpy <= 100) {
 								idSpyPreset = 0;
 							} else if (detAlert.maxSpy <= 1000) {
 								idSpyPreset = 1;
@@ -2135,7 +2135,7 @@
 							Wall.putWallDefenseOn();
 							Wall.applyPreset(Data.options.wall.auto.spy.preset[idSpyPreset], 'spy');
 						}
-						
+
 						// Attack in progress ?
 						if(detAlert.nbAttackInProgress > 0) {
 							// Multi attack ?
@@ -2145,7 +2145,7 @@
 									Wall.hideTroops();
 								}
 							}
-						
+
 							// Use a MomentaryTruce ?
 							if(Data.options.wall.auto.attack.use_truce) {
 								// City underProtection ?
@@ -2156,7 +2156,7 @@
 							Wall.putWallDefenseOn();
 							Wall.applyPreset(Data.options.wall.auto.attack.preset_default, 'attack');
 						}
-						
+
 						// Hide troop at the end of the last attack ?? ==> Gérer
 						// dans package Wall !
 						if(Data.options.wall.auto.hide_troop_after_last) {
@@ -2272,7 +2272,7 @@
 				t.connect(PUB_SERVER,PUB_PORT);
 				t.checkstatus_timer = setInterval(t.checkstatus,t.CHECKSTATUS_DELAY);
 			},
-			
+
 			shockwaveok : function() {
 				var t = Socket;
 				t.shockwave_ok = true;
@@ -2400,7 +2400,7 @@
 						logit('window.addEventListener --- Ejected');
 						return;
 					}
-					
+
 					if (event.data.type && event.data.text && t.EventType[event.data.type]) {
 						var fn = t.EventType[event.data.type];
 						t[fn](event.data.text);
@@ -2557,7 +2557,7 @@
 				};
 
 				setUID('TeamWork_SocketBridge');
-				
+
 				easyswf({
 					swf: t.SWF_SOCKET_URL,
 					targetDiv: UID['TeamWork_Socket_Bridge'],
@@ -2581,20 +2581,20 @@
 				document.getElementById(UID['TeamWork_SocketBridge']).remove();
 				t.loadSocketBridge();
 			},
-			
+
 			doNothing : function(obj) {
 				return;
 			}
 		};
 		var Wall = {
-			
+
 			checkSetDefenseBusy : false,
-			
+
 			init: function() {
 				Messages.addBattleReportListener(Wall.readBattleReport);
 				Messages.addSpyReportListener(Wall.readSpyReport);
 			},
-			
+
 			isUnderProtection: function() {
 				var ret = false;
 				var boosts = getBoosts();
@@ -2607,7 +2607,7 @@
 				}
 				return ret;
 			},
-			
+
 			useMomentaryTruce : function() {
 				new MyAjax.useSingleItem('MomentaryTruce', function(rslt) {
 					if (rslt.ok) {
@@ -2617,13 +2617,13 @@
 					}
 				});
 			},
-			
+
 			hideTroops: function() {
 				var t = Wall;
 				var units = {};
-				t.apply(units);			
+				t.apply(units);
 			},
-			
+
 			apply: function(units) {
 				var city = Seed.cities[CAPITAL.id];
 				var t = Wall;
@@ -2635,9 +2635,9 @@
 					logit(translate('wall-defenders-updated'));
 					t.checkSetDefenseBusy = false;
 				});
-			
+
 			},
-			
+
 			applyPreset: function (id, type) { // type : 'spy', 'attack'
 				var t = Wall;
 				var presetUnits = Data.options.wall.presets[id].units;
@@ -2645,7 +2645,7 @@
 				for (var pu in presetUnits) {
 					var numTroops = getTroopNumbers(CAPITAL.id, pu);
 					var unit_max = numTroops.incity + numTroops.indefense;
-					if (unit_max < presetUnits[pu] || presetUnits[pu] == -1) { 
+					if (unit_max < presetUnits[pu] || presetUnits[pu] == -1) {
 						units[pu] = unit_max;
 					}
 					else  {
@@ -2659,15 +2659,15 @@
 					}
 				}
 			},
-			
+
 			readBattleReport: function(rpt) {
 				// Parcours des messages du guet
 				for(var i = 0 ; i < Data.options.messages_tower.length ; i++) {
 					var msg = Data.options.messages_tower[i];
 					// Si X, Y et type de messages coincide on continue
-					// 
-					if (rpt.report.attacker.location.x == Data.options.messages_tower[i].x 
-					&& rpt.report.attacker.location.y == Data.options.messages_tower[i].y 
+					//
+					if (rpt.report.attacker.location.x == Data.options.messages_tower[i].x
+					&& rpt.report.attacker.location.y == Data.options.messages_tower[i].y
 					&& rpt.report.location.terrain == 'City') {
 						var results = [];
 						var msgTroups = '';
@@ -2702,14 +2702,14 @@
 					}
 				}
 			},
-			
+
 			readSpyReport: function(rpt) {
 				// Parcours des messages du guet
 				for(var i = 0 ; i < Data.options.messages_tower.length ; i++) {
 					var msg = Data.options.messages_tower[i];
-					
-					if (rpt.report.attacker.location.x == Data.options.messages_tower[i].x 
-					&& rpt.report.attacker.location.y == Data.options.messages_tower[i].y 
+
+					if (rpt.report.attacker.location.x == Data.options.messages_tower[i].x
+					&& rpt.report.attacker.location.y == Data.options.messages_tower[i].y
 					&& rpt.report.location.terrain == 'City') {
 						var results = [];
 						var msgTroups = '';
@@ -2744,7 +2744,7 @@
 					}
 				}
 			},
-			
+
 			putWallDefenseOn : function () {
 				var wallStatus = Seed.cities[CAPITAL.id].defended;
 				if(!wallStatus) {
@@ -2757,7 +2757,7 @@
 					});
 				}
 			},
-			
+
 			putWallDefenseOff : function () {
 				var wallStatus = Seed.cities[CAPITAL.id].defended;
 				if(wallStatus) {
@@ -2785,9 +2785,9 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-				
+
 				new MyAjaxRequest('player', 'player/login_messages.json', p, mycb, false);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.loginMessages = rslt.dat.result.result;
@@ -2804,9 +2804,9 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-				
+
 				new MyAjaxRequest('player', 'challenges', p, mycb, false);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.challenges = rslt.dat.result;
@@ -2823,9 +2823,9 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-				
+
 				new MyAjaxRequest('player', 'challenges/'+challenge_id+'/leaderboard', p, mycb, false);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.challenges[challenge_id] = rslt.dat.result;
@@ -2842,9 +2842,9 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-				
+
 				new MyAjaxRequest('forge', 'forge/forge.json', p, mycb, false);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.forge = rslt.dat.forge;
@@ -2859,9 +2859,9 @@
 				var p = {};
 				p = t.addMainParams();
 				p['player_forge_equipment_id'] = equipmentId;
-				
+
 				new MyAjaxRequest('forge', 'forge/upgrade_equipment', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.blacksmith = rslt.dat.result.blacksmith;
@@ -2878,9 +2878,9 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-								
+
 				new MyAjaxRequest('forge', 'player/equipments/'+equipmentId+'/equip', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						for(var j=0; j<rslt.dat.result.equipment.length ; j++) {
@@ -2902,9 +2902,9 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-								
+
 				new MyAjaxRequest('forge', 'player/equipments/'+equipmentId+'/unequip', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						for(var j=0; j<rslt.dat.result.equipment.length ; j++) {
@@ -2927,9 +2927,9 @@
 				var p = {};
 				p = t.addMainParams();
 				p['player_forge_equipment_id'] = equipmentId;
-				
+
 				new MyAjaxRequest('forge', 'forge/repair_equipment', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.checkAddJob(rslt.dat.result.repair_job);
@@ -2947,9 +2947,9 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-				
+
 				new MyAjaxRequest('forge', 'forge/repair_hammer', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.checkAddJob(rslt.dat.result.repair_job);
@@ -2966,7 +2966,7 @@
 				p = t.addMainParams();
 				p['mission_type'] = missionType;
 				p['adventurer_id'] = adventurerId;
-				
+
 				new MyAjaxRequest('forge', 'player_missions/claim_mission.json', p, mycb, true);
 
 				function mycb(rslt) {
@@ -2985,7 +2985,7 @@
 				p = t.addMainParams();
 				p['mission_type'] = missionType;
 				p['adventurer_id'] = adventurerId;
-				
+
 				new MyAjaxRequest('forge', 'player_missions.json', p, mycb, true);
 
 				function mycb(rslt) {
@@ -3003,9 +3003,9 @@
 				var p = {};
 				p = t.addMainParams();
 				p['output_name']=name;
-				
+
 				new MyAjaxRequest('forge', 'forge/forge_item', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.blacksmith = rslt.dat.result.blacksmith;
@@ -3023,9 +3023,9 @@
 				var p = {};
 				p = t.addMainParams();
 				p['player_forge_equipment_id']=equipmentId;
-				
+
 				new MyAjaxRequest('forge', 'forge/disenchant_equipment', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.blacksmith = rslt.dat.result.blacksmith;
@@ -3042,9 +3042,9 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-				
+
 				new MyAjaxRequest('forge', 'forge/player_forge_info', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.blacksmith = rslt.dat.result.blacksmith;
@@ -3064,12 +3064,12 @@
 				p['offer[product]'] = product;
 				p['offer[units]'] = nbProduct;
 				p['offer[price]'] = price;
-				
+
 				new MyAjaxRequest('trade', 'trades/sell.json', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
-						
+
 					} else {
 						verboseLog('Ajax.tradeSell ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
 					}
@@ -3077,7 +3077,7 @@
 					return;
 				}
 			},
-			tradeSearch: function(product, nbProduct, upperPrice, callback) { 
+			tradeSearch: function(product, nbProduct, upperPrice, callback) {
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
@@ -3085,12 +3085,12 @@
 				p['offer[units]'] = nbProduct;
 				p['offer[lower_price]'] = 0;
 				p['offer[upper_price]'] = upperPrice;
-				
+
 				new MyAjaxRequest('trade', 'trades/search.json', p, mycb, false);
 
 				function mycb(rslt) {
 					if (rslt.ok) {
-						
+
 					} else {
 						verboseLog('Ajax.tradeSearch ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
 					}
@@ -3098,7 +3098,7 @@
 					return;
 				}
 			},
-			tradeSearchSell: function(callback) { 
+			tradeSearchSell: function(callback) {
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
@@ -3106,12 +3106,12 @@
 				p['offer[units]'] = 1000;
 				p['offer[lower_price]'] = 1000;
 				p['offer[upper_price]'] = 251000;
-				
+
 				new MyAjaxRequest('trade', 'trades.json', p, mycb, false);
 
 				function mycb(rslt) {
 					if (rslt.ok) {
-						
+
 					} else {
 						verboseLog('Ajax.tradeSearch ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
 					}
@@ -3123,7 +3123,7 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-				
+
 				new MyAjaxRequest('trade', 'trades/' + idTrade + '/buy.json', p, mycb, true);
 
 				function mycb(rslt) {
@@ -3141,12 +3141,12 @@
 				var p = {};
                 p = t.addMainParams();
 				p['_method'] = 'delete';
-                
+
 				new MyAjaxRequest('trade', 'trades/' + idTrade + '/cancel.json', p, mycb, true);
 
 				function mycb(rslt) {
 					if (rslt.ok) {
-						
+
 					} else {
 						verboseLog('Ajax.tradeBuy ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
 					}
@@ -3162,9 +3162,9 @@
 				p['_method'] = 'delete';
 				p['x'] = x;
 				p['y'] = y;
-				
+
 				new MyAjaxRequest('wilderness', 'cities/'+ city_id +'/wildernesses/abandon.json', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						Seed.updateCity(rslt.dat.city);
@@ -3229,9 +3229,9 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-				
+
 				new MyAjaxRequest('customization', 'player_unit_customization', p, mycb, false);
-				
+
 				function mycb(rslt) {
 					if(rslt.dat) {
 						if (rslt.dat.result) {
@@ -3246,7 +3246,7 @@
 					}
 					if (callback) callback(rslt);
 					return;
-				}	
+				}
 			},
 			setCustomization: function(unitName, armor, scales, callback) {
 				var t = MyAjax;
@@ -3360,9 +3360,9 @@
 				var p = {};
 				p = t.addMainParams();
 				p['item'] = item;
-				
+
 				new MyAjaxRequest('collect', 'daily_item/claim', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (callback) callback(rslt.ok);
 					return;
@@ -3860,7 +3860,7 @@
 				p['_method'] = 'put';
 				p['defensive_tower'] = onOff ? '0' : '1';
 				new MyAjaxRequest('defended', 'cities/' + cityId + '/defensive_tower', p, mycb, true);
-				
+
 				function mycb(rslt) {
 					if (rslt.ok) {
 						verboseLog(translate('switchDefensiveTower OK'));
@@ -4076,7 +4076,7 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-			
+
 				new MyAjaxRequest('manifest', 'api/luna_souls/manifest', p, mycb, false);
 
 				function mycb(rslt) {
@@ -4086,7 +4086,7 @@
 					else {
 						verboseLog(translate('Luna Manifest') + ': ' + rslt.errmsg);
 					}
-					if (callback) { 
+					if (callback) {
 						callback(rslt);
 					}
 					return;
@@ -4096,7 +4096,7 @@
 				var t = MyAjax;
 				var p = {};
 				p = t.addMainParams();
-			
+
 				new MyAjaxRequest('cities', 'luna_souls', p, mycb, false);
 
 				function mycb(rslt) {
@@ -4106,7 +4106,7 @@
 					else {
 						verboseLog(translate('Luna Manifest') + ': ' + rslt.errmsg);
 					}
-					if (callback) { 
+					if (callback) {
 						callback(rslt);
 					}
 					return;
@@ -4118,13 +4118,13 @@
 				p['realmId'] = SERVER_ID;
 				p['type'] = type;
 				p['search'] = search;
-                p['version'] = api_version;
+        p['version'] = api_version;
 				p['timestamp'] = toNum(serverTime());
-				new MyAjaxRequest('other', 'https://www.calcium-pro-tool.com/CPT/search.php', p, mycb, true);
+				new MyAjaxRequest('other', 'https://www.calcium-pro-tool.com/index.php/Json/search', p, mycb, true);
 
 				function mycb(rslt) {
 					if (rslt.ok) {
-						
+
 					}
 					else {
 						verboseLog(translate('CPT search error') + ': ' + rslt.errmsg);
@@ -4135,7 +4135,7 @@
 					return;
 				}
 			},
-            statScript: function() {
+      statScript: function() {
 				var t = MyAjax;
 				var p = {};
 				p['realmId'] = SERVER_ID;
@@ -4147,7 +4147,7 @@
 
 				function mycb(rslt) {
 					if (rslt.ok) {
-						
+
 					}
 					else {
 						verboseLog(translate('Script stat error') + ': ' + rslt.errmsg);
@@ -4190,7 +4190,7 @@
 					}
 				}
 			},
-			
+
 
 			doit: function() {
 				var t = AutoCollect,
@@ -4199,7 +4199,7 @@
 				if (Seed.player.boosts && Seed.player.boosts.collect_resources) {
 					actionLog(translate('Collected resources at outpost') + ' : ' + translate('pause').initCap() + ' (' + translate('boost-collect-week') + ')');
 				} else {
-					for (var out = 2; out < Seed.cities.length; ++out) { 
+					for (var out = 2; out < Seed.cities.length; ++out) {
 						if (Seed.cities[out] && Seed.cities[out].id && Buildings.getCount(out, 'Silo') > 0) {
 							++offset;
 							collect(out, offset * Math.randRange(5000, 10000));
@@ -4216,7 +4216,7 @@
 					}, delay);
 				}
 			},
-			
+
 			doitRune: function() {
 				function cbRune(rslt) {
 					var d = new Date();
@@ -4326,7 +4326,7 @@
             getLevelMax: function (typeCity, type) {
                 var builds = Manifest.data.buildings;
                 var maxLevel = 0;
-                
+
                 for(var i=0;i<builds.length;i++) {
                     if(builds[i].type == type) {
                         maxLevel = builds[i].city_max[typeCity];
@@ -5197,7 +5197,7 @@
 						var city = Seed.cities[cityIdx];
 						var jobs = Jobs.getJobs('building', true, cityIdx);
 						var jobsTD = Jobs.getJobs('build_tower', true, cityIdx);
-						
+
 						if (jobs.length == 0 && jobsTD.length == 0)
 							idle_cities.push(cityIdx);
 						else {
@@ -5213,7 +5213,7 @@
 								if (timeRemaining == 0) {
 									/** If we have a job and the timeRemaining is negative or zero we delete the job and
 									 *  fetch the Seed - although this does not always work because the server is laggy
-									 *  and may not return the correct information 
+									 *  and may not return the correct information
 									 */
 									iCell = iRow.insertCell(-1);
 									iCell.setAttribute('colspan', '3');
@@ -5396,7 +5396,7 @@
 						};
 						var city = Seed.cities[cityIdx];
 						var jobs = Jobs.getJobs('dragon', true, cityIdx);
-						
+
 						if(jobs.length != 0) {
 							var iRow, iCell;
 							iRow = table.insertRow(-1);
@@ -5513,7 +5513,7 @@
 					};
 					var city = Seed.cities[cityIdx];
 					var jobs = Jobs.getForgeJob(cityIdx);
-					
+
 					if(jobs.length != 0) {
 						for(var nbT = 0 ; nbT < jobs.length ; nbT++) {
 							var iRow, iCell;
@@ -5575,7 +5575,7 @@
 						}
 					}
 				}
-				
+
 				for (var cityIdx = 0; cityIdx < idle_cities.length; ++cityIdx) {
 					if (Seed.cities[idle_cities[cityIdx]]) {
 						var city = Seed.cities[idle_cities[cityIdx]];
@@ -5608,7 +5608,7 @@
 						};
 						var city = Seed.cities[cityIdx];
 						var jobs = Jobs.getJobs('trade', true, cityIdx);
-						
+
 						if(jobs.length != 0) {
 							for(var nbT = 0 ; nbT < jobs.length ; nbT++) {
 								var iRow, iCell;
@@ -5831,7 +5831,7 @@
 							} else {
 								time_remaining = (j == 0 ? ((trains[j].run_at - last > 0) ? trains[j].run_at - last : 0) : trains[j].duration);
 							}
-							
+
 							var tot = '';
 							if (j != 0) {
 								iRow = table.insertRow(-1);
@@ -6111,10 +6111,10 @@
 					case 'ChronoJobs::MarchUnits': // Toujours le retour d'une marche ?
 						Marches.socketUpdate(data);
 						break;
-					case 'ChronoJobs::Retreat': // Toujours le retour à la maison d'une marche ? 
+					case 'ChronoJobs::Retreat': // Toujours le retour à la maison d'une marche ?
 						break;
                     case 'ChronoJobs::CreateUnits':
-                        Seed.cities[CAPITAL.id].figures.population.armed_forces = Seed.cities[CAPITAL.id].figures.population.armed_forces - data.args.quantity;                        
+                        Seed.cities[CAPITAL.id].figures.population.armed_forces = Seed.cities[CAPITAL.id].figures.population.armed_forces - data.args.quantity;
                         break;
 					default :
 						logit('Jobs.completed - Job type not taken : ' + data.job_type);
@@ -6390,7 +6390,7 @@
 						if (!Seed.stats.resurrect[data[i].type]) Seed.stats.resurrect[data[i].type] = {};
 						Seed.stats.resurrect[data[i].type] = data[i].stats;
 						Seed.stats.resurrect[data[i].type].time = data[i].time;
-						Seed.stats.resurrect[data[i].type].upkeep = data[i].upkeep;						
+						Seed.stats.resurrect[data[i].type].upkeep = data[i].upkeep;
 					}
 				}
 
@@ -6435,7 +6435,7 @@
 						});
 					}
 				}
-				
+
 				/* Save armors manifest */
 				data = Manifest.data.armors;
 				for (var i in data) {
@@ -6447,7 +6447,7 @@
 				// Fix for spectral armor and Sky
 				Seed.armors.push('SpectralDragonHead');Seed.armors.push('SpectralDragonTalons');Seed.armors.push('SpectralDragonTail');Seed.armors.push('SpectralDragonBody');
 				Seed.armors.push('KaiserDragonTailGuard');Seed.armors.push('KaiserDragonClawGuards');Seed.armors.push('KaiserDragonHelmet');Seed.armors.push('KaiserDragonBodyArmor');
-				
+
 				/* Save Great dragons statistics by level */
 				var greatDragonLvlsManifest = Manifest.data.great_dragon_levels;
 				var waterDragonLvlsManifest = Manifest.data.water_dragon_levels;
@@ -6465,7 +6465,7 @@
 				var lunaDragonLvlsManifest = Manifest.data.luna_dragon_levels;
 				var colossusDragonLvlsManifest = Manifest.data.colossus_dragon_levels;
 				var leviathanDragonLvlsManifest = Manifest.data.leviathan_dragon_levels;
-				
+
 				for (var m = 1; m < 20; m++) {
 					if (greatDragonLvlsManifest[m]) {
 						if (!Seed.greatDragons.GreatDragon[m]) Seed.greatDragons.GreatDragon[m] = [];
@@ -6868,7 +6868,7 @@
 				return terrains;
 			},
 
-			tileAt: function(options, callback) {				
+			tileAt: function(options, callback) {
 				var t = Map,
 					x, y;
 				if (!isNaN(options.x)) x = t.normalize(options.x);
@@ -8501,7 +8501,7 @@
 				});
 				logit('Messages.newWarning --- End');
 			},
-			
+
 			sendTchatMessage: function(msg, allianceId) {
 				var ts=serverTime();
 				var pid=Seed.player.id;
@@ -8512,7 +8512,7 @@
 				msgJSON = msgJSON.replace('$TS$',ts).replace('$PID$', pid).replace('$RID$',rid).replace('$AID$',aid).replace('$UT$', ut);
 				Socket.write(msgJSON);
 			},
-			
+
 			/* check for battle reports */
 			checkMessages: function(options) {
 				var t = Messages;
@@ -8657,7 +8657,7 @@
 					if (notify) notify(true);
 				});
 			},
-			
+
 			displayBattleReport: function(report, aname) {
 				var rep = report.report;
 				var att = rep.attacker;
@@ -8770,10 +8770,10 @@
 				var res = rep.spoils.resources;
 				for (var r = 0; r < transportable_resource_types.length; r++) {
 					var desc = transportable_resource_types[r];
-					
+
 					var found = false;
 					if (res) {
-						for (var p in res) { 
+						for (var p in res) {
 							if (p == transportable_resource_types[r]) {
 								var res_value = (toNum(res[p]) > 0 ? '<b>' + numf(is_defender ? toNum(res[p]) * -1 : toNum(res[p])) + '</b>' : 0);
 								m += '		<tr><td class=left width=50%>' + translate(desc) + '</td><td align=right width=50%>' + res_value + '</td></tr>';
@@ -8805,21 +8805,21 @@
 				else {
 					att_loc = rep.location.x + ', ' + rep.location.y;
 				}
-				if (def.location) { 
+				if (def.location) {
 					def_loc = def.location.x + ', ' + def.location.y;
 				}
 				else {
 					def_loc = rep.location.x + ', ' + rep.location.y;
 				}
-				m += '<table style="margin-top:1px" width=98%>' + '	<tr valign=top align=center>' + '		<td width=49%>' 
-				+ '			<table class=' + UID['row_style'] + ' width=100%>' 
-				+ '				<tr>' 
-				+ '					<td valign=middle colspan=3><b>' + att.name + '</b> (' + att_loc + ')&nbsp;<span class=' + UID['red'] + '>' + ((rep.winner == 'attacker') ? translate('victorious') : translate('defeated')) + '</span></td>' 
-				+ '				</tr><tr class=' + UID['row_headers'] + '>' 
-				+ '					<td valign=middle width=47%><b>' + translate('Troops') + '</b></td>' 
-				+ '					<td valign=middle width=19%><b>' + translate('Fought') + '</b></td>' 
-				+ '					<td valign=middle width=17%><b>' + translate('lost') + '</b></td>' 
-				+ '					<td valign=middle width=17%><b>' + translate('Might') + '</b></td>' 
+				m += '<table style="margin-top:1px" width=98%>' + '	<tr valign=top align=center>' + '		<td width=49%>'
+				+ '			<table class=' + UID['row_style'] + ' width=100%>'
+				+ '				<tr>'
+				+ '					<td valign=middle colspan=3><b>' + att.name + '</b> (' + att_loc + ')&nbsp;<span class=' + UID['red'] + '>' + ((rep.winner == 'attacker') ? translate('victorious') : translate('defeated')) + '</span></td>'
+				+ '				</tr><tr class=' + UID['row_headers'] + '>'
+				+ '					<td valign=middle width=47%><b>' + translate('Troops') + '</b></td>'
+				+ '					<td valign=middle width=19%><b>' + translate('Fought') + '</b></td>'
+				+ '					<td valign=middle width=17%><b>' + translate('lost') + '</b></td>'
+				+ '					<td valign=middle width=17%><b>' + translate('Might') + '</b></td>'
 				+ '				</tr>';
 				if (att.units) {
 					var total_might_lost = 0;
@@ -8829,7 +8829,7 @@
 							var lost_troops = (att.units[p][0] != att.units[p][1] ? '<span class=' + UID['red'] + '><b>' + numf(att.units[p][0] - att.units[p][1]) + '</b></span>' : 0);
 							var total_might = 0;
 							var descEqp = '';
-							
+
 							for (var i = 0; i < all_unit_types.length; i++) {
 								if (all_unit_types[i] == p) {
 									total_might = lost_troops_nb * Seed.stats.unit[all_unit_types[i]].power;
@@ -8890,7 +8890,7 @@
 													typeAb = 'leviathan';
 													break;
 											}
-					
+
 											for(var ba=0 ; ba<rep.battle_record[1].march.length ; ba++) {
 												descEqp += translate('dragonpower-' + rep.battle_record[1].march[ba].name.replace(/_/g, '')) + '\n\t' + (translate(typeAb+'dragonpower-'+rep.battle_record[1].march[ba].slot+'-report')).replace('%num', numf(rep.battle_record[1].march[ba].amount, ' ')).replace(/"/g, '\"') + '\n';
 											}
@@ -8914,7 +8914,7 @@
 									}
 								}
 							}
-							
+
 							switch(nbEqp) {
 								case 0:
 									classEqp = 'warningblack';
@@ -8929,7 +8929,7 @@
 		 							classEqp = 'number3';
 									break;
 							}
-							
+
 							m += '			<tr>' + '				<td class=left>' + translate(p) + (descEqp=='' ? '' : '	<span class="' + UID[classEqp] + '" style="width:auto !important;" title="' + descEqp + '"></span>') + ' </td>' + '				<td align=right>' + numf(att.units[p][0]) + '</td>' + '				<td align=right>' + lost_troops + '</td>' + '				<td align=right>' + numf(total_might) + '</td>' + '			</tr>';
 						}
 					}
@@ -9025,7 +9025,7 @@
 									break;
 								}
 							}
-							
+
 							var nbEqp=0;
 							var classEqp='';
 							if(def.equipment) {
@@ -9041,7 +9041,7 @@
 									}
 								}
 							}
-							
+
 							switch(nbEqp) {
 								case 0:
 									classEqp = 'warningblack';
@@ -9095,7 +9095,7 @@
 					}
 					m += '			</table>' + '		</td>' + '	</tr>' + '</table>';
 				}
-				
+
 				/* Bonus items section */
 				if ((att.items && att.items.length > 0) || (def.items && def.items.length > 0)) {
 					m += '<table style="margin-top:1px" width=98%>' + '	<tr valign=top align=center>' + '		<td width=49%>' + '			<table class=' + UID['row_style'] + ' width=100%>' + '				<tr class=' + UID['row_headers'] + '><td colspan=3 class=left>' + translate('bonus-items') + '</td></tr>';
@@ -10126,7 +10126,7 @@
 				}
 				itsP = Seed.player.forge.items['ingredients'];
 				for(var i=0;i<itsP.length;i++) {
-					if(itemId == itsP[i].id) { 
+					if(itemId == itsP[i].id) {
 						ret = itsP[i];
 						break;
 					}
@@ -10145,14 +10145,14 @@
 				}
 				itsP = Seed.player.forge.items['ingredients'];
 				for(var i=0;i<itsP.length;i++) {
-					if(itemName == itsP[i].name) { 
+					if(itemName == itsP[i].name) {
 						ret.push(itsP[i]);
 						if(first)
 							break;
 					}
 				}
 				return ret;
-			},			
+			},
 			getNbPlayerItem: function(itN) {
 				var ret=0;
 				var itsP = Seed.player.forge.items['equipments'];
@@ -10172,7 +10172,7 @@
 				return ret;
 			},
 			getStatByUnit: function (unit) {
-				var ret = { 
+				var ret = {
 					melee:0,
 					defense:0,
 					speed:0,
@@ -10275,7 +10275,7 @@
 				MyAjax.getCustomization();
 				MyAjax.getForge();
 			},
-			
+
 			fetchPlayer: function(callback, options) {
 				var city;
 				if (callback instanceof Function) {
@@ -10381,7 +10381,7 @@
 							rslt.ok = false;
 							rslt.errmsg = e.toString();
 						}
-						
+
 					}
 					if (callback) callback(rslt);
 					return;
@@ -10937,14 +10937,14 @@
 						if (job.run_at < serverTime()) {
 							return;
 						}
-						debugLog('checkAddJob MISSING MARCH:\n' + inspectObj(job, 5, 1)); 
+						debugLog('checkAddJob MISSING MARCH:\n' + inspectObj(job, 5, 1));
 
 					} else {
 						march.run_at = job.run_at;
 						march.duration = job.duration;
 						march.job_id = job.id;
 						if (march.status == 'marching') march.real_run_at = job.run_at + toNum(job.duration);
-						if (march.real_run_at < march.run_at) march.real_run_at = march.run_at; 
+						if (march.real_run_at < march.run_at) march.real_run_at = march.run_at;
 					}
 				}
 				if (!t.jobs[cityId][job.id]) t.jobs[cityId][job.id] = cloneProps(job);
@@ -11405,13 +11405,13 @@
 			fetchNewLocale: function(notify) {
 				var t = Translation;
 				new MyAjaxRequest('locales', 'locales/' + C.attrs.locale + '/get_serialized_static', {'_swf_session_id': C.attrs.sessionId}, cb, null, true);
-				
+
 				function cb(rslt) {
 					if(rslt.ok) {
 						var cb2 = function(rslt2) {
 							if(rslt2.ok) {
 								var temp =  AMF.parse(rslt2.dat);
-								
+
 								for (var attrname in temp) {
 									if (Translation.tmpXML[attrname])
 										Translation.tmpXML[attrname].mergeWith(temp[attrname]);
@@ -11424,7 +11424,7 @@
 								notify(rslt2);
 							return;
 						}
-						
+
 						Translation.tmpXML = AMF.parse(rslt.dat);
 						new MyAjaxRequest('locales', 'locales/' + C.attrs.locale + '/get_serialized_new', {'_swf_session_id': C.attrs.sessionId}, cb2, null, true);
 					} else {
@@ -11434,7 +11434,7 @@
 					}
 				}
 			},
-			
+
 			fixResults: function() {
 				var t = Translation.xml;
 
@@ -12609,7 +12609,7 @@
 		 * parameters into an object - Determines method - Sets maximum timeout -
 		 * Validates returned data and passes back results to originating
 		 * function
-		 * 
+		 *
 		 * Returns the following data: - ok (boolean) - dat (object if present) -
 		 * errmsg (string if present)
 		 **********************************************************************/
@@ -12911,7 +12911,7 @@
 		 * appropriate request header - Parses the request parameters - Sends
 		 * the actual request - Determines if request was successful based on
 		 * returned status only - Handles a request timed out condition
-		 * 
+		 *
 		 * Returns the following data: - responseText (should be JSON but could
 		 * be almost anything) - status (integar) - statusText (string if
 		 * present) - ajax (raw ajax request)
@@ -13020,7 +13020,7 @@
 		var downloadDataURI = function(options) {
 			if (!options || !options.data) return;
 			if (options.data && !options.filename) options.filename = "download." + options.data.split(",")[0].split(";")[0].substring(5).split("/")[1];
-			if (!options.url) options.url = "https://download-data-uri.appspot.com/"; 
+			if (!options.url) options.url = "https://download-data-uri.appspot.com/";
 			var t = '<FORM method="post" action="' + options.url + '" style="display:none">' + '<input type="hidden" name="filename" value="' + options.filename + '"/>' + '<input type="hidden" name="data" value="' + options.data + '"/>' + '<input id=xxpbButSubmit type=submit value=SUBMIT></form>';
 			var e = document.createElement('div');
 			e.innerHTML = t;
@@ -13402,11 +13402,11 @@
 				}
 
 				var m = '<div class=' + UID['title_main'] + ' style="padding-top:5px; padding-bottom:5px;"><table width=95% align=center>' + '	<tr align=center><td width=45% align=left>' + scriptName + ' by ' + mainAuthor + ' - v' + scriptVersion + '&nbsp(' + api_version + ')</td>' + '		<td width=33% align=center><SPAN id=' + setUID('tabManager_Alert') + '></span></td>' + '		<td width=22% align=left><SPAN id=' + setUID('tabManager_Time') + '></span></td>' + '	</tr></table></div>';
-                m += '<table width=100%><tr>' 
-                    + '	<td width=20%><input id=' + setUID('tabInfo_Refresh') + ' type=button value="' + translate('Refresh') + '"></input></td>' 
-                    + '	<td width=20% align=center><input id=' + setUID('tabInfo_Toggle') + ' type=button value="' + translate('Toggle Flash') + '"></input></td>' 
+                m += '<table width=100%><tr>'
+                    + '	<td width=20%><input id=' + setUID('tabInfo_Refresh') + ' type=button value="' + translate('Refresh') + '"></input></td>'
+                    + '	<td width=20% align=center><input id=' + setUID('tabInfo_Toggle') + ' type=button value="' + translate('Toggle Flash') + '"></input></td>'
                     + '	<td width=20% align=center>' + ((REALM_URL == null || REALM_URL == '' || !REALM_URL) ? '' : '<input id=' + setUID('tabInfo_Reload') + ' type=button value="' + translate('Reload') + '"></input>') + '</td>'
-					+ '	<td width=20% align=center><input style="margin-left:5px;width:100px;" class="' + UID[t.show_fulscreen ? 'btn_on' : 'btn_off'] + '" type=button value="Fullscreen" id=' + setUID('Tabs.Info.fullScreen') + ' /></td>' 
+					+ '	<td width=20% align=center><input style="margin-left:5px;width:100px;" class="' + UID[t.show_fulscreen ? 'btn_on' : 'btn_off'] + '" type=button value="Fullscreen" id=' + setUID('Tabs.Info.fullScreen') + ' /></td>'
                     + '</tr></table>';
 				m += '<ul class=tabs ' + addStyle + '>';
 				m += '<li class="tab first' + addClass + '"><a id=' + sorter[0][1].uid + '>' + sorter[0][1].label + '</a></li>';
@@ -13432,7 +13432,7 @@
                 if (REALM_URL && REALM_URL != null && REALM_URL != '') {
 					document.getElementById(UID['tabInfo_Reload']).addEventListener('click', reloadTools);
 				}
-                
+
 				t.currentTab = null;
 				for (k in t.tabList) {
 					if (t.tabList[k].name == Data.options.currentTab)
@@ -13805,7 +13805,7 @@
 			var match = source.match(pattern);
 			return match ? match[0].capitalize() : word;
 		};
-		var getDistance = function(d, f, c, e) { 
+		var getDistance = function(d, f, c, e) {
 			var a = 750;
 			var g = a / 2;
 			var b = Math.abs(c - d);
@@ -14371,7 +14371,7 @@
 			var sorted_obj = {};
 
 			langKey = typeof langKey !== 'undefined' ? langKey : false;
-			
+
 			keys.sort(function(a,b) {
 				if(langKey) {
 					if(translate(a.toLowerCase())>translate(b.toLowerCase())) {
@@ -14398,7 +14398,7 @@
 					var arr = [];
 					val.each(function(){
 						arr.push(sortObjectByKey(this, langKey));
-					}); 
+					});
 					val = arr;
 
 				}else if(val instanceof Object){
@@ -14569,7 +14569,7 @@
 
           return r.join('\n');
         };
-        
+
 		Tabs.Info = {
 			tabOrder: INFO_TAB_ORDER,
 			tabLabel: 'Info',
@@ -14606,14 +14606,14 @@
 				}
 				t.container = div;
 
-				t.container.innerHTML = '<div class=' + UID['title_main'] + ' style="padding-top:3px; padding-bottom:3px;">' + '<table width=80% align=center>' + '	<tr align=center><td width="100px"><a id=' + setUID('tabInfo_ScriptUpdate') + ' style="color:#FFFFFF;text-decoration:none;">' + translate('Version update') + '</a></td>' + '		<td width="100px"><a href="' + Data.options.wikiUrl + '" target="_blank" style="color:#FFFFFF;text-decoration:none;">' + kWikiLink + '</a></td>' + '		<td width="100px"><a href="' + Data.options.forumUrl + '" target="_blank" style="color:#FFFFFF;text-decoration:none;">' + kForumLink + '</a></td>' + '</tr></table></div>' 
-                    + '<ul class=tabs style="border-bottom:none; padding-bottom:0;height:23px">' 
-					+ '	<li class="tab first line1"><a id=' + setUID('tabInfoOverview') + '>' + translate('Overview') + '</a></li>' 
-					+ '	<li class="tab line1"><a id=' + setUID('tabInfoInventory') + '>' + translate('items-panel') + '</a></li>' 
-					+ '	<li class="tab line1"><a id=' + setUID('tabInfoQuests') + '>' + translate('Quests') + '</a></li>' 
-					+ '	<li class="tab line1"><a id=' + setUID('tabInfoTroops') + '>' + translate('Troops') + '</a></li>' 
-					+ '	<li class="tab line1"><a id=' + setUID('tabInfoStats') + '>' + translate('Stats') + '</a></li>'  
-					+ '	<li class="tab line1"><a id=' + setUID('tabInfoHelp') + '>' + translate('About') + '</a></li>' 
+				t.container.innerHTML = '<div class=' + UID['title_main'] + ' style="padding-top:3px; padding-bottom:3px;">' + '<table width=80% align=center>' + '	<tr align=center><td width="100px"><a id=' + setUID('tabInfo_ScriptUpdate') + ' style="color:#FFFFFF;text-decoration:none;">' + translate('Version update') + '</a></td>' + '		<td width="100px"><a href="' + Data.options.wikiUrl + '" target="_blank" style="color:#FFFFFF;text-decoration:none;">' + kWikiLink + '</a></td>' + '		<td width="100px"><a href="' + Data.options.forumUrl + '" target="_blank" style="color:#FFFFFF;text-decoration:none;">' + kForumLink + '</a></td>' + '</tr></table></div>'
+                    + '<ul class=tabs style="border-bottom:none; padding-bottom:0;height:23px">'
+					+ '	<li class="tab first line1"><a id=' + setUID('tabInfoOverview') + '>' + translate('Overview') + '</a></li>'
+					+ '	<li class="tab line1"><a id=' + setUID('tabInfoInventory') + '>' + translate('items-panel') + '</a></li>'
+					+ '	<li class="tab line1"><a id=' + setUID('tabInfoQuests') + '>' + translate('Quests') + '</a></li>'
+					+ '	<li class="tab line1"><a id=' + setUID('tabInfoTroops') + '>' + translate('Troops') + '</a></li>'
+					+ '	<li class="tab line1"><a id=' + setUID('tabInfoStats') + '>' + translate('Stats') + '</a></li>'
+					+ '	<li class="tab line1"><a id=' + setUID('tabInfoHelp') + '>' + translate('About') + '</a></li>'
 					+ '</ul>'
 					+ '<ul class="tabs first line2">'
 					+ '	<li class="tab line2"><a id=' + setUID('tabInfoWilderness') + '>' + translate('wildernesses') + '</a></li>'
@@ -14629,7 +14629,7 @@
 				document.getElementById(UID['tabInfoStats']).addEventListener('click', t.tabInfoStats);
 				document.getElementById(UID['tabInfoHelp']).addEventListener('click', t.tabInfoHelp);
 				document.getElementById(UID['tabInfoWilderness']).addEventListener('click', t.tabInfoWilderness);
-				
+
 				t.contentType = Data.options.info.current_tab;
 				t.show();
 			},
@@ -14688,94 +14688,94 @@
 				t.lastSubTab = 'tabInfoOverview';
 				t.contentType = 0;
 				Data.options.info.current_tab = t.contentType;
-				
-				m += '<div class=' + UID['subtitle'] + '><table class=' + UID['table'] + ' width=100%">' 
-					+ '<tr><td align=left>' + city.name + '</td>' 
-					+ '<td align=center>' + city.x + ',' + city.y + '</td>' 
+
+				m += '<div class=' + UID['subtitle'] + '><table class=' + UID['table'] + ' width=100%">'
+					+ '<tr><td align=left>' + city.name + '</td>'
+					+ '<td align=center>' + city.x + ',' + city.y + '</td>'
 					+ '<td align=center><font color=yellow>' + alliance_name + '</font></td>'
 					+ '<td align=right><input id=' + setUID('tabInfo_setDefense') + ' type=button value="' + translate('Wall') + ' ' + wallStatus + '" class=' + UID[(Seed.cities[CAPITAL.id].defended ? 'btn_off' : 'btn_on')] + '></input>';
 				if(Seed.cities[CAPITAL.id].defensive_tower != null)
 					m += '&nbsp;<input id=' + setUID('tabInfo_setDefensiveTower') + ' type=button value="' + translate('DefensiveTower') + ' ' + towerStatus + '" class=' + UID[(Seed.cities[CAPITAL.id].defensive_tower.tower_defending ? 'btn_off' : 'btn_on')] + '></input></td>';
 				m += '</tr></table></div>';
-				
-				m += dispCurrRessources(CAPITAL.id) 
-					+ dispCurrPopulation(CAPITAL.id) 
-					+ dispOneHourBan() 
-					+ SoundPlayer.alertString.replace('&incoming_spy&', (SoundPlayer.getFirstAlert()).spy).replace('&incoming_attack&', (SoundPlayer.getFirstAlert()).attack) 
-					+ dispUnits(CAPITAL.id) + '<br>' 
-					+ '<table class=' + UID['table'] + ' width=100%>' + dispBoosts() 
-					+ '	<tr>' 
-					+ '		<td class=right width=20%>' + translate('Marching') + ': </td>' 
-					+ '		<td width=30%>' + Seed.numMarches + dispMarchesCount() + '</td>' 
-					+ '		<td class=right width=20%>' + translate('Wildernesses') + ': </td>' 
-					+ '		<td width=30%>' + dispWildsCount() + '</td>' 
-					+ '	</tr>' 
-					+ dispOutpostJob('dragon', CAPITAL.id) 
-					+ dispDefenseTowerHealing(CAPITAL.id) 
-					+ dispOutpostJob('outpost', CAPITAL.id) 
-					+ dispBuildingJob(CAPITAL.id) 
-					+ dispDefenseTowerJob(CAPITAL.id) 
-					+ dispResearchJob(CAPITAL.id) 
+
+				m += dispCurrRessources(CAPITAL.id)
+					+ dispCurrPopulation(CAPITAL.id)
+					+ dispOneHourBan()
+					+ SoundPlayer.alertString.replace('&incoming_spy&', (SoundPlayer.getFirstAlert()).spy).replace('&incoming_attack&', (SoundPlayer.getFirstAlert()).attack)
+					+ dispUnits(CAPITAL.id) + '<br>'
+					+ '<table class=' + UID['table'] + ' width=100%>' + dispBoosts()
+					+ '	<tr>'
+					+ '		<td class=right width=20%>' + translate('Marching') + ': </td>'
+					+ '		<td width=30%>' + Seed.numMarches + dispMarchesCount() + '</td>'
+					+ '		<td class=right width=20%>' + translate('Wildernesses') + ': </td>'
+					+ '		<td width=30%>' + dispWildsCount() + '</td>'
+					+ '	</tr>'
+					+ dispOutpostJob('dragon', CAPITAL.id)
+					+ dispDefenseTowerHealing(CAPITAL.id)
+					+ dispOutpostJob('outpost', CAPITAL.id)
+					+ dispBuildingJob(CAPITAL.id)
+					+ dispDefenseTowerJob(CAPITAL.id)
+					+ dispResearchJob(CAPITAL.id)
 					+ dispTrainingJobs(CAPITAL.id)
 					+ dispCollectRune()
-					+ '</table>' 
+					+ '</table>'
 					+ '</div>';
 
 				/* Outposts ... */
 				if (Seed.cities.length > 0) {
 					for (var cityIdx = 1; cityIdx < Seed.cities.length; ++cityIdx) {
 						if (Seed.cities[cityIdx]) {
-							m += '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' + t.cityTitle(cityIdx) 
-							+ '<table class=' + UID['table'] + ' width=100%>' + ((cityIdx == SPECTRAL_OUTPOST.id) ? dispSoulCapacity() : '') 
-								+ dispOutpostJob('dragon', cityIdx) 
-								+ dispOutpostJob('outpost', cityIdx) 
-								+ dispBuildingJob(cityIdx) 
-								+ dispResearchJob(cityIdx) 
-								+ dispTrainingJobs(cityIdx) 
+							m += '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' + t.cityTitle(cityIdx)
+							+ '<table class=' + UID['table'] + ' width=100%>' + ((cityIdx == SPECTRAL_OUTPOST.id) ? dispSoulCapacity() : '')
+								+ dispOutpostJob('dragon', cityIdx)
+								+ dispOutpostJob('outpost', cityIdx)
+								+ dispBuildingJob(cityIdx)
+								+ dispResearchJob(cityIdx)
+								+ dispTrainingJobs(cityIdx)
 								+ dispResurrectionJobs(cityIdx)
-							+ '</table>' 
+							+ '</table>'
 							+ '</div>';
 						}
 					}
 				}
 
-				m += '<br>' 
-				+ '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' 
-				+ '	<div class=' + UID['subtitle'] + '>' 
-				+ '		<table class=' + UID['table'] + '>' 
-				+ '			<tr>' 
-				+ '				<td align=left width=35%>' + translate('dragon-sanctuary') + '</td>' 
-				+ '				<td align=right width=65%>&nbsp;</td>' 
-				+ '			</tr>' 
-				+ '		</table>' 
-				+ '	</div>' 
-				+ '	<table class=' + UID['table'] + ' width=100%>' 
-				+ dispBreedingJob() 
-				+ dispFeedHatchJob('hatching', CAPITAL.id) 
-				+ dispFeedHatchJob('feeding', CAPITAL.id) 
+				m += '<br>'
+				+ '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">'
+				+ '	<div class=' + UID['subtitle'] + '>'
+				+ '		<table class=' + UID['table'] + '>'
+				+ '			<tr>'
+				+ '				<td align=left width=35%>' + translate('dragon-sanctuary') + '</td>'
+				+ '				<td align=right width=65%>&nbsp;</td>'
+				+ '			</tr>'
+				+ '		</table>'
+				+ '	</div>'
+				+ '	<table class=' + UID['table'] + ' width=100%>'
+				+ dispBreedingJob()
+				+ dispFeedHatchJob('hatching', CAPITAL.id)
+				+ dispFeedHatchJob('feeding', CAPITAL.id)
 				+ '	</table>'
 				+ '</div>'
 				+ '<br>'
-				+ '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' 
-				+ '	<div class=' + UID['subtitle'] + '>' 
-				+ '		<table class=' + UID['table'] + '>' 
-				+ '			<tr>' 
-				+ '				<td align=left width=35%>' + translateByKey('forge', null, 'dialogs') + '</td>' 
-				+ '				<td align=right width=65%>&nbsp;</td>' 
-				+ '			</tr>' 
-				+ '		</table>' 
-				+ '	</div>' 	
-				+ '	<table class=' + UID['table'] + ' width=100%>' 
+				+ '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">'
+				+ '	<div class=' + UID['subtitle'] + '>'
+				+ '		<table class=' + UID['table'] + '>'
+				+ '			<tr>'
+				+ '				<td align=left width=35%>' + translateByKey('forge', null, 'dialogs') + '</td>'
+				+ '				<td align=right width=65%>&nbsp;</td>'
+				+ '			</tr>'
+				+ '		</table>'
+				+ '	</div>'
+				+ '	<table class=' + UID['table'] + ' width=100%>'
 				+ dispForgeJob(CAPITAL.id)
 				+ '	</table>'
 				+ '</div>'
-				+ '<br>' 
-				+ '<table style="margin-top:3px" width=100%>' 
-				+ '	<tr class=' + UID['row_headers'] + ' align=center>' 
-				+ '		<td width=50%>' + translate('Generals').toUpperCase() + '</td>' 
-				+ '		<td width=50%>' + translate('Great dragons').toUpperCase() + '</td>' 
-				+ '	</tr>' 
-				+ '	<tr valign=top align=center>' 
+				+ '<br>'
+				+ '<table style="margin-top:3px" width=100%>'
+				+ '	<tr class=' + UID['row_headers'] + ' align=center>'
+				+ '		<td width=50%>' + translate('Generals').toUpperCase() + '</td>'
+				+ '		<td width=50%>' + translate('Great dragons').toUpperCase() + '</td>'
+				+ '	</tr>'
+				+ '	<tr valign=top align=center>'
 				+ '		<td width=50% style="border-right: 1px solid;">';
 
 				/* Generals */
@@ -14804,9 +14804,9 @@
 						}
 					}
 
-					m += '		<tr>' 
-                       + '			<td width=50% align=right><font color="#000000">' + city.generals[i].name + ' (' + translate('rank') + ':' + city.generals[i].rank + ' / ' + translate('victory') + ':' + city.generals[i].victories + ')</font></td>' 
-                       + '			<td width=50%>' + (city.generals[i].busy ? '<span class="' + className + '">[' + loc + ']</span>' : '') + '</td>' 
+					m += '		<tr>'
+                       + '			<td width=50% align=right><font color="#000000">' + city.generals[i].name + ' (' + translate('rank') + ':' + city.generals[i].rank + ' / ' + translate('victory') + ':' + city.generals[i].victories + ')</font></td>'
+                       + '			<td width=50%>' + (city.generals[i].busy ? '<span class="' + className + '">[' + loc + ']</span>' : '') + '</td>'
                        + '		</tr>';
 				}
 
@@ -14844,7 +14844,7 @@
 				document.getElementById(UID['tabInfo_Content']).scrollLeft = t.infoScrollLeft;
 
 				document.getElementById(UID['tabInfo_setDefense']).addEventListener('click', switchDefense);
-				
+
 				if(Seed.cities[CAPITAL.id].defensive_tower != null)
 					document.getElementById(UID['tabInfo_setDefensiveTower']).addEventListener('click', switchDefensiveTower);
 
@@ -14865,7 +14865,7 @@
 				/* End of review of the rows height in the Units table */
 
 				t.timer = setTimeout(t.show, 5000);
-				
+
 				function onScroll(event) {
 					if (t.contentType == 0) {
 						t.infoScrollPos = document.getElementById(UID['tabInfo_Content']).scrollTop;
@@ -15059,21 +15059,21 @@
 
 					num = (num < 0) ? 0 : num;
 
-					var m = '<table style="margin-top:3px" width=100%>' 
-                    + '	<tr class=' + UID['row_headers'] + ' align=center>' 
-                    + '		<td width=20%>' + translate('Population') + '</td>' 
-                    + '		<td width=20%>' + translate('Laborers') + '</td>' 
-                    + '		<td width=20%>' + translate('Army') + '</td>' 
-                    + '		<td width=20%>' + translate('IdlePopulation').replace(translate('Population'), '') + '</td>' 
-                    + '		<td width=20%>' + translate('Capacity') + '</td>' 
-                    + '	</tr>' 
-                    + '	<tr>' 
-                    + '		<td align=right>' + numf(city.current) + '</td>' 
-                    + '		<td align=right>' + numf(city.laborers) + '</td>' 
-                    + '		<td align=right>' + numf(city.armed_forces) + '</td>' 
-                    + '		<td align=right>' + numf(num) + '</td>' 
-                    + '		<td align=right>' + numf(city.limit) + '</td>' 
-                    + '	</tr>' 
+					var m = '<table style="margin-top:3px" width=100%>'
+                    + '	<tr class=' + UID['row_headers'] + ' align=center>'
+                    + '		<td width=20%>' + translate('Population') + '</td>'
+                    + '		<td width=20%>' + translate('Laborers') + '</td>'
+                    + '		<td width=20%>' + translate('Army') + '</td>'
+                    + '		<td width=20%>' + translate('IdlePopulation').replace(translate('Population'), '') + '</td>'
+                    + '		<td width=20%>' + translate('Capacity') + '</td>'
+                    + '	</tr>'
+                    + '	<tr>'
+                    + '		<td align=right>' + numf(city.current) + '</td>'
+                    + '		<td align=right>' + numf(city.laborers) + '</td>'
+                    + '		<td align=right>' + numf(city.armed_forces) + '</td>'
+                    + '		<td align=right>' + numf(num) + '</td>'
+                    + '		<td align=right>' + numf(city.limit) + '</td>'
+                    + '	</tr>'
                     + '</table>';
 
 					return m;
@@ -15201,9 +15201,9 @@
 										}
 									}
 							}
-							
-							m += '<tr><td class=right width=20%>' + fLab + ':</td>' 
-							+ '<td width=50%>' + sLab + '</td>' 
+
+							m += '<tr><td class=right width=20%>' + fLab + ':</td>'
+							+ '<td width=50%>' + sLab + '</td>'
 							+ '<td width=30%><font color=' + TIMER_COLOR + '>' + timestr(job.run_at - serverTime(), true) + '</font></td></tr>';
 						}
 					}
@@ -15402,7 +15402,7 @@
 					for (item = 0; item < Seed.items[type].length; item++) {
 						var is_armor = false;
 						for (var a = 0; a < Seed.armors.length && !is_armor; a++)
-							if (Seed.items[type][item].type == Seed.armors[a] || 
+							if (Seed.items[type][item].type == Seed.armors[a] ||
 								Seed.items[type][item].type + 'Helmet' == Seed.armors[a] ||
 								Seed.items[type][item].type + 'Armor' == Seed.armors[a] ||
 								Seed.items[type][item].type + 'Guard' == Seed.armors[a] ||
@@ -15462,7 +15462,7 @@
 				document.getElementById(UID['tabInfo_Content']).innerHTML = m;
 				for (var i = 0; i < iu.length; i++)
 					document.getElementById(UID['tabInfoInv_' + iu[i]]).addEventListener('click', useSingleItem, false);
-				
+
 				for (var i = 0; i < ium.length; i++) {
 					document.getElementById(UID['tabInfoInv_' + ium[i]]).addEventListener('click', useMoreItem, false);
 					document.getElementById(UID['tabInfoInv_' + ium[i] + '_nb']).addEventListener('change', ctrlNbItem, false);
@@ -15772,14 +15772,14 @@
 				for (var i = 0; i < all_unit_types.length; i++) {
 					var stats = Seed.stats.unit[all_unit_types[i]];
 					var statsforge = Forge.getStatByUnit(all_unit_types[i]);
-					m += '	<tr valign=top>' 
-					  + '		<td class=right>' + translate(all_unit_types[i]) + ' :</td>' 
-					  + '		<td align=right>' + ( statsforge.melee==0 ? numf(stats.melee, ' ') : '<font style="color:#00CD00">'+numf(stats.melee+statsforge.melee, ' ')+'</font>' )+ '</td>' 
-					  + '		<td align=right>' + ( statsforge.defense==0 ? numf(stats.defense, ' ') : '<font style="color:#00CD00">'+numf(stats.defense+statsforge.defense, ' ')+'</font>' ) + '</td>' 
-					  + '		<td align=right>' + ( statsforge.speed==0 ? numf(stats.speed, ' ') : '<font style="color:#00CD00">'+numf(stats.speed+statsforge.speed, ' ')+'</font>' ) + '</td>' 
-					  + '		<td align=right>' + ( statsforge.range==0 ? numf(stats.range, ' ') : '<font style="color:#00CD00">'+numf(stats.range+statsforge.range, ' ')+'</font>' ) + '</td>' 
-					  + '		<td align=right>' + ( statsforge.ranged==0 ? numf(stats.ranged, ' ') : '<font style="color:#00CD00">'+numf(stats.ranged+statsforge.ranged, ' ')+'</font>' ) + '</td>' 
-					  + '		<td align=right>' + ( statsforge.life==0 ? numf(stats.melee, ' ') : '<font style="color:#00CD00">'+numf(stats.life+statsforge.life, ' ')+'</font>' ) + '</td>' 
+					m += '	<tr valign=top>'
+					  + '		<td class=right>' + translate(all_unit_types[i]) + ' :</td>'
+					  + '		<td align=right>' + ( statsforge.melee==0 ? numf(stats.melee, ' ') : '<font style="color:#00CD00">'+numf(stats.melee+statsforge.melee, ' ')+'</font>' )+ '</td>'
+					  + '		<td align=right>' + ( statsforge.defense==0 ? numf(stats.defense, ' ') : '<font style="color:#00CD00">'+numf(stats.defense+statsforge.defense, ' ')+'</font>' ) + '</td>'
+					  + '		<td align=right>' + ( statsforge.speed==0 ? numf(stats.speed, ' ') : '<font style="color:#00CD00">'+numf(stats.speed+statsforge.speed, ' ')+'</font>' ) + '</td>'
+					  + '		<td align=right>' + ( statsforge.range==0 ? numf(stats.range, ' ') : '<font style="color:#00CD00">'+numf(stats.range+statsforge.range, ' ')+'</font>' ) + '</td>'
+					  + '		<td align=right>' + ( statsforge.ranged==0 ? numf(stats.ranged, ' ') : '<font style="color:#00CD00">'+numf(stats.ranged+statsforge.ranged, ' ')+'</font>' ) + '</td>'
+					  + '		<td align=right>' + ( statsforge.life==0 ? numf(stats.melee, ' ') : '<font style="color:#00CD00">'+numf(stats.life+statsforge.life, ' ')+'</font>' ) + '</td>'
 					  + '	</tr>';
 				}
 				for (var i = 0; i < all_dragon_list.length; i++) {
@@ -15870,38 +15870,38 @@
 				t.lastSubTab = 'tabInfoHelp';
 				t.contentType = 3;
 				Data.options.info.current_tab = t.contentType;
-				var m = '<div id=' + setUID('tabInfo_Help') + '>' 
-						+ '	<div class=' + UID['title'] + '>' + translate('About ' + scriptName) + '</div>' 
-						+ '	<div class=' + UID['status_ticker'] + ' style="height:575px; max-height:575px; overflow-y:auto ; overflow-x:auto ; margin-top:1px !important">' 
-						+ '		<table id=' + setUID('tabInfo_HelpTable') + ' class=' + UID['table_console'] + ' cellspacing=1 width=100%>' 
+				var m = '<div id=' + setUID('tabInfo_Help') + '>'
+						+ '	<div class=' + UID['title'] + '>' + translate('About ' + scriptName) + '</div>'
+						+ '	<div class=' + UID['status_ticker'] + ' style="height:575px; max-height:575px; overflow-y:auto ; overflow-x:auto ; margin-top:1px !important">'
+						+ '		<table id=' + setUID('tabInfo_HelpTable') + ' class=' + UID['table_console'] + ' cellspacing=1 width=100%>'
 						+ '			<tr><td><br><div align=left style="color:#000000">'
                         + ' <b>User Id :</b> ' + C.attrs.userId + '<br>'
                         + ' <b>Dragon heart :</b> ' + C.attrs.dragonHeart + '<br>'
                         + ' <b>Session Id :</b> ' + C.attrs.sessionId + '<br>'
                         + ' <br>'
-						+ '				<center><h2><B>VISIT US</B><h2></center><br>' 
-						+ '				<b>On Facebook :</b>' 
-						+ '				<br>- <a href="https://www.facebook.com/groups/DoAscripts/" target="_blank">DOA Scripts</a>'  
-						+ '				<br><br><b>On the Web :</b>' 
-						+ '				<br>- <a href="http://script.wygopro.com/" target="_blank">' + scriptName + '</a>' 
-						+ '				<br><br><center><h2><B>DONATION</B><h2></center><br>' 
-						+ '				If you want to donate for ' + scriptName + ', I accept Ruby gifts troops donations ;))<br>' 
-						+ '				So for those who are interested in ruby gifting, I invite you to send me a message on userscripts.<br>' 
-						+ '				Note that for those who have already me as friend or who are playing in the same alliance as me, you can already send me your gifts of rubis :p ...<br>' 
-						+ '				For the others, if you want, I can join you on a realm of your choice and join your alliance, just the time for the gift... Or if you want you can use the paypal button :)<br>' 
-						+ '				<br><B><I>Calcium </I></B><br><br><center>' 
-						+ '				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHLwYJKoZIhvcNAQcEoIIHIDCCBxwCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYBxi3vq/OrDaQhy/GkIutJgubpRBKQttL8G9ZjXVR5/Tmxvw8YrInWQEKKtFiHzbXbTTdt2/7po8F0s/h+4Kex2zzbhcBd0sjrm2j+7jlWPzSLmCv0vlqsNrVA6yntCq5ioptq+0o/dbupO9GtQQG0e9F/i9xaVHD8uwNt8ZCxvjTELMAkGBSsOAwIaBQAwgawGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQI/XO9a3nhNg6AgYge8Wy4ikZjbp/qVlPd3/z+HBcD011yS3mRkdU1WGAEMnltXiPrp+AQ0KKgxk0wFXM6BhXpTg1Cl85xqo/qrmtb+V9pzmRns+LZOlvFouXKLDU/5MMBCHvYXQlWVbsUX6V/mJS1ZTefZFZoLFdya7f0GEVdcSet36uVz6ukzKxAyN4eal+KLmrloIIDhzCCA4MwggLsoAMCAQICAQAwDQYJKoZIhvcNAQEFBQAwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMB4XDTA0MDIxMzEwMTMxNVoXDTM1MDIxMzEwMTMxNVowgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBR07d/ETMS1ycjtkpkvjXZe9k+6CieLuLsPumsJ7QC1odNz3sJiCbs2wC0nLE0uLGaEtXynIgRqIddYCHx88pb5HTXv4SZeuv0Rqq4+axW9PLAAATU8w04qqjaSXgbGLP3NmohqM6bV9kZZwZLR/klDaQGo1u9uDb9lr4Yn+rBQIDAQABo4HuMIHrMB0GA1UdDgQWBBSWn3y7xm8XvVk/UtcKG+wQ1mSUazCBuwYDVR0jBIGzMIGwgBSWn3y7xm8XvVk/UtcKG+wQ1mSUa6GBlKSBkTCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb22CAQAwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCBXzpWmoBa5e9fo6ujionW1hUhPkOBakTr3YCDjbYfvJEiv/2P+IobhOGJr85+XHhN0v4gUkEDI8r2/rNk1m0GA8HKddvTjyGw/XqXa+LSTlDYkqI8OwR8GEYj4efEtcRpRYBxV8KxAW93YDWzFGvruKnnLbDAF6VR5w/cCMn5hzGCAZowggGWAgEBMIGUMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTMwNjA0MDAyMjQ0WjAjBgkqhkiG9w0BCQQxFgQUdrLfgqWWSrzSjYP+1YebK/2a8bswDQYJKoZIhvcNAQEBBQAEgYB/MwEGTRoWyk9sugZOgo+04EUMleipDBHj+fAMyz8OtYqnaGHBrz1H91WWTMyzG/mqn25T47LWvUgqAiFgqlZXuJCBnEQRag3K5BzEDIf6ZL+BfQHoO8bKes17kXjbclBhy686s6lWtzCOWs1tIqhRVdIQxrgNmXtXJGHpjUSR1Q==-----END PKCS7-----"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1"></form>' 
-						+ '				</center></td></tr>' 
-						+ '			<tr><td><br><br>' 
-						+ '				<b>Ruby Gifting is now available! - Kabam\'s text :</b><br><br>' 
-						+ '				You\’re now able to buy Rubies and gift them to your Dragons of Atlantis friends and Alliance members.' 
-						+ '				Not only that, but doing so can get you, the charming benefactor, a Bonus Package!<br><br>' 
-						+ '				<b>Here\’s how it works:</b><br>' 
-						+ '				Click on the "Get More Rubies" button under your Rubies balance, then choose the "Gift" link.<br>' 
-						+ '				From here, you\’ll be able to select the recipient from either a list of your Dragons of Atlantis ' 
-						+ '				Alliance members or Facebook friends that play on any realm.<br><br>' 
-						+ '				Then, complete your purchase as you would normally.<br><br>' 
-						+ '				Once you have completed your purchase, you will receive the Bonus Package associated with the Ruby amount you selected, and the recipient will get the Rubies!<br><br>' 
+						+ '				<center><h2><B>VISIT US</B><h2></center><br>'
+						+ '				<b>On Facebook :</b>'
+						+ '				<br>- <a href="https://www.facebook.com/groups/DoAscripts/" target="_blank">DOA Scripts</a>'
+						+ '				<br><br><b>On the Web :</b>'
+						+ '				<br>- <a href="http://script.wygopro.com/" target="_blank">' + scriptName + '</a>'
+						+ '				<br><br><center><h2><B>DONATION</B><h2></center><br>'
+						+ '				If you want to donate for ' + scriptName + ', I accept Ruby gifts troops donations ;))<br>'
+						+ '				So for those who are interested in ruby gifting, I invite you to send me a message on userscripts.<br>'
+						+ '				Note that for those who have already me as friend or who are playing in the same alliance as me, you can already send me your gifts of rubis :p ...<br>'
+						+ '				For the others, if you want, I can join you on a realm of your choice and join your alliance, just the time for the gift... Or if you want you can use the paypal button :)<br>'
+						+ '				<br><B><I>Calcium </I></B><br><br><center>'
+						+ '				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHLwYJKoZIhvcNAQcEoIIHIDCCBxwCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYBxi3vq/OrDaQhy/GkIutJgubpRBKQttL8G9ZjXVR5/Tmxvw8YrInWQEKKtFiHzbXbTTdt2/7po8F0s/h+4Kex2zzbhcBd0sjrm2j+7jlWPzSLmCv0vlqsNrVA6yntCq5ioptq+0o/dbupO9GtQQG0e9F/i9xaVHD8uwNt8ZCxvjTELMAkGBSsOAwIaBQAwgawGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQI/XO9a3nhNg6AgYge8Wy4ikZjbp/qVlPd3/z+HBcD011yS3mRkdU1WGAEMnltXiPrp+AQ0KKgxk0wFXM6BhXpTg1Cl85xqo/qrmtb+V9pzmRns+LZOlvFouXKLDU/5MMBCHvYXQlWVbsUX6V/mJS1ZTefZFZoLFdya7f0GEVdcSet36uVz6ukzKxAyN4eal+KLmrloIIDhzCCA4MwggLsoAMCAQICAQAwDQYJKoZIhvcNAQEFBQAwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMB4XDTA0MDIxMzEwMTMxNVoXDTM1MDIxMzEwMTMxNVowgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBR07d/ETMS1ycjtkpkvjXZe9k+6CieLuLsPumsJ7QC1odNz3sJiCbs2wC0nLE0uLGaEtXynIgRqIddYCHx88pb5HTXv4SZeuv0Rqq4+axW9PLAAATU8w04qqjaSXgbGLP3NmohqM6bV9kZZwZLR/klDaQGo1u9uDb9lr4Yn+rBQIDAQABo4HuMIHrMB0GA1UdDgQWBBSWn3y7xm8XvVk/UtcKG+wQ1mSUazCBuwYDVR0jBIGzMIGwgBSWn3y7xm8XvVk/UtcKG+wQ1mSUa6GBlKSBkTCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb22CAQAwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCBXzpWmoBa5e9fo6ujionW1hUhPkOBakTr3YCDjbYfvJEiv/2P+IobhOGJr85+XHhN0v4gUkEDI8r2/rNk1m0GA8HKddvTjyGw/XqXa+LSTlDYkqI8OwR8GEYj4efEtcRpRYBxV8KxAW93YDWzFGvruKnnLbDAF6VR5w/cCMn5hzGCAZowggGWAgEBMIGUMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTMwNjA0MDAyMjQ0WjAjBgkqhkiG9w0BCQQxFgQUdrLfgqWWSrzSjYP+1YebK/2a8bswDQYJKoZIhvcNAQEBBQAEgYB/MwEGTRoWyk9sugZOgo+04EUMleipDBHj+fAMyz8OtYqnaGHBrz1H91WWTMyzG/mqn25T47LWvUgqAiFgqlZXuJCBnEQRag3K5BzEDIf6ZL+BfQHoO8bKes17kXjbclBhy686s6lWtzCOWs1tIqhRVdIQxrgNmXtXJGHpjUSR1Q==-----END PKCS7-----"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1"></form>'
+						+ '				</center></td></tr>'
+						+ '			<tr><td><br><br>'
+						+ '				<b>Ruby Gifting is now available! - Kabam\'s text :</b><br><br>'
+						+ '				You\’re now able to buy Rubies and gift them to your Dragons of Atlantis friends and Alliance members.'
+						+ '				Not only that, but doing so can get you, the charming benefactor, a Bonus Package!<br><br>'
+						+ '				<b>Here\’s how it works:</b><br>'
+						+ '				Click on the "Get More Rubies" button under your Rubies balance, then choose the "Gift" link.<br>'
+						+ '				From here, you\’ll be able to select the recipient from either a list of your Dragons of Atlantis '
+						+ '				Alliance members or Facebook friends that play on any realm.<br><br>'
+						+ '				Then, complete your purchase as you would normally.<br><br>'
+						+ '				Once you have completed your purchase, you will receive the Bonus Package associated with the Ruby amount you selected, and the recipient will get the Rubies!<br><br>'
 						+ '				<br>'
 						+ '				</div></td></tr></table></div></div>';
 				document.getElementById(UID['tabInfo_Content']).innerHTML = m;
@@ -15914,9 +15914,9 @@
 				document.getElementById(UID['tabInfoWilderness']).style.zIndex = 1;
 				t.lastSubTab = 'tabInfoWilderness';
 				t.contentType = 6;
-				
-				var m = 	'<div id=' + setUID('tabInfo_Wilderness') + '>' 
-					+ '	<div class=' + UID['title'] + '>' + translate('Wildernesses') + '</div>' 
+
+				var m = 	'<div id=' + setUID('tabInfo_Wilderness') + '>'
+					+ '	<div class=' + UID['title'] + '>' + translate('Wildernesses') + '</div>'
 					+ '	<div class=' + UID['status_ticker'] + ' style="height:575px; max-height:575px; overflow-y:auto ; overflow-x:auto ; margin-top:1px !important">&nbsp;&nbsp;'
 					+ translate('Wildernesses') + '&nbsp;&nbsp;' + dispWildsCount()
 					+ '<table class=' + UID['row_style'] + ' width=75%>'
@@ -15924,7 +15924,7 @@
 					+ '<td>' + translate('Type') + '</td>' + '<td>' + translate('Level') + '</td>'  + '<td>' + translate('Coords') + '</td>' + '<td>' + translate('Action') + '</td>'
 					+ '</tr>';
 				var w = Player.getWildernesses();
-				
+
 
 				w.sort(function(a, b) {
 					var typeA = a.type.toLowerCase(),
@@ -15937,7 +15937,7 @@
 					}
 					return 0;
 				});
-				
+
 				var ws = [];
 				for ( var i=0; i < w.length; i++ ) {
 					m += '<tr><td>' + translate(w[i].type) + '</td><td>' + w[i].level + '</td><td>' + w[i].x + ' / ' + w[i].y + '</td>';
@@ -15948,24 +15948,24 @@
 				}
 				m += '</table></div>';
 				document.getElementById(UID['tabInfo_Content']).innerHTML = m;
-				
+
 				for(var i=0;i<ws.length;i++) {
 					document.getElementById(UID[ws[i]]).addEventListener('click', abandonWilderness);
 				}
-				
+
 				function abandonWilderness(event) {
 					var ids = event.target.getAttribute('ref').split('_');
 					var x = ids[0];
 					var y = ids[1];
 					var cityId = Seed.cities[CAPITAL.id].id;
-					
+
 					new MyAjax.abandonWilderness(cityId, x, y, mycb);
-					
+
 					function mycb(rslt) {
 						setTimeout(Tabs.Info.show, 2000);
 					}
 				}
-				
+
 				function dispWildsCount() {
 					var max = toNum(Seed.player.max_wildernesses);
 					var cur = toNum(Seed.player.player_wildernesses.length);
@@ -16786,7 +16786,7 @@
 								document.getElementById('TR_'+i).style.backgroundColor = '';
 							}
 						}
-						
+
 						if ( troopTotGiven > (getMusterPoint(CAPITAL.id)).max_troops) {
 							for (var i = 0; i < transport_unit_types.length; ++i) {
 								document.getElementById('TR_'+i).style.backgroundColor = 'red';
@@ -18710,7 +18710,7 @@
 					return;
 				}
 				var greatDrag = null;
-								
+
 				if (Data.options.attacks.include_great_dragon[target.l]) {
 					if ((greatDrag = getAvailableDragon(false, Data.options.attacks.except_great_dragon[target.l])) == null) {
 						if (!Data.options.attacks.send_without_dragon) {
@@ -18879,15 +18879,15 @@
 
 				t.contentType = 1;
 
-				var m = '<div class=' + UID['title'] + '>' + translate('Attacks Configuration') + '</div>' 
-					  + '<div id=' + setUID('tabAttackConfig_Status') + ' class=' + UID['status_ticker'] + ' style="overflow:auto">' 
-					  + '	<table class=' + UID['table'] + ' width=100%>' + '	<tr>' + '		<td width=50% class=right>' + translate('Delay Between Attacks') + ':&nbsp;</td>' + '		<td width=50%>' + '		<input class=short id=' + setUID('tabAttackConfig_DelayMin') + ' maxlength=4 type=text value="' + Data.options.attacks.delay_min + '" />&nbsp;' + translate('to') + '		<input class=short id=' + setUID('tabAttackConfig_DelayMax') + ' maxlength=4 type=text value="' + Data.options.attacks.delay_max + '" />&nbsp;' + translate('seconds') + '		</td>' 
-					  + '	</tr><tr>' + '		<td class=right>' + translate('Delete Battle Reports') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_DelAttacks') + ' ' + (Data.options.attacks.delete_reports ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
-					  + '	</tr><tr>' + '		<td class=right>' + translate('Stop if any troops lost') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_StopOnLoss') + ' ' + (Data.options.attacks.stop_on_loss ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
-					  + '	</tr><tr>' + '		<td class=right>' + translate('Maximum simultaneous marches') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_MaxMarches') + ' class=short maxlength=2 type=text value="' + Data.options.attacks.max_marches + '" /></td>' 
-					  + '	</tr><tr>' + '		<td class=right>' + translate('Activate Attacks Logs') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_LogAttack') + ' ' + (Data.options.attacks.log_attacks ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
-					  + '	</tr><tr>' + '		<td class=right>' + translate('Clear last attack on current map') + '&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_ClearLast') + '  type=button value="' + translate('Delete') + '" /></td>' 
-					  + '	</tr><tr>' + '		<td class=right>' + translate('Clear last attack on all maps') + '&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_ClearAll') + ' ' + (Data.options.attacks.clear_all_targets ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
+				var m = '<div class=' + UID['title'] + '>' + translate('Attacks Configuration') + '</div>'
+					  + '<div id=' + setUID('tabAttackConfig_Status') + ' class=' + UID['status_ticker'] + ' style="overflow:auto">'
+					  + '	<table class=' + UID['table'] + ' width=100%>' + '	<tr>' + '		<td width=50% class=right>' + translate('Delay Between Attacks') + ':&nbsp;</td>' + '		<td width=50%>' + '		<input class=short id=' + setUID('tabAttackConfig_DelayMin') + ' maxlength=4 type=text value="' + Data.options.attacks.delay_min + '" />&nbsp;' + translate('to') + '		<input class=short id=' + setUID('tabAttackConfig_DelayMax') + ' maxlength=4 type=text value="' + Data.options.attacks.delay_max + '" />&nbsp;' + translate('seconds') + '		</td>'
+					  + '	</tr><tr>' + '		<td class=right>' + translate('Delete Battle Reports') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_DelAttacks') + ' ' + (Data.options.attacks.delete_reports ? 'CHECKED ' : '') + ' type=checkbox /></td>'
+					  + '	</tr><tr>' + '		<td class=right>' + translate('Stop if any troops lost') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_StopOnLoss') + ' ' + (Data.options.attacks.stop_on_loss ? 'CHECKED ' : '') + ' type=checkbox /></td>'
+					  + '	</tr><tr>' + '		<td class=right>' + translate('Maximum simultaneous marches') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_MaxMarches') + ' class=short maxlength=2 type=text value="' + Data.options.attacks.max_marches + '" /></td>'
+					  + '	</tr><tr>' + '		<td class=right>' + translate('Activate Attacks Logs') + ':&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_LogAttack') + ' ' + (Data.options.attacks.log_attacks ? 'CHECKED ' : '') + ' type=checkbox /></td>'
+					  + '	</tr><tr>' + '		<td class=right>' + translate('Clear last attack on current map') + '&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_ClearLast') + '  type=button value="' + translate('Delete') + '" /></td>'
+					  + '	</tr><tr>' + '		<td class=right>' + translate('Clear last attack on all maps') + '&nbsp;</td>' + '		<td><input id=' + setUID('tabAttackConfig_ClearAll') + ' ' + (Data.options.attacks.clear_all_targets ? 'CHECKED ' : '') + ' type=checkbox /></td>'
 					  + '	</tr><tr>' + '		<td class=right>' + translate('Send even without Dragon') + ':&nbsp;</td>' + '			<td><input id=' + setUID('tabAttackConfig_SendWithoutDragon') + ' type=checkbox ' + (Data.options.attacks.send_without_dragon ? 'CHECKED' : '') + ' /></td>' + '		</tr>'
 					  + '	</tr></table>';
 
@@ -19766,26 +19766,26 @@
 
 				t.contentType = 3;
 
-				var m = '<div class=' + UID['title'] + '>' + translate('Bookmarks Configuration') + '</div>' 
-                + '<div id=' + setUID('tabBookmarksConfig_Status') + ' class=' + UID['status_ticker'] + ' style="overflow:auto">' 
-                + '	<table class=' + UID['table'] + ' width=100%>' 
-                + '	<tr>' 
-                + '		<td width=50% class=right>' + translate('Delay Between Attacks') + ':&nbsp;</td>' 
-                + '		<td width=50%>' + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMin') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_min + '" />&nbsp;' + translate('to') + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMax') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_max + '" />&nbsp;' + translate('seconds') + '		</td>' 
-                + '	</tr><tr>' 
-                + '		<td class=right>' + translate('Delete Battle Reports') + ':&nbsp;</td>' 
-                + '		<td><input id=' + setUID('tabBookmarksConfig_DelAttacks') + ' ' + (Data.options.bookmarks.delete_reports ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
-                + '	</tr><tr>' 
-                + '		<td class=right>' + translate('Stop if any troops lost') + ':&nbsp;</td>' 
-                + '		<td><input id=' + setUID('tabBookmarksConfig_StopOnLoss') + ' ' + (Data.options.bookmarks.stop_on_loss ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
-                + '	</tr><tr>' 
-                + '		<td class=right>' + translate('Loop attack on bookmark') + ':&nbsp;</td>' 
+				var m = '<div class=' + UID['title'] + '>' + translate('Bookmarks Configuration') + '</div>'
+                + '<div id=' + setUID('tabBookmarksConfig_Status') + ' class=' + UID['status_ticker'] + ' style="overflow:auto">'
+                + '	<table class=' + UID['table'] + ' width=100%>'
+                + '	<tr>'
+                + '		<td width=50% class=right>' + translate('Delay Between Attacks') + ':&nbsp;</td>'
+                + '		<td width=50%>' + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMin') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_min + '" />&nbsp;' + translate('to') + '		<input class=short id=' + setUID('tabBookmarksConfig_DelayMax') + ' maxlength=4 type=text value="' + Data.options.bookmarks.delay_max + '" />&nbsp;' + translate('seconds') + '		</td>'
+                + '	</tr><tr>'
+                + '		<td class=right>' + translate('Delete Battle Reports') + ':&nbsp;</td>'
+                + '		<td><input id=' + setUID('tabBookmarksConfig_DelAttacks') + ' ' + (Data.options.bookmarks.delete_reports ? 'CHECKED ' : '') + ' type=checkbox /></td>'
+                + '	</tr><tr>'
+                + '		<td class=right>' + translate('Stop if any troops lost') + ':&nbsp;</td>'
+                + '		<td><input id=' + setUID('tabBookmarksConfig_StopOnLoss') + ' ' + (Data.options.bookmarks.stop_on_loss ? 'CHECKED ' : '') + ' type=checkbox /></td>'
+                + '	</tr><tr>'
+                + '		<td class=right>' + translate('Loop attack on bookmark') + ':&nbsp;</td>'
                 + '		<td><input id=' + setUID('tabBookmarksConfig_Loop') + ' ' + (Data.options.bookmarks.loop ? 'CHECKED ' : '') + ' type=checkbox /></td>'
-                + '	</tr><tr>' 
-                + '		<td class=right>' + translate('Maximum simultaneous marches') + ':&nbsp;</td>' 
-                + '		<td><input id=' + setUID('tabBookmarksConfig_MaxMarches') + ' class=short maxlength=2 type=text value="' + Data.options.bookmarks.max_marches + '" /></td>' 
+                + '	</tr><tr>'
+                + '		<td class=right>' + translate('Maximum simultaneous marches') + ':&nbsp;</td>'
+                + '		<td><input id=' + setUID('tabBookmarksConfig_MaxMarches') + ' class=short maxlength=2 type=text value="' + Data.options.bookmarks.max_marches + '" /></td>'
                 + '	</tr></table>';
-				
+
                 document.getElementById(UID['tabBookmarks_Content']).innerHTML = m;
 				document.getElementById(UID['tabBookmarksConfig_DelAttacks']).addEventListener('change', function(event) {
 					Data.options.bookmarks.delete_reports = event.target.checked;
@@ -19905,7 +19905,7 @@
  					clearTimeout(t.attackTimer);
  					t.setBookmarksEnable(false);
  					dispFeedback(feedback_element, translate('Requirements Unmet') + ': ' + translate('Attacks') + ' ' + translate('Turned Off'));
-                    
+
 					if(Data.options.bookmarks.loop) {
 						t.setBookmarksEnable(true);
                         dispFeedback(feedback_element, translate('Attacks') + ' ' + translate('Turned On'));
@@ -20197,25 +20197,25 @@
 			init: function(div) {
 				var t = Tabs.Inbox;
 				t.container = div;
-				var m = '<div class=' + UID['title'] + '>' + translate('Messages') + '</div>' 
-				+ '<div id=' + setUID('tabInbox_Status') + ' style="margin-bottom:5px !important">' 
-				+ '	<table width=100%>' 
-				+ '		<tr>' 
-				+ '			<td align=center width=25%><input type=button value="' + translate('Retrieve all') + '" id=' + setUID('tabInbox_Refresh') + ' /></td>' 
-				+ '			<td align=center width=25%><input type=button value="' + translate('Select all') + '" id=' + setUID('tabInbox_SelectAll') + ' /></td>' 
-				+ '			<td align=center width=25%><input type=button value="' + translate('Unselect all') + '" id=' + setUID('tabInbox_UnselectAll') + ' /></td>' 
-				+ '			<td align=center width=25%><input type=button value="' + translate('Delete') + '" id=' + setUID('tabInbox_Delete') + ' /></td>' 
-				+ '		</tr>' 
-				+ '	</table>' 
-				+ '</div>' 
-				+ '<ul class=tabs>' 
-				+ '	<li class="tab first"><a id=' + setUID('tabInboxAll') + '>' + translate('All') + '</a></li>' 
-				+ '	<li class=tab><a id=' + setUID('tabInboxMessages') + '>' + translate('Messages') + '</a></li>' 
-				+ '	<li class=tab><a id=' + setUID('tabInboxReports') + '>' + translate('Reports') + '</a></li>' 
-				+ '	<li class=tab><a id=' + setUID('tabInboxDeletion') + '>' + translate('Mass deletion') + '</a></li>' 
-				+ '	<li class=tab><a id=' + setUID('tabInboxTchatRealm') + '>' + translate('Tchat') + ' ' + translate('world') + '</a></li>' 
-				+ '	<li class=tab><a id=' + setUID('tabInboxTchatAlliance') + '>' + translate('Tchat') + ' ' + translate('alliance') + '</a></li>' 
-				+ '</ul>' 
+				var m = '<div class=' + UID['title'] + '>' + translate('Messages') + '</div>'
+				+ '<div id=' + setUID('tabInbox_Status') + ' style="margin-bottom:5px !important">'
+				+ '	<table width=100%>'
+				+ '		<tr>'
+				+ '			<td align=center width=25%><input type=button value="' + translate('Retrieve all') + '" id=' + setUID('tabInbox_Refresh') + ' /></td>'
+				+ '			<td align=center width=25%><input type=button value="' + translate('Select all') + '" id=' + setUID('tabInbox_SelectAll') + ' /></td>'
+				+ '			<td align=center width=25%><input type=button value="' + translate('Unselect all') + '" id=' + setUID('tabInbox_UnselectAll') + ' /></td>'
+				+ '			<td align=center width=25%><input type=button value="' + translate('Delete') + '" id=' + setUID('tabInbox_Delete') + ' /></td>'
+				+ '		</tr>'
+				+ '	</table>'
+				+ '</div>'
+				+ '<ul class=tabs>'
+				+ '	<li class="tab first"><a id=' + setUID('tabInboxAll') + '>' + translate('All') + '</a></li>'
+				+ '	<li class=tab><a id=' + setUID('tabInboxMessages') + '>' + translate('Messages') + '</a></li>'
+				+ '	<li class=tab><a id=' + setUID('tabInboxReports') + '>' + translate('Reports') + '</a></li>'
+				+ '	<li class=tab><a id=' + setUID('tabInboxDeletion') + '>' + translate('Mass deletion') + '</a></li>'
+				+ '	<li class=tab><a id=' + setUID('tabInboxTchatRealm') + '>' + translate('Tchat') + ' ' + translate('world') + '</a></li>'
+				+ '	<li class=tab><a id=' + setUID('tabInboxTchatAlliance') + '>' + translate('Tchat') + ' ' + translate('alliance') + '</a></li>'
+				+ '</ul>'
 				+ '<div id=' + setUID('tabInbox_Content') + ' style="padding-top:0px; height:655px; ; max-height:655px; overflow-y:auto"></div>';
 				t.container.innerHTML = m;
 				document.getElementById(UID['tabInbox_Refresh']).addEventListener('click', t.getAllPages, false);
@@ -20797,18 +20797,18 @@
 				document.getElementById(UID['tabInboxTchatRealm']).style.zIndex = 0;
 				document.getElementById(UID['tabInboxTchatAlliance']).className = 'selected';
 				document.getElementById(UID['tabInboxTchatAlliance']).style.zIndex = 1;
-				var m = '<div style="height:640px">' 
-				      + '	<div class=' + UID['title'] + '>' + translate('Tchat') + ' ' + Seed.player.alliance.name + '</div>' 
-					  + '	<div id=' + setUID('tabInbox_TchatAlliance') + ' class=' + UID['status_ticker'] + ' style="height:620px; max-height:620px; overflow:auto; white-space:nowrap; margin-top:1px !important"></div>' 
+				var m = '<div style="height:640px">'
+				      + '	<div class=' + UID['title'] + '>' + translate('Tchat') + ' ' + Seed.player.alliance.name + '</div>'
+					  + '	<div id=' + setUID('tabInbox_TchatAlliance') + ' class=' + UID['status_ticker'] + ' style="height:620px; max-height:620px; overflow:auto; white-space:nowrap; margin-top:1px !important"></div>'
 					  + '</div>';
 				document.getElementById(UID['tabInbox_Content']).innerHTML = m;
-				
-				var m = '<table class=' + UID['row_style'] + ' width=100%>' 
-					  + '	<tr class=' + UID['row_headers'] + '>' 
-					  + '			<td width=15%>' + translate('Date') + '</td>' 
-					  + '			<td width=20%>' + translate('From') + '</td>' 
-					  + '			<td width=55%>' + translate('Subject') + '</td>' 
-					  + '			<td width=10%>' + translate('Action') + '</td>' 
+
+				var m = '<table class=' + UID['row_style'] + ' width=100%>'
+					  + '	<tr class=' + UID['row_headers'] + '>'
+					  + '			<td width=15%>' + translate('Date') + '</td>'
+					  + '			<td width=20%>' + translate('From') + '</td>'
+					  + '			<td width=55%>' + translate('Subject') + '</td>'
+					  + '			<td width=10%>' + translate('Action') + '</td>'
 					  + '	</tr>';
 
 				var bm = [];
@@ -20819,17 +20819,17 @@
 					} else {
 						bckgrd = 'rgba(255, 255, 255, 1.0)';
 					}
-				
-					m += '<tr style="border-bottom: 1px solid #898989; background-color:' + bckgrd + ';">' 
-					  + '		<td style="white-space:nowrap">' + new Date(Data.options.tchat.tAlliance[i].time).toLocaleString() + '</td>' 
-					  + '		<td style="white-space:nowrap" title="' + translate('Alliance') + ' : ' + Data.options.tchat.tAlliance[i].alliance + '\n ' + translate('Might') + ':' + numf(Data.options.tchat.tAlliance[i].power) + '" >' + Data.options.tchat.tAlliance[i].name + '</td>' 
-					  + '		<td>' + wordwrap(Data.options.tchat.tAlliance[i].text, 45, '<br />',true) + '</td>' 
+
+					m += '<tr style="border-bottom: 1px solid #898989; background-color:' + bckgrd + ';">'
+					  + '		<td style="white-space:nowrap">' + new Date(Data.options.tchat.tAlliance[i].time).toLocaleString() + '</td>'
+					  + '		<td style="white-space:nowrap" title="' + translate('Alliance') + ' : ' + Data.options.tchat.tAlliance[i].alliance + '\n ' + translate('Might') + ':' + numf(Data.options.tchat.tAlliance[i].power) + '" >' + Data.options.tchat.tAlliance[i].name + '</td>'
+					  + '		<td>' + wordwrap(Data.options.tchat.tAlliance[i].text, 45, '<br />',true) + '</td>'
 					  + '		<td><input id=' + UIDMsg + ' ref="' + Data.options.tchat.tAlliance[i].id + '_' + Data.options.tchat.tAlliance[i].name +'" class="Xtrasmall ' + UID['btn_blue'] + '" style="width:auto !important;" type=submit value="' + translate('Msg') + '" /></td>'
 					  + '</tr>';
 					bm.push(UIDMsg);
 				}
 				document.getElementById(UID['tabInbox_TchatAlliance']).innerHTML = m + '</table>';
-				
+
 				for (var b = 0; b < bm.length; b++) {
 					document.getElementById(bm[b]).addEventListener('click', function(event) {
 						var ids = event.target.getAttribute('ref').split('_');
@@ -20848,24 +20848,24 @@
 				document.getElementById(UID['tabInboxTchatAlliance']).style.zIndex = 0;
 				document.getElementById(UID['tabInboxTchatRealm']).className = 'selected';
 				document.getElementById(UID['tabInboxTchatRealm']).style.zIndex = 1;
-				var m = '<div style="height:640px">' 
-				      + '	<div class=' + UID['title'] + '>' + translate('Tchat') + ' ' + REALM_NAME + '</div>' 
+				var m = '<div style="height:640px">'
+				      + '	<div class=' + UID['title'] + '>' + translate('Tchat') + ' ' + REALM_NAME + '</div>'
 					  // + ' <div class=' + UID['status_ticker'] + '><input
 						// type=textbox id=' +
 						// setUID('tabInboxTchatAlliance_sendTB') + ' /> </div>'
-					  + '	<div id=' + setUID('tabInbox_TchatRealm') + ' class=' + UID['status_ticker'] + ' style="height:620px; max-height:620px; overflow:auto; white-space:nowrap; margin-top:1px !important"></div>' 
+					  + '	<div id=' + setUID('tabInbox_TchatRealm') + ' class=' + UID['status_ticker'] + ' style="height:620px; max-height:620px; overflow:auto; white-space:nowrap; margin-top:1px !important"></div>'
 					  + '</div>';
 				document.getElementById(UID['tabInbox_Content']).innerHTML = m;
-				
-				m = '<table class=' + UID['row_style'] + ' width=100%>' 
-					  + '	<tr class=' + UID['row_headers'] + '>' 
-					  + '			<td width=15%>' + translate('Date') + '</td>' 
-					  + '			<td width=20%>' + translate('From') + '</td>' 
-					  + '			<td width=55%>' + translate('Subject') + '</td>' 
-					  + '			<td width=10%>' + translate('Action') + '</td>' 
+
+				m = '<table class=' + UID['row_style'] + ' width=100%>'
+					  + '	<tr class=' + UID['row_headers'] + '>'
+					  + '			<td width=15%>' + translate('Date') + '</td>'
+					  + '			<td width=20%>' + translate('From') + '</td>'
+					  + '			<td width=55%>' + translate('Subject') + '</td>'
+					  + '			<td width=10%>' + translate('Action') + '</td>'
 					  + '	</tr>';
-				
-				var bm = [];	  
+
+				var bm = [];
 				for (var i = Data.options.tchat.tRealm.length-1; i >=0 ; i--) {
 					var UIDMsg = setUID('tabInboxTchatAlliance_BtnMsg'+i);
 					if (i % 2 == 1) {
@@ -20873,10 +20873,10 @@
 					} else {
 						bckgrd = 'rgba(255, 255, 255, 1.0)';
 					}
-					m += '<tr style="border-bottom: 1px solid #898989; background-color:' + bckgrd + ';">' 
-					  + '		<td style="white-space:nowrap">' + new Date(Data.options.tchat.tRealm[i].time).toLocaleString() + '</td>' 
-					  + '		<td style="white-space:nowrap" title="' + translate('Alliance') + ' : ' + Data.options.tchat.tRealm[i].alliance + '\n ' + translate('Might') + ':' + numf(Data.options.tchat.tRealm[i].power) + '" >' + Data.options.tchat.tRealm[i].name + '</td>' 
-					  + '		<td>' + wordwrap(Data.options.tchat.tRealm[i].text, 45, '<br />', true) + '</td>' 
+					m += '<tr style="border-bottom: 1px solid #898989; background-color:' + bckgrd + ';">'
+					  + '		<td style="white-space:nowrap">' + new Date(Data.options.tchat.tRealm[i].time).toLocaleString() + '</td>'
+					  + '		<td style="white-space:nowrap" title="' + translate('Alliance') + ' : ' + Data.options.tchat.tRealm[i].alliance + '\n ' + translate('Might') + ':' + numf(Data.options.tchat.tRealm[i].power) + '" >' + Data.options.tchat.tRealm[i].name + '</td>'
+					  + '		<td>' + wordwrap(Data.options.tchat.tRealm[i].text, 45, '<br />', true) + '</td>'
 					  + '		<td><input id=' + UIDMsg + ' ref="' + Data.options.tchat.tRealm[i].id + '_' + Data.options.tchat.tRealm[i].name +'" class="Xtrasmall ' + UID['btn_blue'] + '" style="width:auto !important;" type=submit value="' + translate('Msg') + '" /></td>'
 					  + '	</tr>';
 					bm.push(UIDMsg);
@@ -21085,7 +21085,7 @@
 			foErrorCount: 0,
 			foRetryTime: 20000,
 			typeToForge: 'equipment',
-			
+
 			researchTimer: null,
 			resErrorCount: 0,
 			resRetryTime: 20000,
@@ -21109,12 +21109,12 @@
 					'<li class="tab line1"><a id=' + setUID('tabJobTrain') + '>' + translate('Train') + '</a></li>' +
 					'<li class="tab line1"><a id=' + setUID('tabJobBuild') + '>' + translate('Build') + '</a></li>' +
 					'<li class="tab line1"><a id=' + setUID('tabJobResearch') + '>' + translate('Research') + '</a></li>';
-			
+
 				if (canResurrect) {
 					m += '<li class="tab line1"><a id=' + setUID('tabJobResurrect') + '>' + translate('Resurrect') + '</a></li>';
 				}
 				m += '<li class="tab line1"><a id=' + setUID('tabJobSanctuary') + '>' + translate('dragon-sanctuary') + '</a></li>' +
-					'</ul><ul class="tabs first line2">' + 
+					'</ul><ul class="tabs first line2">' +
 					'<li class="tab line2"><a id=' + setUID('tabJobDragon') + '>' + translate('dragon') + '</a></li>' +
 					'<li class="tab line2"><a id=' + setUID('tabJobTrade') + '>' + translate('trade') + '</a></li>' +
 					'<li class="tab line2"><a id=' + setUID('tabJobForge') + '>' + translateByKey('forge', null, 'dialogs') + '</a></li>' +
@@ -21123,7 +21123,7 @@
 					'<div id=' + setUID('tabJob_Content') + ' class="' + UID['scrollable'] + '" style="padding-top:5px; height:435px; max-height:700px;"></div>';
 
 				div.innerHTML = m;
-				
+
 				document.getElementById(UID['tabJobInfo']).addEventListener('click', t.tabJobInfo);
 				document.getElementById(UID['tabJobTrain']).addEventListener('click', t.tabJobTrain);
 				document.getElementById(UID['tabJobBuild']).addEventListener('click', t.tabJobBuild);
@@ -21135,13 +21135,13 @@
 				document.getElementById(UID['tabJobDragon']).addEventListener('click', t.tabJobDragon);
 				document.getElementById(UID['tabJobTrade']).addEventListener('click', t.tabJobTrade);
 				document.getElementById(UID['tabJobForge']).addEventListener('click', t.tabJobForge);
-				
+
 				/* Restore the views */
 				t.contentType = Data.options.jobs.current_tab;
 				t.trainContentType = Data.options.training.current_tab;
 				t.sanctContentType = Data.options.sanctuary.current_tab;
 				t.forgeContentType = Data.options.forge.current_tab;
-				
+
 				/* Enable the jobs */
 				t.setTrainEnable(Data.options.training.enabled);
 				t.selectedQ = Data.options.training.mode;
@@ -21151,7 +21151,7 @@
 				if (canResurrect) {
 					t.setResurrectEnable(Data.options.resurrect.enabled);
 				}
-				
+
 				window.addEventListener('unload', t.onUnload, false);
 			},
 			show: function() {
@@ -21215,7 +21215,7 @@
 				t.contentType = 0;
 				var city = Seed.cities[CAPITAL.id];
 
-				var n = '<div class=' + UID['title'] + '>' + translate('information') + '</div>' 
+				var n = '<div class=' + UID['title'] + '>' + translate('information') + '</div>'
 				+ '	<table width=100%><tr><td><input id=' + setUID('tabJobInfo_Refresh') + ' type=button value=' + translate('Refresh') + '></input></td></tr></table>';
 
 				document.getElementById(UID['tabJob_Header']).style.height = "45px";
@@ -21304,7 +21304,7 @@
 					}
 					return m;
 				}
-				
+
 				function dispDefenseTowerHealing(cityIdx) {
 					var m = '<tr><td width=20% class=right>' + translate('Repairing') + ': </td>',
 						job = Jobs.getDefenseTowerHealing(cityIdx);
@@ -21317,7 +21317,7 @@
 
 					return m;
 				}
-				
+
 				function dispDefenseTowerJob(cityIdx) {
 					var m = '<tr><td width=20% class=right>' + translate('Building') + ': </td>',
 						job = Jobs.getDefenseTowerJob(cityIdx);
@@ -21364,7 +21364,7 @@
 					}
 					return m;
 				}
-	
+
 				function dispResearchJob(cityIdx) {
 					var m = '<tr><td class=right width=20%>' + translate('Researching') + ': </td>';
 					var job = Jobs.getJobs('research', true, cityIdx)[0];
@@ -21468,7 +21468,7 @@
 					var title = '' + '<div class=' + UID[divClass] + '>' + '	<table class=' + UID['table'] + '>' + '	<tr>' + '		<td align=left width=35%>' + ((city.type == 'Outpost') ? translate(city.name) : city.name) + '</td>' + '		<td align=center width=30%>' + city.x + ',' + city.y + '</td>' + '		<td align=center width=200px>' + '			<font color=yellow>' + alliance_name + '</font>' + '		</td>' + '		<td width=35% align=right>' + wallStatus + '</td>' + '	</tr>' + '</table></div>';
 					return title;
 				}
-				
+
 				function getDivClass(cityIdx) {
 					var divClass = 'subtitle';
 					switch (cityIdx) {
@@ -21522,22 +21522,22 @@
 
 				t.contentType = 1;
 
-				var n = '<div class=' + UID['title'] + '>' + translate('Train') + ' ' + translate('Automatically') + '</div>' 
-					+ '<div class=' + UID['status_ticker'] + ' style="margin-bottom: 5px !important">' 
-					+ '	<center><input id=' + setUID('tabJobTrain_OnOff') + ' type=button /></center>' 
-					+ '	<div id=' + setUID('tabJobTrain_Report') + ' class=' + UID['status_report'] + '>' 
-					+ '		<table id=' + setUID('tabJobTrain_Table') + ' class=' + UID['table'] + '>' 
-					+ '		</table>' 
-					+ '	</div>' 
-					+ '	<br>' 
-					+ '	<div id=' + setUID('tabJobTrain_Feedback') + ' class=' + UID['status_feedback'] + '></div>' 
-					+ '</div>' 
-					+ '<ul class=tabs>' 
+				var n = '<div class=' + UID['title'] + '>' + translate('Train') + ' ' + translate('Automatically') + '</div>'
+					+ '<div class=' + UID['status_ticker'] + ' style="margin-bottom: 5px !important">'
+					+ '	<center><input id=' + setUID('tabJobTrain_OnOff') + ' type=button /></center>'
+					+ '	<div id=' + setUID('tabJobTrain_Report') + ' class=' + UID['status_report'] + '>'
+					+ '		<table id=' + setUID('tabJobTrain_Table') + ' class=' + UID['table'] + '>'
+					+ '		</table>'
+					+ '	</div>'
+					+ '	<br>'
+					+ '	<div id=' + setUID('tabJobTrain_Feedback') + ' class=' + UID['status_feedback'] + '></div>'
+					+ '</div>'
+					+ '<ul class=tabs>'
 					+ '	<li class="tab first"><a id=' + setUID('tabJobTrain_tabTrain') + '>' + translate('Train') + '</a></li>'
 					+ '	<li class="tab"><a id=' + setUID('tabJobTrain_tabConfig') + '>' + translate('Config') + '</a></li>'
 					+ '	<li class="tab"><a id=' + setUID('tabJobTrain_tabSpeed') + '>' + translate('speed') + '</a></li>'
 					+ '</ul>';
-				
+
 				document.getElementById(UID['tabJob_Header']).style.height = "225px";
 				document.getElementById(UID['tabJob_Header']).innerHTML = n;
 
@@ -21928,23 +21928,23 @@
 
 				t.trainContentType = 2;
 
-				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' 
-					+ '<div class=' + UID['subtitle'] + '>' + translate('Training Configuration') + '</div>' 
-					+ '<div class="' + UID['scrollable'] + '">' 
-					+ '		<table class=' + UID['table'] + '>' 
-					+ '		<tr align=center class=' + UID['row_headers'] + '>' 
-					+ '			<td style="background:none !important;" colspan=2></td>' 
-					+ '		</tr>' 
-					+ '		<tr>' 
-					+ '			<td><label><input type=radio name=' + UID['tabTrainConfig_QRadio'] + ' value="min_housing" />' + translate('Only one training queue per city') + '</label></td>' 
-					+ '		</tr>' 
-					+ '		<tr>' 
-					+ '			<td><label><input type=radio name=' + UID['tabTrainConfig_QRadio'] + ' value="min_resource" />' + translate('Maximum training queues possible per city, according to available resources') + '</label></td>' 
-					+ '		</tr>' 
-					+ ' 	 <tr>' 
-					+ '			<td>' + translate('Tax Rate') + ' : <input disabled type=text id=' + setUID('TabJobTrainTaxRate') + ' maxlength=2 style="width:70px" size=3 value="' + Seed.cities[CAPITAL.id].figures.tax_rate + '"\>' + '% ' + ' <input disabled class=small id=' + setUID('TabJobTrainChangeTaxRate') + ' type=button style="width:auto !important;" value="' + translate('Change') + '" \>' 
-					+ ' 		</td>' 
-					+ '		</tr>' 
+				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">'
+					+ '<div class=' + UID['subtitle'] + '>' + translate('Training Configuration') + '</div>'
+					+ '<div class="' + UID['scrollable'] + '">'
+					+ '		<table class=' + UID['table'] + '>'
+					+ '		<tr align=center class=' + UID['row_headers'] + '>'
+					+ '			<td style="background:none !important;" colspan=2></td>'
+					+ '		</tr>'
+					+ '		<tr>'
+					+ '			<td><label><input type=radio name=' + UID['tabTrainConfig_QRadio'] + ' value="min_housing" />' + translate('Only one training queue per city') + '</label></td>'
+					+ '		</tr>'
+					+ '		<tr>'
+					+ '			<td><label><input type=radio name=' + UID['tabTrainConfig_QRadio'] + ' value="min_resource" />' + translate('Maximum training queues possible per city, according to available resources') + '</label></td>'
+					+ '		</tr>'
+					+ ' 	 <tr>'
+					+ '			<td>' + translate('Tax Rate') + ' : <input disabled type=text id=' + setUID('TabJobTrainTaxRate') + ' maxlength=2 style="width:70px" size=3 value="' + Seed.cities[CAPITAL.id].figures.tax_rate + '"\>' + '% ' + ' <input disabled class=small id=' + setUID('TabJobTrainChangeTaxRate') + ' type=button style="width:auto !important;" value="' + translate('Change') + '" \>'
+					+ ' 		</td>'
+					+ '		</tr>'
 					+ '	</table>'
 					+ '</div>' + '<br>';
 
@@ -22045,7 +22045,7 @@
 					}
 				}
 			},
-			
+
 			/** * Jobs Tab - Build Sub-tab ** */
 			tabJobBuild: function() {
 				var t = Tabs.Jobs;
@@ -22055,7 +22055,7 @@
 				document.getElementById(UID['tabJobBuild']).className = 'selected';
 				document.getElementById(UID['tabJobBuild']).style.zIndex = 1;
 				var divClass = 'subtitle';
-				
+
 				t.lastSubTab = 'tabJobBuild';
 				t.contentType = 2;
 
@@ -22135,9 +22135,9 @@
 
 					listC = Buildings.getBuildingByCityType(cityTemp.type, 'city');
 					listF = Buildings.getBuildingByCityType(cityTemp.type, 'field');
-                    
+
 					typeCity = getCityShortType(cityIdx);
-					
+
                     if (Seed.cities[cityIdx]) {
 						var titleCompl = '';
 						if(cityIdx == COLOSSUS_OUTPOST.id) {
@@ -22259,7 +22259,7 @@
 						}
 						var buildList;
 						( Data.options.building.hide_fields ? buildList = Buildings.getBuildingByCityType(cityTemp.type, 'city') :  buildList = Buildings.getBuildingByCityType(cityTemp.type, 'city').concat(Buildings.getBuildingByCityType(cityTemp.type, 'field')) );
-					
+
 						for (var i = 0; i < buildList.length; ++i) {
                             typeCity = getCityShortType(cityIdx);
                             var max_level = Buildings.getLevelMax(typeCity, buildList[i]);
@@ -22375,7 +22375,7 @@
                     var minLvl = (Buildings.getLevel(cityIdx, type)).min;
 					var m = '<td>' + '	<select id=' + setUID('tabJobBuild_Cap_' + cityIdx + '_' + type) + ' ref=' + (cityIdx + '_' + listIdx) + '>';
                     for(var i=0;i<=maxLvl;i++) {
-                        m += '		<option value='+ i + ' ' + ((minLvl > i || maxLvl < i) ? ' style="display:none;"' : '') + '>' + i + '</option>'; 
+                        m += '		<option value='+ i + ' ' + ((minLvl > i || maxLvl < i) ? ' style="display:none;"' : '') + '>' + i + '</option>';
                     }
                     m += '	</select></td>' + '		<td id=' + setUID('tabJobBuild_FB_' + cityIdx + '_' + type) + ' class=jewel valign=top style="width:250px;white-space:normal;"></td>';
 					return m;
@@ -22430,16 +22430,16 @@
 				document.getElementById(UID[t.lastSubTab]).style.zIndex = 0;
 				document.getElementById(UID['tabJobDragon']).className = 'selected';
 				document.getElementById(UID['tabJobDragon']).style.zIndex = 1;
-				
+
 				t.lastSubTab = 'tabJobDragon';
 				t.contentType = 6;
-				
-				var n = '<div class=' + UID['title'] + '>' + translate('Dragon') + ' ' + translate('Healing') + '</div>' + '<div class=' + UID['status_ticker'] + '>' 
-						+ '	<div id=' + setUID('tabJobDragon_Report') + ' class=' + UID['status_report'] + '>' 
-						+ '		<table id=' + setUID('tabJobDragon_Table') + ' class=' + UID['table'] + '>' 
-						+ '		</table>' 
-						+ '	</div><br>' 
-						+ '	<div id=' + setUID('tabJobDragon_Feedback') + ' class=' + UID['status_feedback'] + '></div>' 
+
+				var n = '<div class=' + UID['title'] + '>' + translate('Dragon') + ' ' + translate('Healing') + '</div>' + '<div class=' + UID['status_ticker'] + '>'
+						+ '	<div id=' + setUID('tabJobDragon_Report') + ' class=' + UID['status_report'] + '>'
+						+ '		<table id=' + setUID('tabJobDragon_Table') + ' class=' + UID['table'] + '>'
+						+ '		</table>'
+						+ '	</div><br>'
+						+ '	<div id=' + setUID('tabJobDragon_Feedback') + ' class=' + UID['status_feedback'] + '></div>'
 						+ '</div>';
 
 				document.getElementById(UID['tabJob_Header']).style.height = "205px";
@@ -22547,18 +22547,18 @@
 						var cityDragonId = 'tabJobDragon_cityId_' + cityIdx;
 						var accordionId = 'tabJobDragon_accordion_' + cityIdx;
 						var cityDragonListId = 'tabJobDragon_cityList_' + cityIdx;
-						m += '<div class=' + UID['content'] + ' style="margin-bottom:5px;">' 
-							+ '<A><div id=' + setUID(cityDragonId) + ' class=' + UID[divClass] + ' ref="' + cityIdx + '">' 
-							+ '<table width=100%>' 
-							+ '	<tr><td align=center width=100% style="border-right:none">' + ((city.type == 'Outpost') ? translate(city.name) : city.name) + '</td>' 
-							+ '		<td align=right style="border-right:none"><div id=' + setUID(accordionId) + ' ref="' + cityIdx + '"></div></td>' 
-							+ '</tr></table></div></A>' 
+						m += '<div class=' + UID['content'] + ' style="margin-bottom:5px;">'
+							+ '<A><div id=' + setUID(cityDragonId) + ' class=' + UID[divClass] + ' ref="' + cityIdx + '">'
+							+ '<table width=100%>'
+							+ '	<tr><td align=center width=100% style="border-right:none">' + ((city.type == 'Outpost') ? translate(city.name) : city.name) + '</td>'
+							+ '		<td align=right style="border-right:none"><div id=' + setUID(accordionId) + ' ref="' + cityIdx + '"></div></td>'
+							+ '</tr></table></div></A>'
 							+ '<div id=' + setUID(cityDragonListId) + '>';
 						cl.push(UID[cityDragonId]);
 						if(dragon.type) {
 							var dragonType = dragon.type.substring(dragon.type.indexOf('::') + 2);
 							dragonType = (dragonType == 'CityGreatDragon') ? 'GreatDragon' : dragonType;
-							
+
 							m += '<div class=' + UID['subtitle_light'] + '>' + translate(dragonType) + '</div>';
 							m += '<table class=' + UID['table'] + '>';
 							m += '<tr><td class=right>' + translate('level') + ' : </td><td align=right>' + dragon.level + '</td></tr>';
@@ -22569,7 +22569,7 @@
 							m += '<tr><td class=right>' + translate('Ranged') + ' : </td><td align=right>' + numf(stat.ranged, ' ') + '</td></tr>';
 							m += '<tr><td class=right>' + translate('Life') + ' : </td><td align=right>' + numf(stat.life, ' ') + '</td></tr>';
 							m += '</table>';
-							
+
 							m += '<div class=' + UID['subtitle_light'] + '>' + translate('Armor') + '&nbsp;&amp;&nbsp;' + translate('Scales') + '</div>';
 							m += '<table class=' + UID['table'] + '>';
 							var mArmor = translate('Not ready') + countArmorDragon(dragonType);
@@ -22605,7 +22605,7 @@
 							}
 							m +='</td>';
 							m += '</table>';
-							
+
 							if(dragon.battle_arts.length > 0) {
 								m += '<div class=' + UID['subtitle_light'] + '>' + translate('battle-arts') + '</div>';
 								m += '<table class=' + UID['table'] + '>';
@@ -22651,11 +22651,11 @@
 						document.getElementById(UID[acc_id]).innerHTML = '-&nbsp';
 					}
 				}
-				
+
 				t.dragonStatTick();
 				t.clearTimers();
 				t.jobsStatTimer = setInterval(t.dragonStatTick, 1000);
-				
+
 				function toggleHideShow(event) {
 					if (event.target.tagName == 'DIV')
 						element = event.target;
@@ -22680,7 +22680,7 @@
 						Data.options.collapsed.dragon[cityIdx] = true;
 					}
 				}
-				
+
 				function countArmorDragon(dragon_type) {
 					var armors = ['BodyArmor', 'ClawGuards', 'TailGuard', 'Helmet'];
 					var ret = 0;
@@ -22693,7 +22693,7 @@
 					else return ' (' + translate('Got') + ' <font color=red>' + ret + '</font>/4)';
 				}
 			},
-			
+
 			/** * Jobs Tab - Trade Sub-tab ** */
 			tabJobTrade: function() {
 				var t = Tabs.Jobs;
@@ -22701,20 +22701,20 @@
 				document.getElementById(UID[t.lastSubTab]).style.zIndex = 0;
 				document.getElementById(UID['tabJobTrade']).className = 'selected';
 				document.getElementById(UID['tabJobTrade']).style.zIndex = 1;
-				
+
 				t.lastSubTab = 'tabJobTrade';
 				t.contentType = 7;
-				
-				var n = '<div class=' + UID['title'] + '>' + translate('trade') + '</div>' + '<div class=' + UID['status_ticker'] + '>' 
-						+ '	<div id=' + setUID('tabJobTrade_Report') + ' class=' + UID['status_report'] + '>' 
-						+ '		<table id=' + setUID('tabJobTrade_Table') + ' class=' + UID['table'] + '>' 
-						+ '		</table>' 
-						+ '	</div><br>' 
-						+ '	<div id=' + setUID('tabJobTrade_Feedback') + ' class=' + UID['status_feedback'] + '></div>' 
+
+				var n = '<div class=' + UID['title'] + '>' + translate('trade') + '</div>' + '<div class=' + UID['status_ticker'] + '>'
+						+ '	<div id=' + setUID('tabJobTrade_Report') + ' class=' + UID['status_report'] + '>'
+						+ '		<table id=' + setUID('tabJobTrade_Table') + ' class=' + UID['table'] + '>'
+						+ '		</table>'
+						+ '	</div><br>'
+						+ '	<div id=' + setUID('tabJobTrade_Feedback') + ' class=' + UID['status_feedback'] + '></div>'
 						+ '</div>'
-						+ '<ul class=tabs>' 
-						+ '	<li class="tab first"><a id=' + setUID('tabJobTrade_tabBuy') + '>' + translate('buy') + '</a></li>' 
-						+ '	<li class="tab"><a id=' + setUID('tabJobTrade_tabSell') + '>' + translate('sell') + '</a></li>' 
+						+ '<ul class=tabs>'
+						+ '	<li class="tab first"><a id=' + setUID('tabJobTrade_tabBuy') + '>' + translate('buy') + '</a></li>'
+						+ '	<li class="tab"><a id=' + setUID('tabJobTrade_tabSell') + '>' + translate('sell') + '</a></li>'
 						+ '</ul>';
 
 				document.getElementById(UID['tabJob_Header']).style.height = "205px";
@@ -22723,7 +22723,7 @@
 				document.getElementById(UID['tabJob_Content']).style.height = "455px";
 				document.getElementById(UID['tabJobTrade_tabBuy']).addEventListener('click', t.tabJobTradeBuy, false);
 				document.getElementById(UID['tabJobTrade_tabSell']).addEventListener('click', t.tabJobTradeSell, false);
-				
+
 				switch (t.tradeContentType) {
 					case 0:
 						t.tabJobTradeBuy();
@@ -22732,12 +22732,12 @@
 						t.tabJobTradeSell();
 						break;
 				}
-				
+
 				t.tradeStatTick();
 				t.clearTimers();
 				t.jobsStatTimer = setInterval(t.tradeStatTick, 1000);
 			},
-			
+
 			/** * buy sub tab */
 			tabJobTradeBuy: function() {
 				var t = Tabs.Jobs;
@@ -22748,54 +22748,54 @@
 				document.getElementById(UID['tabJobTrade_tabBuy']).style.zIndex = 1;
 
 				t.tradeContentType = 0;
-				
-				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' 
+
+				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">'
 					+ '		<div class=' + UID['subtitle'] + '>' + translate('trade') + ' - <b>' + translate('buy') + '</b></div>'
 					+ '		<table><tr><td align=right>'
 					+ translate('resource') + ' : </td><td> <select id='+setUID('tabTrade_BuyResource')+' >';
-				
+
 				for (var p = 0; p < trade_resource_types.length; p++) {
 					m += '<option value="' + trade_resource_types[p] + '" '+ (Data.options.trade.buy.resource == trade_resource_types[p] ? 'selected' : '') +' >' + translate(trade_resource_types[p]) + '</option>';
 				}
-				
-				m += '		</select></td></tr>' 
+
+				m += '		</select></td></tr>'
 					+ '		<tr><td align=right>' + translate('price') + ' ' + translate('max') + ' : </td><td> <input type=text id='+setUID('tabTrade_PriceMax')+' style="width:70px" value="' + Data.options.trade.buy.price + '" /></td></tr>'
 					+ '		<tr><td align=right>' + translate('min-quantity') + ' : </td><td> <input type=text id='+setUID('tabTrade_QtyMin')+' style="width:70px" value="' + Data.options.trade.buy.qty + '" /></td></tr></table>'
 					+ '		<center><input value="' + translate('search') + '" id=' + setUID('tabTrade_RefresTableBuy') + ' type=button /></center>'
 					+ '		<br /><div class="' + UID['scrollable'] + '" id='+setUID('tabTrade_BuyTable')+'>'
 					+ '		</div>'
 					+ '</div>';
-					
+
 				document.getElementById(UID['tabJobTrade_Content']).innerHTML = m;
 				document.getElementById(UID['tabTrade_RefresTableBuy']).addEventListener('click', searchForBuy);
-				
+
 				document.getElementById(UID['tabTrade_BuyResource']).addEventListener('change', changeResource);
 				document.getElementById(UID['tabTrade_QtyMin']).addEventListener('keyup', changeQty);
 				document.getElementById(UID['tabTrade_PriceMax']).addEventListener('keyup', changePrice);
-				
+
 				function changeQty(event) {
 					var x = toNum(event.target.value);
 					event.target.value = x;
 					Data.options.trade.buy.qty = x;
 				}
-				
+
 				function changePrice(event) {
 					var x = toNum(event.target.value);
 					event.target.value = x;
 					Data.options.trade.buy.price = x;
 				}
-				
+
 				function changeResource() {
 					Data.options.trade.buy.resource = document.getElementById(UID['tabTrade_BuyResource']).value;
 				}
-				
+
 				function searchForBuy() {
 					var product = document.getElementById(UID['tabTrade_BuyResource']).value;
 					var nbProduct = document.getElementById(UID['tabTrade_QtyMin']).value;
 					var upperPrice = document.getElementById(UID['tabTrade_PriceMax']).value;
 					new MyAjax.tradeSearch(product, nbProduct, upperPrice, updateTableBuy);
 				}
-				
+
 				function buyResource(event) {
 					var idTrade = event.target.getAttribute('ref');
 					new MyAjax.tradeBuy(idTrade, function(result) {
@@ -22807,38 +22807,38 @@
 						}
 					});
 				}
-				
+
 				function updateTableBuy(result) {
-					var m = '<table class=' + UID['row_style'] + ' width=100%>' 
-					+ '<tr class=' + UID['row_headers'] + '>' 
-					+ '<td>' + translate('resource') + '</td>' 
-					+ '<td>' + translate('price') + '</td>' 
+					var m = '<table class=' + UID['row_style'] + ' width=100%>'
+					+ '<tr class=' + UID['row_headers'] + '>'
+					+ '<td>' + translate('resource') + '</td>'
+					+ '<td>' + translate('price') + '</td>'
 					+ '<td>' + translate('quantity') + '</td>'
 					+ '<td>' + translate('seller') + '</td>'
-					+ '<td>' + translate('buy') + '</td>'					
+					+ '<td>' + translate('buy') + '</td>'
 					+ '</tr>';
-					
+
 					var bT = [];
-					
+
 					for(var offer=0; offer < result.offers.length; offer++) {
 						setUID('tradeOffer_'+result.offers[offer].id);
 						bT.push(UID['tradeOffer_'+result.offers[offer].id]);
-						m += '<tr>' 
-							+ '<td>' + translate(result.offers[offer].product) + '</td>' 
-							+ '<td align=right>' + numf(result.offers[offer].price) + '</td>' 
+						m += '<tr>'
+							+ '<td>' + translate(result.offers[offer].product) + '</td>'
+							+ '<td align=right>' + numf(result.offers[offer].price) + '</td>'
 							+ '<td align=right>' + numf(result.offers[offer].units) + '</td>'
 							+ '<td align=center>' + result.offers[offer].seller.name + '( ' + numf(result.offers[offer].seller.might) + ' )' + '</td>'
-							+ '<td>' + '<input class=Xtrasmall id="' + UID['tradeOffer_'+result.offers[offer].id] + '" ref="' + result.offers[offer].id + '" type=button  style="width:auto !important;" value="' + translate('buy') + '" \>' + '</td>'					
+							+ '<td>' + '<input class=Xtrasmall id="' + UID['tradeOffer_'+result.offers[offer].id] + '" ref="' + result.offers[offer].id + '" type=button  style="width:auto !important;" value="' + translate('buy') + '" \>' + '</td>'
 							+ '</tr>';
 					}
 					m += '</table>';
-					
+
 					document.getElementById(UID['tabTrade_BuyTable']).innerHTML = m;
-					
+
 					for(var i=0; i<bT.length ; i++) {
 						document.getElementById(bT[i]).addEventListener('click', buyResource);
 					}
-				}	
+				}
 			},
 
 			/** * sell sub tab */
@@ -22851,17 +22851,17 @@
 				document.getElementById(UID['tabJobTrade_tabSell']).style.zIndex = 1;
 
 				t.tradeContentType = 1;
-				
-				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' 
+
+				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">'
 					+ '		<div class=' + UID['subtitle'] + '>' + translate('trade') + ' - <b>' + translate('sell') + '</b></div>'
 					+ '		<table><tr><td align=right>'
 					+ translate('resource') + ' : </td><td> <select id='+setUID('tabTrade_SellResource')+' >';
-				
+
 				for (var p = 0; p < trade_resource_types.length; p++) {
 					m += '<option value="' + trade_resource_types[p] + '" '+ (Data.options.trade.sell.resource == trade_resource_types[p] ? 'selected' : '') +' >' + translate(trade_resource_types[p]) + '</option>';
 				}
-				
-				m += '		</select></td></tr>' 
+
+				m += '		</select></td></tr>'
 					+ '		<tr><td align=right>' + translate('price') + ' : </td><td> <input type=text id='+setUID('tabTrade_Price')+' style="width:70px" value="' + Data.options.trade.sell.price + '" /> <span id="'+setUID('tabTrade_SellPriceForSell')+'">' + translate('sellers-fee') + ' : ' + numf(Math.round(toNum(Data.options.trade.sell.price)*5/1000)) + '</span></td></tr>'
 					+ '		<tr><td align=right>' + translate('quantity') + ' : </td><td> <input type=text id='+setUID('tabTrade_Quantity')+' style="width:70px" value="' + Data.options.trade.sell.qty + '" /></td></tr></table>'
 					+ '		<center><input value="' + translate('sell') + '" id=' + setUID('tabTrade_SellInTrade') + ' type=button /></center><br/>'
@@ -22873,33 +22873,33 @@
 
 				document.getElementById(UID['tabJobTrade_Content']).innerHTML = m;
 				document.getElementById(UID['tabTrade_SellInTrade']).addEventListener('click', sellInTrade);
-				
+
 				document.getElementById(UID['tabTrade_SellResource']).addEventListener('change', changeResource);
 				document.getElementById(UID['tabTrade_Quantity']).addEventListener('change', changeQty);
 				document.getElementById(UID['tabTrade_Price']).addEventListener('change', changePrice);
 				document.getElementById(UID['tabTrade_RefreshSellInTrade']).addEventListener('click', getSellInTrade);
-				
+
 				function changeQty(event) {
 					var x = toNum(event.target.value);
 					event.target.value = x;
 					Data.options.trade.sell.qty = x;
 				}
-				
+
 				function changePrice(event) {
 					var x = toNum(event.target.value);
 					event.target.value = x;
 					Data.options.trade.sell.price = x;
 					document.getElementById(UID['tabTrade_SellPriceForSell']).innerHTML = translate('sellers-fee') + ' : ' + numf(Math.round(x*5/1000));
 				}
-				
+
 				function changeResource() {
 					Data.options.trade.sell.resource = document.getElementById(UID['tabTrade_SellResource']).value;
 				}
-				
+
 				function getSellInTrade() {
 					new MyAjax.tradeSearchSell(updateTableSell);
 				}
-				
+
 				function sellInTrade() {
 					var product = document.getElementById(UID['tabTrade_SellResource']).value;
 					var nbProduct = document.getElementById(UID['tabTrade_Quantity']).value;
@@ -22909,27 +22909,27 @@
 							document.getElementById(UID['tabJobTrade_Feedback']).innerHTML = translate('OK');
 							getSellInTrade();
 						}
-						else 
+						else
 							document.getElementById(UID['tabJobTrade_Feedback']).innerHTML = (result.reason);
 					});
 				}
-				
+
 				function updateTableSell(result) {
-					
-					var m = '<table class=' + UID['row_style'] + ' width=100%>' 
-					+ '<tr class=' + UID['row_headers'] + '>' 
-					+ '<td>' + translate('resource') + '</td>' 
-					+ '<td>' + translate('price') + '</td>' 
+
+					var m = '<table class=' + UID['row_style'] + ' width=100%>'
+					+ '<tr class=' + UID['row_headers'] + '>'
+					+ '<td>' + translate('resource') + '</td>'
+					+ '<td>' + translate('price') + '</td>'
 					+ '<td>' + translate('quantity') + '</td>'
                     + '<td>' + translate('cancel') + '</td>'
 					+ '</tr>';
 					var bct = [];
 					for(var offer=0; offer < result.player_sells.length; offer++) {
-						m += '<tr>' 
-							+ '<td>' + translate(result.player_sells[offer].product) + '</td>' 
-							+ '<td align=right>' + numf(result.player_sells[offer].price) + '</td>' 
+						m += '<tr>'
+							+ '<td>' + translate(result.player_sells[offer].product) + '</td>'
+							+ '<td align=right>' + numf(result.player_sells[offer].price) + '</td>'
 							+ '<td align=right>' + numf(result.player_sells[offer].units) + '</td>'
-                            + '<td align=center><input class="Xtrasmall '+UID['btn_red']+'" id="'+setUID(result.player_sells[offer].id)+'" ref="'+result.player_sells[offer].id+'" type="button" style="width:auto !important;" value=" X "></td>' 
+                            + '<td align=center><input class="Xtrasmall '+UID['btn_red']+'" id="'+setUID(result.player_sells[offer].id)+'" ref="'+result.player_sells[offer].id+'" type="button" style="width:auto !important;" value=" X "></td>'
 							+ '</tr>';
                         bct.push(result.player_sells[offer].id);
 					}
@@ -22943,7 +22943,7 @@
                     }
 				}
 			},
-			
+
 			/** * Jobs Tab - Forge Sub-tab ** */
 			tabJobForge: function() {
 				var t = Tabs.Jobs;
@@ -22951,23 +22951,23 @@
 				document.getElementById(UID[t.lastSubTab]).style.zIndex = 0;
 				document.getElementById(UID['tabJobForge']).className = 'selected';
 				document.getElementById(UID['tabJobForge']).style.zIndex = 1;
-				
+
 				t.lastSubTab = 'tabJobForge';
 				t.contentType = 8;
-				
-				var n = '<div class=' + UID['title'] + '>' + translateByKey('forge', null, 'dialogs') + '</div>' + '<div class=' + UID['status_ticker'] + '>' 
+
+				var n = '<div class=' + UID['title'] + '>' + translateByKey('forge', null, 'dialogs') + '</div>' + '<div class=' + UID['status_ticker'] + '>'
 						+ '	<div id=' + setUID('tabJobForge_Report') + ' class=' + UID['status_report'] + '>'
 						+ '		<center><input id=' + setUID('tabJobForge_OnOff') + ' type=button /></center>'
-						+ '		<table id=' + setUID('tabJobForge_Table') + ' class=' + UID['table'] + '>' 
-						+ '		</table>' 
-						+ '	</div><br>' 
-						+ '	<div id=' + setUID('tabJobForge_Feedback') + ' class=' + UID['status_feedback'] + '></div>' 
+						+ '		<table id=' + setUID('tabJobForge_Table') + ' class=' + UID['table'] + '>'
+						+ '		</table>'
+						+ '	</div><br>'
+						+ '	<div id=' + setUID('tabJobForge_Feedback') + ' class=' + UID['status_feedback'] + '></div>'
 						+ '</div>'
-						+ '<ul class=tabs>' 
-						+ '	<li class="tab first"><a id=' + setUID('tabJobForge_tabAdventurers') + '>' + translate('adventurers') + '</a></li>' 
+						+ '<ul class=tabs>'
+						+ '	<li class="tab first"><a id=' + setUID('tabJobForge_tabAdventurers') + '>' + translate('adventurers') + '</a></li>'
 						+ '	<li class="tab"><a id=' + setUID('tabJobForge_tabForge') + '>' + translateByKey('forge', null, 'dialogs') + '</a></li>'
 						+ '	<li class="tab"><a id=' + setUID('tabJobForge_tabInventory') + '>' + translate('items-panel') + '</a></li>'
-						+ '	<li class="tab"><a id=' + setUID('tabJobForge_tabStats') + '>' + translate('Stats') + '</a></li>'						
+						+ '	<li class="tab"><a id=' + setUID('tabJobForge_tabStats') + '>' + translate('Stats') + '</a></li>'
 						+ '</ul>';
 
 				document.getElementById(UID['tabJob_Header']).style.height = "205px";
@@ -22982,9 +22982,9 @@
 					var t = Tabs.Jobs;
 					t.setForgeMissionEnable(!Data.options.forge.enableAutoMission);
 				}, false);
-				
+
 				t.refreshForgeButton(Data.options.forge.enableAutoMission);
-				
+
 				switch (t.forgeContentType) {
 					case 0:
 						t.tabJobForgeAdventurers();
@@ -22999,12 +22999,12 @@
 						t.tabJobForge_tabStats();
 						break;
 				}
-				
+
 				t.forgeStatTick();
 				t.clearTimers();
 				t.jobsStatTimer = setInterval(t.forgeStatTick, 1000);
 			},
-			
+
 			/** * adventurers sub tab */
 			tabJobForgeAdventurers: function() {
 				var t = Tabs.Jobs;
@@ -23022,12 +23022,12 @@
 				var advs = Seed.player.forge.adventurers;
 				var lBC = [], lBG = [], lS = [], lCB = [];
 				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">';
-				
+
 				for(var i=0;i<advs.length;i++) {
-					var inMission=(Jobs.getJobs(Seed.forge.adventurers[advs[i].type].queue, false, -1).length > 0 ? true : false); 
+					var inMission=(Jobs.getJobs(Seed.forge.adventurers[advs[i].type].queue, false, -1).length > 0 ? true : false);
 					var isClaimable=(inMission ? false : (advs[i].current_mission == null ? false : true));
 					var adventurer = translate('adventurer-'+advs[i].type.toLowerCase());
-					
+
 					m += '<div class=' + UID['subtitle'] + '><b>' + adventurer + getXPNextLevel(advs[i].experience, advs[i].type)+ '</b></div>';
 					m += '<table><tr><td><INPUT type="checkbox" id="'+setUID('ckAdv_' + advs[i].type)+'" ref="'+advs[i].type+'" '+(Data.options.forge[advs[i].type].cbAuto ? 'checked' : '')+'> ';
 					m += translate('missions') + ' : <SELECT ref="'+advs[i].type+'_'+advs[i].adventurer_id+'" id='+setUID('selMission_' + advs[i].type)+'>';
@@ -23042,17 +23042,17 @@
 					m += '</tr>';
 					m += '</table>';
 					m += '<span id='+setUID(advs[i].type+'_descMission')+'></span>';
-					
+
 					lBG.push('btnMissionAdvGo_'+advs[i].adventurer_id);
 					lBC.push('btnMissionAdvClaim_'+advs[i].adventurer_id);
 					lS.push('selMission_' + advs[i].type);
 					lCB.push('ckAdv_' + advs[i].type);
 				}
-					
+
 				m += '</div>';
-				
+
 				document.getElementById(UID['tabJobForge_Content']).innerHTML = m;
-				
+
 				for(var i=0; i<lS.length ; i++) {
 					document.getElementById(UID[lS[i]]).addEventListener('change', onChangeMission);
 					if(document.getElementById(UID[lBG[i]]))
@@ -23061,25 +23061,25 @@
 						document.getElementById(UID[lBC[i]]).addEventListener('click', claimMission);
 					document.getElementById(UID[lCB[i]]).addEventListener('click', checkedAdventurer);
 					document.getElementById(UID[lCB[i]]).addEventListener('change', checkedAdventurer);
-					
+
 					var evt = document.createEvent('HTMLEvents');
 					evt.initEvent('change', true, true);
 					document.getElementById(UID[lS[i]]).dispatchEvent(evt);
 				}
-				
+
 				function checkedAdventurer(event) {
 					var advType = event.target.getAttribute('ref');
 					Data.options.forge[advType].cbAuto = event.target.checked;
 				}
-				
+
 				function onChangeMission(event) {
 					var ref = document.getElementById(event.target.id).readAttribute('ref').split('_');
 					var idSel = UID['selMission_'+ref[0]+'_'+ref[1]];
 					var missionType = event.target.options[event.target.selectedIndex].value;
 					var mission = Seed.forge.missions[missionType];
-					
+
 					Data.options.forge[ref[0]].mission = missionType;
-					
+
 					var ret = '<table>';
 					ret += '<tr><td align=right><b>XP</b>&nbsp;:&nbsp;</td><td> '+mission.experience+'</td></tr>';
 					ret += '<tr><td align=right><b>'+translate('type')+'</b>&nbsp;:&nbsp;</td><td> '+(mission.mission_type=='' || mission.mission_type==null ? '' : translate('forge-'+mission.mission_type.toLowerCase()))+'</td></tr>';
@@ -23090,10 +23090,10 @@
 							lDrop += (first ? '' : ', ') + translate(mission.drops[i]);
 							first = false;
 						}
-						
+
 					}
 					ret += '<tr><td align=right><b>'+translate('missions-chance-to-find').replace(/ /g, '&nbsp;')+'</b>&nbsp;:&nbsp;</td><td>'+lDrop+'</td></tr>';
-					
+
 					var pr = '<table>';
 					if(mission.requirements.adventurer_level != 0) {
 						pr += '<tr><td align=right>'+translate('adventurers')+'&nbsp;:&nbsp;</td><td>'+mission.requirements.adventurer_level+'</td></tr>';
@@ -23116,7 +23116,7 @@
 					ret += '</table>';
 					document.getElementById(UID[ref[0]+'_descMission']).innerHTML = (ret);
 				}
-								
+
 				function getXPNextLevel(nbXp, type) {
 					var j=0;
 					var ret = '';
@@ -23144,26 +23144,26 @@
 					}
 					return ret;
 				}
-			
+
 				function doMission(event) {
 					var ref = document.getElementById(event.target.id).readAttribute('ref').split('_');
 					var idSel = UID['selMission_'+ref[0]];
 					var missionType = Data.options.forge[ref[0]].mission;
-					
+
 					Tabs.Jobs.doMission(missionType, ref[1]);
 				}
-				
+
 				function claimMission(event) {
 					var ref = document.getElementById(event.target.id).readAttribute('ref').split('_');
 					var missionType = '';
-					
+
 					for(var i=0;i<Seed.player.forge.adventurers.length;i++) {
 						if(Seed.player.forge.adventurers[i].adventurer_id == ref[0]) {
 							missionType = Seed.player.forge.adventurers[i].current_mission;
 							break;
 						}
 					}
-					
+
 					Tabs.Jobs.doClaim(missionType, ref[0]);
 				}
 			},
@@ -23182,8 +23182,8 @@
 				document.getElementById(UID['tabJobForge_tabForge']).style.zIndex = 1;
 
 				t.forgeContentType = 1;
-				
-				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' 
+
+				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">'
 					+ '<table width=100%>'
 					+ '	<tr>'
 					+ '		<td colspan=3 align=center><div class=' + UID['subtitle'] + '>' + translateByKey('forge', null, 'dialogs') + '</div></td>'
@@ -23245,7 +23245,7 @@
 
 				document.getElementById(UID['tabJobForge_Content']).innerHTML = (m);
 				document.getElementById(UID['btnHammerRepair']).addEventListener('click', lunchRepairHammer);
-				
+
 				document.getElementById(UID['ckForge_Equipements']).addEventListener('change', checkedCb);
 				document.getElementById(UID['ckForge_Equipements']).addEventListener('click', checkedCb);
 				document.getElementById(UID['ckForge_Ingredients']).addEventListener('change', checkedCb);
@@ -23253,17 +23253,17 @@
 				document.getElementById(UID['ckForge_Crush']).addEventListener('change', checkedCb);
 				document.getElementById(UID['ckForge_Crush']).addEventListener('click', checkedCb);
 				document.getElementById(UID['ckForge_CrushKeep']).addEventListener('click', checkedCbKeep);
-				
+
 				document.getElementById(UID['btnForge_ingredient']).addEventListener('click', onClickForge);
 				document.getElementById(UID['btnForge_equipment']).addEventListener('click', onClickForge);
 				document.getElementById(UID['btnForge_crush']).addEventListener('click', onClickCrush);
 
 				var evt = document.createEvent('HTMLEvents');
 				evt.initEvent('change', true, true);
-				
+
 				document.getElementById(UID['tabForgeSubtabForge_selectUnitEquipment']).addEventListener('change', filtreCbEqp);
 				document.getElementById(UID['tabForgeSubtabForgeCrush_selectUnitEquipment']).addEventListener('change', filtreCrushCbEqp);
-				
+
 				if(document.getElementById(UID['selForge_equipment'])) {
 					document.getElementById(UID['selForge_equipment']).addEventListener('change', onChangeSelect);
 					document.getElementById(UID['selForge_equipment']).dispatchEvent(evt);
@@ -23276,9 +23276,9 @@
 					document.getElementById(UID['selForgeCrush_equipment']).addEventListener('change', onChangeSelectCrush);
 					document.getElementById(UID['selForgeCrush_equipment']).dispatchEvent(evt);
 				}
-				
+
 				document.getElementById(UID['selForge_NbStatToKeep']).addEventListener('change', onChangeSelectStatToKeep);
-				
+
 				var ret = '';
 				for(var i in Seed.forge.hammer_durability){
 					if(i == Seed.blacksmith.level) {
@@ -23291,10 +23291,10 @@
 					}
 				}
 				document.getElementById(UID['blacksmith_durability']).innerHTML = (ret);
-			
+
 				function lunchRepairHammer() {
 					MyAjax.repairHammer(cb);
-					
+
 					function cb(rslt) {
 						if(rslt.dat.result.success) {
 							setButtonStyle(document.getElementById(UID['btnHammerRepair']), (rslt.dat.result.blacksmith.available), 'btn_blue', 'btn_disabled');
@@ -23321,7 +23321,7 @@
 					var ret = translate('filter-'+type) + '&nbsp;:&nbsp;<SELECT id='+setUID('selForge_'+type)+' ref="'+type+'">';
 					var items = sortObjectByKey(Seed.forge.items, true);
 					var recipes = Seed.forge.recipes;
-					
+
 					for(var item in items) {
 						if(items[item].type == type && recipes[item]) {
 							if(serverTime()<recipes[item].ends_at || recipes[item].ends_at==0) {
@@ -23354,7 +23354,7 @@
 					var items = sortObjectByKey(Seed.forge.items, true);
 					var recipes = Seed.forge.recipes;
 					var ret = translate('filter-equipment') + '&nbsp;:&nbsp;<SELECT id='+setUID('selForgeCrush_equipment')+'>';
-					
+
 					for(var item in items) {
 						if(items[item].type == 'equipment' && recipes[item]) {
 							if(serverTime()<recipes[item].ends_at || recipes[item].ends_at==0) {
@@ -23379,9 +23379,9 @@
 					var type = document.getElementById(event.target.id).readAttribute('ref');
 					var nameItem = event.target.options[event.target.selectedIndex].value;
 					var reqItem = Seed.forge.recipes[nameItem].requirements;
-					
+
 					Data.options.forge[type].select = nameItem;
-					
+
 					var ret = '<table>';
 					if(reqItem.blacksmith_level) {
 						ret += '<tr><td align=right><b>'+translate('forge-blacksmith')+'</b>&nbsp;:&nbsp;</td><td> '+(reqItem.blacksmith_level)+'</td></tr>';
@@ -23390,7 +23390,7 @@
 					for(var it in reqItem.items) {
 						var ing = Seed.player.forge.items.ingredients;
 						var qtyP = 0;
-						
+
 						for(var ii=0;ii<ing.length;ii++) {
 							if(ing[ii].name==it) {
 								qtyP=ing[ii].quantity;
@@ -23400,7 +23400,7 @@
 						reqI += '<tr><td>'+translate(it.toLowerCase())+'&nbsp;:&nbsp;</td><td>'+(qtyP<reqItem.items[it] ? '<font color="#C33">' : '')+qtyP+'&nbsp;/&nbsp;'+reqItem.items[it]+(qtyP<reqItem.items[it] ? '</font>' : '')+'</td></tr>';
 					}
 					ret += '<tr><td align=right><b>'+translate('Items')+'</b>&nbsp;:&nbsp;</td><td>'+reqI+'</td></tr>';
-					
+
 					ret += '</table>';
 					document.getElementById(UID['tabForgeForge_Req_'+type]).innerHTML = (ret);
 				}
@@ -23419,7 +23419,7 @@
 					function cbForgeItemManuel() {
 						Tabs.Jobs.tabJobForgeForge();
 					}
-					
+
 					var t = Tabs.Jobs;
 					var type = event.target.getAttribute('ref');
 					var nameItem = Data.options.forge[type].select;
@@ -23436,11 +23436,11 @@
 					function cbCrushItemManuel() {
 						Tabs.Jobs.tabJobForgeForge();
 					}
-					
+
 					Tabs.Jobs.crushItem(Data.options.forge.crush.select, false, cbCrushItemManuel);
 				}
 			},
-			
+
 			/** * inventory sub tab */
 			tabJobForge_tabInventory: function() {
 				var t = Tabs.Jobs;
@@ -23453,7 +23453,7 @@
 				document.getElementById(UID['tabJobForge_tabStats']).style.zIndex = 0;
 				document.getElementById(UID['tabJobForge_tabInventory']).className = 'selected';
 				document.getElementById(UID['tabJobForge_tabInventory']).style.zIndex = 1;
-				
+
 				t.forgeContentType = 2;
 				var bCrush = [], bRepair = [], bUnequip = [], bEquip = [], bUpgrade = [], cbToKeep = [];
 				var items = Seed.player.forge.items.equipments;
@@ -23463,22 +23463,22 @@
 					if (a > b) return 1;
 					if (a < b) return -1;
 					return 0;
-				}); 
-				
-				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">' 
-					+ '		<div class=' + UID['subtitle'] + '>' + translate('filter-equipment') + '</b></div>' 
+				});
+
+				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:6px !important">'
+					+ '		<div class=' + UID['subtitle'] + '>' + translate('filter-equipment') + '</b></div>'
 					+ '<div id='+setUID('tabJobForge_tabInventory_equipment')+'>'
 					+ '<table class=' + UID['row_style'] + '>'
-					+ '	<tr><td colspan=5>'+translate('keep') 
+					+ '	<tr><td colspan=5>'+translate('keep')
 					+' 		<input ref="checked" class="Xtrasmall '+UID['btn_green']+' thin" id="'+setUID('btnForgeInventory_All')+'" type="button" style="width:auto !important;" value="'+translate('all')+'">'
 					+' 		<input ref="" class="Xtrasmall '+UID['btn_red']+' thin" id="'+setUID('btnForgeInventory_None')+'" type="button" style="width:auto !important;" value="'+translate('none')+'">'
 					+ '</td>'
-					+ '	<tr class=' + UID['row_headers'] + ' align=center>' 
+					+ '	<tr class=' + UID['row_headers'] + ' align=center>'
 					+ '		<td>&nbsp;'+translate('keep')+'&nbsp;</td>'
-					+ '		<td>&nbsp;'+translate('name')+'&nbsp;</td>' 
+					+ '		<td>&nbsp;'+translate('name')+'&nbsp;</td>'
 					+ '		<td>&nbsp;'+translate('level')+'&nbsp;</td>'
 					+ '		<td>&nbsp;'+translate('status')+'&nbsp;</td>'
-					+ '		<td>&nbsp;'+translate('action')+'&nbsp;</td>'					
+					+ '		<td>&nbsp;'+translate('action')+'&nbsp;</td>'
 					+ '	</tr>';
 				for(var i=0; i<items.length; i++){
 					var actionPossible = '';
@@ -23496,7 +23496,7 @@
 						case 'broken':
 							var jobsF = Jobs.getForgeJob(CAPITAL.id);
 							var found = false;
-							
+
 							for(var ij=0;ij<jobsF.length;ij++) {
 								if(jobsF[ij].queue == 'repair_equipment') {
 									if(jobsF[ij].equipment_id == items[i].id) {
@@ -23534,23 +23534,23 @@
 							bUpgrade.push('btnForgeUpgrade_'+items[i].id);
 							break;
 					}
-					
-					
-					m += '<tr>' 
-					+ '	<td align="center"><INPUT type="checkbox" ref="'+items[i].id+'" id="'+setUID('ckForge_Inventory_'+items[i].id)+'" '+(Data.options.forge.crush.itemToKeep[items[i].id] ? 'checked' : '')+'></td>' 
-					+ '	<td>&nbsp;'+translate(items[i].name)+'&nbsp;'+getInfoEquipment(items[i])+'&nbsp;</td>' 
-					+ '	<td align=center>&nbsp;'+items[i].level+'&nbsp;</td>' 
-					+ '	<td>&nbsp;'+itemStatus+'&nbsp;</td>' 
+
+
+					m += '<tr>'
+					+ '	<td align="center"><INPUT type="checkbox" ref="'+items[i].id+'" id="'+setUID('ckForge_Inventory_'+items[i].id)+'" '+(Data.options.forge.crush.itemToKeep[items[i].id] ? 'checked' : '')+'></td>'
+					+ '	<td>&nbsp;'+translate(items[i].name)+'&nbsp;'+getInfoEquipment(items[i])+'&nbsp;</td>'
+					+ '	<td align=center>&nbsp;'+items[i].level+'&nbsp;</td>'
+					+ '	<td>&nbsp;'+itemStatus+'&nbsp;</td>'
 					+ '	<td align=left>'+actionPossible+'</td>'
 					+ '</tr>';
 					cbToKeep.push('ckForge_Inventory_'+items[i].id);
 				}
 				m += '</table>'
 				+ '</div>'
-				+ '		<div class=' + UID['subtitle'] + '>' + translate('filter-ingredient') + '</b></div>' 
+				+ '		<div class=' + UID['subtitle'] + '>' + translate('filter-ingredient') + '</b></div>'
 				+ '<div id='+setUID('tabJobForge_tabInventory_ingredient')+'>'
 				+ '<table class=' + UID['row_style'] + '><tr>';
-				
+
 				items = Seed.player.forge.items.ingredients;
 				items.sort(function(a, b) {
 					if(translate(b.name.toLowerCase()) < translate(a.name.toLowerCase())) {
@@ -23562,8 +23562,8 @@
 					return 0;
 				});
 				for(var i=0; i<items.length; i++){
-					m += '<td>'+translate(items[i].name)+'</td> ' 
-					+ '<td> x '+  items[i].quantity + '<td>' 
+					m += '<td>'+translate(items[i].name)+'</td> '
+					+ '<td> x '+  items[i].quantity + '<td>'
 					+ '</td>'+(((i+1)%3!==0) ? '<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>' : '' );
 					if((i+1)%3===0) {
 						m += '</tr><tr>';
@@ -23574,7 +23574,7 @@
 				+ '</div>';
 
 				document.getElementById(UID['tabJobForge_Content']).innerHTML = (m);
-				
+
 				for(i=0;i<bCrush.length;i++) {
 					document.getElementById(UID[bCrush[i]]).addEventListener('click', onClickCrush);
 				}
@@ -23593,17 +23593,17 @@
 				for(i=0;i<cbToKeep.length;i++) {
 					document.getElementById(UID[cbToKeep[i]]).addEventListener('click', onClickCbToKeep);
 				}
-				
+
 				document.getElementById(UID['btnForgeInventory_All']).addEventListener('click', onClickCheckUncheck);
 				document.getElementById(UID['btnForgeInventory_None']).addEventListener('click', onClickCheckUncheck);
-				
+
 				function onClickCheckUncheck(event) {
 					var isChecked = event.target.getAttribute('ref');
 					var items = Seed.player.forge.items.equipments;
-					
+
 					var evt = document.createEvent('HTMLEvents');
 					evt.initEvent('click', true, true);
-					
+
 					for(var i=0; i<items.length; i++){
 						if(isChecked=="checked") {
 							document.getElementById(UID['ckForge_Inventory_'+items[i].id]).checked = true;
@@ -23612,8 +23612,8 @@
 						}
 						document.getElementById(UID['ckForge_Inventory_'+items[i].id]).dispatchEvent(evt);
 					}
-					
-					
+
+
 				}
 				function getInfoEquipment(item) {
 					var display = '';
@@ -23669,7 +23669,7 @@
 				}
 				function onClickUpgrade(event) {
 					var itemId = event.target.getAttribute('ref');
-					
+
 					function callBackUpgrade(rslt) {
 						if(rslt.ok) {
 							var item = Forge.getItemById(itemId);
@@ -23677,17 +23677,17 @@
 								Tabs.Jobs.jobFeedback(translate('forge-upgrade-fail-title') + ' ' + translate(item.name.toLowerCase()) + ' lvl' + item.level);
 							} else {
 								Tabs.Jobs.jobFeedback(translate('forge-upgrade-success-title') + ' ' + translate(item.name.toLowerCase()) + ' lvl' + item.level);
-							}						
+							}
 							Tabs.Jobs.tabJobForge_tabInventory();
 						}
 					}
-					
+
 					MyAjax.upgradeEquipment(itemId, callBackUpgrade);
 				}
 				function onClickCbToKeep(event) {
 					var itemId = event.target.getAttribute('ref');
 					var toKeep = event.target.checked
-					
+
 					if(Data.options.forge.crush.itemToKeep[itemId]) {
 						if(!toKeep) {
 							delete Data.options.forge.crush.itemToKeep[itemId];
@@ -23705,7 +23705,7 @@
 			/** * stat sub tab */
 			tabJobForge_tabStats: function() {
 				var t = Tabs.Jobs;
-				
+
 				document.getElementById(UID['tabJobForge_tabAdventurers']).className = '';
 				document.getElementById(UID['tabJobForge_tabAdventurers']).style.zIndex = 0;
 				document.getElementById(UID['tabJobForge_tabForge']).className = '';
@@ -23717,12 +23717,12 @@
 
 				t.forgeContentType = 3;
 
-				var m = '<div class=' + UID['title'] + '>' + translate('Mission Stats') + '</div>' 
-				+ '<div id=' + setUID('tabJobForge_tabStats_Statbox') + ' class=' + UID['status_ticker'] + '>' 
-				+ '	<div id=' + setUID('tabJobForge_tabStats_Status') + '></div>' 
-				+ '	<div id=' + setUID('tabJobForge_tabStats_Percent') + '></div>' 
-				+ '	<br/>' 
-				+ '	<center><input id=' + setUID('tabJobForge_tabStats_Clear') + ' type=button value="' + translate('Clear Stats') + '" /></center>' 
+				var m = '<div class=' + UID['title'] + '>' + translate('Mission Stats') + '</div>'
+				+ '<div id=' + setUID('tabJobForge_tabStats_Statbox') + ' class=' + UID['status_ticker'] + '>'
+				+ '	<div id=' + setUID('tabJobForge_tabStats_Status') + '></div>'
+				+ '	<div id=' + setUID('tabJobForge_tabStats_Percent') + '></div>'
+				+ '	<br/>'
+				+ '	<center><input id=' + setUID('tabJobForge_tabStats_Clear') + ' type=button value="' + translate('Clear Stats') + '" /></center>'
 				+ '	<br>'
 				+ '</div>';
 				document.getElementById(UID['tabJobForge_Content']).innerHTML = (m);
@@ -23741,7 +23741,7 @@
 						total_missions: {},
 						items: {}
 					};
-					
+
 					Data.stats.forge = {
 						missions: [],
 						hammer: [],
@@ -23758,11 +23758,11 @@
 							items: {}
 						}
 					};
-					
+
 					t.showStats();
 				}
 			},
-			
+
 			/** * Jobs Tab - Research Sub-tab ** */
 			tabJobResearch: function() {
 				var t = Tabs.Jobs;
@@ -23884,24 +23884,24 @@
 					var pct = cap.min / cap.max * 10000;
 					var capacity = numf(cap.min, ' ') + ' / ' + numf(cap.max, ' ') + ' (' + numf(Math.round(pct / 100), ' ') + '%)';
 				} else capacity = '';
-				m += '<div class=' + UID['subtitle'] + '>' 
-                    + '	<table class=' + UID['table'] + ' width=100%>' 
-                    + '	<tr>' 
-                    + '		<td align=left width=25%>&nbsp;</td>' 
-                    + '		<td align=center width=40%>' + translate(Seed.cities[SPECTRAL_OUTPOST.id].name) + '</td>' 
-                    + '		<td align=right width=25%><font color=yellow>' + capacity + '</font></td>' 
-                    + '	</tr>' 
-                    + '</table></div>' 
+				m += '<div class=' + UID['subtitle'] + '>'
+                    + '	<table class=' + UID['table'] + ' width=100%>'
+                    + '	<tr>'
+                    + '		<td align=left width=25%>&nbsp;</td>'
+                    + '		<td align=center width=40%>' + translate(Seed.cities[SPECTRAL_OUTPOST.id].name) + '</td>'
+                    + '		<td align=right width=25%><font color=yellow>' + capacity + '</font></td>'
+                    + '	</tr>'
+                    + '</table></div>'
                     + '<table class=' + UID['table'] + '>'
-                    + '	<tr class=' + UID['row_headers'] + '>' 
-                    + '		<td colspan=5><input ' + (Data.options.resurrect.full_queue ? 'checked' : '') + ' id=' + setUID('tabJobResurrect_CB_queue') + ' type=checkbox /><label for=' + UID['tabJobResurrect_CB_queue'] + '>' + translate('Only full queue') + '</label></td>' 
-                    + ' </tr>' 
-                    + '	<tr class=' + UID['row_headers'] + '>' 
-                    + '		<td></td>' 
-                    + '     <td>' + translate('Quantity') + '</td> ' 
-                    + '     <td>' + translate('revive-troops-total-souls') + '</td>' 
-                    + '     <td>' + translate('Action') + '</td>' 
-                    + '     <td>' + translate('Total') + '</td>' 
+                    + '	<tr class=' + UID['row_headers'] + '>'
+                    + '		<td colspan=5><input ' + (Data.options.resurrect.full_queue ? 'checked' : '') + ' id=' + setUID('tabJobResurrect_CB_queue') + ' type=checkbox /><label for=' + UID['tabJobResurrect_CB_queue'] + '>' + translate('Only full queue') + '</label></td>'
+                    + ' </tr>'
+                    + '	<tr class=' + UID['row_headers'] + '>'
+                    + '		<td></td>'
+                    + '     <td>' + translate('Quantity') + '</td> '
+                    + '     <td>' + translate('revive-troops-total-souls') + '</td>'
+                    + '     <td>' + translate('Action') + '</td>'
+                    + '     <td>' + translate('Total') + '</td>'
                     + ' </tr>';
 				for (var i = 0; i < all_unit_types.length; i++) {
 					var num = Data.options.resurrect.res_max[SPECTRAL_OUTPOST.id][all_unit_types[i]];
@@ -23960,7 +23960,7 @@
 					var n = toNum(event.target.getAttribute('ref'));
                     var elt = document.getElementById(UID['tabJobResurrect_Troop_' + n]);
 					var evt = document.createEvent('HTMLEvents');
-                    
+
                     evt.initEvent('change', true, true);
                     elt.value = Seed.cities[CAPITAL.id].souls[all_unit_types[n]];
 					elt.dispatchEvent(evt);
@@ -23970,7 +23970,7 @@
 					var n = toNum(event.target.getAttribute('ref'));
                     var elt = document.getElementById(UID['tabJobResurrect_Troop_' + n]);
 					var evt = document.createEvent('HTMLEvents');
-                    
+
                     evt.initEvent('change', true, true);
                     elt.value = 0;
 					elt.dispatchEvent(evt);
@@ -24273,16 +24273,16 @@
 
 				function dispStats(obj) {
 					var m = '<table width=100%>'
-					+ '	<tr valign=top>' 
-					+ '		<td width=30%><label><b>' + translate('name') + '</b></label></td>' 
-					+ '		<td width=70%><label>' + obj.name + '</label></td>' 
+					+ '	<tr valign=top>'
+					+ '		<td width=30%><label><b>' + translate('name') + '</b></label></td>'
+					+ '		<td width=70%><label>' + obj.name + '</label></td>'
 					+ '	</tr>'
-					+ '	<tr valign=top>' 
-					+ '		<td width=30%><label>' + translate('Level') + '</label></td>' 
-					+ '		<td width=70%><label>' + obj.level + '</label></td>' 
+					+ '	<tr valign=top>'
+					+ '		<td width=30%><label>' + translate('Level') + '</label></td>'
+					+ '		<td width=70%><label>' + obj.level + '</label></td>'
 					+ '	</tr>'
-					+ '	<tr valign=top>' 
-					+ '		<td width=30%><label>' + translate('Capacity') + '</label></td>' 
+					+ '	<tr valign=top>'
+					+ '		<td width=30%><label>' + translate('Capacity') + '</label></td>'
 					+ '		<td width=70%>';
 					if (!obj.abilities || obj.abilities.length == 0) m += '&nbsp;</td></tr>';
 					else {
@@ -24407,15 +24407,15 @@
 						delete(Data.options.sanctuary.feeding[id]);
 						continue;
 					}
-					
+
 					var dragon = Seed.sanctuary_dragons[id];
 					var max_level = (Seed.requirements.dragon.feeding.level.length - 1 || 11);
-					
+
 					if (is_null(dragon.abilities) || dragon.level < 1) continue;
-					
+
 					if(!Data.options.sanctuary.hideDrgMaxLevel || dragon.level < max_level) {
 						m += '	<tr valign=top>' + '			<td align=left width=35%><input type=checkbox id=' + setUID('tabJobFeeding_CB_' + id) + ' ' + (setting.enable ? 'checked' : '') + ' ref=' + id + ' /> ' + translate(translateByKey(dragon.subtype, 'rank-' + dragon.type, 'dragons')) + '<br><b>' + translate('name') + '</b> : ' + dragon.name + '			<br><div id=' + setUID('tabJobFeeding_FB_' + id) + ' class=jewel valign=top style="width:100%;white-space:normal;"></div>' + '			</td>' + '			<td width=10%><label>' + translate(dragon.gender) + '</label></td>' + '			<td width=5%><label>' + dragon.level + '</label></td>' + '			<td>';
-						
+
 						if (dragon.level < max_level) {
 							m += '	<td with=5%>' + '		<select id=' + setUID('tabJobFeeding_Sel_' + id) + ' ref=' + id + '>';
 							for (var lvl = 0; lvl <= max_level; lvl++)
@@ -24506,7 +24506,7 @@
 					t.forgeforgeTimer = setInterval(t.forgeForgeTick, 5000);
 					t.runningForge.start_at = serverTime();
 					Data.stats.forgeAdv.start_at = serverTime();
-					
+
 				} else {
 					if (t.runningForge.start_at !== 0) {
 						Data.stats.forgeAdv.run_time += (serverTime() - t.runningForge.start_at);
@@ -24757,14 +24757,14 @@
 				var statElement = document.getElementById(UID['tabJobDragon_Table']);
 				if (statElement != null) {
 					Jobs.updateDragonTable(statElement);
-				}				
+				}
 			},
 			tradeStatTick: function() {
 				var t = Tabs.Jobs;
 				var statElement = document.getElementById(UID['tabJobTrade_Table']);
 				if (statElement != null) {
 					Jobs.updateTradeTable(statElement);
-				}				
+				}
 			},
 			forgeStatTick: function() {
 				var t = Tabs.Jobs;
@@ -24774,14 +24774,14 @@
 					if(t.forgeContentType == 0) {
 						var advs = Seed.player.forge.adventurers;
 						for(var i=0;i<advs.length;i++) {
-							var inMission=(Jobs.getJobs(Seed.forge.adventurers[advs[i].type].queue, false, -1).length > 0 ? true : false); 
+							var inMission=(Jobs.getJobs(Seed.forge.adventurers[advs[i].type].queue, false, -1).length > 0 ? true : false);
 							var isClaimable=(inMission ? false : (advs[i].current_mission == null ? false : true));
-							
+
 							setButtonStyle(UID['btnMissionAdvGo_'+advs[i].adventurer_id], (!inMission && !isClaimable));
 							setButtonStyle(UID['btnMissionAdvClaim_'+advs[i].adventurer_id], isClaimable);
 						}
 					}
-				}				
+				}
 			},
 			/* Build statistics - timer set to fire every 1 seconds */
 			resStatFetch: false,
@@ -25024,7 +25024,7 @@
 				/* if omitted options.city_idx, use the capital, city_idx = 0 */
 				/* this value is only used by requirements.buildings case */
 				var city_idx = options.city_idx || CAPITAL.id;
-				 
+
 				var typeCity = '';
 				switch (city_idx) {
 					case CAPITAL.id:
@@ -25077,7 +25077,7 @@
 						break;
 				}
 				var requirements = {};
-				/* Change of Kabam, now requirement for units 
+				/* Change of Kabam, now requirement for units
 				 * are for city/outpost not a single requirement
 				 * for all
 				 */
@@ -25714,7 +25714,7 @@
 					t.sanctuaryTimer = setTimeout(t.feedingTick, t.feedRetryTime);
 					if (t.contentType == 5) t.jobFeedback(translate('Completion errors') + ': ' + translate('Retry in') + ' ' + timestr(t.feedRetryTime / 1000) + ' ' + translate('seconds'));
 					t.feedRetryTime *= 1.5;
-					return;	
+					return;
 				}
 				t.sanctuaryTimer = setTimeout(t.feedingTick, 5000);
 			},
@@ -25749,8 +25749,8 @@
 						}
 					}
 				}
-				
-				if(t.typeToForge=='equipment') {				
+
+				if(t.typeToForge=='equipment') {
 					if(!canCrush && Data.options.forge.equipment.cbAuto) {
 						var req = Forge.checkForgeRequirements(Data.options.forge.equipment.select, 'equipments');
 						if(!req.result) {
@@ -25762,7 +25762,7 @@
 						}
 					}
 				}
-                
+
 				if(t.typeToForge=='ingredient') {
                     if(!canCrush && Data.options.forge.ingredient.cbAuto) {
                         var req = Forge.checkForgeRequirements(Data.options.forge.ingredient.select, 'ingredients');
@@ -25775,21 +25775,21 @@
 						}
                     }
 				}
-                
-                (t.typeToForge=='equipment' ? t.typeToForge='ingredient' : t.typeToForge='equipment'); 
-                
-				t.jobFeedback(fdb);	
+
+                (t.typeToForge=='equipment' ? t.typeToForge='ingredient' : t.typeToForge='equipment');
+
+				t.jobFeedback(fdb);
 			},
 			missionForgeTick: function() {
 				var t = Tabs.Jobs;
 				if(!Data.options.forge.enableAutoMission) return;
-				
+
 				var advs = Seed.player.forge.adventurers;
 				for(var i=0;i<advs.length;i++) {
 					if(Data.options.forge[advs[i].type].cbAuto) {
-						var inMission=(Jobs.getJobs(Seed.forge.adventurers[advs[i].type].queue, false, -1).length > 0 ? true : false); 
-						var isClaimable=(inMission ? false : (advs[i].current_mission == null ? false : true));	
-						
+						var inMission=(Jobs.getJobs(Seed.forge.adventurers[advs[i].type].queue, false, -1).length > 0 ? true : false);
+						var isClaimable=(inMission ? false : (advs[i].current_mission == null ? false : true));
+
 						if(isClaimable) {
 							t.doClaim(advs[i].current_mission, advs[i].adventurer_id);
 						}
@@ -25933,7 +25933,7 @@
 					t.resurrectTimer = setTimeout(t.resurrectTick, Math.randRange(15000, 20000));
 				}
 			},
-			
+
 			attemptTrainQ: function(cityIdx, count, troopsLength, shortQ) {
 				var t = Tabs.Jobs;
 				var troopQueued = false;
@@ -26195,7 +26195,7 @@
 					if(rslt.ok) {
 						Seed.player.forge.adventurers = rslt.dat.result.adventurers
 						Tabs.Jobs.jobFeedback(translate('adventurer-in-progress') + ' ! ');
-						
+
 					} else {
 						Tabs.Jobs.jobFeedback(translate('adventurer-in-progress') + ' : ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
 					}
@@ -26229,7 +26229,7 @@
 					if(callback)
 						callback(rslt);
 				}
-				
+
 				MyAjax.repairEquipment(itemId, cb);
 			},
 			crushItem: function(nameItem, isAuto, callback) {
@@ -26254,15 +26254,15 @@
 					else {
 						Tabs.Jobs.jobFeedback(translate('forge-blacksmith') + ' : ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
 					}
-					
+
 					if(Tabs.Jobs.forgeContentType==1 && Tabs.Jobs.contentType==8) {
 						Tabs.Jobs.tabJobForgeForge()
 					}
-					
+
 					if(callback)
 						callback(rslt);
 				}
-				
+
 				var it = Forge.getItemByName(nameItem, false);
 				if(it.length>0) {
 					var isCrush=false;
@@ -26297,12 +26297,12 @@
 			upgradeItem: function(itemId, isAuto, callback) {
 				function cb(rslt) {
 					if(rslt.dat.result.upgrade_result=='failure') {
-						
+
 					} else {
-					
+
 					}
 				}
-				
+
 				MyAjax.upgradeEquipment(itemId, cb);
 			},
 			forgeItem: function (nameItem, isAuto, callback) {
@@ -26328,7 +26328,7 @@
 					if(callback)
 						callback(rslt);
 				}
-				
+
 				MyAjax.forgeItem(nameItem, cb);
 			},
 			showStats: function() {
@@ -26344,45 +26344,45 @@
 				var trueRunTime = (run_time > 0) ? (run_time / 3600) : 1;
 
 				var m = '<div class=' + UID['subtitle'] + '><b>' + translate('adventurers') + '</b></div>'
-				+ '<table class=' + UID['table'] + '>' 
-				+ '	<tr>' 
-				+ '		<td class=right>' + translate('Start Date') + ': </td>' 
-				+ '		<td colspan=>' + new Date(Data.stats.forgeAdv.start_at * 1000).myString() + '</td>' 
-				+ '	</tr><tr>' 
-				+ '		<td class=right>' + translate('Run Time') + ': </td>' 
-				+ '		<td>' + timestr(run_time, true) + '</td>' 
-				+ '	</tr>' 
-				+ '	<tr valign=top align=right>' 
+				+ '<table class=' + UID['table'] + '>'
+				+ '	<tr>'
+				+ '		<td class=right>' + translate('Start Date') + ': </td>'
+				+ '		<td colspan=>' + new Date(Data.stats.forgeAdv.start_at * 1000).myString() + '</td>'
+				+ '	</tr><tr>'
+				+ '		<td class=right>' + translate('Run Time') + ': </td>'
+				+ '		<td>' + timestr(run_time, true) + '</td>'
+				+ '	</tr>'
+				+ '	<tr valign=top align=right>'
 				+ '		<td class=right>' + translate('missions') + ': </td>';
-				
+
 				var first = true;
 				for (var name in Data.stats.forgeAdv.total_missions) {
 					var perHour = Math.round(Data.stats.forgeAdv.total_missions[name] / trueRunTime);
 					if (first) first = false;
 					else m += '	<tr align=right><td></td>';
-					m += '		<td>' + translate('mission-'+name.replace(/_/g, '-')) + ':</td>' 
-					+ '		<td>' + numf(Data.stats.forgeAdv.total_missions[name], ' ') + '</td>' 
-					+ '		<td>(' + numf(perHour, ' ') + ' /' + translate('h') + ')</td>' 
+					m += '		<td>' + translate('mission-'+name.replace(/_/g, '-')) + ':</td>'
+					+ '		<td>' + numf(Data.stats.forgeAdv.total_missions[name], ' ') + '</td>'
+					+ '		<td>(' + numf(perHour, ' ') + ' /' + translate('h') + ')</td>'
 					+ '	</tr>';
 				}
-	
-				m += '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr valign=top align=right>' 
+
+				m += '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr valign=top align=right>'
 				+ '		<td class=right>' + translate('Items') + ': </td>';
 				var first = true;
 				for (var name in Data.stats.forgeAdv.items) {
 					var perHour = Math.round(Data.stats.forgeAdv.items[name] / trueRunTime);
 					if (first) first = false;
 					else m += '	<tr align=right><td></td>';
-					m += '			<td>' + translate(name) + ':</td>' 
-					+ '			<td>' + numf(Data.stats.forgeAdv.items[name], ' ') + '</td>' 
-					+ '			<td>(' + numf(perHour, ' ') + ' /' + translate('h') + ')</td>' 
+					m += '			<td>' + translate(name) + ':</td>'
+					+ '			<td>' + numf(Data.stats.forgeAdv.items[name], ' ') + '</td>'
+					+ '			<td>(' + numf(perHour, ' ') + ' /' + translate('h') + ')</td>'
 					+ '		</tr>';
 				}
-				
+
 			  m += '</table>'
 				+ '<div class=' + UID['subtitle'] + '><b>' + translate('forge-blacksmith') + '</b></div>'
 				+ '<table class=' + UID['table'] + '>'
-				+ '	<tr valign=top align=right>' 
+				+ '	<tr valign=top align=right>'
 				+ '		<td class=right><b>' + translate('forge-crush') + '</b> : </td>'
 				+ '		<td style="border-right: 1px solid;">'
 				+ '			<table>';
@@ -26393,7 +26393,7 @@
 				for(var item in Data.stats.forge.crush.items) {
 					m += '<tr><td>'+Data.stats.forge.crush.items[item]+'x </td><td>'+translate(item.toLowerCase())+'</td></tr>';
 				}
-			 m += '			</table>' 
+			 m += '			</table>'
 				+ '		</td>'
 				+ '		<td class=right><b>'+translateByKey('forge', null, 'dialogs')+'</b> : </td>'
 				+ '		<td><table>'
@@ -26419,11 +26419,11 @@
 				for(var it in item) {
 					m += '<tr><td>'+item[it]+'x </td><td>'+translate(it.toLowerCase())+'</td></tr>';
 				}
-				
+
 			 m += '		</table></td>'
 				+ ' </tr>'
 				+ '</table>';
-				
+
 				div.innerHTML = m;
 			},
 			trackStats: function(type, obj) {
@@ -29547,7 +29547,7 @@
 				document.getElementById(UID['tabWallSetDefense']).addEventListener('click', t.tabWallSetDefense, false);
 				document.getElementById(UID['tabDragonManagement']).addEventListener('click', t.tabDragonManagement, false);
 				document.getElementById(UID['tabAutoWallManagement']).addEventListener('click', t.tabAutoWallManagement, false);
-				
+
 				window.addEventListener('unload', t.onUnload, false);
 				t.contentType = toNum(Data.options.wall.current_tab);
 				t.show();
@@ -29616,22 +29616,22 @@
 
 				function dispUnits(cityIdx) {
 					var city = Seed.cities[cityIdx];
-					var m = '<table class=' + UID['row_style'] + ' style="margin-top:3px" width=100%>' 
-						+ '	<tr class=' + UID['row_headers'] + ' align=center>' 
-						+ '		<td width=40%>' + translate('Troops') + '</td>' 
-						+ '		<td width=15%>' + translate('Total') + '</td>' 
-						+ '		<td width=15%>' + translate('Defense') + '</td>' 
-						+ '		<td width=15%>' + translate('In city') + '</td>' 
-						+ '		<td width=15%>' + translate('In march') + '</td>' 
+					var m = '<table class=' + UID['row_style'] + ' style="margin-top:3px" width=100%>'
+						+ '	<tr class=' + UID['row_headers'] + ' align=center>'
+						+ '		<td width=40%>' + translate('Troops') + '</td>'
+						+ '		<td width=15%>' + translate('Total') + '</td>'
+						+ '		<td width=15%>' + translate('Defense') + '</td>'
+						+ '		<td width=15%>' + translate('In city') + '</td>'
+						+ '		<td width=15%>' + translate('In march') + '</td>'
 						+ '	</tr>';
 					for (var i = 0; i < all_unit_types.length; i++) {
 						var numTroops = getTroopNumbers(city, all_unit_types[i]);
-						m += '	<tr valign=top>' 
-							+ '		<td class=right width=40%>' + translate(all_unit_types[i]) + ':</td>' 
-							+ '		<td align=right width=15%>' + numf(numTroops.total, ' ') + '</td>' 
-							+ '		<td align=right width=15%>' + ((numTroops.indefense > 0) ? '<b>' + numf(numTroops.indefense, ' ') + '</b>' : numf(numTroops.indefense, ' ')) + '</td>' 
-							+ '		<td align=right width=15%>' + numf(numTroops.incity, ' ') + '</td>' 
-							+ '		<td align=right width=15%>' + (numTroops.marches ? '&nbsp;+&nbsp;<b>' + numf(numTroops.marches, ' ') + '</b>' : '') + '</td>' 
+						m += '	<tr valign=top>'
+							+ '		<td class=right width=40%>' + translate(all_unit_types[i]) + ':</td>'
+							+ '		<td align=right width=15%>' + numf(numTroops.total, ' ') + '</td>'
+							+ '		<td align=right width=15%>' + ((numTroops.indefense > 0) ? '<b>' + numf(numTroops.indefense, ' ') + '</b>' : numf(numTroops.indefense, ' ')) + '</td>'
+							+ '		<td align=right width=15%>' + numf(numTroops.incity, ' ') + '</td>'
+							+ '		<td align=right width=15%>' + (numTroops.marches ? '&nbsp;+&nbsp;<b>' + numf(numTroops.marches, ' ') + '</b>' : '') + '</td>'
 							+ '	</tr>';
 					}
 					m += '</table>';
@@ -29754,62 +29754,62 @@
 				t.lastSubTab = 'tabAutoWallManagement';
 				t.contentType = 3;
 
-				var m = '<div id=' + setUID('tabAutoWall_Results') + ' style="height:570px">' 
-						+ '	<div class=' + UID['title'] + '>' + translate('Config') + '</div>' 
-						+ '	<table class=' + UID['table'] + ' width=100%>' 
+				var m = '<div id=' + setUID('tabAutoWall_Results') + ' style="height:570px">'
+						+ '	<div class=' + UID['title'] + '>' + translate('Config') + '</div>'
+						+ '	<table class=' + UID['table'] + ' width=100%>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right><input type=checkbox id=' + setUID('tabAutoWallEnable') + (Data.options.wall.auto.enable ? ' checked' : '') + ' />' + '</td>' 
+						+ '		<td width=33% class=right><input type=checkbox id=' + setUID('tabAutoWallEnable') + (Data.options.wall.auto.enable ? ' checked' : '') + ' />' + '</td>'
 						+ '		<td align=left colspan=2>' + translate('Enabled') + '</td>'
 						+ '	</tr>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right><input type=checkbox id=' + setUID('tabAutoWallHideTroopEndAlert') + (Data.options.wall.auto.hide_troop_after_last ? ' checked' : '') + ' />' + '</td>' 
+						+ '		<td width=33% class=right><input type=checkbox id=' + setUID('tabAutoWallHideTroopEndAlert') + (Data.options.wall.auto.hide_troop_after_last ? ' checked' : '') + ' />' + '</td>'
 						+ '		<td align=left colspan=2>' + translate('Hide troops at end of alert') + '</td>'
 						+ '	</tr>'
 						+ ' </table>'
-						+ ' <div class=' + UID['subtitle'] + '>' + translate('spies') + '</div>'	
-						+ '	<table class=' + UID['table'] + ' width=100%>' 
+						+ ' <div class=' + UID['subtitle'] + '>' + translate('spies') + '</div>'
+						+ '	<table class=' + UID['table'] + ' width=100%>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right><input type=checkbox id=' + setUID('tabAutoWallSpyUseTruce') + (Data.options.wall.auto.spy.use_truce ? ' checked' : '') + ' />' + '</td>' 
+						+ '		<td width=33% class=right><input type=checkbox id=' + setUID('tabAutoWallSpyUseTruce') + (Data.options.wall.auto.spy.use_truce ? ' checked' : '') + ' />' + '</td>'
 						+ '		<td align=left colspan=2>' + translate('Use') + '&nbsp;' + translate('momentarytruce') + '</td>'
 						+ '	</tr>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right>&lt; 100</td>' 
+						+ '		<td width=33% class=right>&lt; 100</td>'
 						+ '		<td width=33% align=left>' + getPresetList('spy', 0, Data.options.wall.auto.spy.preset[0]) + '</td>'
 						+ '		<td width=34% align=left>' + displayTroops(Data.options.wall.auto.spy.preset[0], 0, 'spy') + '</td>'
 						+ '	</tr>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right>100 &lt; 1 000</td>' 
+						+ '		<td width=33% class=right>100 &lt; 1 000</td>'
 						+ '		<td width=33% align=left>' + getPresetList('spy', 1, Data.options.wall.auto.spy.preset[1]) + '</td>'
 						+ '		<td width=34% align=left>' + displayTroops(Data.options.wall.auto.spy.preset[1], 1, 'spy') + '</td>'
 						+ '	</tr>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right>1000 &lt; 5 000</td>' 
+						+ '		<td width=33% class=right>1000 &lt; 5 000</td>'
 						+ '		<td width=33% align=left>' + getPresetList('spy', 2, Data.options.wall.auto.spy.preset[2]) + '</td>'
 						+ '		<td width=34% align=left>' + displayTroops(Data.options.wall.auto.spy.preset[2], 2, 'spy') + '</td>'
 						+ '	</tr>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right>5 000 &lt; 10 000</td>' 
+						+ '		<td width=33% class=right>5 000 &lt; 10 000</td>'
 						+ '		<td width=33% align=left>' + getPresetList('spy', 3, Data.options.wall.auto.spy.preset[3]) + '</td>'
 						+ '		<td width=34% align=left>' + displayTroops(Data.options.wall.auto.spy.preset[3], 3, 'spy') + '</td>'
 						+ '	</tr>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right>&gt; 10 000</td>' 
+						+ '		<td width=33% class=right>&gt; 10 000</td>'
 						+ '		<td width=33% align=left>' + getPresetList('spy', 4, Data.options.wall.auto.spy.preset[4]) + '</td>'
 						+ '		<td width=34% align=left>' + displayTroops(Data.options.wall.auto.spy.preset[4], 4, 'spy') + '</td>'
 						+ '	</tr>'
 						+ '	</table>'
 						+ '<div class=' + UID['subtitle'] + '>' + translate('Attack') + '</div>'
-						+ '	<table class=' + UID['table'] + ' width=100%>' 
+						+ '	<table class=' + UID['table'] + ' width=100%>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right><input type=checkbox id=' + setUID('tabAutoWallAttackUseTruce') + (Data.options.wall.auto.attack.use_truce ? ' checked' : '') + ' />' + '</td>' 
+						+ '		<td width=33% class=right><input type=checkbox id=' + setUID('tabAutoWallAttackUseTruce') + (Data.options.wall.auto.attack.use_truce ? ' checked' : '') + ' />' + '</td>'
 						+ '		<td align=left colspan=2>' + translate('Use') + '&nbsp;' + translate('momentarytruce') + '</td>'
 						+ '	</tr>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right><input type=checkbox id=' + setUID('tabAutoWallAttackHideMulti') + (Data.options.wall.auto.attack.hide_troop_on_multi_attack ? ' checked' : '') + ' />' + '</td>' 
+						+ '		<td width=33% class=right><input type=checkbox id=' + setUID('tabAutoWallAttackHideMulti') + (Data.options.wall.auto.attack.hide_troop_on_multi_attack ? ' checked' : '') + ' />' + '</td>'
 						+ '		<td align=left colspan=2>' + translate('Hide troops on multi-attack') + '</td>'
 						+ '	</tr>'
 						+ '	<tr>'
-						+ '		<td width=33% class=right>' + translate('Use') + '</td>' 
+						+ '		<td width=33% class=right>' + translate('Use') + '</td>'
 						+ '		<td width=33% align=left>' + getPresetList('attack', 0, Data.options.wall.auto.attack.preset_default) + '</td>'
 						+ '		<td width=34% align=left>' + displayTroops(Data.options.wall.auto.attack.preset_default, 0, 'attack') + '</td>'
 						+ '	</tr>'
@@ -29817,7 +29817,7 @@
 						+ '</div>';
 
 				document.getElementById(UID['tabWall_Content']).innerHTML = m;
-				
+
 				document.getElementById(UID['tabAutoWallEnable']).addEventListener('click', function(event) {
 					Data.options.wall.auto.enable = event.target.checked;
 				}, false);
@@ -29857,7 +29857,7 @@
 					Data.options.wall.auto.spy.preset[4] = document.getElementById(UID['tabAutoWall_SelBoxPreset_spy_4']).options[document.getElementById(UID['tabAutoWall_SelBoxPreset_spy_4']).selectedIndex].value;
 					document.getElementById(UID['tabAutoWall_SelBoxPreset_Troop_spy_4']).innerHTML = (getTroops(Data.options.wall.presets[Data.options.wall.auto.spy.preset[4]].units, ' '));
 				}, false);
-				
+
 				function getPresetList(type, nb, def) {
 					var t = Tabs.Wall;
 					var m = '<select id=' + setUID('tabAutoWall_SelBoxPreset_'+type+'_'+nb) + '>';
@@ -29870,7 +29870,7 @@
 					m += '</select>';
 					return m;
 				}
-				
+
 				function displayTroops(id, nb, type) {
 					var dispTrp = '<span id='+ setUID('tabAutoWall_SelBoxPreset_Troop_'+type+'_'+nb) + '>';
 					if(Data.options.wall.presets[id]) {
@@ -30113,14 +30113,14 @@
 				t.lastSubTab = 'tabDragonManagement';
 				t.contentType = 2;
 
-				var m = '<div id=' + setUID('tabWall_Results') + ' style="height:570px">' 
-                + '	<div class=' + UID['title'] + '>' + translate('Dragons management') + '</div>' 
-                + '	<div id=' + setUID('tabWall_Dragon') + ' class=' + UID['status_ticker'] + ' style="margin-bottom:5px !important">' 
-                + '	<table id=' + setUID('tabWall_Dragons') + ' class=' + UID['table'] + '>' 
-                + '		<tr align=center class=' + UID['row_headers'] + '>' 
-                + '			<td>' + translate('Dragons') + '</td>' 
-                + '			<td>' + translate('Armor') + '&nbsp;&amp;&nbsp;' + translate('Scales') + '</td>' 
-                + '			<td>' + translate('Update') + '</td>' 
+				var m = '<div id=' + setUID('tabWall_Results') + ' style="height:570px">'
+                + '	<div class=' + UID['title'] + '>' + translate('Dragons management') + '</div>'
+                + '	<div id=' + setUID('tabWall_Dragon') + ' class=' + UID['status_ticker'] + ' style="margin-bottom:5px !important">'
+                + '	<table id=' + setUID('tabWall_Dragons') + ' class=' + UID['table'] + '>'
+                + '		<tr align=center class=' + UID['row_headers'] + '>'
+                + '			<td>' + translate('Dragons') + '</td>'
+                + '			<td>' + translate('Armor') + '&nbsp;&amp;&nbsp;' + translate('Scales') + '</td>'
+                + '			<td>' + translate('Update') + '</td>'
                 + '		</tr>';
 
 				for (var gd = 0; gd < Seed.dragonList.length; gd++) {
@@ -30833,11 +30833,11 @@
 				var t = Tabs.Wheel;
 				t.container = div;
 				Data.setDefaultValues('wheel');
-				var m = '<div class=' + UID['title'] + '>' + translate('Fortuna\'s chance') + '</div>' 
-                + '<ul class=tabs>' 
-                + '	<li class="tab first"><a id=' + setUID('tabWheelPlay') + '>' + translate('Play') + '</a></li>' 
-                + '	<li class=tab><a id=' + setUID('tabWheelStats') + '>' + translate('Stats') + '</a></li>' 
-                + '</ul>' 
+				var m = '<div class=' + UID['title'] + '>' + translate('Fortuna\'s chance') + '</div>'
+                + '<ul class=tabs>'
+                + '	<li class="tab first"><a id=' + setUID('tabWheelPlay') + '>' + translate('Play') + '</a></li>'
+                + '	<li class=tab><a id=' + setUID('tabWheelStats') + '>' + translate('Stats') + '</a></li>'
+                + '</ul>'
                 + '<div id=' + setUID('tabWheel_Content') + ' style="padding-top:0px; height:655px; max-height:655px; overflow-y:auto; width:540px; max-width:540px; overflow-x:auto"></div>';
 				t.container.innerHTML = m;
 				document.getElementById(UID['tabWheelPlay']).addEventListener('click', t.tabWheelPlay, false);
@@ -31449,231 +31449,231 @@
 						selectedRune[3] = 'selected';
 				}
 				try {
-					m = '<div class=' + UID['title'] + ' style="margin-bottom:10px">' + translate('Options') + '</div>' 
-					+ '<div style="height:665px; max-height:665px; width:540px; max-width:540px; overflow-y:auto; overflow-x:auto; color:#000;">' 
-					+ '<table class=' + UID['table'] + '>' 
-					+ '	<tr valign=top>' 
-					+ '		<td><b>' + translate('Game Options') + ': </b></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' + '		<label>' + '		<input id=' + setUID('tabOptions_CB_Collect') + ' type=checkbox ' + (Data.options.autoCollect.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Auto harvest resources from outposts every') + '		</label> ' + '		<input id=' + setUID('tabOptions_collectTime') + ' size=1 maxlength=2 type=text value="' + Data.options.autoCollect.delay + '" />' + '		<select id=' + setUID('tabOptions_collectUnit') + ' size=1>' + '			<option value=1 ' + selected[1] + '>' + translate('Seconds') + '</option>' + '			<option value=60 ' + selected[2] + '>' + translate('minutes') + '</option>' + '			<option value=3600 ' + selected[3] + '>' + translate('hours') + '</option>' + '			<option value=86400 ' + selected[4] + '>' + translate('days') + '</option>' + '		</select>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' + '		<label>' + '		<input id=' + setUID('tabOptions_CB_CollectRune') + ' type=checkbox ' + (Data.options.autoCollectRune.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Auto collect') + ' ' + translate('eternalrune') + ' ' + translate('and')  + ' ' +  translate('coraldoubloon') + ' ' + translate('every') + '		</label> ' + '		<input id=' + setUID('tabOptions_collectRuneTime') + ' size=1 maxlength=2 type=text value="' + Data.options.autoCollectRune.delay + '" />' + '		<select id=' + setUID('tabOptions_collectRuneUnit') + ' size=1>' + '			<option value=1 ' + selectedRune[1] + '>' + translate('Seconds') + '</option>' + '			<option value=60 ' + selectedRune[2] + '>' + translate('minutes') + '</option>' + '			<option value=3600 ' + selectedRune[3] + '>' + translate('hours') + '</option>' + '			<option value=86400 ' + selectedRune[4] + '>' + translate('days') + '</option>' + '		</select>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_CB_UTCtime') + ' type=checkbox ' + (Data.options.utc_time ? ' CHECKED ' : '') + ' /> ' + translate('Check to use UTC time instead of local time') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_CB_Speedups') + ' type=checkbox ' + (Data.options.speedups_enabled ? ' CHECKED ' : '') + ' /> ' + translate('Enable use of speed-ups in attacks waves') + '</label>' 
-					+ '		</td>' + '	</tr><tr valign=top>' 
+					m = '<div class=' + UID['title'] + ' style="margin-bottom:10px">' + translate('Options') + '</div>'
+					+ '<div style="height:665px; max-height:665px; width:540px; max-width:540px; overflow-y:auto; overflow-x:auto; color:#000;">'
+					+ '<table class=' + UID['table'] + '>'
+					+ '	<tr valign=top>'
+					+ '		<td><b>' + translate('Game Options') + ': </b></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>' + '		<label>' + '		<input id=' + setUID('tabOptions_CB_Collect') + ' type=checkbox ' + (Data.options.autoCollect.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Auto harvest resources from outposts every') + '		</label> ' + '		<input id=' + setUID('tabOptions_collectTime') + ' size=1 maxlength=2 type=text value="' + Data.options.autoCollect.delay + '" />' + '		<select id=' + setUID('tabOptions_collectUnit') + ' size=1>' + '			<option value=1 ' + selected[1] + '>' + translate('Seconds') + '</option>' + '			<option value=60 ' + selected[2] + '>' + translate('minutes') + '</option>' + '			<option value=3600 ' + selected[3] + '>' + translate('hours') + '</option>' + '			<option value=86400 ' + selected[4] + '>' + translate('days') + '</option>' + '		</select>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>' + '		<label>' + '		<input id=' + setUID('tabOptions_CB_CollectRune') + ' type=checkbox ' + (Data.options.autoCollectRune.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Auto collect') + ' ' + translate('eternalrune') + ' ' + translate('and')  + ' ' +  translate('coraldoubloon') + ' ' + translate('every') + '		</label> ' + '		<input id=' + setUID('tabOptions_collectRuneTime') + ' size=1 maxlength=2 type=text value="' + Data.options.autoCollectRune.delay + '" />' + '		<select id=' + setUID('tabOptions_collectRuneUnit') + ' size=1>' + '			<option value=1 ' + selectedRune[1] + '>' + translate('Seconds') + '</option>' + '			<option value=60 ' + selectedRune[2] + '>' + translate('minutes') + '</option>' + '			<option value=3600 ' + selectedRune[3] + '>' + translate('hours') + '</option>' + '			<option value=86400 ' + selectedRune[4] + '>' + translate('days') + '</option>' + '		</select>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
 					+ '		<td>'
-					+ '		<label><input id=' + setUID('tabOptions_CB_Confirmation') + ' type=checkbox ' + (Data.options.use_speedup_confirmation ? ' CHECKED ' : '') + ' /> ' + translate('Enable confirmation on use of speed-ups') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_CB_JobsSpeedups') + ' type=checkbox ' + (Data.options.jobs_speedups_enabled ? ' CHECKED ' : '') + ' /> ' + translate('Enable use of speed-ups in training/resurrection jobs') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_CB_JobsCancel_Confirmation') + ' type=checkbox ' + (Data.options.jobs_cancel_confirmation ? ' CHECKED ' : '') + ' /> ' + translate('Enable confirmation on cancelling job in training/resurrection') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_CB_Cheat') + ' type=checkbox ' + (Data.options.cheat_enabled ? ' CHECKED ' : '') + ' /> ' + translate('Enable transport of ') + translate('enchanting') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_CB_SancHideMax') + ' type=checkbox ' + (Data.options.sanctuary.hideDrgMaxLevel ? ' CHECKED ' : '') + ' /> ' + translate('Hide sanctuary dragon at max level') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr>' 
-					+ '</table>' + '<br>' 
+					+ '		<label><input id=' + setUID('tabOptions_CB_UTCtime') + ' type=checkbox ' + (Data.options.utc_time ? ' CHECKED ' : '') + ' /> ' + translate('Check to use UTC time instead of local time') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_CB_Speedups') + ' type=checkbox ' + (Data.options.speedups_enabled ? ' CHECKED ' : '') + ' /> ' + translate('Enable use of speed-ups in attacks waves') + '</label>'
+					+ '		</td>' + '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_CB_Confirmation') + ' type=checkbox ' + (Data.options.use_speedup_confirmation ? ' CHECKED ' : '') + ' /> ' + translate('Enable confirmation on use of speed-ups') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_CB_JobsSpeedups') + ' type=checkbox ' + (Data.options.jobs_speedups_enabled ? ' CHECKED ' : '') + ' /> ' + translate('Enable use of speed-ups in training/resurrection jobs') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_CB_JobsCancel_Confirmation') + ' type=checkbox ' + (Data.options.jobs_cancel_confirmation ? ' CHECKED ' : '') + ' /> ' + translate('Enable confirmation on cancelling job in training/resurrection') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_CB_Cheat') + ' type=checkbox ' + (Data.options.cheat_enabled ? ' CHECKED ' : '') + ' /> ' + translate('Enable transport of ') + translate('enchanting') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_CB_SancHideMax') + ' type=checkbox ' + (Data.options.sanctuary.hideDrgMaxLevel ? ' CHECKED ' : '') + ' /> ' + translate('Hide sanctuary dragon at max level') + '</label>'
+					+ '		</td>'
+					+ '	</tr>'
+					+ '</table>' + '<br>'
 					+ '<table class=' + UID['table'] + '>' + '	<tr valign=top>' + '		<td><b>' + translate('Script Options') + ': </b></td>' + '	</tr><tr valign=top>' + '		<td>' + translate('Script language') + ': &nbsp' + '		<select id=' + setUID('tabOptions_language') + ' size=1>';
 					for (var lang = 0; lang < Translation.available_langs.length; lang++) {
 						m += '	<option value="' + Translation.available_langs[lang].code + '" ' + (Data.options.user_language == Translation.available_langs[lang].code ? 'selected' : '') + '>' + translate(Translation.available_langs[lang].desc) + '</option>'
 					}
-					m += '		</select>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_CB_Drag') + ' type=checkbox ' + (Data.options.popUp.drag ? ' CHECKED ' : '') + ' /> ' + translate('Enable window drag') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_CB_Verbose') + ' type=checkbox ' + (Data.options.verboseLog.enabled ? ' CHECKED ' : '') + ' /> ' + translate('Enable verbose logging') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_CB_Background') + ' type=checkbox ' + (Data.options.background ? ' CHECKED ' : '') + ' /> ' + translate('Display official background image') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<table cellpadding=3><tr valign=top>' 
-					+ '			<td>&nbsp<label>' + translate('Wiki URL') + '</label>&nbsp &nbsp</td>' 
-					+ '			<td><input id=' + setUID('tabOptions_Wiki') + ' size=50 maxlength=200 type=text value="' + Data.options.wikiUrl + '" />&nbsp</td>' 
-					+ '		</tr><tr valign=top>' 
-					+ '			<td>&nbsp<label>' + translate('Forum link') + '</label>&nbsp &nbsp</td>' 
-					+ '			<td><input id=' + setUID('tabOptions_Forum') + ' size=50 maxlength=200 type=text value="' + Data.options.forumUrl + '" />&nbsp</td>' 
-					+ '		</tr></table>' 
-					+ '	</tr>' 
-					+ '</table>' 
-					+ '<br>' 
-					+ '<table class=' + UID['table'] + ' style="color:#000;">' 
-					+ '	<tr valign=top>' 
-					+ '		<td colspan=4><b>' + translate('Sound configuration') + ': </b></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_JobsSound') + ' type=checkbox ' + (Data.options.sound.enable_jobs ? 'CHECKED ' : '') + '/></label></td>' 
-					+ '		<td><label>' + translate('Play sound on task completion') + '. ' + translate('Sound file') + ' ' + translate('for') + ' :</label></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td></td>' 
-					+ '		<td><table cellpadding=0 cellspacing=0>' 
-					+ '				<tr valign=top>' 
-					+ '					<td><label>' + translate('Building') + '</label></td>' 
-					+ '					<td><input id=' + setUID('tabOptions_BFile') + ' size=40 maxlength=150 type=text value="' + Data.options.sound.URL_building + '" />&nbsp</td>' 
-					+ '					<td><input id=' + setUID('tabOptions_BPlay') + ' type=submit value=Play>' 
-					+ '						<input id=' + setUID('tabOptions_BStop') + ' type=submit value=Stop>' 
-					+ '						<input id=' + setUID('tabOptions_BDefault') + ' type=submit value=Default></td>' 
-					+ '				</tr>' 
-					+ '				<tr valign=top>' 
-					+ '					<td><label>' + translate('Training') + '</label></td>' 
-					+ '					<td><input id=' + setUID('tabOptions_TFile') + ' size=40 maxlength=150 type=text value="' + Data.options.sound.URL_units + '" />&nbsp</td>' 
-					+ '					<td><input id=' + setUID('tabOptions_TPlay') + ' type=submit value=Play>' 
-					+ '						<input id=' + setUID('tabOptions_TStop') + ' type=submit value=Stop>' 
-					+ '						<input id=' + setUID('tabOptions_TDefault') + ' type=submit value=Default></td>' 
-					+ '				</tr>' 
-					+ '				<tr valign=top>' 
-					+ '					<td><label>' + translate('Research') + '</label></td>' 
-					+ '					<td><input id=' + setUID('tabOptions_RFile') + ' size=40 maxlength=150 type=text value="' + Data.options.sound.URL_research + '" />&nbsp</td>' 
-					+ '					<td><input id=' + setUID('tabOptions_RPlay') + ' type=submit value=Play>' 
-					+ '						<input id=' + setUID('tabOptions_RStop') + ' type=submit value=Stop>' 
-					+ '						<input id=' + setUID('tabOptions_RDefault') + ' type=submit value=Default></td>' 
-					+ '				</tr>' 
-					+ '			</table>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_FortunaSound') + ' type=checkbox ' + (Data.options.sound.enable_fortuna ? 'CHECKED ' : '') + '/></label></td>' 
-					+ '		<td><label>' + translate('Play sound when Fortuna\'s ticket played or a matching grid is found') + ' :</label></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td></td>' 
-					+ '		<td><table cellpadding=0 cellspacing=0>' 
-					+ '				<tr valign=top>' 
-					+ '					<td><label>' + translate('Fortuna') + '</label></td>' 
-					+ '					<td><input id=' + setUID('tabOptions_FFile') + ' size=40 maxlength=150 type=text value="' + Data.options.sound.URL_fortuna + '" />&nbsp</td>' 
-					+ '					<td><input id=' + setUID('tabOptions_FPlay') + ' type=submit value=Play>' 
-					+ '						<input id=' + setUID('tabOptions_FStop') + ' type=submit value=Stop>' 
-					+ '						<input id=' + setUID('tabOptions_FDefault') + ' type=submit value=Default></td>' 
-					+ '				</tr>' 
-					+ '			</table>' 
-					+ '		</td>' 
-					+ '	</tr>' 
-					+ '</table>' 
-					+ '<br>' 
-					+ '<table class=' + UID['table'] + '>' 
-					+ '	<tr valign=top>' 
-					+ '		<td><b>' + translate('Features') + ': </b></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_AutoRefresh') + ' type=checkbox ' + (Data.options.autoRefresh.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Auto refresh info tab data every') + '</label>' 
-					+ '		<input id=' + setUID('tabOptions_refreshTime') + ' size=1 maxlength=2 type=text value="' + Data.options.autoRefresh.delay + '" />' 
-					+ '		<select id=' + setUID('tabOptions_refreshUnit') + ' size=1>' 
-					+ '			<option value=1 ' + (Data.options.autoRefresh.unit == 1 ? 'selected' : '') + '>' + translate('Seconds') + '</option>' 
-					+ '			<option value=60 ' + (Data.options.autoRefresh.unit == 60 ? 'selected' : '') + '>' + translate('minutes') + '</option>' 
-					+ '			<option value=3600 ' + (Data.options.autoRefresh.unit == 3600 ? 'selected' : '') + '>' + translate('hours') + '</option>' 
-					+ '			<option value=86400 ' + (Data.options.autoRefresh.unit == 86400 ? 'selected' : '') + '>' + translate('days') + '</option>' 
-					+ '		</select>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_FlashRefresh') + ' type=checkbox ' + (Data.options.flashRefresh.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Flash game Auto refresh every') + '</label>' 
-					+ '		<input id=' + setUID('tabOptions_flashRefreshTime') + ' size=1 maxlength=2 type=text value="' + Data.options.flashRefresh.delay + '" />' 
-					+ '		<select id=' + setUID('tabOptions_flashRefreshUnit') + ' size=1>' 
-					+ '			<option value=60 ' + (Data.options.flashRefresh.unit == 60 ? 'selected' : '') + '>' + translate('minutes') + '</option>' 
-					+ '			<option value=3600 ' + (Data.options.flashRefresh.unit == 3600 ? 'selected' : '') + '>' + translate('hours') + '</option>' 
-					+ '		</select>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_CheckNotification') + ' type=button value="' + translate('Test') + '" /> ' + translate('Notification permission test') + '</label>' + '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_NotificationFortuna') + ' type=checkbox ' + (Data.options.enable_notifications_fortuna ? 'CHECKED ' : '') + ' /> ' + translate('Enable notifications when i win an object in Fortuna automatic play') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabInboxTchatAlliance_cbEnableNotif') + ' type=checkbox ' + (Data.options.tchat.enable_notif_alliance ? 'CHECKED ' : '') + ' /> ' + translate('Enable notifications for tchat alliance') + '</label>' 
+					m += '		</select>'
 					+ '		</td>'
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabInboxTchatRealm_cbEnableNotif') + ' type=checkbox ' + (Data.options.tchat.enable_notif_realm ? 'CHECKED ' : '') + ' /> ' + translate('Enable notifications for tchat realm') + '</label>' 
-					+ '		</td>'					
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_NotificationSpy') + ' type=checkbox ' + (Data.options.enable_notifications_spy ? 'CHECKED ' : '') + ' /> ' + translate('Enable notifications when i receive spy') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_NotificationAttack') + ' type=checkbox ' + (Data.options.enable_notifications_attack ? 'CHECKED ' : '') + ' /> ' + translate('Enable notifications when i receive attack') + '</label>' 
-					+ '		</td>' 
-					+ '	</tr>' 
-					+ '</table>' 
-					+ '<br>' 
-					+ '<table class=' + UID['table'] + '>' 
-					+ '	<tr valign=top>' 
-					+ '		<td>' 
-					+ '		<label><input id=' + setUID('tabOptions_btnRefresh') + ' type=button value="' + translate('Refresh') + '" /></label>' 
-					+ '		</td>' 
-					+ '	</tr>'
-					+ '</table>' 
-					+ '<br>' 
-					+ '<table class=' + UID['table'] + ' width=100%>' 
-					+ '	<tr valign=top>' 
-					+ '		<td width=40%><b>' + translate('Tabs Options') + ': </b></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabWave') + ' type=checkbox ' + (Data.options.disable_wave ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Wave</B> tab') + '</label></td>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabMulti') + ' type=checkbox ' + (Data.options.disable_multi ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Multi</B> tab') + '</label></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabBookmark') + ' type=checkbox ' + (Data.options.disable_bookmark ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Bookmarks</B> tab') + '</label></td>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabSearch') + ' type=checkbox ' + (Data.options.disable_search ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Search</B> tab') + '</label></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabAlliance') + ' type=checkbox ' + (Data.options.disable_alliance ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Alliance</B> tab') + '</label></td>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabSpy') + ' type=checkbox ' + (Data.options.disable_spies ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Spy</B> tab') + '</label></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td><label>&nbsp;</td>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabWall') + ' type=checkbox ' + (Data.options.disable_wall ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Wall</B> tab') + '</label></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabWheel') + ' type=checkbox ' + (Data.options.disable_wheel ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Fortuna\'s</B> tab') + '</label></td>' 
-					+ '		<td>&nbsp;</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabSingle') + ' type=checkbox ' + (Data.options.disable_single ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Single</B> tab') + '</label></td>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabLog') + ' type=checkbox ' + (Data.options.disable_log ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Log</B> tab') + '</label></td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td><label><input id=' + setUID('tabOptions_TabInbox') + ' type=checkbox ' + (Data.options.disable_inbox ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Inbox</B> tab') + '</label></td>' 
-					+ '		<td>&nbsp;</td>' 
-					+ '	</tr>' 
-					+ '</table><br>' 
-					+ '<div class=' + UID['title'] + ' style="margin-bottom:10px">' + translate('Cache data') + '</div>' 
-					+ '<table class=' + UID['table'] + ' width=100%>' 
-					+ '	<tr valign=top>' 
-					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnSave') + ' type=button value="' + translate('Save') + '" title="' + translate('Force saving current script settings') + '" /></label></td>' 
-					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnClean') + ' type=button value="' + translate('delete') + '" title="' + translate('Clear local storage (internet cache)') + '" /></label></td>' 
-					+ '		<td width=40%><label><input id=' + setUID('tabOptions_btnInspect') + ' type=button value="' + translate('View') + '" title="' + translate('Inspect current script settings') + '" /></label></td>' 
-					+ '	</tr><tr valign=top><td style="font-size:2px">&nbsp</td>' 
 					+ '	</tr><tr valign=top>'
-					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnBackupManifest') + ' type=button value="' + translate('Save Man.') + '" title="' + translate('Save Manifest in a local file') + '" /></label></td>' 
-					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnBackupSeed') + ' type=button value="' + translate('Save Seed') + '" title="' + translate('Save Seed in a local file') + '" /></label></td>' 
-					+ '		<td width=40%>&nbsp;</td>' 
-					+ '	</tr><tr valign=top><td style="font-size:2px">&nbsp</td>' 
-					+ '	</tr><tr valign=top>' 
-					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnBackup') + ' type=button value="' + translate('Backup') + '" title="' + translate('Save current script settings in a local file') + '" /></label></td>' 
-					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnBackupMap') + ' type=button value="' + translate('Backup') + ' ' + translate('Map') + '" title="' + translate('Save current map data in a local file') + '" /></label></td>' 
-					+ '		<td width=40%><label><input id=' + setUID('tabOptions_btnRestore') + ' type=button value="' + translate('Restore') + '" title="' + translate('Restore script settings from local file') + '" /></label>' 
-					+ '		<input id=' + setUID('tabOptions_storage_file') + ' type="file" multiple style="opacity:0;position:absolute;z-index:-1"/></td>' 
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_CB_Drag') + ' type=checkbox ' + (Data.options.popUp.drag ? ' CHECKED ' : '') + ' /> ' + translate('Enable window drag') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_CB_Verbose') + ' type=checkbox ' + (Data.options.verboseLog.enabled ? ' CHECKED ' : '') + ' /> ' + translate('Enable verbose logging') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_CB_Background') + ' type=checkbox ' + (Data.options.background ? ' CHECKED ' : '') + ' /> ' + translate('Display official background image') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<table cellpadding=3><tr valign=top>'
+					+ '			<td>&nbsp<label>' + translate('Wiki URL') + '</label>&nbsp &nbsp</td>'
+					+ '			<td><input id=' + setUID('tabOptions_Wiki') + ' size=50 maxlength=200 type=text value="' + Data.options.wikiUrl + '" />&nbsp</td>'
+					+ '		</tr><tr valign=top>'
+					+ '			<td>&nbsp<label>' + translate('Forum link') + '</label>&nbsp &nbsp</td>'
+					+ '			<td><input id=' + setUID('tabOptions_Forum') + ' size=50 maxlength=200 type=text value="' + Data.options.forumUrl + '" />&nbsp</td>'
+					+ '		</tr></table>'
 					+ '	</tr>'
-					+ '</table><br>' 
+					+ '</table>'
+					+ '<br>'
+					+ '<table class=' + UID['table'] + ' style="color:#000;">'
+					+ '	<tr valign=top>'
+					+ '		<td colspan=4><b>' + translate('Sound configuration') + ': </b></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td><label><input id=' + setUID('tabOptions_JobsSound') + ' type=checkbox ' + (Data.options.sound.enable_jobs ? 'CHECKED ' : '') + '/></label></td>'
+					+ '		<td><label>' + translate('Play sound on task completion') + '. ' + translate('Sound file') + ' ' + translate('for') + ' :</label></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td></td>'
+					+ '		<td><table cellpadding=0 cellspacing=0>'
+					+ '				<tr valign=top>'
+					+ '					<td><label>' + translate('Building') + '</label></td>'
+					+ '					<td><input id=' + setUID('tabOptions_BFile') + ' size=40 maxlength=150 type=text value="' + Data.options.sound.URL_building + '" />&nbsp</td>'
+					+ '					<td><input id=' + setUID('tabOptions_BPlay') + ' type=submit value=Play>'
+					+ '						<input id=' + setUID('tabOptions_BStop') + ' type=submit value=Stop>'
+					+ '						<input id=' + setUID('tabOptions_BDefault') + ' type=submit value=Default></td>'
+					+ '				</tr>'
+					+ '				<tr valign=top>'
+					+ '					<td><label>' + translate('Training') + '</label></td>'
+					+ '					<td><input id=' + setUID('tabOptions_TFile') + ' size=40 maxlength=150 type=text value="' + Data.options.sound.URL_units + '" />&nbsp</td>'
+					+ '					<td><input id=' + setUID('tabOptions_TPlay') + ' type=submit value=Play>'
+					+ '						<input id=' + setUID('tabOptions_TStop') + ' type=submit value=Stop>'
+					+ '						<input id=' + setUID('tabOptions_TDefault') + ' type=submit value=Default></td>'
+					+ '				</tr>'
+					+ '				<tr valign=top>'
+					+ '					<td><label>' + translate('Research') + '</label></td>'
+					+ '					<td><input id=' + setUID('tabOptions_RFile') + ' size=40 maxlength=150 type=text value="' + Data.options.sound.URL_research + '" />&nbsp</td>'
+					+ '					<td><input id=' + setUID('tabOptions_RPlay') + ' type=submit value=Play>'
+					+ '						<input id=' + setUID('tabOptions_RStop') + ' type=submit value=Stop>'
+					+ '						<input id=' + setUID('tabOptions_RDefault') + ' type=submit value=Default></td>'
+					+ '				</tr>'
+					+ '			</table>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td><label><input id=' + setUID('tabOptions_FortunaSound') + ' type=checkbox ' + (Data.options.sound.enable_fortuna ? 'CHECKED ' : '') + '/></label></td>'
+					+ '		<td><label>' + translate('Play sound when Fortuna\'s ticket played or a matching grid is found') + ' :</label></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td></td>'
+					+ '		<td><table cellpadding=0 cellspacing=0>'
+					+ '				<tr valign=top>'
+					+ '					<td><label>' + translate('Fortuna') + '</label></td>'
+					+ '					<td><input id=' + setUID('tabOptions_FFile') + ' size=40 maxlength=150 type=text value="' + Data.options.sound.URL_fortuna + '" />&nbsp</td>'
+					+ '					<td><input id=' + setUID('tabOptions_FPlay') + ' type=submit value=Play>'
+					+ '						<input id=' + setUID('tabOptions_FStop') + ' type=submit value=Stop>'
+					+ '						<input id=' + setUID('tabOptions_FDefault') + ' type=submit value=Default></td>'
+					+ '				</tr>'
+					+ '			</table>'
+					+ '		</td>'
+					+ '	</tr>'
+					+ '</table>'
+					+ '<br>'
+					+ '<table class=' + UID['table'] + '>'
+					+ '	<tr valign=top>'
+					+ '		<td><b>' + translate('Features') + ': </b></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_AutoRefresh') + ' type=checkbox ' + (Data.options.autoRefresh.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Auto refresh info tab data every') + '</label>'
+					+ '		<input id=' + setUID('tabOptions_refreshTime') + ' size=1 maxlength=2 type=text value="' + Data.options.autoRefresh.delay + '" />'
+					+ '		<select id=' + setUID('tabOptions_refreshUnit') + ' size=1>'
+					+ '			<option value=1 ' + (Data.options.autoRefresh.unit == 1 ? 'selected' : '') + '>' + translate('Seconds') + '</option>'
+					+ '			<option value=60 ' + (Data.options.autoRefresh.unit == 60 ? 'selected' : '') + '>' + translate('minutes') + '</option>'
+					+ '			<option value=3600 ' + (Data.options.autoRefresh.unit == 3600 ? 'selected' : '') + '>' + translate('hours') + '</option>'
+					+ '			<option value=86400 ' + (Data.options.autoRefresh.unit == 86400 ? 'selected' : '') + '>' + translate('days') + '</option>'
+					+ '		</select>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_FlashRefresh') + ' type=checkbox ' + (Data.options.flashRefresh.enabled ? 'CHECKED ' : '') + ' /> ' + translate('Flash game Auto refresh every') + '</label>'
+					+ '		<input id=' + setUID('tabOptions_flashRefreshTime') + ' size=1 maxlength=2 type=text value="' + Data.options.flashRefresh.delay + '" />'
+					+ '		<select id=' + setUID('tabOptions_flashRefreshUnit') + ' size=1>'
+					+ '			<option value=60 ' + (Data.options.flashRefresh.unit == 60 ? 'selected' : '') + '>' + translate('minutes') + '</option>'
+					+ '			<option value=3600 ' + (Data.options.flashRefresh.unit == 3600 ? 'selected' : '') + '>' + translate('hours') + '</option>'
+					+ '		</select>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_CheckNotification') + ' type=button value="' + translate('Test') + '" /> ' + translate('Notification permission test') + '</label>' + '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_NotificationFortuna') + ' type=checkbox ' + (Data.options.enable_notifications_fortuna ? 'CHECKED ' : '') + ' /> ' + translate('Enable notifications when i win an object in Fortuna automatic play') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabInboxTchatAlliance_cbEnableNotif') + ' type=checkbox ' + (Data.options.tchat.enable_notif_alliance ? 'CHECKED ' : '') + ' /> ' + translate('Enable notifications for tchat alliance') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabInboxTchatRealm_cbEnableNotif') + ' type=checkbox ' + (Data.options.tchat.enable_notif_realm ? 'CHECKED ' : '') + ' /> ' + translate('Enable notifications for tchat realm') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_NotificationSpy') + ' type=checkbox ' + (Data.options.enable_notifications_spy ? 'CHECKED ' : '') + ' /> ' + translate('Enable notifications when i receive spy') + '</label>'
+					+ '		</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_NotificationAttack') + ' type=checkbox ' + (Data.options.enable_notifications_attack ? 'CHECKED ' : '') + ' /> ' + translate('Enable notifications when i receive attack') + '</label>'
+					+ '		</td>'
+					+ '	</tr>'
+					+ '</table>'
+					+ '<br>'
+					+ '<table class=' + UID['table'] + '>'
+					+ '	<tr valign=top>'
+					+ '		<td>'
+					+ '		<label><input id=' + setUID('tabOptions_btnRefresh') + ' type=button value="' + translate('Refresh') + '" /></label>'
+					+ '		</td>'
+					+ '	</tr>'
+					+ '</table>'
+					+ '<br>'
+					+ '<table class=' + UID['table'] + ' width=100%>'
+					+ '	<tr valign=top>'
+					+ '		<td width=40%><b>' + translate('Tabs Options') + ': </b></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabWave') + ' type=checkbox ' + (Data.options.disable_wave ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Wave</B> tab') + '</label></td>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabMulti') + ' type=checkbox ' + (Data.options.disable_multi ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Multi</B> tab') + '</label></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabBookmark') + ' type=checkbox ' + (Data.options.disable_bookmark ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Bookmarks</B> tab') + '</label></td>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabSearch') + ' type=checkbox ' + (Data.options.disable_search ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Search</B> tab') + '</label></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabAlliance') + ' type=checkbox ' + (Data.options.disable_alliance ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Alliance</B> tab') + '</label></td>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabSpy') + ' type=checkbox ' + (Data.options.disable_spies ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Spy</B> tab') + '</label></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td><label>&nbsp;</td>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabWall') + ' type=checkbox ' + (Data.options.disable_wall ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Wall</B> tab') + '</label></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabWheel') + ' type=checkbox ' + (Data.options.disable_wheel ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Fortuna\'s</B> tab') + '</label></td>'
+					+ '		<td>&nbsp;</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabSingle') + ' type=checkbox ' + (Data.options.disable_single ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Single</B> tab') + '</label></td>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabLog') + ' type=checkbox ' + (Data.options.disable_log ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Log</B> tab') + '</label></td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td><label><input id=' + setUID('tabOptions_TabInbox') + ' type=checkbox ' + (Data.options.disable_inbox ? 'CHECKED ' : '') + ' /> ' + translate('Disable <B>Inbox</B> tab') + '</label></td>'
+					+ '		<td>&nbsp;</td>'
+					+ '	</tr>'
+					+ '</table><br>'
+					+ '<div class=' + UID['title'] + ' style="margin-bottom:10px">' + translate('Cache data') + '</div>'
+					+ '<table class=' + UID['table'] + ' width=100%>'
+					+ '	<tr valign=top>'
+					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnSave') + ' type=button value="' + translate('Save') + '" title="' + translate('Force saving current script settings') + '" /></label></td>'
+					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnClean') + ' type=button value="' + translate('delete') + '" title="' + translate('Clear local storage (internet cache)') + '" /></label></td>'
+					+ '		<td width=40%><label><input id=' + setUID('tabOptions_btnInspect') + ' type=button value="' + translate('View') + '" title="' + translate('Inspect current script settings') + '" /></label></td>'
+					+ '	</tr><tr valign=top><td style="font-size:2px">&nbsp</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnBackupManifest') + ' type=button value="' + translate('Save Man.') + '" title="' + translate('Save Manifest in a local file') + '" /></label></td>'
+					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnBackupSeed') + ' type=button value="' + translate('Save Seed') + '" title="' + translate('Save Seed in a local file') + '" /></label></td>'
+					+ '		<td width=40%>&nbsp;</td>'
+					+ '	</tr><tr valign=top><td style="font-size:2px">&nbsp</td>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnBackup') + ' type=button value="' + translate('Backup') + '" title="' + translate('Save current script settings in a local file') + '" /></label></td>'
+					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnBackupMap') + ' type=button value="' + translate('Backup') + ' ' + translate('Map') + '" title="' + translate('Save current map data in a local file') + '" /></label></td>'
+					+ '		<td width=40%><label><input id=' + setUID('tabOptions_btnRestore') + ' type=button value="' + translate('Restore') + '" title="' + translate('Restore script settings from local file') + '" /></label>'
+					+ '		<input id=' + setUID('tabOptions_storage_file') + ' type="file" multiple style="opacity:0;position:absolute;z-index:-1"/></td>'
+					+ '	</tr>'
+					+ '</table><br>'
 					+ '</div>';
 					t.container.innerHTML = m;
 
-					
+
 					document.getElementById(UID['tabOptions_collectTime']).addEventListener('change', t.timeChanged, false);
 					document.getElementById(UID['tabOptions_collectUnit']).addEventListener('change', t.unitChanged, false);
 					document.getElementById(UID['tabOptions_collectRuneTime']).addEventListener('change', t.timeRuneChanged, false);
@@ -31761,7 +31761,7 @@
 					document.getElementById(UID['tabInboxTchatAlliance_cbEnableNotif']).addEventListener('click', function(event) {
 						Data.options.tchat.enable_notif_alliance = event.target.checked
 					}, false);
-					
+
 					document.getElementById(UID['tabOptions_CB_Cheat']).addEventListener('click', function(event) {
 						Data.options.cheat_enabled = event.target.checked;
 						if (Data.options.cheat_enabled)
@@ -32516,19 +32516,19 @@
 				ts_cell.innerHTML = '(&nbsp;' + ts + '&nbsp;)&nbsp;';
 				msg_cell.innerHTML = wordwrap(msg, 90, '<br />', true);
 				msg_cell.style.whiteSpace = 'normal';
-				
+
 				function wordwrap( str, width, brk, cut ) {
-				 
+
 					brk = brk || '\n';
 					width = width || 75;
 					cut = cut || false;
-				 
+
 					if (!str) { return str; }
-				 
+
 					var regex = '.{1,' +width+ '}(\\s|$)' + (cut ? '|.{' +width+ '}|.+$' : '|\\S+?(\\s|$)');
-				 
+
 					return str.match( RegExp(regex, 'g') ).join( brk );
-				 
+
 				}
 			},
 			addMsg: function(msg, to) {
@@ -32555,11 +32555,11 @@
 			init: function(div) {
 				var t = Tabs.Cpt;
 				t.container = div;
-				var m = '<div class=' + UID['title'] + '>Calcium Pro Tool ' + translate('search') + '</div>' 
-                + '<ul class=tabs>' 
-                + '	<li class="tab first"><a id=' + setUID('tabCptSearchPlayer') + '>' + translate('search') + ' ' + translate('players') + '</a></li>' 
-                + '	<li class=tab><a id=' + setUID('tabCptSearchAlliance') + '>' + translate('search') + ' ' + translate('alliances') + '</a></li>' 
-                + '</ul>' 
+				var m = '<div class=' + UID['title'] + '>Calcium Pro Tool ' + translate('search') + '</div>'
+                + '<ul class=tabs>'
+                + '	<li class="tab first"><a id=' + setUID('tabCptSearchPlayer') + '>' + translate('search') + ' ' + translate('players') + '</a></li>'
+                + '	<li class=tab><a id=' + setUID('tabCptSearchAlliance') + '>' + translate('search') + ' ' + translate('alliances') + '</a></li>'
+                + '</ul>'
                 + '<div id=' + setUID('tabCpt_Content') + ' class="' + UID['status_ticker'] + '" style="height:665px; max-height:665px; overflow-y:auto;"></div>';
 				t.container.innerHTML = m;
 				document.getElementById(UID['tabCptSearchPlayer']).addEventListener('click', t.tabCptSearchPlayer);
@@ -32574,8 +32574,8 @@
 				document.getElementById(UID['tabCptSearchPlayer']).className = 'selected';
 				document.getElementById(UID['tabCptSearchPlayer']).style.zIndex = 1;
                 t.contentType = 0;
-                
-                var m =  '<div class=' + UID['title'] + '>' + translate('search') + ' ' + translate('players') + '</div>' 
+
+                var m =  '<div class=' + UID['title'] + '>' + translate('search') + ' ' + translate('players') + '</div>'
                     + ' <div class=' + UID['content'] + '>'
                     + '   <div id='+setUID('tabCPT_divSearch')+'>'
                     + '     <center>'
@@ -32590,18 +32590,18 @@
                     + '   <div id='+setUID('tabCPT_divPlayerDetail')+'></div>'
                     + '</div>';
                 document.getElementById(UID['tabCpt_Content']).innerHTML = (m);
-                
+
                 document.getElementById(UID['tabCPT_btnSearch']).addEventListener('click', searchPlayer);
-                
+
                 function searchPlayer() {
                     var strSearch = document.getElementById(UID['tabCPT_playerToSearch']).value.trim();
-                    
+
                     new MyAjax.searchCPT(( document.getElementById(UID['tabCPT_playerSearchHisto']).checked ? CPT_SEARCH.playersHisto : CPT_SEARCH.players ), strSearch, function(rslt) {
                         if(rslt.dat.result) {
                             var m = '<table class=' + UID['row_style'] + ' width=100%><tr>';
                             var tb = [];
                             for(var i=0; i < rslt.dat.players.length ; i++) {
-                                m +=  '<td>' + rslt.dat.players[i].label + '</td>'
+                                m +=  '<td>' + rslt.dat.players[i].name + '</td>'
                                     + '<td><input id=' + setUID('tabCPT_' + rslt.dat.players[i].id) + ' ref=' +  rslt.dat.players[i].id + ' class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value="' + translate('view') + '" /></td>';
                                 if((i+1)%2 == 0) {
                                     m += '</tr><tr>'
@@ -32617,7 +32617,7 @@
                             document.getElementById(UID['tabCPT_divResult']).innerHTML = (rslt.dat.msg);
                         }
                     });
-                    
+
                 }
                 function searchDetailPlayer(event) {
                     var id = event.target.getAttribute('ref');
@@ -32651,7 +32651,7 @@
                             document.getElementById(UID['tabCPT_MsgUser']).addEventListener('click', onClickMsg);
                             document.getElementById(UID['tabCPT_GoCptPlayer' + player.id]).addEventListener('click', function(event) {
                                 var id = event.target.getAttribute('ref');
-                                window.open('https://www.calcium-pro-tool.com/CPT/displayUser.php?id='+id+'&realmId='+SERVER_ID);
+                                window.open('https://www.calcium-pro-tool.com/index.php/Players/view/'+id);
                             });
                             for(var j=0; j < bs.length; j++) {
                             	document.getElementById(UID[bs[j]]).addEventListener('click', cptSpyNow);
@@ -32659,7 +32659,7 @@
                             for(var k=0; k < bb.length; k++) {
                             	document.getElementById(UID[bb[k]]).addEventListener('click', addBookmark);
                             }
-                            
+
                             function cptSpyNow(event) {
                                 var args = event.target.getAttribute('ref').split('_'),
                                     targ = { n:args[0], x:args[1], y:args[2] };
@@ -32694,8 +32694,8 @@
 				document.getElementById(UID['tabCptSearchAlliance']).className = 'selected';
 				document.getElementById(UID['tabCptSearchAlliance']).style.zIndex = 1;
                 t.contentType = 1;
-                
-                var m =  '<div class=' + UID['title'] + '>' + translate('search') + ' ' + translate('alliances') + '</div>' 
+
+                var m =  '<div class=' + UID['title'] + '>' + translate('search') + ' ' + translate('alliances') + '</div>'
                     + ' <div class=' + UID['content'] + '>'
                     + '   <div id='+setUID('tabCPT_divSearch')+'>'
                     + '     <center>'
@@ -32709,9 +32709,9 @@
                     + '   <div id='+setUID('tabCPT_divAllianceDetail')+'></div>'
                     + '</div>';
                 document.getElementById(UID['tabCpt_Content']).innerHTML = (m);
-                
+
                 document.getElementById(UID['tabCPT_btnAllianceSearch']).addEventListener('click', searchAlliance);
-                
+
                 function searchAlliance() {
                     var strSearch = document.getElementById(UID['tabCPT_allianceToSearch']).value.trim();
                     new MyAjax.searchCPT(CPT_SEARCH.alliances, strSearch, function(rslt) {
@@ -32719,7 +32719,7 @@
                             var m = '<table class=' + UID['row_style'] + ' width=100%><tr>';
                             var tb = [];
                             for(var i=0; i < rslt.dat.alliances.length ; i++) {
-                                m +=  '<td>' + rslt.dat.alliances[i].label + '</td>'
+                                m +=  '<td>' + rslt.dat.alliances[i].name + '</td>'
                                     + '<td><input id=' + setUID('tabCPT_' + rslt.dat.alliances[i].id) + ' ref=' +  rslt.dat.alliances[i].id + ' class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value="' + translate('view') + '" /></td>';
                                 if((i+1)%2 == 0) {
                                     m += '</tr><tr>'
@@ -32735,7 +32735,7 @@
                             document.getElementById(UID['tabCPT_divAllianceResult']).innerHTML = (rslt.dat.msg);
                         }
                     });
-                    
+
                 }
                 function searchDetailAlliance(event) {
                     var id = event.target.getAttribute('ref');
@@ -32766,13 +32766,13 @@
                             for(var j=0 ; j<tcpt.length ; j++) {
                                 document.getElementById(UID[tcpt[j]]).addEventListener('click', function(event) {
                                     var id = event.target.getAttribute('ref');
-                                    window.open('https://www.calcium-pro-tool.com/CPT/displayUser.php?id='+id+'&realmId='+SERVER_ID);
+                                    window.open('https://www.calcium-pro-tool.com/index.php/Players/view/'+id);
                                 });
                                 document.getElementById(UID[bm[j]]).addEventListener('click', onClickMsg);
                             }
                             document.getElementById(UID['tabCPT_GoCptAlliance' + alliance.id]).addEventListener('click', function(event) {
                                 var id = event.target.getAttribute('ref');
-                                window.open('https://www.calcium-pro-tool.com/CPT/displayAlliance.php?id='+id+'&realmId='+SERVER_ID);
+                                window.open('https://www.calcium-pro-tool.com/index.php/Alliances/view/'+id);
                             });
                         } else {
                             document.getElementById(UID['tabCPT_divAllianceDetail']).innerHTML = (rslt.dat.msg);
@@ -32805,12 +32805,12 @@
 			init: function(div) {
 				var t = Tabs.City;
 				t.container = div;
-				var m = '' 
-                + '<ul class=tabs>' 
+				var m = ''
+                + '<ul class=tabs>'
 				+ '	<li class=tab><a id=' + setUID('tabCity_Capital') + '>' + Seed.cities[CAPITAL.id].name + '</a></li>'
-                + '	<li class="tab first"><a id=' + setUID('tabCity_LunarOutpost') + '>' + translate('luna-outpost') + '</a></li>' 
+                + '	<li class="tab first"><a id=' + setUID('tabCity_LunarOutpost') + '>' + translate('luna-outpost') + '</a></li>'
                 + '	<li class=tab><a id=' + setUID('tabCity_ColossusOutPost') + '>' + translate('colossus-outpost') + '</a></li>'
-                + '</ul>' 
+                + '</ul>'
                 + '<div id="' + setUID('tabCity_Content') + '" class="' + UID['status_ticker'] + '" style="height:665px; max-height:665px; overflow-y:auto;"></div>';
 				t.container.innerHTML = m;
 				document.getElementById(UID['tabCity_Capital']).addEventListener('click', t.tabCity_Capital);
@@ -32828,8 +32828,8 @@
 				document.getElementById(UID['tabCity_LunarOutpost']).className = '';
 				document.getElementById(UID['tabCity_LunarOutpost']).style.zIndex = 0;
                 t.contentType = 2;
-        
-				var m =  '' 
+
+				var m =  ''
 					+ ' <div class=' + UID['content'] + '>'
 					+ '   <div id="'+setUID('tabCity_capitalDiv')+'">'
 					+ '		<div id="'+setUID('tabCapitalCity_challengesAccord')+'" ref="tabCapitalCity_challengesContent" class='+UID['title']+' style="text-align:center;color:#ffffff;background-color: rgb(60,60,60);">'+translate('competition')+ ' - <input class="'+UID['btn_black']+'" id="'+setUID('btnCityCapital_Challenges')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
@@ -32845,7 +32845,7 @@
 				updateChallenges();
 				document.getElementById(UID['btnCityCapital_Challenges']).addEventListener('click', clickToUpdateChallenges);
 				document.getElementById(UID['btnCityCapital_LoginMessage']).addEventListener('click', clickToUpdateLoginMessages);
-				
+
 				function updateChallenges() {
 					var m = '', tT = [], timeRemaining=0;
 					//SERVER_ID;
@@ -32889,18 +32889,18 @@
 						}
 						m+='</tr></table>';
 						$(div_el).update(m);
-						
+
 					}
 					var element = event.target;
 					var chalGlob = Seed.challenges[element.getAttribute('challenge')];
 					var div_el = document.getElementById(UID[element.getAttribute('ref')]);
-					
+
 					if(!Element.visible(div_el)) {
 						MyAjax.getChallenge(element.getAttribute('challenge_id'), cb);
 					} else {
 						Effect.toggle(div_el, 'blind', { duration: 1.0 });
 					}
-					
+
 				}
 				function clickToUpdateChallenges() {
 					MyAjax.allChallenges(updateChallenges);
@@ -32926,7 +32926,7 @@
 					var element = event.target;
 					if(element.tagName == 'INPUT')
 						return;
-					
+
 					var div_el = document.getElementById(UID[element.getAttribute('ref')]);
 					Effect.toggle(div_el, 'blind', { duration: 1.0 });
 				}
@@ -32940,12 +32940,12 @@
 				document.getElementById(UID['tabCity_LunarOutpost']).className = 'selected';
 				document.getElementById(UID['tabCity_LunarOutpost']).style.zIndex = 1;
                 t.contentType = 0;
-                
+
                 var levelShrine = Buildings.getLevel(LUNA_OUTPOST.id, 'LunaShrine').max;
                 var maxEnergyLunar = Manifest.lunaData.shrine.capacity[levelShrine];
                 var btSum=[], tbNbSum=[];
 
-                var m =  '<div class=' + UID['title'] + '>' + translate('luna-outpost') + ' - ' + translate('lunar-energy') + ' : ' + numf(Seed.luna.lunar_energy) + ' / ' + numf(maxEnergyLunar) + '</div>' 
+                var m =  '<div class=' + UID['title'] + '>' + translate('luna-outpost') + ' - ' + translate('lunar-energy') + ' : ' + numf(Seed.luna.lunar_energy) + ' / ' + numf(maxEnergyLunar) + '</div>'
                     + ' <div class=' + UID['content'] + '>'
                     + '   <div id='+setUID('tabCity_lunaDiv')+'>'
                     + '		<table class='+UID['table']+' style="width:100%">';
@@ -32965,12 +32965,12 @@
                 					tmpNbLunaUnit = Seed.luna.units[tmpTroop[j]];
                 					totalTroop += tmpNbLunaUnit;
                 				}
-                				m += '<tr>' 
-                					+ '<td>'+translate(tmpTroop[j].toLowerCase())+'</td>' 
-                					+ '<td>'+numf(tmpNbLunaUnit)+'</td>' 
-                					+ '<td>' 
+                				m += '<tr>'
+                					+ '<td>'+translate(tmpTroop[j].toLowerCase())+'</td>'
+                					+ '<td>'+numf(tmpNbLunaUnit)+'</td>'
+                					+ '<td>'
                 					+ '	<input ref="'+tmpTroop[j]+'" id='+setUID('tbNbCityLuna_'+tmpTroop[j])+' type="text" style="width: 65px; border: 1px solid grey;">'
-                					+ '	<input ref="'+tmpTroop[j]+'" class="'+UID['btn_purple']+' thin" id="'+setUID('btnCityLuna_'+tmpTroop[j])+'" type="button" style="width:auto !important;" value="'+translate('summon')+'"' 
+                					+ '	<input ref="'+tmpTroop[j]+'" class="'+UID['btn_purple']+' thin" id="'+setUID('btnCityLuna_'+tmpTroop[j])+'" type="button" style="width:auto !important;" value="'+translate('summon')+'"'
                 					+ '</td></tr>';
 
                 				btSum.push('btnCityLuna_'+tmpTroop[j]);
@@ -32983,7 +32983,7 @@
 				m += '		</table>'
 					+ '   </div><br />'
 					+ '</div>';
-				
+
 				document.getElementById(UID['tabCity_Content']).innerHTML = (m);
 
 				function checkRequirements(event) {
@@ -32995,7 +32995,7 @@
 					});
 
 				}
-                
+
 			},
 			tabCity_ColossusOutPost: function() {
 				var t = Tabs.City;
@@ -33006,16 +33006,16 @@
 				document.getElementById(UID['tabCity_LunarOutpost']).className = '';
 				document.getElementById(UID['tabCity_LunarOutpost']).style.zIndex = 0;
                 t.contentType = 1;
-                
-                var m =  '<div class=' + UID['title'] + '>' + translate('colossus-outpost') + '</div>' 
+
+                var m =  '<div class=' + UID['title'] + '>' + translate('colossus-outpost') + '</div>'
                     + ' <div class=' + UID['content'] + '>'
                     + '   <div id='+setUID('tabCity_colossusDiv')+'>'
                     + '   </div><br />'
                     + '</div>';
                 document.getElementById(UID['tabCity_Content']).innerHTML = (m);
-                
+
 			},
-			
+
 			hide: function() {
 				var t = Tabs.City;
 			},
@@ -33478,13 +33478,13 @@
 		XML.ObjTree.prototype.xml_escape = function(text) {
 			return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 		};
-		
+
 eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('k 1l;1l={1N:d(e){e=e.4d(/\\r\\n/g,"\\n");B(k t="",r=0;r<e.A;r++){k i=e.1I(r);T>i?t+=1c.1e(i):i>U&&4a>i?(t+=1c.1e(i>>6|4g),t+=1c.1e(63&i|T)):(t+=1c.1e(i>>12|3y),t+=1c.1e(i>>6&63|T),t+=1c.1e(63&i|T))}j t},2Q:d(e){k t,r,i,n,s="",a=0;B(t=r=i=0;a<e.A;)t=e.1I(a),T>t?(s+=1c.1e(t),a++):t>4e&&3y>t?(i=e.1I(a+1),s+=1c.1e((31&t)<<6|63&i),a+=2):(i=e.1I(a+1),n=e.1I(a+2),s+=1c.1e((15&t)<<12|(63&i)<<6|63&n),a+=3);j s}};k 3a=1,3J=0,2R="38",1A,m,S,N,1z,20,1i,1k,1G,1b,2O,3s,D,1Z,1U;1b=d(e,t){b.4m=e,b.4q=t},1b.v=q 4n,1b.v.1J=1b;k 1G=d(e){1b.1q(b,e,"1G")};1G.v=q 1b,1G.v.1J=1G;k 1i=d(e){1b.1q(b,e,"1i")};1i.v=q 1b,1i.v.1J=1i;k 1k=d(e){1b.1q(b,e,"1k")};1k.v=q 1b,1k.v.1J=1k,D=d(){b.1x={},b.1x[D.1V]=[],b.1x[D.M]=[]},D.1V="2d",D.M="2V",D.v={1Q:d(e,t){k r=2O(b.1x[t],e);j r>=0?r:b.2F(e)?(b.1m(e,t),!1):!1},1m:d(e,t){j b.2F(e)?(b.1x[t].R(e),e):!1},1y:d(e,t){w(!b.1x.4l(t))j!1;k r=b.1x[t].A;j e>=r?!1:r?b.1x[t][e]:!1},2F:d(e){j 1w===e||"2d"==I e&&!e.A?!1:!0}},20=d(e){b.Z="1E"!=I e?e Q 1R?e:q 1R(e):q 1R(0,!0)},20.v={3Y:d(){j b.Z.4p()},2C:d(){j b.Z.4s()},2S:d(){j b.Z.4r()},2a:d(e){j b.Z.1P(e,L 0,"1l")},W:d(e){j b.Z.4j(e)},3B:d(e){j b.Z.4c(e)},4t:d(e){j b.Z.4V(e)},3A:d(e){j b.Z.2X(e,L 0,"1l")},1P:d(){j b.Z.1P(b.Z.H,0)}},1A={2y:{},1j:d(e,t,r,i){i="1E"==I i?3J:i;k n=q 20,s=q S(n,i);j s.1j(e,!0,t,r)},1t:d(e,t){k r=q 20(e),i=q N(r);j"4N=="==3K.1N(4M)&&"4L=="==3K.1N(4J)?i.1t(t):L 0},4K:d(e){j b.1t(e)},4O:d(e,t){j b.1j(e,!0,L 0,t)},4P:d(e,t){b.2y[e]=t},3m:d(e){j e F b.2y?b.2y[e]:1w}},m={2x:0,2u:1,2p:2,27:3,2h:4,1L:5,2f:6,3p:7,2i:8,2j:9,2n:10,3i:11,26:12,4U:13,4T:14,4S:15,4u:16,4Q:17,4R:0,J:1,3z:T,3Q:4I,3D:4H,2E:4z,2D:-3b,4y:d(){j!0},43:d(e){w(!e)j!0;k t=0;B(k r F e){w(r!=t)j!1;t++}j!0}},1z=d(e){b.E=e,b.K=q D},1z.v={3v:d(e){2o(!0){z"1E"==I e:j m.2x;z 1w===e:j m.2u;z e===!0||e===!1:j e?m.27:m.2p;z"1v"==I e&&e%1===0:j e<m.2D||e>m.2E?m.1L:m.2h;z"1v"==I e&&e%1!==0:j m.1L;z"2d"==I e:j m.2f;z e Q 3d:j m.2i;z e Q 1U:j m.26;z e Q 1n:j m.2j;z"2V"==I e:j m.2n;z"d"==I e:O q 1G("39 1j a d");2m:j 1w}}},S=d(e,t){b.3X=t,1z.1q(b,e)},S.v=q 1z,S.v.1J=S,S.v.1j=d(e,t,r,i){"1E"==I r&&(r=!0),"1E"==I t&&(t=!0);k n=i?i:b.3v(e);2o(r&&b.E.W(n),n){z m.2x:z m.2u:z m.2p:z m.27:1p;z m.2h:b.V(e);1p;z m.1L:b.3C(e);1p;z m.2f:b.1u(e);1p;z m.2i:b.3P(e);1p;z m.2j:b.49(e);1p;z m.2n:b.3W(e);1p;z m.26:b.42(e);1p;2m:O q 1i("4x 1A 2U ["+n+"]")}j t?b.E.1P():L 0},S.v.V=d(e){w(e<m.2D||e>m.2E)O q 1i("4v 2J 2K 4w: "+e);e&=4A,e<m.3z?b.E.W(e):e<m.3Q?(b.E.W(e>>7&U|T),b.E.W(U&e)):e<m.3D?(b.E.W(e>>14&U|T),b.E.W(e>>7&U|T),b.E.W(U&e)):(b.E.W(e>>22&U|T),b.E.W(e>>15&U|T),b.E.W(e>>8&U|T),b.E.W(X&e))},S.v.3C=d(e){b.E.3B(e)},S.v.1u=d(e,t){w(t="1E"==I t?!0:t){k r=b.K.1Q(e,D.1V);w(r!==!1)j L b.V(r<<1)}k i=1l.1N(e);b.V(i.A<<1|1),b.E.3A(e)},S.v.3P=d(e){k t=b.K.1Q(e,D.M);j t!==!1?L b.V(t<<1):L b.1j(e.4F(),!1,!0,m.1L)},S.v.49=d(e){k t=b.K.1Q(e,D.M);w(t!==!1)j L b.V(t<<1);k r=1w,i=m.43(e);w(i){b.V(e.A<<1|m.J),b.1u("");B(k n F e)r=e[n],b.1j(r,!1)}1M{b.V(1);B(k s F e)r=e[s],b.1u(s,!1),b.1j(r);b.1u("")}},S.v.3W=d(e){k t=b.K.1Q(e,D.M);w(t!==!1)j L b.V(t<<1);k r=e;1Z.3r(e)&&(e=e.3q());k i=1Z.37(e);w(b.V(11),b.1u(1Z.3h(r,b.3X),!1),i.A>0)B(k n F i){k s=i[n],a=e[s];b.1u(s,!1),b.1j(a,!1)}b.1u("")},S.v.42=d(e){w(!("21"F e))O q 1i("4C 1U 2v 4D");k t=b.K.1Q(e,D.M);j t!==!1?L b.V(t<<1):(b.V(e.21().A<<1|m.J),L b.E.3T(e.21()))},N=d(e){1z.1q(b,e)},N.v=q 1z,N.v.1J=N,N.v.1t=d(e){k t=b.E.3Y(e);2o(1O(t)){z m.2x:j L 0;z m.2u:j 1w;z m.2p:j!1;z m.27:j!0;z m.2h:j b.1h();z m.1L:j b.3c();z m.2f:j b.1D();z m.2i:j b.3f();z m.2j:j b.3n();z m.2n:j b.3g();z m.26:j b.2Z();z m.3p:j b.34();z m.3i:j b.35();2m:O q 1k("39 1t 2U: "+t+" ;x 4G="+b.E.Z.3e())}},N.v.1h=d(){B(k e=0,t=0,r=b.E.2S();0!==(T&r)&&3>t;)e<<=7,e|=U&r,r=b.E.2S(),t++;j 3>t?(e<<=7,e|=r):(e<<=8,e|=r,0!==(3b&e)&&(e|=4B)),e},N.v.3c=d(){j b.E.2C()},N.v.1D=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.1V);k t=e>>m.J,r=b.E.2a(t);j b.K.1m(r,D.1V),r},N.v.3f=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=b.E.2C(),r=q 3d(t);j b.K.1m(r,D.M),r},N.v.3n=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=e>>m.J,r=[];b.K.1m(r,D.M);B(k i=b.1D();i.A>0;)r[i]=b.1t(),i=b.1D();B(k n=0;t>n;n++)r.R(b.1t());j r},N.v.3g=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=b.1D(),r={};b.K.1m(r,D.M);B(k i={},n=b.1D();n.A;)i[n]=b.1t(),n=b.1D();w(t&&t.A>0){k s=1A.3m(t);w(!s)O q 1k("4f "+t+" 30 33 4h. 4b 4o a 4i 4k.");r=q s,"2b"F r&&"d"==I r.2b?r.2b(i):2Y(r,i)}1M 2Y(r,i);j r};k 2Y=d(e,t){4E{B(k r F t){k i=t[r];e[r]=i}}55(n){O q 1k("5P \'"+r+"\' 30 33 1s 5O 5N \'"+I e+"\'")}};N.v.2Z=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=e>>m.J,r=b.E.1W(t),i=q 1U(r);j b.K.1m(i,D.M),i},N.v.34=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=e>>m.J,r=b.E.2a(t);j b.K.1m(r,D.M),r},N.v.35=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=e>>m.J,r=b.E.2a(t);j b.K.1m(r,D.M),r},2O=d(e,t,r){w(L 0===e||1w===e)O q 2c(\'"5M" 1H 1w 5Q 2s 5R\');k i=e.A>>>0;B(r=+r||0,1/0===C.3l(r)&&(r=0),0>r&&(r+=i,0>r&&(r=0));i>r;r++)w(e[r]===t)j r;j-1},3s={5U:d(e){k t,r,i,n,s,a,o,f,c=11,h=52,u=(1<<c-1)-1;B(3t(e)?(r=(1<<u)-1,i=C.1d(2,h-1),t=0):1/0===e||e===-1/0?(r=(1<<u)-1,i=0,t=0>e?1:0):0===e?(r=0,i=0,t=1/e===-1/0?1:0):(t=0>e,e=C.3l(e),e>=C.1d(2,1-u)?(n=C.5T(C.1o(C.46(e)/C.47),u),r=n+u,i=C.36(e*C.1d(2,h-n)-C.1d(2,h))):(r=0,i=C.36(e/C.1d(2,1-u-h)))),a=[],s=h;s;s-=1)a.R(i%2?1:0),i=C.1o(i/2);B(s=c;s;s-=1)a.R(r%2?1:0),r=C.1o(r/2);B(a.R(t?1:0),a.28(),o=a.3o(""),f=[];o.A;)f.R(1O(o.1X(0,8),2)),o=o.1X(8);j f},5S:d(e){k t,r,i,n,s,a,o,f,c=11,h=52,u=[];B(t=e.A;t;t-=1)B(i=e[t-1],r=8;r;r-=1)u.R(i%2?1:0),i>>=1;j u.28(),n=u.3o(""),s=(1<<c-1)-1,a=1O(n.1X(0,1),2)?-1:1,o=1O(n.1X(1,1+c),2),f=1O(n.1X(1+c),2),o===(1<<c)-1?0!==f?0/0:1/0*a:o>0?a*C.1d(2,o-s)*(1+f/C.1d(2,h)):0!==f?a*C.1d(2,-(s-1))*(f/C.1d(2,h)):0>a?-0:0}},1Z={3r:d(e){j e?"3q"F e&&"2b"F e:!1},3h:d(e,t){j"2V"==I e&&1A.2R F e&&t&1A.3a?e.38:""},37:d(e){w(!e)j[];k t=[];B(k r F e)r!=1A.2R&&"d"!=I e[r]&&t.R(r);j t}},1U=d(e){b.2v=e},1U.v={21:d(){j b.2v},5L:d(e){b.2v=e},2B:d(){j b.21()}};k 1R;1R=d(e){"5K 5E";d t(e,t){j!t&&e Q 1n?e:1n.v.1B.1q(e)}d r(e,t){j L 0!==e?e:t}d i(e,t,n,s,a){w(e Q i){k o=e.1B(n,n+s);j o.19=r(a,o.19),o}w(!(b Q i))j q i(e,t,n,s,a);w(b.x=e=i.2I(e),b.1g=r(t,!1),b.1F=f.Y&&e Q Y,b.2k=f.25&&b.1F,!(b.1F||e Q 1n))O q 2c("1R x 5D 5C 5B 2U");b.19=!!a;k c="G"F e?e.G:e.A;b.P=n=r(n,0),b.G=s=r(s,c-n),b.H=b.1r=0,b.2k?b.2e=q 25(e,n,s):b.1Y(n,s,c),b.3R=b.2k?b.44:b.1F?b.3U:b.3V}d n(e){B(k t=f.Y?1a:1n,r=q t(e.A),i=0,n=e.A;n>i;i++)r[i]=X&e.1I(i);j r}d s(e){j e>=0&&31>e?1<<e:s[e]||(s[e]=C.1d(2,e))}d a(e,t){b.1S=e,b.1C=t}d o(){a.2r(b,1T)}k f={25:"25"F e,Y:"Y"F e},c=e.5F,h=e.5G,u={5W:1,5I:2,5H:4,5V:1,69:2,6a:4,6b:4,6c:8};i.2I=d(e){2o(I e){z"1v":w(f.Y)e=q 1a(e).x;1M{e=q 1n(e);B(k r=0;r<e.A;r++)e[r]=0}j e;z"2d":e=n(e);2m:j"A"F e&&!(f.Y&&e Q Y)&&(f.Y?e Q Y||(e=q 1a(e).x,e Q Y||(e=q 1a(t(e,!0)).x)):e=t(e)),e}},i.4W=d(){j i.2I(1T)},i.5X=a,a.v={2l:d(){j b.1S+s(32)*b.1C},2B:d(){j 60.v.2B.2r(b.2l(),1T)}},a.2t=d(e){k t=C.1o(e/s(32)),r=e-t*s(32);j q a(r,t)},i.61=o,o.v="3k"F 3j?3j.3k(a.v):q a,o.v.2l=d(){j b.1C<s(31)?a.v.2l.2r(b,1T):-(s(32)-b.1S+s(32)*(s(32)-1-b.1C))},o.2t=d(e){k t,r;w(e>=0){k i=a.2t(e);t=i.1S,r=i.1C}1M r=C.1o(e/s(32)),t=e-r*s(32),r+=s(32);j q o(t,r)};k l=i.v={65:f,29:64,62:d(e){"1E"==I e?b.1g=!b.1g:"5Z"==I e&&(b.1g=e)},67:d(){j b.1g},3e:d(){j b.H},3M:d(e){j b.1Y(e,0),b.H=e},3Z:d(e){j b.3M(b.H+e)},1B:d(e,t,n){d s(e,t){j 0>e?e+t:e}j e=s(e,b.G),t=s(r(t,b.G),b.G),n?q i(b.1W(t-e,e,!0,!0),b.1g,L 0,L 0,b.19):q i(b.x,b.1g,b.P+e,t-e,b.19)},66:d(e){j b.1r=0,1!==r(e,1)?b.3Z(e-(b.H%e||e)):b.H},68:d(e,t,n,s){e Q i||(e=q i(e)),n=r(n,e.H),t=r(t,b.H),s=r(s,e.G-n),s=t+s<=b.G?s:b.G-t,b.1f(e.1W(s,n),t)},5J:d(e){e Q i||(e=q i(e));k t,r,n={2P:!0,2A:[]},s=0;t=r="G"F b.x?b.x.G:b.x.A;k a="G"F e.x?e.x.G:e.x.A;a!==r&&(n.2P=!1,r>a?(n.2A.R("2q 1H 5z;b="+r+";2q="+a),t=a):n.2A.R("2q 1H 5a;b="+r+";2q="+a)),t-=b.P;B(k o=0;t>o;o++){k f=b.18(1,o)[0],c=e.18(1,o)[0];f!==c&&s++}j s>0&&(n.2P=!1,n.2A.R(s+" 2H F 59")),n},41:d(e){k t,r,i;w(!b.1g)O q 2g("x 2s 1g.");w(e<b.P)O q 2g("q 58 1H 2J 2K 3S.");k r="G"F b.x?b.x.G:b.x.A;w("1v"==I e){w(e=(1O(e/b.29)+(e%b.29?1:0))*b.29,f.Y)t=q 1a(e),t.1s(q 1a(b.x).5b(0,e>r?r:e)),i=q 1a(e),i.1s(t),b.x=i.x;1M{b.x.A=e,i=b.x;B(k n=r;n<b.x.A;n++)b.x[n]=0}k s="G"F b.x?b.x.G:b.x.A;b.G===r-b.P&&(b.G=s-b.P),b.H>b.G&&(b.H=b.G),b.2k&&(b.2e=q 25(b.x,b.P,b.G))}},1K:d(e,t){w(b.1g){e=r(e,b.H);k i="G"F b.x?b.x.G:b.x.A;b.P+e+t>i&&b.41(b.P+e+t)}},1Y:d(e,t,i){w("1v"!=I e)O q 2c("5c 1H 2s a 1v.");w("1v"!=I t)O q 2c("5f 1H 2s a 1v.");w(0>t)O q 2g("5A 1H 5d.");w(0>e||e+t>r(i,b.G))O q 2g("57 56 2J 2K 3S.")},2T:d(e,t,i,n,s){j b.3R(e,t,r(i,b.H),r(n,b.19),s)},44:d(e,t,r,i,n){j b.1K(r,u[e]),b.H=r+u[e],t?b.2e["3O"+e](r,i):b.2e["1s"+e](r,n,i)},3U:d(t,i,n,s,a){k o,f=u[t],c=e[t+"1n"];w(b.1K(n,f),s=r(s,b.19),1===f||(b.P+n)%f===0&&s)j o=q c(b.x,b.P+n,1),b.H=n+f,i?o[0]:o[0]=a;k h=q 1a(i?b.1W(f,n,s,!0):f);j o=q c(h.x,0,1),i?o[0]:(o[0]=a,L b.1f(h,n,s))},3V:d(e,t,r,i,n){j b.1K(r,u[e]),t?b["4Z"+e](r,i):b["4Y"+e](n,r,i)},2G:d(e,t,r,i,n){k a,o,f=0>e?1:0,c=~(-1<<i-1),h=1-c;0>e&&(e=-e),0===e?(a=0,o=0):3t(e)?(a=2*c+1,o=1):1/0===e?(a=2*c+1,o=0):(a=C.1o(C.46(e)/C.47),a>=h&&c>=a?(o=C.1o((e*s(-a)-1)*s(r)),a+=c):(o=C.1o(e/s(h-r)),a=0));B(k u=[];r>=8;)u.R(o%45),o=C.1o(o/45),r-=8;B(a=a<<r|o,i+=r;i>=8;)u.R(X&a),a>>>=8,i-=8;u.R(f<<i|a),b.1f(u,t,n)},2W:d(e,t){k i=(r(t,b.H)<<3)+b.1r,n=i+e,s=i>>>3,a=n+7>>>3,o=b.18(a-s,s,!0),f=0;(b.1r=7&n)&&(b.1r-=8);B(k c=0,h=o.A;h>c;c++)f=f<<8|o[c];j{3G:s,2H:o,2L:f}},18:d(e,i,n){n=r(n,b.19),i=r(i,b.H),e=r(e,b.G-i),b.1Y(i,e),i+=b.P,b.H=i-b.P+e;k s=b.1F?q 1a(b.x,i,e):(b.x.1B||1n.v.1B).1q(b.x,i,i+e);j n||1>=e?s:t(s).28()},1W:d(e,i,n,s){k a=b.18(e,i,r(n,!0));j s?t(a):a},1f:d(e,i,n){k s=e.A;w(0!==s){w(n=r(n,b.19),i=r(i,b.H),b.1Y(i,s),!n&&s>1&&(e=t(e,!0).28()),i+=b.P,b.1F)q 1a(b.x,i,s).1s(e);1M B(k a=0;s>a;a++)b.x[i+a]=e[a];b.H=i-b.P+s}},3T:d(e,t,i){b.1K(t,e.A),b.1f(e,t,r(i,!0))},1P:d(e,t,r){k i=b.18(e,t,!0);w(r="1l"===r?"2w-8":r||"2z",h&&"2z"!==r)j q h(r).2Q(b.1F?i:q 1a(i));k n="";e=i.A;B(k s=0;e>s;s++)n+=1c.1e(i[s]);j"2w-8"===r&&(n=1l.2Q(n)),n},2X:d(e,t,r){r="1l"===r?"2w-8":r||"2z";k i;c&&"2z"!==r?i=q c(r).1N(e):("2w-8"===r&&(e=1l.1N(e)),i=n(e)),b.1K(t,i.A),b.1f(i,t,!0)},4X:d(e){j b.1P(1,e)},50:d(e,t){b.2X(e,t)},51:d(e,t){k r=b.18(8,e,t),i=1-2*(r[7]>>7),n=((r[7]<<1&X)<<3|r[6]>>4)-3u,a=(15&r[6])*s(48)+r[5]*s(40)+r[4]*s(32)+r[3]*s(24)+r[2]*s(16)+r[1]*s(8)+r[0];j 5g===n?0!==a?0/0:1/0*i:-3u===n?i*a*s(-5h):i*(1+a*s(-52))*s(n)},5u:d(e,t,r){b.2G(e,t,52,11,r)},5v:d(e,t){k r=b.18(4,e,t),i=1-2*(r[3]>>7),n=(r[3]<<1&X|r[2]>>7)-U,a=(U&r[2])<<16|r[1]<<8|r[0];j T===n?0!==a?0/0:1/0*i:-U===n?i*a*s(-5y):i*(1+a*s(-23))*s(n)},5x:d(e,t,r){b.2G(e,t,23,8,r)},2N:d(e,t,i){i=r(i,b.19),t=r(t,b.H);B(k n=i?[0,4]:[4,0],s=0;2>s;s++)n[s]=b.5q(t+n[s],i);j b.H=t+8,q e(n[0],n[1])},2M:d(e,t,i,n){t Q e||(t=e.2t(t)),n=r(n,b.19),i=r(i,b.H);k s=n?{1S:0,1C:4}:{1S:4,1C:0};B(k a F s)b.5k(i+s[a],t[a],n);b.H=i+8},5j:d(e,t){j b.2N(o,e,t)},5i:d(e,t,r){b.2M(o,e,t,r)},5l:d(e,t){j b.2N(a,e,t)},5m:d(e,t,r){b.2M(a,e,t,r)},3N:d(e,t){k r=b.18(4,e,t);j r[3]<<24|r[2]<<16|r[1]<<8|r[0]},5p:d(e,t){j b.3N(e,t)>>>0},3F:d(e,t,r){b.1f([X&e,e>>>8&X,e>>>16&X,e>>>24],t,r)},5o:d(e,t){j b.3L(e,t)<<16>>16},3L:d(e,t){k r=b.18(2,e,t);j r[1]<<8|r[0]},3E:d(e,t,r){b.1f([X&e,e>>>8&X],t,r)},5n:d(e){j b.3H(e)<<24>>24},3H:d(e){j b.18(1,e)[0]},3x:d(e,t){b.1f([X&e],t)},5e:d(e,t){k r=32-e;j b.3I(e,t)<<r>>r},3I:d(e,t){k r=b.2W(e,t).2L>>>-b.1r;j 32>e?r&~(-1<<e):r},3w:d(e,t,r){k i=b.2W(r,t),n=i.2L,s=i.2H;n&=~(~(-1<<r)<<-b.1r),n|=(32>r?e&~(-1<<r):e)<<-b.1r;B(k a=s.A-1;a>=0;a--)s[a]=X&n,n>>>=8;b.1f(s,i.3G,!0)}};B(k p F u)!d(e){l["3O"+e]=d(t,r){j b.2T(e,!0,t,r)},l["1s"+e]=d(t,r,i){b.2T(e,!1,r,i,t)}}(p);l.5r=l.3F,l.5w=l.3E,l.5s=l.3x,l.5t=l.3w;B(k y F l)"1s"===y.1B(0,3)&&!d(e){l["53"+e]=d(){1n.v.54.1q(1T,L 0),b["1s"+e].2r(b,1T)}}(y.1B(3));j i}(5Y);',62,385,'|||||||||||this||function||||||return|var||Spec||||new|||||prototype|if|buffer||case|length|for|Math|ReferenceStore|stream|in|byteLength|_offset|typeof|REFERENCE_BIT|referenceStore|void|TYPE_OBJECT|Deserializer|throw|byteOffset|instanceof|push|Serializer|128|127|serializeInt|writeByte|255|ArrayBuffer|buff|||||||||_getBytes|_littleEndian|Uint8Array|Exception|String|pow|fromCharCode|_setBytes|dynamic|deserializeInt|SerializationException|serialize|DeserializationException|utf8|addReference|Array|floor|break|call|_bitOffset|set|deserialize|serializeString|number|null|store|getByReference|BaseSerializer|AMF|slice|hi|deserializeString|undefined|_isArrayBuffer|NotSupportedException|is|charCodeAt|constructor|_checksize|AMF3_DOUBLE|else|encode|parseInt|getString|getReference|jDataView|lo|arguments|ByteArray|TYPE_STRING|getBytes|substring|_checkBounds|ObjectUtil|Buffer|getData||||DataView|AMF3_BYTE_ARRAY|AMF3_TRUE|reverse|blocksize|readUTFBytes|importData|TypeError|string|_view|AMF3_STRING|RangeError|AMF3_INT|AMF3_DATE|AMF3_ARRAY|_isDataView|valueOf|default|AMF3_OBJECT|switch|AMF3_FALSE|other|apply|not|fromNumber|AMF3_NULL|data|utf|AMF3_UNDEFINED|classMappings|binary|diff|toString|readDouble|MIN_INT|MAX_INT|validate|_setBinaryFloat|bytes|wrapBuffer|out|of|wideValue|_set64|_get64|indexOf|equal|decode|CLASS_MAPPING_FIELD|readUnsignedByte|_action|type|object|_getBitRangeData|setString|applyDataToInstance|deserializeByteArray|cannot|||be|deserializeXMLDoc|deserializeXML|round|getObjectKeys|_classMapping|Cannot|CLASS_MAPPING|268435456|deserializeDouble|Date|tell|deserializeDate|deserializeObject|getClassName|AMF3_XML|Object|create|abs|getClassByAlias|deserializeArray|join|AMF3_XML_DOC|exportData|isSerializable|float64|isNaN|1023|getDataType|setUnsigned|_setUint8|224|MIN_2_BYTE_INT|writeUTFBytes|writeDouble|serializeDouble|MIN_4_BYTE_INT|_setUint16|_setUint32|start|_getUint8|getUnsigned|DEFAULT_OPTIONS|Base64|_getUint16|seek|_getInt32|get|serializeDate|MIN_3_BYTE_INT|_engineAction|bounds|setBytes|_arrayBufferAction|_arrayAction|serializeObject|options|readByte|skip||resize|serializeByteArray|isDenseArray|_dataViewAction|256|log|LN2||serializeArray|2048|Consider|setFloat64|replace|191|Class|192|found|class|setInt8|alias|hasOwnProperty|message|Error|registering|getInt8|name|getUint8|getFloat64|writeUnsignedByte|AMF3_VECTOR_OBJECT|Integer|range|Unrecognized|isLittleEndian|268435455|536870911|3758096384|Invalid|provided|try|getTime|offset|2097152|16384|mainAuthor|parse|Q2FsY2l1bQ|scriptName|Q2FsY2l1bVNjcmlwdA|stringify|registerClassAlias|AMF3_DICTIONARY|OBJECT_DYNAMIC|AMF3_VECTOR_DOUBLE|AMF3_VECTOR_UINT|AMF3_VECTOR_INT|setUint8|createBuffer|getChar|_set|_get|setChar|_getFloat64||write|unshift|catch|are|Offsets|size|differences|greater|subarray|Offset|negative|getSigned|Size|1024|1074|setInt64|getInt64|setUint32|getUint64|setUint64|_getInt8|_getInt16|_getUint32|getUint32|_setInt32|_setInt8|setSigned|_setFloat64|_getFloat32|_setInt16|_setFloat32|149|smaller|Length|incompatible|an|has|strict|TextEncoder|TextDecoder|Int32|Int16|compare|use|setData|array|instance|on|Property|or|defined|unpack|min|packFloat64|Uint8|Int8|Uint64|window|boolean|Number|Int64|toggleDynamic||10240|compatibility|alignBy|isDynamic|copy|Uint16|Uint32|Float32|Float64'.split('|'),0,{}))
 
 		/********************************** SWFObject*****************************************/
 		/* require tampermonkey */
 		function easyswf (confObj) {
-	
+
 				// DEFAULT VERSION
 				var swfVersionStr = "9.0.0";
 				if(confObj.swfversion){
@@ -33492,19 +33492,19 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 				}
 				// Convert comma,version,notation to dot.version.notation
 				swfVersionStr = swfVersionStr.split(",").join(".");
-				
-				
+
+
 				var mynewline = "\n";
-				
+
 				var noFlashTextFont 	= confObj.noFlashFont 		|| "Verdana, Geneva, sans-serif";
 				var noFlashTextSize 	= confObj.noFlashFontSize 	|| "10";
 				var noFlashTextWieght 	= confObj.noFlashFontWeight || "normal";
 				var noFlashTextColor 	= confObj.noFlashFontColor 	|| "#000000";
 				var noFlashImage 		= confObj.noFlashImage 		|| "http://www.adobe.com/images/shared/download_buttons/get_adobe_flash_player.png";
-				
+
 				var noFlashTableBkgdColor = confObj.bgcolor || "#000000";
-				
-				
+
+
 				var noFlashHTML = '<table width="' + confObj.width + '" height="' + confObj.height + '" border="0" cellpadding="0" cellspacing="0" style="background-color:' + noFlashTableBkgdColor + ';">' + mynewline;
 				noFlashHTML += '		<tr>' + mynewline;
 				noFlashHTML += '			<td align="center" valign="middle">' + mynewline;
@@ -33525,30 +33525,30 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 				noFlashHTML += '			</td>' + mynewline;
 				noFlashHTML += '		</tr>' + mynewline;
 				noFlashHTML += '	</table>' + mynewline;
-				
-				
+
+
 				var usingTempTargetDiv = false;
 				if(!confObj.targetDiv){
-					
+
 					var uniqueID_div = confObj.swfid || "flashTempDIV" + (new Date().getTime()).toString();
-					
+
 					// Create a temporary DIV.
 					var tempDIV = document.createElement("DIV");
 					tempDIV.id = uniqueID_div;
-					
+
 					tempDIV.innerHTML = ' ';
 					document.body.appendChild(tempDIV);
 
 					var theHTML = tempDIV.outerHTML;
 					document.body.removeChild(tempDIV);
 					document.write(theHTML);
-					
+
 					confObj.targetDiv = uniqueID_div;
-					
+
 					usingTempTargetDiv = true;
-					
+
 				}
-				
+
 
 				// Prepare a unique ID for the SWF object
 				// (NOTE: May or may not be used based on the how
@@ -33564,7 +33564,7 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 				att.id 		= confObj.swfid || uniqueID;
 				att.name 	= confObj.swfid || uniqueID;
 
-				
+
 
 				// PARAMS
 
@@ -33609,9 +33609,9 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 				 * confObj.flashvars){ Afv.push(prop + "=" +
 				 * confObj.flashvars[prop]); } par.flashvars = Afv.join("&"); }
 				 */
-				
+
 				var checkSuccess = function(theObj) {
-					
+
 					if(theObj.success == false){
 						var OuserVersion = swfobject.getFlashPlayerVersion();
 						var userVersion = OuserVersion.major + "." + OuserVersion.minor + "." + OuserVersion.release;
@@ -33634,7 +33634,7 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 
 			// Use swfobject to creatd HTML code once the page is ready.
 			swfobject.addDomLoadEvent(fn);
-			
+
 		}
 		var swfobject=function(){var D="undefined",r="object",S="Shockwave Flash",W="ShockwaveFlash.ShockwaveFlash",q="application/x-shockwave-flash",R="SWFObjectExprInst",x="onreadystatechange",O=window,j=document,t=navigator,T=false,U=[h],o=[],N=[],I=[],l,Q,E,B,J=false,a=false,n,G,m=true,M=function(){var aa=typeof j.getElementById!=D&&typeof j.getElementsByTagName!=D&&typeof j.createElement!=D,ah=t.userAgent.toLowerCase(),Y=t.platform.toLowerCase(),ae=Y?/win/.test(Y):/win/.test(ah),ac=Y?/mac/.test(Y):/mac/.test(ah),af=/webkit/.test(ah)?parseFloat(ah.replace(/^.*webkit\/(\d+(\.\d+)?).*$/,"$1")):false,X=!+"\v1",ag=[0,0,0],ab=null;if(typeof t.plugins!=D&&typeof t.plugins[S]==r){ab=t.plugins[S].description;if(ab&&!(typeof t.mimeTypes!=D&&t.mimeTypes[q]&&!t.mimeTypes[q].enabledPlugin)){T=true;X=false;ab=ab.replace(/^.*\s+(\S+\s+\S+$)/,"$1");ag[0]=parseInt(ab.replace(/^(.*)\..*$/,"$1"),10);ag[1]=parseInt(ab.replace(/^.*\.(.*)\s.*$/,"$1"),10);ag[2]=/[a-zA-Z]/.test(ab)?parseInt(ab.replace(/^.*[a-zA-Z]+(.*)$/,"$1"),10):0}}else{if(typeof O.ActiveXObject!=D){try{var ad=new ActiveXObject(W);if(ad){ab=ad.GetVariable("$version");if(ab){X=true;ab=ab.split(" ")[1].split(",");ag=[parseInt(ab[0],10),parseInt(ab[1],10),parseInt(ab[2],10)]}}}catch(Z){}}}return{w3:aa,pv:ag,wk:af,ie:X,win:ae,mac:ac}}(),k=function(){if(!M.w3){return}if((typeof j.readyState!=D&&j.readyState=="complete")||(typeof j.readyState==D&&(j.getElementsByTagName("body")[0]||j.body))){f()}if(!J){if(typeof j.addEventListener!=D){j.addEventListener("DOMContentLoaded",f,false)}if(M.ie&&M.win){j.attachEvent(x,function(){if(j.readyState=="complete"){j.detachEvent(x,arguments.callee);f()}});if(O==top){(function(){if(J){return}try{j.documentElement.doScroll("left")}catch(X){setTimeout(arguments.callee,0);return}f()})()}}if(M.wk){(function(){if(J){return}if(!/loaded|complete/.test(j.readyState)){setTimeout(arguments.callee,0);return}f()})()}s(f)}}();function f(){if(J){return}try{var Z=j.getElementsByTagName("body")[0].appendChild(C("span"));Z.parentNode.removeChild(Z)}catch(aa){return}J=true;var X=U.length;for(var Y=0;Y<X;Y++){U[Y]()}}function K(X){if(J){X()}else{U[U.length]=X}}function s(Y){if(typeof O.addEventListener!=D){O.addEventListener("load",Y,false)}else{if(typeof j.addEventListener!=D){j.addEventListener("load",Y,false)}else{if(typeof O.attachEvent!=D){i(O,"onload",Y)}else{if(typeof O.onload=="function"){var X=O.onload;O.onload=function(){X();Y()}}else{O.onload=Y}}}}}function h(){if(T){V()}else{H()}}function V(){var X=j.getElementsByTagName("body")[0];var aa=C(r);aa.setAttribute("type",q);var Z=X.appendChild(aa);if(Z){var Y=0;(function(){if(typeof Z.GetVariable!=D){var ab=Z.GetVariable("$version");if(ab){ab=ab.split(" ")[1].split(",");M.pv=[parseInt(ab[0],10),parseInt(ab[1],10),parseInt(ab[2],10)]}}else{if(Y<10){Y++;setTimeout(arguments.callee,10);return}}X.removeChild(aa);Z=null;H()})()}else{H()}}function H(){var ag=o.length;if(ag>0){for(var af=0;af<ag;af++){var Y=o[af].id;var ab=o[af].callbackFn;var aa={success:false,id:Y};if(M.pv[0]>0){var ae=c(Y);if(ae){if(F(o[af].swfVersion)&&!(M.wk&&M.wk<312)){w(Y,true);if(ab){aa.success=true;aa.ref=z(Y);ab(aa)}}else{if(o[af].expressInstall&&A()){var ai={};ai.data=o[af].expressInstall;ai.width=ae.getAttribute("width")||"0";ai.height=ae.getAttribute("height")||"0";if(ae.getAttribute("class")){ai.styleclass=ae.getAttribute("class")}if(ae.getAttribute("align")){ai.align=ae.getAttribute("align")}var ah={};var X=ae.getElementsByTagName("param");var ac=X.length;for(var ad=0;ad<ac;ad++){if(X[ad].getAttribute("name").toLowerCase()!="movie"){ah[X[ad].getAttribute("name")]=X[ad].getAttribute("value")}}P(ai,ah,Y,ab)}else{p(ae);if(ab){ab(aa)}}}}}else{w(Y,true);if(ab){var Z=z(Y);if(Z&&typeof Z.SetVariable!=D){aa.success=true;aa.ref=Z}ab(aa)}}}}}function z(aa){var X=null;var Y=c(aa);if(Y&&Y.nodeName=="OBJECT"){if(typeof Y.SetVariable!=D){X=Y}else{var Z=Y.getElementsByTagName(r)[0];if(Z){X=Z}}}return X}function A(){return !a&&F("6.0.65")&&(M.win||M.mac)&&!(M.wk&&M.wk<312)}function P(aa,ab,X,Z){a=true;E=Z||null;B={success:false,id:X};var ae=c(X);if(ae){if(ae.nodeName=="OBJECT"){l=g(ae);Q=null}else{l=ae;Q=X}aa.id=R;if(typeof aa.width==D||(!/%$/.test(aa.width)&&parseInt(aa.width,10)<310)){aa.width="310"}if(typeof aa.height==D||(!/%$/.test(aa.height)&&parseInt(aa.height,10)<137)){aa.height="137"}j.title=j.title.slice(0,47)+" - Flash Player Installation";var ad=M.ie&&M.win?"ActiveX":"PlugIn",ac="MMredirectURL="+O.location.toString().replace(/&/g,"%26")+"&MMplayerType="+ad+"&MMdoctitle="+j.title;if(typeof ab.flashvars!=D){ab.flashvars+="&"+ac}else{ab.flashvars=ac}if(M.ie&&M.win&&ae.readyState!=4){var Y=C("div");X+="SWFObjectNew";Y.setAttribute("id",X);ae.parentNode.insertBefore(Y,ae);ae.style.display="none";(function(){if(ae.readyState==4){ae.parentNode.removeChild(ae)}else{setTimeout(arguments.callee,10)}})()}u(aa,ab,X)}}function p(Y){if(M.ie&&M.win&&Y.readyState!=4){var X=C("div");Y.parentNode.insertBefore(X,Y);X.parentNode.replaceChild(g(Y),X);Y.style.display="none";(function(){if(Y.readyState==4){Y.parentNode.removeChild(Y)}else{setTimeout(arguments.callee,10)}})()}else{Y.parentNode.replaceChild(g(Y),Y)}}function g(ab){var aa=C("div");if(M.win&&M.ie){aa.innerHTML=ab.innerHTML}else{var Y=ab.getElementsByTagName(r)[0];if(Y){var ad=Y.childNodes;if(ad){var X=ad.length;for(var Z=0;Z<X;Z++){if(!(ad[Z].nodeType==1&&ad[Z].nodeName=="PARAM")&&!(ad[Z].nodeType==8)){aa.appendChild(ad[Z].cloneNode(true))}}}}}return aa}function u(ai,ag,Y){var X,aa=c(Y);if(M.wk&&M.wk<312){return X}if(aa){if(typeof ai.id==D){ai.id=Y}if(M.ie&&M.win){var ah="";for(var ae in ai){if(ai[ae]!=Object.prototype[ae]){if(ae.toLowerCase()=="data"){ag.movie=ai[ae]}else{if(ae.toLowerCase()=="styleclass"){ah+=' class="'+ai[ae]+'"'}else{if(ae.toLowerCase()!="classid"){ah+=" "+ae+'="'+ai[ae]+'"'}}}}}var af="";for(var ad in ag){if(ag[ad]!=Object.prototype[ad]){af+='<param name="'+ad+'" value="'+ag[ad]+'" />'}}aa.outerHTML='<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'+ah+">"+af+"</object>";N[N.length]=ai.id;X=c(ai.id)}else{var Z=C(r);Z.setAttribute("type",q);for(var ac in ai){if(ai[ac]!=Object.prototype[ac]){if(ac.toLowerCase()=="styleclass"){Z.setAttribute("class",ai[ac])}else{if(ac.toLowerCase()!="classid"){Z.setAttribute(ac,ai[ac])}}}}for(var ab in ag){if(ag[ab]!=Object.prototype[ab]&&ab.toLowerCase()!="movie"){e(Z,ab,ag[ab])}}aa.parentNode.replaceChild(Z,aa);X=Z}}return X}function e(Z,X,Y){var aa=C("param");aa.setAttribute("name",X);aa.setAttribute("value",Y);Z.appendChild(aa)}function y(Y){var X=c(Y);if(X&&X.nodeName=="OBJECT"){if(M.ie&&M.win){X.style.display="none";(function(){if(X.readyState==4){b(Y)}else{setTimeout(arguments.callee,10)}})()}else{X.parentNode.removeChild(X)}}}function b(Z){var Y=c(Z);if(Y){for(var X in Y){if(typeof Y[X]=="function"){Y[X]=null}}Y.parentNode.removeChild(Y)}}function c(Z){var X=null;try{X=j.getElementById(Z)}catch(Y){}return X}function C(X){return j.createElement(X)}function i(Z,X,Y){Z.attachEvent(X,Y);I[I.length]=[Z,X,Y]}function F(Z){var Y=M.pv,X=Z.split(".");X[0]=parseInt(X[0],10);X[1]=parseInt(X[1],10)||0;X[2]=parseInt(X[2],10)||0;return(Y[0]>X[0]||(Y[0]==X[0]&&Y[1]>X[1])||(Y[0]==X[0]&&Y[1]==X[1]&&Y[2]>=X[2]))?true:false}function v(ac,Y,ad,ab){if(M.ie&&M.mac){return}var aa=j.getElementsByTagName("head")[0];if(!aa){return}var X=(ad&&typeof ad=="string")?ad:"screen";if(ab){n=null;G=null}if(!n||G!=X){var Z=C("style");Z.setAttribute("type","text/css");Z.setAttribute("media",X);n=aa.appendChild(Z);if(M.ie&&M.win&&typeof j.styleSheets!=D&&j.styleSheets.length>0){n=j.styleSheets[j.styleSheets.length-1]}G=X}if(M.ie&&M.win){if(n&&typeof n.addRule==r){n.addRule(ac,Y)}}else{if(n&&typeof j.createTextNode!=D){n.appendChild(j.createTextNode(ac+" {"+Y+"}"))}}}function w(Z,X){if(!m){return}var Y=X?"visible":"hidden";if(J&&c(Z)){c(Z).style.visibility=Y}else{v("#"+Z,"visibility:"+Y)}}function L(Y){var Z=/[\\\"<>\.;]/;var X=Z.exec(Y)!=null;return X&&typeof encodeURIComponent!=D?encodeURIComponent(Y):Y}var d=function(){if(M.ie&&M.win){window.attachEvent("onunload",function(){var ac=I.length;for(var ab=0;ab<ac;ab++){I[ab][0].detachEvent(I[ab][1],I[ab][2])}var Z=N.length;for(var aa=0;aa<Z;aa++){y(N[aa])}for(var Y in M){M[Y]=null}M=null;for(var X in swfobject){swfobject[X]=null}swfobject=null})}}();return{registerObject:function(ab,X,aa,Z){if(M.w3&&ab&&X){var Y={};Y.id=ab;Y.swfVersion=X;Y.expressInstall=aa;Y.callbackFn=Z;o[o.length]=Y;w(ab,false)}else{if(Z){Z({success:false,id:ab})}}},getObjectById:function(X){if(M.w3){return z(X)}},embedSWF:function(ab,ah,ae,ag,Y,aa,Z,ad,af,ac){var X={success:false,id:ah};if(M.w3&&!(M.wk&&M.wk<312)&&ab&&ah&&ae&&ag&&Y){w(ah,false);K(function(){ae+="";ag+="";var aj={};if(af&&typeof af===r){for(var al in af){aj[al]=af[al]}}aj.data=ab;aj.width=ae;aj.height=ag;var am={};if(ad&&typeof ad===r){for(var ak in ad){am[ak]=ad[ak]}}if(Z&&typeof Z===r){for(var ai in Z){if(typeof am.flashvars!=D){am.flashvars+="&"+ai+"="+Z[ai]}else{am.flashvars=ai+"="+Z[ai]}}}if(F(Y)){var an=u(aj,am,ah);if(aj.id==ah){w(ah,true)}X.success=true;X.ref=an}else{if(aa&&A()){aj.data=aa;P(aj,am,ah,ac);return}else{w(ah,true)}}if(ac){ac(X)}})}else{if(ac){ac(X)}}},switchOffAutoHideShow:function(){m=false},ua:M,getFlashPlayerVersion:function(){return{major:M.pv[0],minor:M.pv[1],release:M.pv[2]}},hasFlashPlayerVersion:F,createSWF:function(Z,Y,X){if(M.w3){return u(Z,Y,X)}else{return undefined}},showExpressInstall:function(Z,aa,X,Y){if(M.w3&&A()){P(Z,aa,X,Y)}},removeSWF:function(X){if(M.w3){y(X)}},createCSS:function(aa,Z,Y,X){if(M.w3){v(aa,Z,Y,X)}},addDomLoadEvent:K,addLoadEvent:s,getQueryParamValue:function(aa){var Z=j.location.search||j.location.hash;if(Z){if(/\?/.test(Z)){Z=Z.split("?")[1]}if(aa==null){return L(Z)}var Y=Z.split("&");for(var X=0;X<Y.length;X++){if(Y[X].substring(0,Y[X].indexOf("="))==aa){return L(Y[X].substring((Y[X].indexOf("=")+1)))}}}return""},expressInstallCallback:function(){if(a){var X=c(R);if(X&&l){X.parentNode.replaceChild(l,X);if(Q){w(Q,true);if(M.ie&&M.win){l.style.display="block";}}if(E){E(B);}}a=false;}}}}();
 		var Sizzle, sortOrder, Event, Prototype = {
@@ -43231,7 +43231,7 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 						'Save current map data in a local file': 'Spara aktuell data i lokal fil',
 						'Save current script settings in a local file': 'Spara skript-inställningar i lokal fil',
 						'Save preset': 'Spara förinställning',
-						'Scales' : 'Fjäll', 
+						'Scales' : 'Fjäll',
                         'Scan cities': 'Skanna städer',
 						'Scan wilds': 'Skanna vildmarker',
 						'Scanning map': 'Skannar kartan endast efter städer',
