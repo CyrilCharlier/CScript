@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.1003.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.1004.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -11306,22 +11306,30 @@
 			hasAbyssalOP: function() {
 				var retour = false;
 				for(var i=0;i<Seed.cities.length;i++) {
-					if (Seed.cities[i].type == 'Outpost') {
-						if(Seed.cities[i].outpost_type == COLOSSUS_OUTPOST.name) {
-							retour = true;
-						}
-					}
+          try {
+            if (Seed.cities[i].type == 'Outpost') {
+  						if(Seed.cities[i].outpost_type == COLOSSUS_OUTPOST.name) {
+  							retour = true;
+  						}
+  					}
+          } catch(e) {
+
+          }
 				}
 				return retour;
 			},
 			hasLeviathanOP: function() {
 				var retour = false;
 				for(var i=0;i<Seed.cities.length;i++) {
-					if (Seed.cities[i].type == 'Outpost') {
-						if(Seed.cities[i].outpost_type == LEVIATHAN_OUTPOST.name) {
-							retour = true;
-						}
-					}
+          try {
+  					if (Seed.cities[i].type == 'Outpost') {
+  						if(Seed.cities[i].outpost_type == LEVIATHAN_OUTPOST.name) {
+  							retour = true;
+  						}
+  					}
+          } catch (e) {
+
+          }
 				}
 				return retour;
 			},
