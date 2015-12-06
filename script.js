@@ -4355,7 +4355,14 @@
 				var retour = [];
 				for(var i=0;i<Manifest.data.buildings.length;i++) {
 					if(Manifest.data.buildings[i].city_max[cityType.toLowerCase()] !== 0 && Manifest.data.buildings[i].location === location) {
-						retour.push(Manifest.data.buildings[i].type);
+						if(Manifest.data.buildings[i].type === 'Fortress') {
+							if(cityType === 'capital') {
+								retour.push(Manifest.data.buildings[i].type);
+							}
+						} else {
+							retour.push(Manifest.data.buildings[i].type);
+						}
+						
 					}
 				}
 				return retour;
@@ -21191,6 +21198,7 @@
 						break;
 					case 7:
 						t.tabJobTrade();
+						break;
 					case 8:
 						t.tabJobForge();
 						break;
