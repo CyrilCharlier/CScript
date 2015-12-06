@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.1004.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.1206.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -329,7 +329,7 @@
 			/* "use strict"; */
 			var params = swf.innerHTML;
 			var pattern = /\<\s*param\s*(.*?)\>/gi;
-			var attrs = {};
+			var attrs = {api_server:''};
 			var args, match, p;
 			while ((match = pattern.exec(params)) != null) {
 				var p = parseQuotedVars(match[1]);
@@ -422,14 +422,12 @@
             CPT_TAB_ENABLE = true;
 
 		/* Global variables */
-		var DEBUG_TRACE_AJAX = 2,
-			DEBUG_MARCHES = false,
+		var DEBUG_MARCHES = false,
 			E429_TIMER = 0,
 			E429_DELAY = 3600,
 			TILE_DELAY = 2250,
 			MAP_DELAY = 1250,
 			MIN_DELAY = 3,
-			EMULATE_NET_ERROR = 0,
 			MIN_DELAY_BETWEEN_WAVE = 3;
 
 		/* Message handling */
@@ -784,6 +782,10 @@
 								mission : ''
 							},
 							WaterOutpostAdventurer : {
+								cbAuto : false,
+								mission : ''
+							},
+							WindAdventurer : {
 								cbAuto : false,
 								mission : ''
 							}
