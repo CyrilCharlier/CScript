@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.1206.2', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.1206.3', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -17202,7 +17202,7 @@
 					var stk = toNum(Seed.cities[CAPITAL.id].units[all_unit_types[i]]);
 					var remaining = '( ' + numf(stk - num, ' ') + ' )';
 					stk = numf(stk, ' ');
-					m += '<tr><td class=right width="100px">' + translate(Names.troops.byName[all_unit_types[i]][1]) + ':</td>' + '	<td width="75px">' + '		<input type=text id=' + UIDTrp + '_' + i + ' maxlength=6 style="width:55px" size=2 value="' + num + '"\></td>' + '	<td width="30px">' + '		<input class=small id=' + UIDMax + '_' + i + ' ref=' + i + ' type=button  style="width:auto !important;" value=" Max " \></td>' + '	<td align=right width="70px">' + stk + '</td>' + '	<td align=right width="80px"><span id=' + UIDRem + '_' + i + ' ref=' + i + '>' + remaining + '</span></td>' + '</tr>';
+					m += '<tr><td class=right width="100px">' + translate(Names.troops.byName[all_unit_types[i]][1]) + ':</td>' + '	<td width="75px">' + '		<input type=text id=' + UIDTrp + '_' + i + ' style="width:55px" size=2 value="' + num + '"\></td>' + '	<td width="30px">' + '		<input class=small id=' + UIDMax + '_' + i + ' ref=' + i + ' type=button  style="width:auto !important;" value=" Max " \></td>' + '	<td align=right width="70px">' + stk + '</td>' + '	<td align=right width="80px"><span id=' + UIDRem + '_' + i + ' ref=' + i + '>' + remaining + '</span></td>' + '</tr>';
 				}
 				m += '</table><br><br>' + '<table class=' + UID['table'] + ' style="margin-top:3px" width=60%>' + '	<tr valign=top align=center>' + '		<td width=25%><label><input id=' + setUID('tabAlliance_clearAllR') + ' type=button class="' + UID['btn_green'] + '" value="' + translate('Clear all') + '" /></label></td>' + '		<td width=25%><label><input id=' + setUID('tabAlliance_LaunchR') + ' type=button value="' + translate('Send reinforcement') + '" /></label></td>' + '		<td width=25%><label><input id=' + setUID('tabAlliance_LaunchAllR') + ' type=button value="' + translate('Send Max in reinf') + '" /></label></td>' + '	</tr>' + '</table>' + '<br></div></div>';
 				document.getElementById(UID['tabAlliance_Content']).innerHTML = m;
