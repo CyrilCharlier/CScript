@@ -418,7 +418,7 @@
 			TOWER_TAB_ENABLE = true,
 			WALL_TAB_ENABLE = true,
 			WAVE_TAB_ENABLE = true,
-			CITY_TAB_ENABLE = false,
+			CITY_TAB_ENABLE = true,
             CPT_TAB_ENABLE = true;
 
 		/* Global variables */
@@ -661,7 +661,7 @@
 						disable_wheel: !WHEEL_TAB_ENABLE,
 						disable_log: !LOG_TAB_ENABLE,
                         disable_cpt: !CPT_TAB_ENABLE,
-                        disable_city: !CITY_TAB_ENABLE,
+                        disable_city: false,//!CITY_TAB_ENABLE,
 						enable_notifications_fortuna: false,
 						enable_notifications_spy: false,
 						enable_notifications_attack: false,
@@ -7621,7 +7621,7 @@
 				for (var type in Data.marches) {
 					if (!(/(attacks|waves|spies|multiple|bookmark|transport)/.test(type))) {
 						continue;
-				}
+					}
 					var marches = Data.marches[type];
 					for (var id in marches) {
 						if (marches[id].run_at < (now - 60) && !(marches[id].has_report)) {
@@ -7745,18 +7745,12 @@
 					/* Inserting Row */
 					if (table_output[id] === undefined && (time_left || march.status === 'encamped' || (!time_left && (march.real_run_at - now) > 0))) {
 						/* Insert a new row */
-						iRow = table.insertRow(0); /*
-													 * iRow =
-													 * table.insertRow(-1);
-													 */
+						iRow = table.insertRow(0); /** iRow = table.insertRow(-1); */
 						/*
 						 * associates the current row number to the id of the
 						 * march
 						 */
-						table_output[id] = {}; /*
-												 * table_output[id] =
-												 * {row:table.rows.length-1};
-												 */
+						table_output[id] = {}; /** table_output[id] = {row:table.rows.length-1}; */
 						iRow.setAttribute('ref', id);
 						iRow.title = [
 							'(' + (march.general && march.general.name ? march.general.name : '----') + ')', march.target_name, march.terrain_level, '[' + march.x + '/' + march.y + ']\n', units.replace(/\+/g, '\n'), ressources.replace(/\+/g, '\n')
@@ -7938,21 +7932,11 @@
 								} else if ((isNaN(time_left) || time_left < 0) && (table_output[id].row_status === 1 || table_output[id].row_status === 2)) {
 									if (march.terrain_type && !(/(Anthropus|City|Outpost|Bog)/.test(march.terrain_type))) {
 										if (march.status === 'marching') {
-											table_output[id].row_status = 2; /*
-																				 * Change
-																				 * to
-																				 * Waiting
-																				 * for
-																				 * retreating
-																				 * (Action
-																				 * Taken)
-																				 */
+											/* Change to Waiting for retreating (Action Taken) */
+											table_output[id].row_status = 2;
 										} else if (march.status === 'encamped') {
-											table_output[id].row_status = 4; /*
-																				 * Change
-																				 * to
-																				 * encamped
-																				 */
+											/* Change to encamped */
+											table_output[id].row_status = 4; 
 											var html_status = '';
 											html_status += '<b>' + translate(march.status).capitalize() + ':</b>';
 											iRow.cells[0].innerHTML = html_status;
@@ -7962,10 +7946,7 @@
 											/* now create button */
 											var button = document.createElement('input');
 											button.type = 'button';
-											/*
-											 * Save the current March id in the
-											 * attibute "ref" of the button
-											 */
+											/* Save the current March id in the attibute "ref" of the button */
 											button.setAttribute('ref', id);
 											button.className = 'thin';
 											button.value = 'X';
@@ -7973,15 +7954,9 @@
 												var self = event.target;
 												self.disabled = true;
 												self.style.display = 'none';
-												/*
-												 * Take the march id from the
-												 * "ref" attribute
-												 */
+												/* Take the march id from the "ref" attribute */
 												var march_id = self.getAttribute('ref');
-												/*
-												 * Verify that the march really
-												 * exists in Data.marches
-												 */
+												/* Verify that the march really exists in Data.marches */
 												if ((Data.marches[type])[march_id]) {
 													var city_id = (Data.marches[type])[march_id].city_id;
 													MyAjax.marchRecall(city_id, march_id, function(r) {
@@ -13378,12 +13353,14 @@
 						(k == 'Wall' && nvl(Data.options.disable_wall, !WALL_TAB_ENABLE)) ||
 						(k == 'Wheel' && nvl(Data.options.disable_wheel, !WHEEL_TAB_ENABLE)) ||
 						(k == 'Log' && nvl(Data.options.disable_log, !LOG_TAB_ENABLE)) ||
-						(k == 'City' && nvl(Data.options.disable_city, !CITY_TAB_ENABLE)) ||
-                        (k == 'CPT' && nvl(Data.options.disable_cpt, !CPT_TAB_ENABLE)))
-						Tabs[k].tabDisabled = true;
-					else if (k == 'Waves' || k == 'Multiple' || k == 'Spies' || k == 'Search' || k == 'Alliance' ||
-						k == 'Single' || k == 'Wheel' || k == 'Inbox' || k == 'Log')
-						Tabs[k].tabDisabled = false;
+						(k == 'CPT' && nvl(Data.options.disable_cpt, !CPT_TAB_ENABLE))) {
+							Tabs[k].tabDisabled = true;
+						}
+					else {
+						if (k == 'Waves' || k == 'Multiple' || k == 'Spies' || k == 'Search' || k == 'Alliance' || k == 'Single' || k == 'Wheel' || k == 'Inbox' || k == 'Log' || k == 'City') {
+							Tabs[k].tabDisabled = false;
+						}
+					}
 					if (!Tabs[k].tabDisabled) {
 						t.tabList[k] = {};
 						t.tabList[k].name = k;
@@ -32826,87 +32803,89 @@
 				var m = ''
                 + '<ul class=tabs>'
 				+ '	<li class=tab><a id=' + setUID('tabCity_Capital') + '>' + Seed.cities[CAPITAL.id].name + '</a></li>'
-                + '	<li class="tab first"><a id=' + setUID('tabCity_LunarOutpost') + '>' + translate('luna-outpost') + '</a></li>'
-                + '	<li class=tab><a id=' + setUID('tabCity_ColossusOutPost') + '>' + translate('colossus-outpost') + '</a></li>'
+                //+ '	<li class="tab first"><a id=' + setUID('tabCity_LunarOutpost') + '>' + translate('luna-outpost') + '</a></li>'
+                //+ '	<li class=tab><a id=' + setUID('tabCity_ColossusOutPost') + '>' + translate('colossus-outpost') + '</a></li>'
                 + '</ul>'
                 + '<div id="' + setUID('tabCity_Content') + '" class="' + UID['status_ticker'] + '" style="height:665px; max-height:665px; overflow-y:auto;"></div>';
 				t.container.innerHTML = m;
 				document.getElementById(UID['tabCity_Capital']).addEventListener('click', t.tabCity_Capital);
-				document.getElementById(UID['tabCity_LunarOutpost']).addEventListener('click', t.tabCity_LunarOutpost);
-				document.getElementById(UID['tabCity_ColossusOutPost']).addEventListener('click', t.tabCity_ColossusOutPost);
+				//document.getElementById(UID['tabCity_LunarOutpost']).addEventListener('click', t.tabCity_LunarOutpost);
+				//document.getElementById(UID['tabCity_ColossusOutPost']).addEventListener('click', t.tabCity_ColossusOutPost);
 				t.show();
 			},
 
 			tabCity_Capital: function() {
 				var t = Tabs.City;
-                document.getElementById(UID['tabCity_ColossusOutPost']).className = '';
-				document.getElementById(UID['tabCity_ColossusOutPost']).style.zIndex = 0;
+                //document.getElementById(UID['tabCity_ColossusOutPost']).className = '';
+				//document.getElementById(UID['tabCity_ColossusOutPost']).style.zIndex = 0;
 				document.getElementById(UID['tabCity_Capital']).className = 'selected';
 				document.getElementById(UID['tabCity_Capital']).style.zIndex = 1;
-				document.getElementById(UID['tabCity_LunarOutpost']).className = '';
-				document.getElementById(UID['tabCity_LunarOutpost']).style.zIndex = 0;
+				//document.getElementById(UID['tabCity_LunarOutpost']).className = '';
+				//document.getElementById(UID['tabCity_LunarOutpost']).style.zIndex = 0;
                 t.contentType = 2;
 
 				var m =  ''
 					+ ' <div class=' + UID['content'] + '>'
 					+ '   <div id="'+setUID('tabCity_capitalDiv')+'">'
-					+ '		<div id="'+setUID('tabCapitalCity_challengesAccord')+'" ref="tabCapitalCity_challengesContent" class='+UID['title']+' style="text-align:center;color:#ffffff;background-color: rgb(60,60,60);">'+translate('competition')+ ' - <input class="'+UID['btn_black']+'" id="'+setUID('btnCityCapital_Challenges')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
+					+ '		<div id="'+setUID('tabCapitalCity_challengesAccord')+'" ref="tabCapitalCity_challengesContent" class='+UID['title_main']+' style="padding-top:3px; padding-bottom:3px;text-align:center;color:#ffffff;">'+translate('competition')+ ' - <input class="'+UID['btn_green']+'" id="'+setUID('btnCityCapital_Challenges')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
 					+ '		<div class='+UID['content']+' id='+setUID('tabCapitalCity_challengesContent')+'></div>'
-					+ '		<div id="'+setUID('tabCapitalCity_loginMessageAccord')+'" ref="tabCapitalCity_loginMessage" class='+UID['title']+' style="text-align:center;color:#ffffff;background-color: rgb(60,60,60);">'+translate('newsfeed')+' - <input class="'+UID['btn_black']+'" id="'+setUID('btnCityCapital_LoginMessage')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
+					+ '		<div id="'+setUID('tabCapitalCity_loginMessageAccord')+'" ref="tabCapitalCity_loginMessage" class='+UID['title_main']+' style="padding-top:3px; padding-bottom:3px;text-align:center;color:#ffffff;">'+translate('newsfeed')+' - <input class="'+UID['btn_green']+'" id="'+setUID('btnCityCapital_LoginMessage')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
 					+ '		<div class='+UID['content']+' id='+setUID('tabCapitalCity_loginMessage')+'></div>'
-					+ '		<div id="'+setUID('tabCapitalCity_treasureAccord')+'" ref="tabCapitalCity_treasureContent" class='+UID['title']+' style="text-align:center;color:#ffffff;background-color: rgb(60,60,60);">'+translate('treasure-hold')+' - <input class="'+UID['btn_black']+'" id="'+setUID('btnCityCapital_TreasureHold')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
+					+ '		<div id="'+setUID('tabCapitalCity_treasureAccord')+'" ref="tabCapitalCity_treasureContent" class='+UID['title_main']+' style="padding-top:3px; padding-bottom:3px;text-align:center;color:#ffffff;">'+translate('treasure-hold')+' - <input class="'+UID['btn_green']+'" id="'+setUID('btnCityCapital_TreasureHold')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
 					+ '		<div class='+UID['content']+' id='+setUID('tabCapitalCity_treasureContent')+'></div>'
 					+ '   </div>'
                     + '</div>';
                 document.getElementById(UID['tabCity_Content']).innerHTML = (m);
-				updateLoginMessages();
-				updateChallenges();
 				document.getElementById(UID['btnCityCapital_Challenges']).addEventListener('click', clickToUpdateChallenges);
 				document.getElementById(UID['btnCityCapital_LoginMessage']).addEventListener('click', clickToUpdateLoginMessages);
-
+				setButtonStyle(document.getElementById(UID['btnCityCapital_TreasureHold']), false, 'btn_green', 'btn_disabled');
+				
 				function updateChallenges() {
 					var m = '', tT = [], timeRemaining=0;
-					//SERVER_ID;
 					if(Seed.challenges.active) {
 						timeRemaining = ((Seed.challenges.active.end_time - serverTime()) > 0) ? timestr(Seed.challenges.active.end_time - serverTime()) : 0;
-						m+='<div challenge="active" challenge_id="'+Seed.challenges.active.challenge_id+'" ref="tabCapitalCity_text_challengesAccord_'+Seed.challenges.active.challenge_id+'" id="'+setUID('tabCapitalCity_title_challengesAccord_'+Seed.challenges.active.challenge_id)+'" class="'+UID['subtitle']+'">'+Seed.challenges.active.name+' - <font color=yellow>'+timeRemaining+'</font></div>';
+						m+='<div challenge="active" challenge_id="'+Seed.challenges.active.challenge_id+'" ref="tabCapitalCity_text_challengesAccord_'+Seed.challenges.active.challenge_id+'" id="'+setUID('tabCapitalCity_title_challengesAccord_'+Seed.challenges.active.challenge_id)+'" class="'+UID['subtitle']+'" style="cursor:pointer">'+Seed.challenges.active.name+' - <font color=yellow>'+timeRemaining+'</font></div>';
 						m+='<div style="overflow: visible;display: none;" id="'+setUID('tabCapitalCity_text_challengesAccord_'+Seed.challenges.active.challenge_id)+'"></div>';
 						tT.push('tabCapitalCity_title_challengesAccord_'+Seed.challenges.active.challenge_id);
 						document.getElementById(UID['tabCapitalCity_challengesContent']).innerHTML = (m);
 						for(var i=0;i<tT.length;i++) {
 						  $(UID[tT[i]]).observe('click', updateChallengeText);
 						}
+					} else {
+						m+='<div challenge="active" class="'+UID['subtitle']+'">No active challenge - <font color=yellow>--h--</font></div>';
+						document.getElementById(UID['tabCapitalCity_challengesContent']).innerHTML = (m);
 					}
-				}
-				function updateChallengeTournamentText(chalDet, chalGlob, el) {
-					var m = '';
-					$(el).update(m);
-					Effect.toggle(el, 'blind', { duration: 1.0 });
-				}
-				function updateChallengeText(chalDet, chalGlob, el) {
-					var m = '';
-					$(el).update(m);
-					Effect.toggle(el, 'blind', { duration: 1.0 });
 				}
 				function updateChallengeText(event) {
 					function cb(challenge_id) {
-						if(chalGlob.tiers.length == 0) {
-							updateChallengeTournamentText(Seed.challenges[challenge_id], chalGlob, div_el);
-						} else {
-							updateChallengeText(Seed.challenges[challenge_id], chalGlob, div_el);
-						}
-						var m='<table><tr>';
+						var m='<table style="width:100%"><tr class=' + UID['row_headers'] + '><td colspan=2>';
 						var chalDet = Seed.challenges[challenge_id];
 						var tiers = (chalGlob.tiers.length == 0 ? chalGlob.tournament_tiers : chalGlob.tiers);
-						for(var i=0;i<tiers.length;i++) {
-							m +='<td>'+tiers[i].score+'<br/>';
-							for(var j=0;j<tiers[i].prizes;j++) {
-								m +=tiers[i].prizes[j].quantity+'x '+translate(tiers[i].prizes[j].item_type);
+						
+						if(chalGlob.tiers.length == 0) {
+							//m = updateChallengeTournamentText(chalDet, chalGlob, div_el);
+						} else {
+							if(chalDet.player) {
+								m += chalDet.player.player_name + ' (' + (chalDet.player.alliance_name ? chalDet.player.alliance_name : '--') + ')' 
+									+ ' - <b>' + translate('rank') + '</b> : ' + chalDet.player_leaderboard_rank + ' / ' + chalDet.leaderboard_count
+									+ ' - <b>' + translate('score') + '</b> : ' + numf(chalDet.player.score) + '<br/>';
+							} else {
+								m += Seed.player.name + ' (' + ((Seed.player.alliance) ? Seed.player.alliance.name : '--') + ')' 
+									+ ' - <b>' + translate('rank') + '</b> : -- / ' + chalDet.leaderboard_count
+									+ ' - <b>' + translate('score') + '</b> : ' + Translation.xml.dialogs['competition-playerinfo-no-power'] + '<br/>';
 							}
-							m +='</td>';
+						}
+						m+='</td></tr><tr><td colspan=2>&nbsp;</td></tr>';
+						for(var i=0;i<tiers.length;i++) {
+							m +='<tr><td align=right><b>'+numf(tiers[i].score)+'</b> => </td><td><table>';
+							for(var j=0;j<tiers[i].prizes.length;j++) {
+								m +='<tr><td title="'+Translation.xml.items[tiers[i].prizes[j].item_type.toLowerCase()].description+'">' + tiers[i].prizes[j].quantity+'x '+translate(tiers[i].prizes[j].item_type) + '</td></tr>';
+							}
+							m +='</table></td></tr>';
 						}
 						m+='</tr></table>';
 						$(div_el).update(m);
+						Effect.toggle(div_el, 'blind', { duration: 1.0 });
 
 					}
 					var element = event.target;
@@ -32928,7 +32907,7 @@
 					var tT = [];
 					for(var i=0;i<Seed.loginMessages.length;i++) {
 						var timeRemaining = ((Seed.loginMessages[i].end_time - serverTime()) > 0) ? timestr(Seed.loginMessages[i].end_time - serverTime()) : 0;
-						m+='<div ref="tabCapitalCity_text_loginMessageAccord_'+Seed.loginMessages[i].id+'" id="'+setUID('tabCapitalCity_title_loginMessageAccord_'+Seed.loginMessages[i].id)+'" class="'+UID['subtitle']+'">'+Seed.loginMessages[i].title+' - <font color=yellow>'+timeRemaining+'</font></div>';
+						m+='<div ref="tabCapitalCity_text_loginMessageAccord_'+Seed.loginMessages[i].id+'" id="'+setUID('tabCapitalCity_title_loginMessageAccord_'+Seed.loginMessages[i].id)+'" class="'+UID['subtitle']+'" style="cursor:pointer">'+Seed.loginMessages[i].title+' - <font color=yellow>'+timeRemaining+'</font></div>';
 						m+='<div style="overflow: visible;display: none;" id="'+setUID('tabCapitalCity_text_loginMessageAccord_'+Seed.loginMessages[i].id)+'">'+(Seed.loginMessages[i].text != '' ? Seed.loginMessages[i].text.replace(/\n/g, '<br>') : '')+'</div>';
 						tT.push('tabCapitalCity_title_loginMessageAccord_'+Seed.loginMessages[i].id);
 					}
@@ -33039,6 +33018,8 @@
 			},
 			show: function() {
 				var t = Tabs.City;
+				t.tabCity_Capital();
+				/*
                 switch (toNum(t.contentType)) {
 					case 0:
 						t.tabCity_LunarOutpost();
@@ -33049,7 +33030,7 @@
 					case 2:
 						t.tabCity_Capital();
 						break;
-				}
+				}*/
 			}
     };
 
