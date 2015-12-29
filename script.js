@@ -4,7 +4,7 @@
 */
 (function() {
 
-    var CHROME_EXT = true, scriptVersion = '2015.1207.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    var CHROME_EXT = true, scriptVersion = '2015.1229.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
@@ -540,8 +540,8 @@
 		var gFormatTime = ':';
 		var gFormatDate = '/';
 		var kForumLink = 'Forum';
-		var kWikiLink = 'Wiki DoA';
-		var scriptUrlError = 'http://script.wygopro.com/';
+		var kWikiLink = 'CScript on Githun';
+		var scriptUrlError = 'https://github.com/CyrilCharlier/CScript/issues';
 		var scriptTitle = '';
 		var scriptSite = '';
 		var scriptTimeout = null;
@@ -647,8 +647,8 @@
 						lastTryCollectEternalRune: 0,
 						background: true,
 						currentTab: false,
-						forumUrl: 'https://userscripts.org/scripts/discuss/' + scriptId,
-						wikiUrl: 'http://fr.dragonsofatlantis.wikia.com/wiki/Accueil',
+						forumUrl: 'https://github.com/CyrilCharlier/CScript/issues',
+						wikiUrl: 'https://github.com/CyrilCharlier/CScript',
 						disable_wave: !WAVE_TAB_ENABLE,
 						disable_multi: MULTI_TAB_ENABLE,
 						disable_bookmark: !BOOKMARK_TAB_ENABLE,
@@ -15877,7 +15877,7 @@
 						+ '				<b>On Facebook :</b>'
 						+ '				<br>- <a href="https://www.facebook.com/groups/DoAscripts/" target="_blank">DOA Scripts</a>'
 						+ '				<br><br><b>On the Web :</b>'
-						+ '				<br>- <a href="http://script.wygopro.com/" target="_blank">' + scriptName + '</a>'
+						+ '				<br>- <a href="https://github.com/CyrilCharlier/CScript" target="_blank">' + scriptName + '</a>'
 						+ '				<br><br><center><h2><B>DONATION</B><h2></center><br>'
 						+ '				If you want to donate for ' + scriptName + ', I accept Ruby gifts troops donations ;))<br>'
 						+ '				So for those who are interested in ruby gifting, I invite you to send me a message on userscripts.<br>'
@@ -43649,21 +43649,21 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 		-moz-box-shadow: rgba(0,0,0,0.52) 0 0 2px;\
 	}\
 	.' + UID['information'] + ' {\
-		background:url(http://doa.wygopro.com/images/information.png) no-repeat top left;\
+		background:url(https://www.calcium-pro-tool.com/script/icons/information.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 10px;\
 		margin: 0 auto;\
 	}\
 	.' + UID['warningblack'] + ' {\
-		background:url(http://doa.wygopro.com/images/warning39_small_black.png) no-repeat top left;\
+		background:url(https://www.calcium-pro-tool.com/script/icons/warning39_small_black.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 10px;\
 		margin: 0 auto;\
 	}\
 	.' + UID['number1'] + ' {\
-		background:url(http://doa.wygopro.com/images/number1.png) no-repeat top left;\
+		background:url(https://www.calcium-pro-tool.com/script/icons/number1.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 16px;\
@@ -43671,7 +43671,7 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 		margin: 0 auto;\
 	}\
 	.' + UID['number2'] + ' {\
-		background:url(http://doa.wygopro.com/images/number2.png) no-repeat top left;\
+		background:url(https://www.calcium-pro-tool.com/script/icons/number2.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 16px;\
@@ -43679,7 +43679,7 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 		margin: 0 auto;\
 	}\
 	.' + UID['number3'] + ' {\
-		background:url(http://doa.wygopro.com/images/number3.png) no-repeat top left;\
+		background:url(https://www.calcium-pro-tool.com/script/icons/number3.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 16px;\
@@ -43687,21 +43687,21 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 		margin: 0 auto;\
 	}\
 	.' + UID['warningred'] + ' {\
-		background:url(http://doa.wygopro.com/images/warning39_small_red.png) no-repeat top left;\
+		background:url(https://www.calcium-pro-tool.com/script/icons/warning39_small_red.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 10px;\
 		margin: 0 auto;\
 	}\
 	.' + UID['warninggreen'] + ' {\
-		background:url(http://doa.wygopro.com/images/warning39_small_green.png) no-repeat top left;\
+		background:url(https://www.calcium-pro-tool.com/script/icons/warning39_small_green.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 10px;\
 		margin: 0 auto;\
 	}\
 	.' + UID['warningorange'] + ' {\
-		background:url(http://doa.wygopro.com/images/warning39_small_orange.png) no-repeat top left;\
+		background:url(https://www.calcium-pro-tool.com/script/icons/warning39_small_orange.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 10px;\
