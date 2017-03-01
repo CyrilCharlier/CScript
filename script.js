@@ -2,12 +2,13 @@
 	TODO: Avoir la guerison du canon et de la "trappe"
 	TODO: Afficher les ameliorations des chasseurs grace aux batiments de l'OP
 */
-(function() {
+(function () {
 
-    var CHROME_EXT = true, scriptVersion = '2015.1229.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+    
+	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.0225.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
-		var maxWidth = (width ? width : (document.body.offsetWidth - 50) + 'px');
+		var maxWidth = width || (document.body.offsetWidth - 50) + 'px';
 		if (frame) {
 			if (frame.width) frame.width = maxWidth;
 			else if (frame.style.width) frame.style.width = maxWidth;
@@ -36,7 +37,7 @@
 					child.style.width = '100%';
 					child.style.margin = '0';
 					child.style.border = '0';
-					child.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+					child.style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 				} else {
 					var depend = content_dependant(child);
 					if (!depend) {
@@ -50,7 +51,7 @@
 							child.style.width = '100%';
 							child.style.margin = '0';
 							child.style.border = '0';
-							child.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+							child.style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 						}
 						hide_all(child, game_container);
 					}
@@ -64,7 +65,7 @@
 			setHD(parent_element);
 			if (parent_element.tagName == 'DIV' || parent_element.tagName == 'IFRAME' || parent_element.tagName == 'TABLE' || parent_element.tagName == 'TD') {
 				parent_element.style.width = '100%';
-				parent_element.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+				parent_element.style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 			}
 		}
 	}
@@ -79,17 +80,15 @@
 	}
 
 	/* Check to see if script is running in an iframe or not and removes unnecessary elements before continuing with the script. */
-	if (/(pixelkabam|akamaihd|plugins|ai\.php|talkgadget|notifications|contactPicker|accounts|googleapis\.com\/static)/.test(window.location.href)) return;
+	if (/(pixelkabam|akamaihd|plugins|ai\.php|talkgadget|notifications|contactPicker|accounts|googleapis\.com\/static)/.test(window.location.href)) {
+		return;
+	}
 
 	if (!((/apps\.facebook\.com\/dragonsofatlantis/.test(window.location.href) && /rubies/.test(window.location.pathname) === false) ||
 		/castle\.rykaiju\.com\/platforms\/.+\/game/.test(window.location.href) ||
-		/plus\.google\.com.*\/games.*\/659749063556/.test(window.location.href) ||
-		/plus\.google\.com.*\/games\/play\/659749063556/.test(window.location.href) ||
-		/googleusercontent\.com\/gadgets\/.*\/659749063556/.test(window.location.href) ||
 		/kabam.com\/dragons-of-atlantis\/play/.test(window.location.href) ||
 		/kongregate.com\/games\/kabam\/dragons-of-atlantis/.test(window.location.href) ||
-		(/realmtheraindoa.altervista.org\/*/.test(window.location.href) && !/realmtheraindoa.altervista.org\/Jeux\/*/.test(window.location.href)) ||
-		/wackoscripts.com\/realm*/.test(window.location.href)
+		(/realmtheraindoa.altervista.org\/*/.test(window.location.href) && !/realmtheraindoa.altervista.org\/Jeux\/*/.test(window.location.href)) 
 	)) {
 		return;
 	}
@@ -129,7 +128,7 @@
 					document.getElementById('rightCol').style.display = 'none';
 					document.getElementById('blueBarDOMInspector').style.display = 'none';
                     document.getElementById('contentCol').style.margin = '0px';
-					document.getElementById('contentCol').style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+					document.getElementById('contentCol').style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 					var contentColChild = document.getElementById('contentCol').childNodes;
 					for (var i = 0; i < contentColChild.length; i++)
 						if (contentColChild[i].tagName == 'DIV')
@@ -138,7 +137,7 @@
 					if (USE_BACKGROUND) {
 						var body_elements = document.getElementsByTagName('body');
 						for (var el = 0; el < body_elements.length; el++)
-							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+							body_elements[el].style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 					}
 					break;
 				case 'kabam':
@@ -154,7 +153,7 @@
 							iframe.style.width = '100%';
 							iframe.style.margin = '0';
 							iframe.style.border = '0';
-							iframe.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+							iframe.style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 						}
 					}
 					break;
@@ -260,10 +259,10 @@
 					if (USE_BACKGROUND) {
 						var body_elements = document.getElementsByTagName('body');
 						for (var el = 0; el < body_elements.length; el++)
-							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+							body_elements[el].style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 						var html_elements = document.getElementsByTagName('html');
 						for (var el = 0; el < html_elements.length; el++)
-							html_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+							html_elements[el].style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 					}
 					break;
 				case 'google':
@@ -271,8 +270,8 @@
 					if (USE_BACKGROUND) {
 						var body_elements = document.getElementsByTagName('body');
 						for (var el = 0; el < body_elements.length; el++) {
-							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
-							body_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+							body_elements[el].style.background = '#888 url('+racineURL+'cs_bg.jpg)';
+							body_elements[el].style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 						}
 					}
 					break;
@@ -281,9 +280,9 @@
 					var html_elements = document.getElementsByTagName('html');
 					for (var el = 0; el < html_elements.length; el++) {
 						html_elements[el].style.overflow = 'hidden'
-						html_elements[el].style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+						html_elements[el].style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 					}
-					if (!USE_BACKGROUND) document.body.style.background = '#888 url(https://www.calcium-pro-tool.com/cs_bg.jpg)';
+					if (!USE_BACKGROUND) document.body.style.background = '#888 url('+racineURL+'cs_bg.jpg)';
 					document.getElementById('cn').style.textAlign = 'left';
 					if (document.getElementById('castlemania_swf')) setHD(document.getElementById('castlemania_swf'));
 					break;
@@ -452,8 +451,9 @@
 			SKY_OUTPOST =		{ id: 11,	type: 'skythrone',	name: 'SkythroneOutpost',		dragon_name: 'KaiserDragon'},
 			CAVE_OUTPOST =		{ id: 12,	type: 'cave',		name: 'CaveDragonOutpost',		dragon_name: 'CaveDragon'},
 			LUNA_OUTPOST =		{ id: 13,	type: 'luna',		name: 'LunaDragonOutpost',		dragon_name: 'LunaDragon'},
-			COLOSSUS_OUTPOST = 	{ id: 14,	type: 'colossus',	name: 'ColossusDragonOutpost',	dragon_name: 'ColossusDragon'};
-            LEVIATHAN_OUTPOST = { id: 15,   type: 'leviathan',  name: 'LevithanDragonOutpost', dragon_name: 'LeviathanDragon'};
+			COLOSSUS_OUTPOST = 	{ id: 14,	type: 'colossus',	name: 'ColossusDragonOutpost',	dragon_name: 'ColossusDragon'},
+            LEVIATHAN_OUTPOST = { id: 15,   type: 'leviathan',  name: 'LevithanDragonOutpost',	dragon_name: 'LeviathanDragon'},
+            TEMPEST_OUTPOST =   { id: 16,   type: 'tempest',    name: 'TempestDragonOutpost',	dragon_name: 'TempestDragon'};
 
 		var IsChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 
@@ -477,10 +477,10 @@
 		/* Main arrays used in the script */
 		var sanctuaryDragonRank = new Array('common', 'lesser', 'heightened', 'royal', 'exalted', 'omniscient', 'legendary');
 		/* Troops arrays */
-		var all_dragon_list =		['GreatDragon', 'WaterDragon', 'StoneDragon', 'FireDragon', 'WindDragon', 'IceDragon', 'SwampDragon', 'ForestDragon', 'DesertDragon', 'ChronoDragon', 'SpectralDragon', 'KaiserDragon', 'CaveDragon', 'LunaDragon', 'ColossusDragon','LeviathanDragon'];
-		var all_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren'];
-		var attack_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren'];
-		var wave_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren'];
+		var all_dragon_list =		['GreatDragon', 'WaterDragon', 'StoneDragon', 'FireDragon', 'WindDragon', 'IceDragon', 'SwampDragon', 'ForestDragon', 'DesertDragon', 'ChronoDragon', 'SpectralDragon', 'KaiserDragon', 'CaveDragon', 'LunaDragon', 'ColossusDragon','LeviathanDragon', 'TempestDragon'];
+		var all_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren','DragonWarrior','TempestCabal','Cyclops'];
+		var attack_unit_types =		all_unit_types;
+		var wave_unit_types =		all_unit_types;
 		var spy_unit_types =		['Spy'];
 		var transport_unit_types =	['Porter', 'ATrans', 'PackDrg']; // Beware : Use abbreviations here
 		/* Resources arrays */
@@ -743,6 +743,7 @@
 						building: {
 							enabled: false,
 							hide_fields: false,
+                            hide_max_build: true,
 							level_enable: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 							/* Add 1 for new outpost - abyssal added */
 							level_cap: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
@@ -2202,7 +2203,7 @@
 			}
 		};
 		var Socket = {
-			SWF_SOCKET_URL : 'https://www.calcium-pro-tool.com/bin/teamwork_socket_bridge.swf',
+			SWF_SOCKET_URL : racineURL+'bin/teamwork_socket_bridge.swf',
 
 			buffer : [],
 			swf_socket : null,
@@ -4122,7 +4123,7 @@
 				p['search'] = search;
         p['version'] = api_version;
 				p['timestamp'] = toNum(serverTime());
-				new MyAjaxRequest('other', 'https://www.calcium-pro-tool.com/index.php/Json/search', p, mycb, true);
+				new MyAjaxRequest('other', racineURL+'index.php/Json/search', p, mycb, true);
 
 				function mycb(rslt) {
 					if (rslt.ok) {
@@ -4145,7 +4146,7 @@
 				p['userId'] = C.attrs.userId;
 				p['dragon_heart'] = C.attrs.dragonHeart;
 				p['_session_id'] = C.attrs.sessionId;
-               new MyAjaxRequest('other', 'https://www.calcium-pro-tool.com/CPT/script.php', p, mycb, false);
+               new MyAjaxRequest('other', racineURL+'CPT/script.php', p, mycb, false);
 
 				function mycb(rslt) {
 					if (rslt.ok) {
@@ -4362,7 +4363,6 @@
 						} else {
 							retour.push(Manifest.data.buildings[i].type);
 						}
-						
 					}
 				}
 				return retour;
@@ -5698,7 +5698,7 @@
 				}
 				for (var cityIdx = 0; cityIdx < Seed.cities.length; ++cityIdx) {
 					if (!Data.options.Rcheat_enabled && cityIdx != CAPITAL.id) continue;
-					if (Seed.cities[cityIdx] && cityIdx >= 0 && cityIdx < Seed.cities.length && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id &&
+					if (Seed.cities[cityIdx] && cityIdx >= 0 && cityIdx < Seed.cities.length && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != TEMPEST_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id &&
 						Seed.cities[cityIdx].figures.queue_lengths && Seed.cities[cityIdx].figures.queue_lengths['research']) {
 						var city = Seed.cities[cityIdx];
 						var jobs = Jobs.getJobs('research', true, cityIdx);
@@ -6378,18 +6378,6 @@
 					Seed.stats.unit[data[i].type].upkeep = data[i].upkeep;
 					Seed.stats.unit[data[i].type].trainable = data[i].trainable_in;
 				}
-				/*
-				 * Initialise for units an array of cities where the unit is
-				 * trainable
-				 */
-				/*data = Manifest.data.city;
-				for (var city in data) {
-					units = (data[city]).units;
-					for (i = 0; i < units.length; i++) {
-						if (units[i].trainable) Seed.stats.unit[units[i].type].trainable.push(city);
-					}
-				}*/
-
 				/* Initialise troops resurrection requirements and Stats */
 				data = Manifest.data.units;
 				for (i = 0; i < data.length; i++) {
@@ -6474,8 +6462,10 @@
 				var lunaDragonLvlsManifest = Manifest.data.luna_dragon_levels;
 				var colossusDragonLvlsManifest = Manifest.data.colossus_dragon_levels;
 				var leviathanDragonLvlsManifest = Manifest.data.leviathan_dragon_levels;
+                var tempestDragonLvlsManifest = Manifest.data.tempest_dragon_levels;
+                
 
-				for (var m = 1; m < 20; m++) {
+				for (var m = 1; m < 50; m++) {
 					if (greatDragonLvlsManifest[m]) {
 						if (!Seed.greatDragons.GreatDragon[m]) Seed.greatDragons.GreatDragon[m] = [];
 						Seed.greatDragons.GreatDragon[m] = greatDragonLvlsManifest[m];
@@ -6539,6 +6529,10 @@
 					if (leviathanDragonLvlsManifest[m]) {
 						if (!Seed.greatDragons.LeviathanDragon[m]) Seed.greatDragons.LeviathanDragon[m] = [];
 						Seed.greatDragons.LeviathanDragon[m] = leviathanDragonLvlsManifest[m];
+					}
+                    if (tempestDragonLvlsManifest[m]) {
+						if (!Seed.greatDragons.TempestDragon[m]) Seed.greatDragons.TempestDragon[m] = [];
+						Seed.greatDragons.TempestDragon[m] = tempestDragonLvlsManifest[m];
 					}
 				}
 			}
@@ -10224,7 +10218,8 @@
 				CaveDragon: [],
 				LunaDragon: [],
 				ColossusDragon: [],
-				LeviathanDragon: []
+				LeviathanDragon: [],
+                TempestDragon: []
 			},
 			dragonList: [],
 			dragons: {},
@@ -10572,6 +10567,7 @@
 											if (march.units['LunaDragon']) t.addToRefresh(t.cities[LUNA_OUTPOST.id].id, false);
 											if (march.units['ColossusDragon']) t.addToRefresh(t.cities[COLOSSUS_OUTPOST.id].id, false);
 											if (march.units['LeviathanDragon']) t.addToRefresh(t.cities[LEVIATHAN_OUTPOST.id].id, false);
+                                            if (march.units['TempestDragon']) t.addToRefresh(t.cities[TEMPEST_OUTPOST.id].id, false);
 											Marches.remove(march.id);
 											break;
 									}
@@ -10733,6 +10729,9 @@
 						case LEVIATHAN_OUTPOST.name:
 							cityIdx = LEVIATHAN_OUTPOST.id;
 							break;
+                        case TEMPEST_OUTPOST.name:
+							cityIdx = TEMPEST_OUTPOST.id;
+							break;
 						default:
 							cityIdx = SPECTRAL_OUTPOST.id;
 					}
@@ -10793,6 +10792,9 @@
 						break;
 					case COLOSSUS_OUTPOST.id:
 						dragon = city.colossus_dragon;
+						break;
+                    case TEMPEST_OUTPOST.id:
+						dragon = city.tempest_dragon;
 						break;
 					case LEVIATHAN_OUTPOST.id:
 						dragon = city.leviathan_dragon;
@@ -10989,15 +10991,15 @@
 			spy_active: false,
 			spy_repeat_timer: null,
 
-			SWF_PLAYER_URL: 'https://www.calcium-pro-tool.com/bin/teamwork.swf',
+			SWF_PLAYER_URL: racineURL+'bin/teamwork.swf',
 			SOUND_TYPES: ['attack', 'spy', 'building', 'research', 'units', 'fortuna'],
 			DEFAULT_SOUND_URL: {
-				attack: 'https://www.calcium-pro-tool.com/bin/tower.mp3',
-				spy: 'https://www.calcium-pro-tool.com/bin/spy.mp3',
-				building: 'https://www.calcium-pro-tool.com/bin/construction.mp3',
-				units: 'https://www.calcium-pro-tool.com/bin/training.mp3',
-				research: 'https://www.calcium-pro-tool.com/bin/research.mp3',
-				fortuna: 'https://www.calcium-pro-tool.com/bin/wheel.mp3'
+				attack: racineURL+'bin/tower.mp3',
+				spy: racineURL+'bin/spy.mp3',
+				building: racineURL+'bin/construction.mp3',
+				units: racineURL+'bin/training.mp3',
+				research: racineURL+'bin/research.mp3',
+				fortuna: racineURL+'bin/wheel.mp3'
 			},
 
 
@@ -11600,7 +11602,13 @@
 			}
 		};
 		var Troop = {
-
+            getList: function() {
+                var retour = [];
+				for(var i=0;i<Manifest.data.units.length;i++) {
+                    retour.push(Manifest.data.units[i].type);
+                }
+                return retour;
+            },
 			getSelectAll: function(idSelect, allOption, noneOption, selectItem) {
 				var ret = '<SELECt id="'+idSelect+'">';
 				if(allOption) {
@@ -11617,7 +11625,6 @@
 				ret += '</SELECT>';
 				return ret;
 			},
-
 			getLunaTroopByBuilding: function(buildingName) {
 				var ret = [];
 				var mUnits = Manifest.data.units;
@@ -12207,6 +12214,9 @@
 					break;
 				case COLOSSUS_OUTPOST.id:
 					type = COLOSSUS_OUTPOST.type;
+					break;
+                case TEMPEST_OUTPOST.id:
+					type = TEMPEST_OUTPOST.type;
 					break;
 				case LEVIATHAN_OUTPOST.id:
 					type = LEVIATHAN_OUTPOST.type;
@@ -15690,7 +15700,7 @@
 				Data.options.info.troop_sub_tab = t.troopContentType;
 				var city = Seed.cities[CAPITAL.id];
 				var alliance_name = (Seed.player.alliance) ? Seed.player.alliance.name : '';
-				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:10px !important">' + '<div class=' + UID['subtitle'] + '><table class=' + UID['table'] + '>' + '<tr><td align=left width=35%>' + Seed.player.name + ' / ' + city.name + '</td>' + '<td align=center width=30%>' + city.x + ',' + city.y + '</td>' + '<td align=center width=200px><font color=yellow>' + alliance_name + '</font></td>' + '<td width=35% align=right><font color=yellow>' + numf(Seed.player.might) + '</font></td>' + '</tr></table></div>' + '<table class=' + UID['row_style'] + ' style="margin-top:3px" width=80%>' + '	<tr class=' + UID['row_headers'] + ' align=center>' + '		<td width=50%>' + translate('Troops') + '</td>' + '		<td width=20%>' + translate('Quantity') + '</td>' + '		<td width=10%>' + translate('Might') + '</td>' + '		<td width=20%>' + translate('Total') + '</td>' + '	</tr>';
+				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:10px !important">' + '<div class=' + UID['subtitle'] + '><table class=' + UID['table'] + '>' + '<tr><td align=left width=35%>' + Seed.player.name + ' / ' + city.name + '</td>' + '<td align=center width=30%>' + city.x + ',' + city.y + '</td>' + '<td align=center width=200px><font color=yellow>' + alliance_name + '</font></td>' + '<td width=35% align=right><font color=yellow>' + numf(Seed.player.might) + '</font></td>' + '</tr></table></div>' + '<table class=' + UID['row_style'] + ' style="margin-top:3px" width=100%>' + '	<tr class=' + UID['row_headers'] + ' align=center>' + '		<td width=40%>' + translate('Troops') + '</td>' + '		<td width=20%>' + translate('Quantity') + '</td>' + '		<td width=10%>' + translate('Might') + '</td>' + '		<td width=30%>' + translate('Total') + '</td>' + '	</tr>';
 				var total = 0;
 				for (var i = 0; i < all_unit_types.length; i++) {
 					var numTroops = getTroopNumbers(CAPITAL.id, all_unit_types[i]);
@@ -15715,7 +15725,8 @@
 				var city = Seed.cities[CAPITAL.id];
 				var alliance_name = (Seed.player.alliance) ? Seed.player.alliance.name : '';
 				setUID('tabInfoTroopFood_Sel');
-				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:10px !important">' + '<div class=' + UID['subtitle'] + '><table class=' + UID['table'] + '>' + '<tr><td align=left width=35%>' + Seed.player.name + ' / ' + city.name + '</td>' + '<td align=center width=30%>' + city.x + ',' + city.y + '</td>' + '<td align=center width=200px><font color=yellow>' + alliance_name + '</font></td>' + '<td width=35% align=right><font color=yellow>' + numf(Seed.player.might) + '</font></td>' + '</tr></table></div>' + '<table><tr>' + '	<td><label>' + translate('Troops') + '</label></td>' + '	<td><input type=radio name=' + UID['tabInfoTroopFood_Sel'] + ' value="0" /></td><td align=left colspan=2><label>' + translate('Total') + '</label></td>' + '	<td width="20px"></td>' + '	<td><input type=radio name=' + UID['tabInfoTroopFood_Sel'] + ' value="1" /></td><td align=left width=15%><label>' + translate('In city') + '</label></td>' + '	</tr>' + '</table><br>' + '<table class=' + UID['row_style'] + ' style="margin-top:3px" width=80%>' + '	<tr class=' + UID['row_headers'] + ' align=center>' + '		<td width=50%>' + translate('Troops') + '</td>' + '		<td width=20%>' + translate('Quantity') + '</td>' + '		<td width=10%>' + translate('Upkeep') + '</td>' + '		<td width=20%>' + translate('Consumption') + '</td>' + '	</tr>';
+				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:10px !important">' 
+                        + '<div class=' + UID['subtitle'] + '><table class=' + UID['table'] + ' width=100%>' + '<tr><td align=left width=35%>' + Seed.player.name + ' / ' + city.name + '</td>' + '<td align=center width=30%>' + city.x + ',' + city.y + '</td>' + '<td align=center width=200px><font color=yellow>' + alliance_name + '</font></td>' + '<td width=35% align=right><font color=yellow>' + numf(Seed.player.might) + '</font></td>' + '</tr></table></div>' + '<table><tr>' + '	<td><label>' + translate('Troops') + '</label></td>' + '	<td><input type=radio name=' + UID['tabInfoTroopFood_Sel'] + ' value="0" /></td><td align=left colspan=2><label>' + translate('Total') + '</label></td>' + '	<td width="20px"></td>' + '	<td><input type=radio name=' + UID['tabInfoTroopFood_Sel'] + ' value="1" /></td><td align=left width=15%><label>' + translate('In city') + '</label></td>' + '	</tr>' + '</table><br>' + '<table class=' + UID['row_style'] + ' style="margin-top:3px" width=100%>' + '	<tr class=' + UID['row_headers'] + ' align=center>' + '		<td width=50%>' + translate('Troops') + '</td>' + '		<td width=20%>' + translate('Quantity') + '</td>' + '		<td width=10%>' + translate('Upkeep') + '</td>' + '		<td width=20%>' + translate('Consumption') + '</td>' + '	</tr>';
 				var total = 0;
 				var total_incity = 0;
 				for (var i = 0; i < all_unit_types.length; i++) {
@@ -15913,7 +15924,7 @@
 					+ '	<div class=' + UID['title'] + '>' + translate('Wildernesses') + '</div>'
 					+ '	<div class=' + UID['status_ticker'] + ' style="height:575px; max-height:575px; overflow-y:auto ; overflow-x:auto ; margin-top:1px !important">&nbsp;&nbsp;'
 					+ translate('Wildernesses') + '&nbsp;&nbsp;' + dispWildsCount()
-					+ '<table class=' + UID['row_style'] + ' width=75%>'
+					+ '<table class=' + UID['row_style'] + ' width=100%>'
 					+ '<tr class=' + UID['row_headers'] + ' align=center>'
 					+ '<td>' + translate('Type') + '</td>' + '<td>' + translate('Level') + '</td>'  + '<td>' + translate('Coords') + '</td>' + '<td>' + translate('Action') + '</td>'
 					+ '</tr>';
@@ -16061,7 +16072,7 @@
 					wallStatus = ' &nbsp ';
 
 				// Met le % de stockage de ressources de l'outpost
-				if (city.type == 'Outpost' && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id) {
+				if (city.type == 'Outpost' && cityIdx != SPECTRAL_OUTPOST.id && cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id && cityIdx != TEMPEST_OUTPOST.id) {
 					var total_capacity = 0;
 					var current_stock = 0;
 					var buildList = Buildings.getList(cityIdx, 'Silo');
@@ -22060,7 +22071,16 @@
 				document.getElementById(UID['tabJob_Content']).innerHTML = '<div id=' + setUID('tabJobBuild_Content') + '>';
 				document.getElementById(UID['tabJob_Content']).style.height = "455px";
 
-				m = '<div style="margin-bottom:5px;">' + '	<table class=' + UID['table'] + ' width=100%>' + '		<tr valign=top>' + '			<td width=5% align=center><input id=' + setUID('tabJobBuild_HideFields') + ' ' + (Data.options.building.hide_fields ? 'CHECKED ' : '') + ' type=checkbox /></td>' + '			<td align=left>' + translate('Hide resource fields') + '</td>' + '		</tr>' + '	</table>' + '</div>';
+				m = '<div style="margin-bottom:5px;">' 
+                    + '	<table class=' + UID['table'] + ' width=100%>' 
+                    + '		<tr valign=top>' 
+                    + '			<td width=5% align=center><input id=' + setUID('tabJobBuild_HideFields') + ' ' + (Data.options.building.hide_fields ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
+                    + '			<td align=left>' + translate('Hide resource fields') + '</td>'
+                    + '			<td width=5% align=center><input id=' + setUID('tabJobBuild_HideMaxBuild') + ' ' + (Data.options.building.hide_max_build ? 'CHECKED ' : '') + ' type=checkbox /></td>' 
+                    + '			<td align=left>' + translate('Hide max buildings') + '</td>'
+                    + '		</tr>' 
+                    + '	</table>' 
+                    + '</div>';
 				var el = [],
 					listC = [],
 					listF = [],
@@ -22123,8 +22143,8 @@
 						case CHRONO_OUTPOST.id:
                             cityTemp = CHRONO_OUTPOST;
 							break;
-						case CHRONO_OUTPOST.id:
-                            cityTemp = CHRONO_OUTPOST;
+						case TEMPEST_OUTPOST.id:
+                            cityTemp = TEMPEST_OUTPOST;
 							break;
 					}
 
@@ -22163,11 +22183,14 @@
 						for (var i = 0; i < listC.length; ++i) {
 							var max_level = Buildings.getLevelMax(typeCity, listC[i]);
 							var min_level = (Buildings.getLevel(cityIdx, listC[i])).min;
-							if (min_level < max_level) {
+							if ( min_level < max_level ) {
 								m += '	<tr>' + '			<td>' + '			<label><input type=checkbox id=' + setUID('tabJobBuild_CB_' + (cityIdx + '_' + listC[i])) + ' ref=' + (cityIdx + '_' + listC[i]) + ' ' + (Data.options.building.level_enable[cityIdx][listC[i]] ? 'checked' : '') + ' /> ' + translate(listC[i]) + '</label>' + '			</td>' + '			<td>' + '			&nbsp;<span class=jewel>' + min_level + '</span>' + '			</td>' + '			<td>' + buildDisplayCap(cityIdx, i, listC[i], typeCity) + '</td>' + '		</tr>';
 								el.push(UID['tabJobBuild_CB_' + (cityIdx + '_' + listC[i])]);
-							} else {
-								Data.options.building.level_enable[cityIdx][listC[i]] = false;
+                            } else {
+								if( !Data.options.building.hide_max_build ) {
+                                    m += '	<tr>' + '			<td>' + '			' + translate(listC[i]) + '			</td>' + '			<td>' + '			&nbsp;<span class=jewel>' + min_level + '</span>' + '			</td>' + '			<td>&nbsp;</td>' + '		</tr>';
+                                }
+                                Data.options.building.level_enable[cityIdx][listC[i]] = false;
 							}
 						}
 						m += '</table></div></div>';
@@ -22248,8 +22271,8 @@
 							case CHRONO_OUTPOST.id:
 								cityTemp = CHRONO_OUTPOST;
 								break;
-							case CHRONO_OUTPOST.id:
-								cityTemp = CHRONO_OUTPOST;
+							case TEMPEST_OUTPOST.id:
+								cityTemp = TEMPEST_OUTPOST;
 								break;
 						}
 						var buildList;
@@ -22279,12 +22302,18 @@
 					}
 				}
 				document.getElementById(UID['tabJobBuild_HideFields']).addEventListener('click', onCheckHide, false);
+                document.getElementById(UID['tabJobBuild_HideMaxBuild']).addEventListener('click', onCheckHideMaxBuilding, false);
 				document.getElementById(UID['tabJobBuild_OnOff']).addEventListener('click', function() {
 					var t = Tabs.Jobs;
 					t.setBuildEnable(!Data.options.building.enabled);
 				}, false);
 				t.refreshBuildButton(Data.options.building.enabled);
 
+                function onCheckHideMaxBuilding(event) {
+					Data.options.building.hide_max_build = event.target.checked;
+					setTimeout(t.tabJobBuild, 1000);
+				}
+                
 				function onCheckHide(event) {
 					Data.options.building.hide_fields = event.target.checked;
 					if (Data.options.building.hide_fields) {
@@ -22341,8 +22370,8 @@
 								case CHRONO_OUTPOST.id:
 									cityTemp = CHRONO_OUTPOST;
 									break;
-								case CHRONO_OUTPOST.id:
-									cityTemp = CHRONO_OUTPOST;
+								case TEMPEST_OUTPOST.id:
+									cityTemp = TEMPEST_OUTPOST;
 									break;
 							}
 							list = Buildings.getBuildingByCityType(cityTemp.type, 'field');
@@ -22535,6 +22564,11 @@
 							stat = Seed.greatDragons.LeviathanDragon[dragon.level];
 							typeAb = LEVIATHAN_OUTPOST.type;
 							break;
+                        case TEMPEST_OUTPOST.id:
+							dragon = Seed.dragons['TempestDragon'];
+							stat = Seed.greatDragons.TempestDragon[dragon.level];
+							typeAb = TEMPEST_OUTPOST.type;
+							break;
 					}
 
 					if (Seed.cities[cityIdx] && cityIdx != SPECTRAL_OUTPOST.id) {
@@ -22576,10 +22610,12 @@
 							for(var b in Seed.armorScale) {
 								if(Seed.armorScale[b].name == mArmor) {
 									for(var s in Seed.armorScale[b].stats){
-										if(Seed.armorScale[b].stats[s] != 0) {
+										Seed.armorScale[b].stats[s]
+                                        if(Seed.armorScale[b].stats[s] != 0) {
 											m += translate(s) + ' + ' + numf(Seed.armorScale[b].stats[s], ' ') + ', ';
 										}
 									}
+                                    break;
 								}
 							}
 							m +='</td>';
@@ -22592,10 +22628,13 @@
 							for(var b in Seed.armorScale) {
 								if(Seed.armorScale[b].name == mScale) {
 									for(var s in Seed.armorScale[b].stats){
-										if(Seed.armorScale[b].stats[s] != 0) {
-											m += translate(s) + ' + ' + numf(Seed.armorScale[b].stats[s], ' ') + ', ';
-										}
+                                        for(var bs in Seed.armorScale[b].stats[s]){
+                                            if(Seed.armorScale[b].stats[s][bs] != 0 && (bs === 'defense' || bs === 'life' || bs === 'load' || bs === 'melee' || bs === 'power' || bs === 'range' || bs === 'ranged' || bs === 'speed' )) {
+                                                m += translate(bs) + ' ' + Seed.armorScale[b].stats[s][bs] + ( Seed.armorScale[b].stats[s].amount_type === 'percentage' ? '%' : '' ) + ', ';
+                                            }
+                                        }
 									}
+                                    break;
 								}
 							}
 							m +='</td>';
@@ -24733,8 +24772,8 @@
 									case CHRONO_OUTPOST.id:
 										cityTemp = CHRONO_OUTPOST;
 										break;
-									case CHRONO_OUTPOST.id:
-										cityTemp = CHRONO_OUTPOST;
+									case TEMPEST_OUTPOST.id:
+										cityTemp = TEMPEST_OUTPOST;
 										break;
 								}
 								buildList = Buildings.getBuildingByCityType(cityTemp.type, 'city').concat(Buildings.getBuildingByCityType(cityTemp.type, 'field'));
@@ -24943,8 +24982,8 @@
 					case CHRONO_OUTPOST.id:
 						cityTemp = CHRONO_OUTPOST;
 						break;
-					case CHRONO_OUTPOST.id:
-						cityTemp = CHRONO_OUTPOST;
+					case TEMPEST_OUTPOST.id:
+						cityTemp = TEMPEST_OUTPOST;
 						break;
 				}
 				cityType = Buildings.getBuildingByCityType(cityTemp.type, 'city').concat(Buildings.getBuildingByCityType(cityTemp.type, 'field'));
@@ -25069,6 +25108,9 @@
 						break;
 					case LEVIATHAN_OUTPOST.id:
 						typeCity = LEVIATHAN_OUTPOST.type;
+						break;
+                    case TEMPEST_OUTPOST.id:
+						typeCity = TEMPEST_OUTPOST.type;
 						break;
 				}
 				var requirements = {};
@@ -25829,7 +25871,7 @@
 				for (var cityIdx = 0; cityIdx < Seed.cities.length && !rBuilt; ++cityIdx) {
 					if (!Data.options.Rcheat_enabled && cityIdx != CAPITAL.id) continue;
 					if (Seed.cities[cityIdx] && cityIdx != undefined && !isNaN(cityIdx) && cityIdx >= 0 && cityIdx < Seed.cities.length && cityIdx != SPECTRAL_OUTPOST.id &&
-						cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id && Seed.cities[cityIdx].figures.queue_lengths && Seed.cities[cityIdx].figures.queue_lengths['research']) {
+						cityIdx != SKY_OUTPOST.id && cityIdx != CAVE_OUTPOST.id && cityIdx != LUNA_OUTPOST.id && cityIdx != COLOSSUS_OUTPOST.id && cityIdx != TEMPEST_OUTPOST.id && cityIdx != LEVIATHAN_OUTPOST.id && Seed.cities[cityIdx].figures.queue_lengths && Seed.cities[cityIdx].figures.queue_lengths['research']) {
 						var rJob = Jobs.getJobs('research', true, cityIdx);
 						var city = Seed.cities[cityIdx];
 						var cityId = city.id;
@@ -32646,7 +32688,7 @@
                             document.getElementById(UID['tabCPT_MsgUser']).addEventListener('click', onClickMsg);
                             document.getElementById(UID['tabCPT_GoCptPlayer' + player.id]).addEventListener('click', function(event) {
                                 var id = event.target.getAttribute('ref');
-                                window.open('https://www.calcium-pro-tool.com/index.php/Players/view/'+id);
+                                window.open(racineURL+'index.php/Players/view/'+id);
                             });
                             for(var j=0; j < bs.length; j++) {
                             	document.getElementById(UID[bs[j]]).addEventListener('click', cptSpyNow);
@@ -32761,13 +32803,13 @@
                             for(var j=0 ; j<tcpt.length ; j++) {
                                 document.getElementById(UID[tcpt[j]]).addEventListener('click', function(event) {
                                     var id = event.target.getAttribute('ref');
-                                    window.open('https://www.calcium-pro-tool.com/index.php/Players/view/'+id);
+                                    window.open(racineURL+'index.php/Players/view/'+id);
                                 });
                                 document.getElementById(UID[bm[j]]).addEventListener('click', onClickMsg);
                             }
                             document.getElementById(UID['tabCPT_GoCptAlliance' + alliance.id]).addEventListener('click', function(event) {
                                 var id = event.target.getAttribute('ref');
-                                window.open('https://www.calcium-pro-tool.com/index.php/Alliances/view/'+id);
+                                window.open(racineURL+'index.php/Alliances/view/'+id);
                             });
                         } else {
                             document.getElementById(UID['tabCPT_divAllianceDetail']).innerHTML = (rslt.dat.msg);
@@ -42068,8 +42110,9 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 						'Great dragons': 'Grands Dragons',
 						'GreenScales': 'Écailles Naturelles',
 						'Grids played': 'Grilles jouées',
+                        'Hide max buildings': 'Masques les bâtiments au max.',  
 						'Hide spy alerts': 'Masquer les alertes d\'espionnage',
-						'Hide sanctuary dragon at max level':'Masque les dragons du sanctuaire au niveau maximum',
+                        'Hide sanctuary dragon at max level':'Masque les dragons du sanctuaire au niveau maximum',
 						'Hiding': 'Sanctuaire',
 						'History': 'Historique',
 						'h': 'h',
@@ -43649,21 +43692,21 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 		-moz-box-shadow: rgba(0,0,0,0.52) 0 0 2px;\
 	}\
 	.' + UID['information'] + ' {\
-		background:url(https://www.calcium-pro-tool.com/script/icons/information.png) no-repeat top left;\
+		background:url('+racineURL+'script/icons/information.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 10px;\
 		margin: 0 auto;\
 	}\
 	.' + UID['warningblack'] + ' {\
-		background:url(https://www.calcium-pro-tool.com/script/icons/warning39_small_black.png) no-repeat top left;\
+		background:url('+racineURL+'script/icons/warning39_small_black.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 10px;\
 		margin: 0 auto;\
 	}\
 	.' + UID['number1'] + ' {\
-		background:url(https://www.calcium-pro-tool.com/script/icons/number1.png) no-repeat top left;\
+		background:url('+racineURL+'script/icons/number1.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 16px;\
@@ -43671,7 +43714,7 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 		margin: 0 auto;\
 	}\
 	.' + UID['number2'] + ' {\
-		background:url(https://www.calcium-pro-tool.com/script/icons/number2.png) no-repeat top left;\
+		background:url('+racineURL+'script/icons/number2.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 16px;\
@@ -43679,7 +43722,7 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 		margin: 0 auto;\
 	}\
 	.' + UID['number3'] + ' {\
-		background:url(https://www.calcium-pro-tool.com/script/icons/number3.png) no-repeat top left;\
+		background:url('+racineURL+'script/icons/number3.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 16px;\
@@ -43687,21 +43730,21 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 		margin: 0 auto;\
 	}\
 	.' + UID['warningred'] + ' {\
-		background:url(https://www.calcium-pro-tool.com/script/icons/warning39_small_red.png) no-repeat top left;\
+		background:url('+racineURL+'script/icons/warning39_small_red.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 10px;\
 		margin: 0 auto;\
 	}\
 	.' + UID['warninggreen'] + ' {\
-		background:url(https://www.calcium-pro-tool.com/script/icons/warning39_small_green.png) no-repeat top left;\
+		background:url('+racineURL+'script/icons/warning39_small_green.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 10px;\
 		margin: 0 auto;\
 	}\
 	.' + UID['warningorange'] + ' {\
-		background:url(https://www.calcium-pro-tool.com/script/icons/warning39_small_orange.png) no-repeat top left;\
+		background:url('+racineURL+'script/icons/warning39_small_orange.png) no-repeat top left;\
 		background-position:center center;\
 		color: white;\
 		padding-right: 10px;\
