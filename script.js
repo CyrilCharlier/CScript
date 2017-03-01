@@ -9899,7 +9899,11 @@
 					[49, 'ColossalMite', 'Mite'],
 					[50, 'AbyssalRavager', 'AbyRava'],
 					[51, 'LeviathanDragon', 'LeviaDrg'],
-					[52, 'SeaSiren', 'Siren']
+					[52, 'SeaSiren', 'Siren'],
+                    [53, 'DragonWarrior', 'DrgWar'],
+                    [54, 'TempestCabal', 'Cabal'],
+                    [55, 'Cyclops', 'Cycl'],
+                    [56, 'TempestDragon', 'TpestDrg']
 				]
 			},
 
@@ -23491,9 +23495,12 @@
 				t.forgeContentType = 2;
 				var bCrush = [], bRepair = [], bUnequip = [], bEquip = [], bUpgrade = [], cbToKeep = [];
 				var items = Seed.player.forge.items.equipments;
+                for(var i=0; i<items.length; i++) {
+                    items[i].nameT = translate(items[i].name)
+                }
 				items.sort(function(a, b) {
-					a = a.troop_type.toLowerCase();
-					b = b.troop_type.toLowerCase();
+					a = a.nameT.toLowerCase();
+					b = b.nameT.toLowerCase();
 					if (a > b) return 1;
 					if (a < b) return -1;
 					return 0;
@@ -23572,7 +23579,7 @@
 
 					m += '<tr>'
 					+ '	<td align="center"><INPUT type="checkbox" ref="'+items[i].id+'" id="'+setUID('ckForge_Inventory_'+items[i].id)+'" '+(Data.options.forge.crush.itemToKeep[items[i].id] ? 'checked' : '')+'></td>'
-					+ '	<td>&nbsp;'+translate(items[i].name)+'&nbsp;'+getInfoEquipment(items[i])+'&nbsp;</td>'
+					+ '	<td>&nbsp;'+items[i].nameT+'&nbsp;'+getInfoEquipment(items[i])+'&nbsp;</td>'
 					+ '	<td align=center>&nbsp;'+items[i].level+'&nbsp;</td>'
 					+ '	<td>&nbsp;'+itemStatus+'&nbsp;</td>'
 					+ '	<td align=left>'+actionPossible+'</td>'
