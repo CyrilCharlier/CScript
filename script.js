@@ -5,7 +5,7 @@
 (function () {
 
     
-	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.0225.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.0307.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = width || (document.body.offsetWidth - 50) + 'px';
@@ -706,36 +706,40 @@
 						},
 
 						sanctuaryAbilities: {},
-
 						autoCollect: {
 							enabled: true,
 							last_time: 0,
 							delay: 60,
 							unit: 60
 						},
-
 						autoCollectRune: {
 							enabled: true,
 							last_time: 0,
 							delay: 60,
 							unit: 60
 						},
-
 						autoRefresh: {
 							enabled: false,
 							delay: 1,
 							unit: 3600
 						},
+                        autoUse: {
+                            chestBy1000: '',
+                            chestBy1000Enable: false,
+                            items: []
+                        },
 						flashRefresh: {
 							enabled: false,
 							delay: 30,
 							unit: 60
 						},
-
 						info: {
 							current_tab: 0,
 							troop_sub_tab: 0,
-							consumption_sel: 0
+							consumption_sel: 0,
+                            chestBy1000: '',
+                            chestBy1000Enable: false
+                            
 						},
 						jobs: {
 							current_tab: 0
@@ -1843,11 +1847,11 @@
 						stepText: translate('Initializing map, auto-collect, ...')
 					});
 					MyAjax.forgeInfo();
-                    MyAjax.statScript();
 					Names.init();
 					Map.init();
 					Marches.init();
 					AutoCollect.init();
+                    AutoUse.init();
 					AutoRefresh.init();
 					Messages.init();
 
@@ -4121,7 +4125,7 @@
 				p['realmId'] = SERVER_ID;
 				p['type'] = type;
 				p['search'] = search;
-        p['version'] = api_version;
+                p['version'] = api_version;
 				p['timestamp'] = toNum(serverTime());
 				new MyAjaxRequest('other', racineURL+'index.php/Json/search', p, mycb, true);
 
@@ -4137,35 +4141,46 @@
 					}
 					return;
 				}
-			},
-      statScript: function() {
-				var t = MyAjax;
-				var p = {};
-				p['realmId'] = SERVER_ID;
-				p['tool'] = scriptName;
-				p['userId'] = C.attrs.userId;
-				p['dragon_heart'] = C.attrs.dragonHeart;
-				p['_session_id'] = C.attrs.sessionId;
-               new MyAjaxRequest('other', racineURL+'CPT/script.php', p, mycb, false);
-
-				function mycb(rslt) {
-					if (rslt.ok) {
-
-					}
-					else {
-						verboseLog(translate('Script stat error') + ': ' + rslt.errmsg);
-					}
-					return;
-				}
 			}
 		};
-		var AutoCollect = {
+		var AutoUse = {
+            init: function() {
+				var t = AutoUse;
+				t.setEnable1000(Data.options.info.chestBy1000Enable);
+			},
+            setEnable1000: function(onOff) {
+				var t = AutoUse;
+                Data.options.info.chestBy1000Enable = onOff;
+				clearTimeout(t.timer);
+                if( onOff ) {
+                   t.doit1000();
+                }
+                
+			},
+            doit1000: function() {
+                if(Seed.player.items[Data.options.info.chestBy1000] && Seed.player.items[Data.options.info.chestBy1000] != 0) {
+                    var nbItem = 1000;
+                    if(Seed.player.items[Data.options.info.chestBy1000] < 1000) {
+                        logit('Last opening of the chests by 1000 launched');
+                        dialogConfirm(translate('Last opening of the chests by 1000 launched'), null, null, false);
+                        var nbItem = Seed.player.items[Data.options.info.chestBy1000];
+                    }
+                    MyAjax.useMoreItem(Data.options.info.chestBy1000, nbItem);
+                    logit('Use of '+nbItem+' '+translate(Data.options.info.chestBy1000));
+				    setTimeout(AutoUse.doit1000, 65000);
+                } else {
+                    logit('The opening of the chests by 1000 is finished');
+                    dialogConfirm(translate('The opening of the chests by 1000 is finished'), null, null, false);
+                    AutoUse.setEnable1000(false);
+                }
+			}
+        };
+        var AutoCollect = {
 			init: function() {
 				var t = AutoCollect;
 				t.setEnable(Data.options.autoCollect.enabled);
 				t.setEnableRune(Data.options.autoCollectRune.enabled);
 			},
-
 			setEnable: function(onOff) {
 				var t = AutoCollect;
 				clearTimeout(t.timer);
@@ -4179,7 +4194,6 @@
 					}
 				}
 			},
-
 			setEnableRune: function(onOff) {
 				var t = AutoCollect;
 				clearTimeout(t.timerRune);
@@ -4193,8 +4207,6 @@
 					}
 				}
 			},
-
-
 			doit: function() {
 				var t = AutoCollect,
 					offset = 0;
@@ -4219,7 +4231,6 @@
 					}, delay);
 				}
 			},
-
 			doitRune: function() {
 				function cbRune(rslt) {
 					var d = new Date();
@@ -4346,7 +4357,7 @@
 			},
 			setLevel: function(city_id, bid, level) {
 				var cityIdx = Seed.cityIdx[city_id];
-				for (var i = 0; i < Seed.cities[cityIdx].buildings.length; i++) {
+                for (var i = 0; Seed.cities[cityIdx].buildings && i < Seed.cities[cityIdx].buildings.length; i++) {
 					if (Seed.cities[cityIdx].buildings[i].id == bid) Seed.cities[cityIdx].buildings[i].level = level;
 				}
 				Tabs.Jobs.buildRefreshLvl = false;
@@ -13748,7 +13759,21 @@
 				}
 			}
 		};
-		var addScript = function(scriptText) {
+		var addMaterialDesign = function() {
+			/*var scr = document.createElement('script');
+			scr.src = 'https://code.jquery.com/jquery-2.1.1.min.js';
+			document.body.appendChild(scr);
+            
+            var target = document.getElementsByTagName('head')[0];
+			if (target.getElementsByTagName('style').length > 0) {
+				target.removeChild(target.getElementsByTagName('style')[0]);
+            }
+			var obj = document.createElement('style');
+			obj.rel = 'stylesheet';
+			obj.href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css';
+			target.appendChild(obj);*/
+		};
+        var addScript = function(scriptText) {
 			var scr = document.createElement('script');
 			scr.innerHTML = scriptText;
 			document.body.appendChild(scr);
@@ -15383,10 +15408,7 @@
 				t.lastSubTab = 'tabInfoInventory';
 				t.contentType = 1;
 				Data.options.info.current_tab = t.contentType;
-				var m = '<div class=' + UID['status_ticker'] + '>';
-				m += t.cityTitle(CAPITAL.id);
-				m += '<table style="margin-top:3px" width=100%>';
-				var city = Seed.cities[CAPITAL.id],
+                var city = Seed.cities[CAPITAL.id],
 					iu = [],
 					ium = [],
 					types = [];
@@ -15397,13 +15419,17 @@
 						desc: translate(type)
 					});
 				}
-				types.sort(function(a, b) {
+                types.sort(function(a, b) {
 					a = a.desc.toLowerCase();
 					b = b.desc.toLowerCase();
 					if (a > b) return 1;
 					if (a < b) return -1;
 					return 0;
 				});
+				var m = '<div class=' + UID['status_ticker'] + '>';
+				m += t.cityTitle(CAPITAL.id);
+                m += '<table style="margin-top:3px" width=100%>';
+				m += '<tr><td>Ouvrerture x1000 ' + t.getSelectByType('chest', setUID('selectBy1000'), Data.options.info.chestBy1000) + ' <input type="checkbox" id="'+setUID('tabInfoInventoryActivOpen1000')+'" ' + (Data.options.info.chestBy1000Enable ? 'checked' : '') + ' > Activer</td></tr>';
 				for (var it = 0; it < types.length; it++) {
 					var type = types[it].type,
 						items = [];
@@ -15433,24 +15459,9 @@
 							if (a < b) return -1;
 							return 0;
 						});
-						m += '<tr class=' + UID['row_headers'] + ' align=center><td style="border-bottom: 1px solid; border-bottom: 1px solid;" colspan=2>' + translate(type) + '</td></tr><tr valign=top align=center>' + '<td width=50% style="border-right: 1px solid;"><table class=' + UID['row_style'] + ' width=100%>';
-						for (var i = 0; i < Math.ceil(items.length / 2); i++) {
-							m += '<tr><td align=left width=70%><span id=' + setUID('tabInfoInv_' + items[i].type + '_hl') + '>' + items[i].desc + '</span></td><td align=left width=20%>' + numf(items[i].qty, ' ') + '</td>' + '<td align=center valign=middle width=10%>';
-							if (items[i].usable) {
-								m += '<input id=' + setUID('tabInfoInv_' + items[i].type) + ' ref=' + items[i].type + ' class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value="' + translate('Use') + '" />';
-								if ((/(arsenal|chest)/.test(type))) {
-									m += '<input id=' + setUID('tabInfoInv_' + items[i].type + '_nb') + ' ref=' + items[i].type + ' class="short" type=textbox value=1 />';
-									ium.push(items[i].type);
-								}
-								else {
-									iu.push(items[i].type);
-								}
-							} else m += '&nbsp';
-							m += '</td></tr>';
-						}
-						m += '</table></td><td width=50%><table class=' + UID['row_style'] + ' width=100%>';
-						for (var i = Math.ceil(items.length / 2); i < items.length; i++) {
-							m += '<tr><td align=left width=70%><span id=' + setUID('tabInfoInv_' + items[i].type + '_hl') + '>' + items[i].desc + '</span></td><td align=left width=20%>' + numf(items[i].qty, ' ') + '</td>' + '<td align=center valign=middle width=10%>';
+						m += '<tr class=' + UID['row_headers'] + ' align=center><td style="border-bottom: 1px solid; border-bottom: 1px solid;">' + translate(type) + '</td></tr><tr valign=top align=center>' + '<td width=100% style="border-right: 1px solid;"><table class=' + UID['row_style'] + ' width=100%>';
+						for (var i = 0; i < items.length; i++) {
+							m += '<tr><td align=left width=40%><span id=' + setUID('tabInfoInv_' + items[i].type + '_hl') + '>' + items[i].desc + '</span></td><td align=left width=24%>' + numf(items[i].qty, ' ') + '</td>' + '<td align=center valign=middle width=35%>';
 							if (items[i].usable) {
 								m += '<input id=' + setUID('tabInfoInv_' + items[i].type) + ' ref=' + items[i].type + ' class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value="' + translate('Use') + '" />';
 								if ((/(arsenal|chest)/.test(type))) {
@@ -15475,6 +15486,9 @@
 					document.getElementById(UID['tabInfoInv_' + ium[i]]).addEventListener('click', useMoreItem, false);
 					document.getElementById(UID['tabInfoInv_' + ium[i] + '_nb']).addEventListener('change', ctrlNbItem, false);
 				}
+                
+                document.getElementById(UID['selectBy1000']).addEventListener('change', changeSelectBy1000, false);
+                document.getElementById(UID['tabInfoInventoryActivOpen1000']).addEventListener('change', changeSelectBy1000Enable, false);
 
 				function ctrlNbItem(event) {
 					var nb = toNum(event.target.value);
@@ -15516,6 +15530,14 @@
 						setTimeout(Tabs.Info.highLightDiff, 600);
 					});
 				}
+                function changeSelectBy1000(event) {
+                    Data.options.info.chestBy1000 = document.getElementById(UID['selectBy1000']).value;
+                }
+                function changeSelectBy1000Enable(event) {
+                    Data.options.info.chestBy1000Enable = document.getElementById(UID['tabInfoInventoryActivOpen1000']).checked;
+                    Data.options.info.chestBy1000 = document.getElementById(UID['selectBy1000']).value;
+                    AutoUse.setEnable1000(Data.options.info.chestBy1000Enable);
+                }
 			},
 			tabInfoQuests: function() {
 				var t = Tabs.Info;
@@ -16111,7 +16133,17 @@
 					Effect.Pulsate(UID['tabInfoInv_' + Tabs.Info.diff[i] + '_hl'], { pulses: 5, duration: 2.0 });
 				}
 				Tabs.Info.diff = [];
-			}
+			},
+            getSelectByType: function(type, id, valueSelected) {
+                var m = '<SELECt id="'+id+'">';
+                for (item = 0; item < Seed.items[type].length; item++) {
+                    if( Seed.player.items[Seed.items[type][item].type] ) {
+                        m += '<option value="' + Seed.items[type][item].type + '" ' + (Seed.items[type][item].type == valueSelected ? 'selected' : '') + '>' + translate(Seed.items[type][item].type) + '</option>';
+                    }
+                }
+                m += '</select>';
+                return m;
+            }
 		};
 		Tabs.Alliance = {
 			tabOrder: ALLIANCE_TAB_ORDER,
@@ -44383,6 +44415,7 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 
 
 		setMainStyles();
+        addMaterialDesign();
 		var initialDelay = Math.randRange(5000, 8000);
 		progressBar.init(800 + Math.randRange(1, 50), 100, 450, 150, translate('Initialization'), 400, false);
 		progressBar.start({
