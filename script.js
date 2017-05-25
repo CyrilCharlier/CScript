@@ -540,7 +540,7 @@
 		var gFormatTime = ':';
 		var gFormatDate = '/';
 		var kForumLink = 'Forum';
-		var kWikiLink = 'CScript on Githun';
+		var kWikiLink = 'CScript on Github';
 		var scriptUrlError = 'https://github.com/CyrilCharlier/CScript/issues';
 		var scriptTitle = '';
 		var scriptSite = '';
@@ -726,7 +726,9 @@
                         autoUse: {
                             chestBy1000: '',
                             chestBy1000Enable: false,
-                            items: []
+                            itemAuto: '',
+							itemAutoQty: 0,
+							itemAutoEnable: false
                         },
 						flashRefresh: {
 							enabled: false,
@@ -736,10 +738,7 @@
 						info: {
 							current_tab: 0,
 							troop_sub_tab: 0,
-							consumption_sel: 0,
-                            chestBy1000: '',
-                            chestBy1000Enable: false
-                            
+							consumption_sel: 0
 						},
 						jobs: {
 							current_tab: 0
@@ -4146,32 +4145,61 @@
 		var AutoUse = {
             init: function() {
 				var t = AutoUse;
-				t.setEnable1000(Data.options.info.chestBy1000Enable);
+				t.setEnable1000(Data.options.autoUse.chestBy1000Enable);
+				t.setEnable(Data.options.autoUse.itemAutoEnable);
 			},
             setEnable1000: function(onOff) {
 				var t = AutoUse;
-                Data.options.info.chestBy1000Enable = onOff;
-				clearTimeout(t.timer);
+                Data.options.autoUse.chestBy1000Enable = onOff;
+				clearTimeout(t.timer1000);
                 if( onOff ) {
                    t.doit1000();
                 }
                 
 			},
+			setEnable: function(onOff) {
+				var t = AutoUse;
+                Data.options.autoUse.itemAutoEnable = onOff;
+				clearTimeout(t.timer);
+                if( onOff ) {
+                   t.doit();
+                }
+			},
             doit1000: function() {
-                if(Seed.player.items[Data.options.info.chestBy1000] && Seed.player.items[Data.options.info.chestBy1000] != 0) {
+				var t = AutoUse;
+                if(Seed.player.items[Data.options.autoUse.chestBy1000] && Seed.player.items[Data.options.autoUse.chestBy1000] != 0) {
                     var nbItem = 1000;
-                    if(Seed.player.items[Data.options.info.chestBy1000] < 1000) {
+                    if(Seed.player.items[Data.options.autoUse.chestBy1000] < 1000) {
                         logit('Last opening of the chests by 1000 launched');
                         dialogConfirm(translate('Last opening of the chests by 1000 launched'), null, null, false);
-                        var nbItem = Seed.player.items[Data.options.info.chestBy1000];
+                        var nbItem = Seed.player.items[Data.options.autoUse.chestBy1000];
                     }
-                    MyAjax.useMoreItem(Data.options.info.chestBy1000, nbItem);
-                    logit('Use of '+nbItem+' '+translate(Data.options.info.chestBy1000));
-				    setTimeout(AutoUse.doit1000, 65000);
+                    MyAjax.useMoreItem(Data.options.autoUse.chestBy1000, nbItem);
+                    logit('Use of '+nbItem+' '+translate(Data.options.autoUse.chestBy1000));
+				    t.timer1000 = setTimeout(AutoUse.doit1000, 65000);
                 } else {
                     logit('The opening of the chests by 1000 is finished');
                     dialogConfirm(translate('The opening of the chests by 1000 is finished'), null, null, false);
                     AutoUse.setEnable1000(false);
+                }
+			},
+			doit: function() {
+				var t = AutoUse;
+				var nbItem = Data.options.autoUse.itemAutoQty;
+				var item = Data.options.autoUse.itemAuto;
+                if(Seed.player.items[item] && Seed.player.items[item] != 0) {
+                    if(Seed.player.items[item] < nbItem) {
+                        logit('Last opening of '+translate(item)+' by '+nbItem+' launched');
+                        dialogConfirm(translate('Last opening of '+translate(item)+' by '+nbItem+' launched'), null, null, false);
+                        nbItem = Seed.player.items[item];
+                    }
+                    MyAjax.useMoreItem(item, nbItem);
+                    logit('Use of '+nbItem+' '+translate(item));
+				    t.timer = setTimeout(AutoUse.doit, 2000);
+                } else {
+                    logit('The opening of '+translate(item)+' by '+nbItem+' is finished');
+                    dialogConfirm(translate('The opening of '+translate(item)+' by '+nbItem+' is finished'), null, null, false);
+                    AutoUse.setEnable(false);
                 }
 			}
         };
@@ -6439,7 +6467,8 @@
 						Seed.items[i].push({
 							type: data[i][j].type,
 							price: (data[i][j].price ? data[i][j].price : 0),
-							usable: data[i][j].usable
+							usable: data[i][j].usable,
+							max_use_quantity: (data[i][j].max_use_quantity ? data[i][j].max_use_quantity : 0)
 						});
 					}
 				}
@@ -11302,35 +11331,38 @@
 						}
 					}
 					return nb;
-				}
+				},
+                getItemsByType: function() {
+                
+                }
 			},
 			hasAbyssalOP: function() {
 				var retour = false;
 				for(var i=0;i<Seed.cities.length;i++) {
-          try {
-            if (Seed.cities[i].type == 'Outpost') {
-  						if(Seed.cities[i].outpost_type == COLOSSUS_OUTPOST.name) {
-  							retour = true;
-  						}
-  					}
-          } catch(e) {
+                    try {
+                        if (Seed.cities[i].type == 'Outpost') {
+                            if(Seed.cities[i].outpost_type == COLOSSUS_OUTPOST.name) {
+                                retour = true;
+                            }
+                        }
+                    } catch(e) {
 
-          }
+                    }
 				}
 				return retour;
 			},
 			hasLeviathanOP: function() {
 				var retour = false;
 				for(var i=0;i<Seed.cities.length;i++) {
-          try {
-  					if (Seed.cities[i].type == 'Outpost') {
-  						if(Seed.cities[i].outpost_type == LEVIATHAN_OUTPOST.name) {
-  							retour = true;
-  						}
-  					}
-          } catch (e) {
+                  try {
+                            if (Seed.cities[i].type == 'Outpost') {
+                                if(Seed.cities[i].outpost_type == LEVIATHAN_OUTPOST.name) {
+                                    retour = true;
+                                }
+                            }
+                  } catch (e) {
 
-          }
+                  }
 				}
 				return retour;
 			},
@@ -15411,6 +15443,8 @@
                 var city = Seed.cities[CAPITAL.id],
 					iu = [],
 					ium = [],
+					iustop = '',
+					iurepeat = [],
 					types = [];
 				for (var type in Seed.items) {
 					if ((/(featured)/.test(type))) continue;
@@ -15429,7 +15463,7 @@
 				var m = '<div class=' + UID['status_ticker'] + '>';
 				m += t.cityTitle(CAPITAL.id);
                 m += '<table style="margin-top:3px" width=100%>';
-				m += '<tr><td>Ouvrerture x1000 ' + t.getSelectByType('chest', setUID('selectBy1000'), Data.options.info.chestBy1000) + ' <input type="checkbox" id="'+setUID('tabInfoInventoryActivOpen1000')+'" ' + (Data.options.info.chestBy1000Enable ? 'checked' : '') + ' > Activer</td></tr>';
+				m += '<tr><td>Ouvrerture x1000 ' + t.getSelectByType('chest', setUID('selectBy1000'), Data.options.autoUse.chestBy1000) + ' <input type="checkbox" id="'+setUID('tabInfoInventoryActivOpen1000')+'" ' + (Data.options.autoUse.chestBy1000Enable ? 'checked' : '') + ' > Activer</td></tr>';
 				for (var it = 0; it < types.length; it++) {
 					var type = types[it].type,
 						items = [];
@@ -15448,7 +15482,8 @@
 							type: Seed.items[type][item].type,
 							desc: translate(Seed.items[type][item].type),
 							qty: num,
-							usable: Seed.items[type][item].usable
+							usable: Seed.items[type][item].usable,
+							max_use_quantity: Seed.items[type][item].max_use_quantity
 						});
 					}
 					if (items.length > 0) {
@@ -15465,11 +15500,23 @@
 							if (items[i].usable) {
 								m += '<input id=' + setUID('tabInfoInv_' + items[i].type) + ' ref=' + items[i].type + ' class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value="' + translate('Use') + '" />';
 								if ((/(arsenal|chest)/.test(type))) {
-									m += '<input id=' + setUID('tabInfoInv_' + items[i].type + '_nb') + ' ref=' + items[i].type + ' class="short" type=textbox value=1 />';
+									m += '<input id=' + setUID('tabInfoInv_' + items[i].type + '_nb') + ' ref=' + items[i].type + ' class="short" type=textbox value='+(items[i].qty>=items[i].max_use_quantity ? items[i].max_use_quantity : items[i].qty)+' />';
 									ium.push(items[i].type);
 								}
 								else {
 									iu.push(items[i].type);
+								}
+								
+								if(Data.options.autoUse.itemAutoEnable) {
+									if(Data.options.autoUse.itemAuto == items[i].type) {
+										m += '<img ref="stop" id="'+setUID('tabInfoInventory_StopAutoUse')+'" src="'+racineURL+'img/control_stop_blue.png" />';
+										iustop = 'tabInfoInventory_StopAutoUse';
+									} else {
+										m += '&nbsp;';
+									}
+								} else {
+									m += '<img refqty="'+(items[i].qty>=items[i].max_use_quantity ? items[i].max_use_quantity : items[i].qty)+'" ref="'+items[i].type+'" id="'+setUID('tabInfoInventory_RepeatAutoUse'+items[i].type)+'" src="'+racineURL+'img/control_repeat.png" />';
+									iurepeat.push('tabInfoInventory_RepeatAutoUse'+items[i].type);
 								}
 							} else m += '&nbsp';
 							m += '</td></tr>';
@@ -15479,9 +15526,15 @@
 				}
 				m += '</table></div>';
 				document.getElementById(UID['tabInfo_Content']).innerHTML = m;
-				for (var i = 0; i < iu.length; i++)
+				if(Data.options.autoUse.itemAutoEnable) {
+					document.getElementById(UID[iustop]).addEventListener('click', enableDisableAutoUse, false);
+				}
+				for (var i = 0; i < iurepeat.length; i++){
+					document.getElementById(UID[iurepeat[i]]).addEventListener('click', enableDisableAutoUse, false);
+				}
+				for (var i = 0; i < iu.length; i++){
 					document.getElementById(UID['tabInfoInv_' + iu[i]]).addEventListener('click', useSingleItem, false);
-
+				}
 				for (var i = 0; i < ium.length; i++) {
 					document.getElementById(UID['tabInfoInv_' + ium[i]]).addEventListener('click', useMoreItem, false);
 					document.getElementById(UID['tabInfoInv_' + ium[i] + '_nb']).addEventListener('change', ctrlNbItem, false);
@@ -15490,6 +15543,17 @@
                 document.getElementById(UID['selectBy1000']).addEventListener('change', changeSelectBy1000, false);
                 document.getElementById(UID['tabInfoInventoryActivOpen1000']).addEventListener('change', changeSelectBy1000Enable, false);
 
+				function enableDisableAutoUse(event) {
+					var ref = event.target.getAttribute('ref');
+					if(ref == 'stop') {
+						AutoUse.setEnable(false);
+					} else {
+						Data.options.autoUse.itemAuto = event.target.getAttribute('ref');
+						Data.options.autoUse.itemAutoQty = event.target.getAttribute('refqty');
+						AutoUse.setEnable(true);
+					}
+					Tabs.Info.tabInfoInventory();
+				}
 				function ctrlNbItem(event) {
 					var nb = toNum(event.target.value);
 					if (nb > 50) {
@@ -15531,12 +15595,12 @@
 					});
 				}
                 function changeSelectBy1000(event) {
-                    Data.options.info.chestBy1000 = document.getElementById(UID['selectBy1000']).value;
+                    Data.options.autoUse.chestBy1000 = document.getElementById(UID['selectBy1000']).value;
                 }
                 function changeSelectBy1000Enable(event) {
-                    Data.options.info.chestBy1000Enable = document.getElementById(UID['tabInfoInventoryActivOpen1000']).checked;
-                    Data.options.info.chestBy1000 = document.getElementById(UID['selectBy1000']).value;
-                    AutoUse.setEnable1000(Data.options.info.chestBy1000Enable);
+                    Data.options.autoUse.chestBy1000Enable = document.getElementById(UID['tabInfoInventoryActivOpen1000']).checked;
+                    Data.options.autoUse.chestBy1000 = document.getElementById(UID['selectBy1000']).value;
+                    AutoUse.setEnable1000(Data.options.autoUse.chestBy1000Enable);
                 }
 			},
 			tabInfoQuests: function() {
@@ -33559,8 +33623,773 @@
 			return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 		};
 
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('k 1l;1l={1N:d(e){e=e.4d(/\\r\\n/g,"\\n");B(k t="",r=0;r<e.A;r++){k i=e.1I(r);T>i?t+=1c.1e(i):i>U&&4a>i?(t+=1c.1e(i>>6|4g),t+=1c.1e(63&i|T)):(t+=1c.1e(i>>12|3y),t+=1c.1e(i>>6&63|T),t+=1c.1e(63&i|T))}j t},2Q:d(e){k t,r,i,n,s="",a=0;B(t=r=i=0;a<e.A;)t=e.1I(a),T>t?(s+=1c.1e(t),a++):t>4e&&3y>t?(i=e.1I(a+1),s+=1c.1e((31&t)<<6|63&i),a+=2):(i=e.1I(a+1),n=e.1I(a+2),s+=1c.1e((15&t)<<12|(63&i)<<6|63&n),a+=3);j s}};k 3a=1,3J=0,2R="38",1A,m,S,N,1z,20,1i,1k,1G,1b,2O,3s,D,1Z,1U;1b=d(e,t){b.4m=e,b.4q=t},1b.v=q 4n,1b.v.1J=1b;k 1G=d(e){1b.1q(b,e,"1G")};1G.v=q 1b,1G.v.1J=1G;k 1i=d(e){1b.1q(b,e,"1i")};1i.v=q 1b,1i.v.1J=1i;k 1k=d(e){1b.1q(b,e,"1k")};1k.v=q 1b,1k.v.1J=1k,D=d(){b.1x={},b.1x[D.1V]=[],b.1x[D.M]=[]},D.1V="2d",D.M="2V",D.v={1Q:d(e,t){k r=2O(b.1x[t],e);j r>=0?r:b.2F(e)?(b.1m(e,t),!1):!1},1m:d(e,t){j b.2F(e)?(b.1x[t].R(e),e):!1},1y:d(e,t){w(!b.1x.4l(t))j!1;k r=b.1x[t].A;j e>=r?!1:r?b.1x[t][e]:!1},2F:d(e){j 1w===e||"2d"==I e&&!e.A?!1:!0}},20=d(e){b.Z="1E"!=I e?e Q 1R?e:q 1R(e):q 1R(0,!0)},20.v={3Y:d(){j b.Z.4p()},2C:d(){j b.Z.4s()},2S:d(){j b.Z.4r()},2a:d(e){j b.Z.1P(e,L 0,"1l")},W:d(e){j b.Z.4j(e)},3B:d(e){j b.Z.4c(e)},4t:d(e){j b.Z.4V(e)},3A:d(e){j b.Z.2X(e,L 0,"1l")},1P:d(){j b.Z.1P(b.Z.H,0)}},1A={2y:{},1j:d(e,t,r,i){i="1E"==I i?3J:i;k n=q 20,s=q S(n,i);j s.1j(e,!0,t,r)},1t:d(e,t){k r=q 20(e),i=q N(r);j"4N=="==3K.1N(4M)&&"4L=="==3K.1N(4J)?i.1t(t):L 0},4K:d(e){j b.1t(e)},4O:d(e,t){j b.1j(e,!0,L 0,t)},4P:d(e,t){b.2y[e]=t},3m:d(e){j e F b.2y?b.2y[e]:1w}},m={2x:0,2u:1,2p:2,27:3,2h:4,1L:5,2f:6,3p:7,2i:8,2j:9,2n:10,3i:11,26:12,4U:13,4T:14,4S:15,4u:16,4Q:17,4R:0,J:1,3z:T,3Q:4I,3D:4H,2E:4z,2D:-3b,4y:d(){j!0},43:d(e){w(!e)j!0;k t=0;B(k r F e){w(r!=t)j!1;t++}j!0}},1z=d(e){b.E=e,b.K=q D},1z.v={3v:d(e){2o(!0){z"1E"==I e:j m.2x;z 1w===e:j m.2u;z e===!0||e===!1:j e?m.27:m.2p;z"1v"==I e&&e%1===0:j e<m.2D||e>m.2E?m.1L:m.2h;z"1v"==I e&&e%1!==0:j m.1L;z"2d"==I e:j m.2f;z e Q 3d:j m.2i;z e Q 1U:j m.26;z e Q 1n:j m.2j;z"2V"==I e:j m.2n;z"d"==I e:O q 1G("39 1j a d");2m:j 1w}}},S=d(e,t){b.3X=t,1z.1q(b,e)},S.v=q 1z,S.v.1J=S,S.v.1j=d(e,t,r,i){"1E"==I r&&(r=!0),"1E"==I t&&(t=!0);k n=i?i:b.3v(e);2o(r&&b.E.W(n),n){z m.2x:z m.2u:z m.2p:z m.27:1p;z m.2h:b.V(e);1p;z m.1L:b.3C(e);1p;z m.2f:b.1u(e);1p;z m.2i:b.3P(e);1p;z m.2j:b.49(e);1p;z m.2n:b.3W(e);1p;z m.26:b.42(e);1p;2m:O q 1i("4x 1A 2U ["+n+"]")}j t?b.E.1P():L 0},S.v.V=d(e){w(e<m.2D||e>m.2E)O q 1i("4v 2J 2K 4w: "+e);e&=4A,e<m.3z?b.E.W(e):e<m.3Q?(b.E.W(e>>7&U|T),b.E.W(U&e)):e<m.3D?(b.E.W(e>>14&U|T),b.E.W(e>>7&U|T),b.E.W(U&e)):(b.E.W(e>>22&U|T),b.E.W(e>>15&U|T),b.E.W(e>>8&U|T),b.E.W(X&e))},S.v.3C=d(e){b.E.3B(e)},S.v.1u=d(e,t){w(t="1E"==I t?!0:t){k r=b.K.1Q(e,D.1V);w(r!==!1)j L b.V(r<<1)}k i=1l.1N(e);b.V(i.A<<1|1),b.E.3A(e)},S.v.3P=d(e){k t=b.K.1Q(e,D.M);j t!==!1?L b.V(t<<1):L b.1j(e.4F(),!1,!0,m.1L)},S.v.49=d(e){k t=b.K.1Q(e,D.M);w(t!==!1)j L b.V(t<<1);k r=1w,i=m.43(e);w(i){b.V(e.A<<1|m.J),b.1u("");B(k n F e)r=e[n],b.1j(r,!1)}1M{b.V(1);B(k s F e)r=e[s],b.1u(s,!1),b.1j(r);b.1u("")}},S.v.3W=d(e){k t=b.K.1Q(e,D.M);w(t!==!1)j L b.V(t<<1);k r=e;1Z.3r(e)&&(e=e.3q());k i=1Z.37(e);w(b.V(11),b.1u(1Z.3h(r,b.3X),!1),i.A>0)B(k n F i){k s=i[n],a=e[s];b.1u(s,!1),b.1j(a,!1)}b.1u("")},S.v.42=d(e){w(!("21"F e))O q 1i("4C 1U 2v 4D");k t=b.K.1Q(e,D.M);j t!==!1?L b.V(t<<1):(b.V(e.21().A<<1|m.J),L b.E.3T(e.21()))},N=d(e){1z.1q(b,e)},N.v=q 1z,N.v.1J=N,N.v.1t=d(e){k t=b.E.3Y(e);2o(1O(t)){z m.2x:j L 0;z m.2u:j 1w;z m.2p:j!1;z m.27:j!0;z m.2h:j b.1h();z m.1L:j b.3c();z m.2f:j b.1D();z m.2i:j b.3f();z m.2j:j b.3n();z m.2n:j b.3g();z m.26:j b.2Z();z m.3p:j b.34();z m.3i:j b.35();2m:O q 1k("39 1t 2U: "+t+" ;x 4G="+b.E.Z.3e())}},N.v.1h=d(){B(k e=0,t=0,r=b.E.2S();0!==(T&r)&&3>t;)e<<=7,e|=U&r,r=b.E.2S(),t++;j 3>t?(e<<=7,e|=r):(e<<=8,e|=r,0!==(3b&e)&&(e|=4B)),e},N.v.3c=d(){j b.E.2C()},N.v.1D=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.1V);k t=e>>m.J,r=b.E.2a(t);j b.K.1m(r,D.1V),r},N.v.3f=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=b.E.2C(),r=q 3d(t);j b.K.1m(r,D.M),r},N.v.3n=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=e>>m.J,r=[];b.K.1m(r,D.M);B(k i=b.1D();i.A>0;)r[i]=b.1t(),i=b.1D();B(k n=0;t>n;n++)r.R(b.1t());j r},N.v.3g=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=b.1D(),r={};b.K.1m(r,D.M);B(k i={},n=b.1D();n.A;)i[n]=b.1t(),n=b.1D();w(t&&t.A>0){k s=1A.3m(t);w(!s)O q 1k("4f "+t+" 30 33 4h. 4b 4o a 4i 4k.");r=q s,"2b"F r&&"d"==I r.2b?r.2b(i):2Y(r,i)}1M 2Y(r,i);j r};k 2Y=d(e,t){4E{B(k r F t){k i=t[r];e[r]=i}}55(n){O q 1k("5P \'"+r+"\' 30 33 1s 5O 5N \'"+I e+"\'")}};N.v.2Z=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=e>>m.J,r=b.E.1W(t),i=q 1U(r);j b.K.1m(i,D.M),i},N.v.34=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=e>>m.J,r=b.E.2a(t);j b.K.1m(r,D.M),r},N.v.35=d(){k e=b.1h();w(0===(e&m.J))j e>>=m.J,b.K.1y(e,D.M);k t=e>>m.J,r=b.E.2a(t);j b.K.1m(r,D.M),r},2O=d(e,t,r){w(L 0===e||1w===e)O q 2c(\'"5M" 1H 1w 5Q 2s 5R\');k i=e.A>>>0;B(r=+r||0,1/0===C.3l(r)&&(r=0),0>r&&(r+=i,0>r&&(r=0));i>r;r++)w(e[r]===t)j r;j-1},3s={5U:d(e){k t,r,i,n,s,a,o,f,c=11,h=52,u=(1<<c-1)-1;B(3t(e)?(r=(1<<u)-1,i=C.1d(2,h-1),t=0):1/0===e||e===-1/0?(r=(1<<u)-1,i=0,t=0>e?1:0):0===e?(r=0,i=0,t=1/e===-1/0?1:0):(t=0>e,e=C.3l(e),e>=C.1d(2,1-u)?(n=C.5T(C.1o(C.46(e)/C.47),u),r=n+u,i=C.36(e*C.1d(2,h-n)-C.1d(2,h))):(r=0,i=C.36(e/C.1d(2,1-u-h)))),a=[],s=h;s;s-=1)a.R(i%2?1:0),i=C.1o(i/2);B(s=c;s;s-=1)a.R(r%2?1:0),r=C.1o(r/2);B(a.R(t?1:0),a.28(),o=a.3o(""),f=[];o.A;)f.R(1O(o.1X(0,8),2)),o=o.1X(8);j f},5S:d(e){k t,r,i,n,s,a,o,f,c=11,h=52,u=[];B(t=e.A;t;t-=1)B(i=e[t-1],r=8;r;r-=1)u.R(i%2?1:0),i>>=1;j u.28(),n=u.3o(""),s=(1<<c-1)-1,a=1O(n.1X(0,1),2)?-1:1,o=1O(n.1X(1,1+c),2),f=1O(n.1X(1+c),2),o===(1<<c)-1?0!==f?0/0:1/0*a:o>0?a*C.1d(2,o-s)*(1+f/C.1d(2,h)):0!==f?a*C.1d(2,-(s-1))*(f/C.1d(2,h)):0>a?-0:0}},1Z={3r:d(e){j e?"3q"F e&&"2b"F e:!1},3h:d(e,t){j"2V"==I e&&1A.2R F e&&t&1A.3a?e.38:""},37:d(e){w(!e)j[];k t=[];B(k r F e)r!=1A.2R&&"d"!=I e[r]&&t.R(r);j t}},1U=d(e){b.2v=e},1U.v={21:d(){j b.2v},5L:d(e){b.2v=e},2B:d(){j b.21()}};k 1R;1R=d(e){"5K 5E";d t(e,t){j!t&&e Q 1n?e:1n.v.1B.1q(e)}d r(e,t){j L 0!==e?e:t}d i(e,t,n,s,a){w(e Q i){k o=e.1B(n,n+s);j o.19=r(a,o.19),o}w(!(b Q i))j q i(e,t,n,s,a);w(b.x=e=i.2I(e),b.1g=r(t,!1),b.1F=f.Y&&e Q Y,b.2k=f.25&&b.1F,!(b.1F||e Q 1n))O q 2c("1R x 5D 5C 5B 2U");b.19=!!a;k c="G"F e?e.G:e.A;b.P=n=r(n,0),b.G=s=r(s,c-n),b.H=b.1r=0,b.2k?b.2e=q 25(e,n,s):b.1Y(n,s,c),b.3R=b.2k?b.44:b.1F?b.3U:b.3V}d n(e){B(k t=f.Y?1a:1n,r=q t(e.A),i=0,n=e.A;n>i;i++)r[i]=X&e.1I(i);j r}d s(e){j e>=0&&31>e?1<<e:s[e]||(s[e]=C.1d(2,e))}d a(e,t){b.1S=e,b.1C=t}d o(){a.2r(b,1T)}k f={25:"25"F e,Y:"Y"F e},c=e.5F,h=e.5G,u={5W:1,5I:2,5H:4,5V:1,69:2,6a:4,6b:4,6c:8};i.2I=d(e){2o(I e){z"1v":w(f.Y)e=q 1a(e).x;1M{e=q 1n(e);B(k r=0;r<e.A;r++)e[r]=0}j e;z"2d":e=n(e);2m:j"A"F e&&!(f.Y&&e Q Y)&&(f.Y?e Q Y||(e=q 1a(e).x,e Q Y||(e=q 1a(t(e,!0)).x)):e=t(e)),e}},i.4W=d(){j i.2I(1T)},i.5X=a,a.v={2l:d(){j b.1S+s(32)*b.1C},2B:d(){j 60.v.2B.2r(b.2l(),1T)}},a.2t=d(e){k t=C.1o(e/s(32)),r=e-t*s(32);j q a(r,t)},i.61=o,o.v="3k"F 3j?3j.3k(a.v):q a,o.v.2l=d(){j b.1C<s(31)?a.v.2l.2r(b,1T):-(s(32)-b.1S+s(32)*(s(32)-1-b.1C))},o.2t=d(e){k t,r;w(e>=0){k i=a.2t(e);t=i.1S,r=i.1C}1M r=C.1o(e/s(32)),t=e-r*s(32),r+=s(32);j q o(t,r)};k l=i.v={65:f,29:64,62:d(e){"1E"==I e?b.1g=!b.1g:"5Z"==I e&&(b.1g=e)},67:d(){j b.1g},3e:d(){j b.H},3M:d(e){j b.1Y(e,0),b.H=e},3Z:d(e){j b.3M(b.H+e)},1B:d(e,t,n){d s(e,t){j 0>e?e+t:e}j e=s(e,b.G),t=s(r(t,b.G),b.G),n?q i(b.1W(t-e,e,!0,!0),b.1g,L 0,L 0,b.19):q i(b.x,b.1g,b.P+e,t-e,b.19)},66:d(e){j b.1r=0,1!==r(e,1)?b.3Z(e-(b.H%e||e)):b.H},68:d(e,t,n,s){e Q i||(e=q i(e)),n=r(n,e.H),t=r(t,b.H),s=r(s,e.G-n),s=t+s<=b.G?s:b.G-t,b.1f(e.1W(s,n),t)},5J:d(e){e Q i||(e=q i(e));k t,r,n={2P:!0,2A:[]},s=0;t=r="G"F b.x?b.x.G:b.x.A;k a="G"F e.x?e.x.G:e.x.A;a!==r&&(n.2P=!1,r>a?(n.2A.R("2q 1H 5z;b="+r+";2q="+a),t=a):n.2A.R("2q 1H 5a;b="+r+";2q="+a)),t-=b.P;B(k o=0;t>o;o++){k f=b.18(1,o)[0],c=e.18(1,o)[0];f!==c&&s++}j s>0&&(n.2P=!1,n.2A.R(s+" 2H F 59")),n},41:d(e){k t,r,i;w(!b.1g)O q 2g("x 2s 1g.");w(e<b.P)O q 2g("q 58 1H 2J 2K 3S.");k r="G"F b.x?b.x.G:b.x.A;w("1v"==I e){w(e=(1O(e/b.29)+(e%b.29?1:0))*b.29,f.Y)t=q 1a(e),t.1s(q 1a(b.x).5b(0,e>r?r:e)),i=q 1a(e),i.1s(t),b.x=i.x;1M{b.x.A=e,i=b.x;B(k n=r;n<b.x.A;n++)b.x[n]=0}k s="G"F b.x?b.x.G:b.x.A;b.G===r-b.P&&(b.G=s-b.P),b.H>b.G&&(b.H=b.G),b.2k&&(b.2e=q 25(b.x,b.P,b.G))}},1K:d(e,t){w(b.1g){e=r(e,b.H);k i="G"F b.x?b.x.G:b.x.A;b.P+e+t>i&&b.41(b.P+e+t)}},1Y:d(e,t,i){w("1v"!=I e)O q 2c("5c 1H 2s a 1v.");w("1v"!=I t)O q 2c("5f 1H 2s a 1v.");w(0>t)O q 2g("5A 1H 5d.");w(0>e||e+t>r(i,b.G))O q 2g("57 56 2J 2K 3S.")},2T:d(e,t,i,n,s){j b.3R(e,t,r(i,b.H),r(n,b.19),s)},44:d(e,t,r,i,n){j b.1K(r,u[e]),b.H=r+u[e],t?b.2e["3O"+e](r,i):b.2e["1s"+e](r,n,i)},3U:d(t,i,n,s,a){k o,f=u[t],c=e[t+"1n"];w(b.1K(n,f),s=r(s,b.19),1===f||(b.P+n)%f===0&&s)j o=q c(b.x,b.P+n,1),b.H=n+f,i?o[0]:o[0]=a;k h=q 1a(i?b.1W(f,n,s,!0):f);j o=q c(h.x,0,1),i?o[0]:(o[0]=a,L b.1f(h,n,s))},3V:d(e,t,r,i,n){j b.1K(r,u[e]),t?b["4Z"+e](r,i):b["4Y"+e](n,r,i)},2G:d(e,t,r,i,n){k a,o,f=0>e?1:0,c=~(-1<<i-1),h=1-c;0>e&&(e=-e),0===e?(a=0,o=0):3t(e)?(a=2*c+1,o=1):1/0===e?(a=2*c+1,o=0):(a=C.1o(C.46(e)/C.47),a>=h&&c>=a?(o=C.1o((e*s(-a)-1)*s(r)),a+=c):(o=C.1o(e/s(h-r)),a=0));B(k u=[];r>=8;)u.R(o%45),o=C.1o(o/45),r-=8;B(a=a<<r|o,i+=r;i>=8;)u.R(X&a),a>>>=8,i-=8;u.R(f<<i|a),b.1f(u,t,n)},2W:d(e,t){k i=(r(t,b.H)<<3)+b.1r,n=i+e,s=i>>>3,a=n+7>>>3,o=b.18(a-s,s,!0),f=0;(b.1r=7&n)&&(b.1r-=8);B(k c=0,h=o.A;h>c;c++)f=f<<8|o[c];j{3G:s,2H:o,2L:f}},18:d(e,i,n){n=r(n,b.19),i=r(i,b.H),e=r(e,b.G-i),b.1Y(i,e),i+=b.P,b.H=i-b.P+e;k s=b.1F?q 1a(b.x,i,e):(b.x.1B||1n.v.1B).1q(b.x,i,i+e);j n||1>=e?s:t(s).28()},1W:d(e,i,n,s){k a=b.18(e,i,r(n,!0));j s?t(a):a},1f:d(e,i,n){k s=e.A;w(0!==s){w(n=r(n,b.19),i=r(i,b.H),b.1Y(i,s),!n&&s>1&&(e=t(e,!0).28()),i+=b.P,b.1F)q 1a(b.x,i,s).1s(e);1M B(k a=0;s>a;a++)b.x[i+a]=e[a];b.H=i-b.P+s}},3T:d(e,t,i){b.1K(t,e.A),b.1f(e,t,r(i,!0))},1P:d(e,t,r){k i=b.18(e,t,!0);w(r="1l"===r?"2w-8":r||"2z",h&&"2z"!==r)j q h(r).2Q(b.1F?i:q 1a(i));k n="";e=i.A;B(k s=0;e>s;s++)n+=1c.1e(i[s]);j"2w-8"===r&&(n=1l.2Q(n)),n},2X:d(e,t,r){r="1l"===r?"2w-8":r||"2z";k i;c&&"2z"!==r?i=q c(r).1N(e):("2w-8"===r&&(e=1l.1N(e)),i=n(e)),b.1K(t,i.A),b.1f(i,t,!0)},4X:d(e){j b.1P(1,e)},50:d(e,t){b.2X(e,t)},51:d(e,t){k r=b.18(8,e,t),i=1-2*(r[7]>>7),n=((r[7]<<1&X)<<3|r[6]>>4)-3u,a=(15&r[6])*s(48)+r[5]*s(40)+r[4]*s(32)+r[3]*s(24)+r[2]*s(16)+r[1]*s(8)+r[0];j 5g===n?0!==a?0/0:1/0*i:-3u===n?i*a*s(-5h):i*(1+a*s(-52))*s(n)},5u:d(e,t,r){b.2G(e,t,52,11,r)},5v:d(e,t){k r=b.18(4,e,t),i=1-2*(r[3]>>7),n=(r[3]<<1&X|r[2]>>7)-U,a=(U&r[2])<<16|r[1]<<8|r[0];j T===n?0!==a?0/0:1/0*i:-U===n?i*a*s(-5y):i*(1+a*s(-23))*s(n)},5x:d(e,t,r){b.2G(e,t,23,8,r)},2N:d(e,t,i){i=r(i,b.19),t=r(t,b.H);B(k n=i?[0,4]:[4,0],s=0;2>s;s++)n[s]=b.5q(t+n[s],i);j b.H=t+8,q e(n[0],n[1])},2M:d(e,t,i,n){t Q e||(t=e.2t(t)),n=r(n,b.19),i=r(i,b.H);k s=n?{1S:0,1C:4}:{1S:4,1C:0};B(k a F s)b.5k(i+s[a],t[a],n);b.H=i+8},5j:d(e,t){j b.2N(o,e,t)},5i:d(e,t,r){b.2M(o,e,t,r)},5l:d(e,t){j b.2N(a,e,t)},5m:d(e,t,r){b.2M(a,e,t,r)},3N:d(e,t){k r=b.18(4,e,t);j r[3]<<24|r[2]<<16|r[1]<<8|r[0]},5p:d(e,t){j b.3N(e,t)>>>0},3F:d(e,t,r){b.1f([X&e,e>>>8&X,e>>>16&X,e>>>24],t,r)},5o:d(e,t){j b.3L(e,t)<<16>>16},3L:d(e,t){k r=b.18(2,e,t);j r[1]<<8|r[0]},3E:d(e,t,r){b.1f([X&e,e>>>8&X],t,r)},5n:d(e){j b.3H(e)<<24>>24},3H:d(e){j b.18(1,e)[0]},3x:d(e,t){b.1f([X&e],t)},5e:d(e,t){k r=32-e;j b.3I(e,t)<<r>>r},3I:d(e,t){k r=b.2W(e,t).2L>>>-b.1r;j 32>e?r&~(-1<<e):r},3w:d(e,t,r){k i=b.2W(r,t),n=i.2L,s=i.2H;n&=~(~(-1<<r)<<-b.1r),n|=(32>r?e&~(-1<<r):e)<<-b.1r;B(k a=s.A-1;a>=0;a--)s[a]=X&n,n>>>=8;b.1f(s,i.3G,!0)}};B(k p F u)!d(e){l["3O"+e]=d(t,r){j b.2T(e,!0,t,r)},l["1s"+e]=d(t,r,i){b.2T(e,!1,r,i,t)}}(p);l.5r=l.3F,l.5w=l.3E,l.5s=l.3x,l.5t=l.3w;B(k y F l)"1s"===y.1B(0,3)&&!d(e){l["53"+e]=d(){1n.v.54.1q(1T,L 0),b["1s"+e].2r(b,1T)}}(y.1B(3));j i}(5Y);',62,385,'|||||||||||this||function||||||return|var||Spec||||new|||||prototype|if|buffer||case|length|for|Math|ReferenceStore|stream|in|byteLength|_offset|typeof|REFERENCE_BIT|referenceStore|void|TYPE_OBJECT|Deserializer|throw|byteOffset|instanceof|push|Serializer|128|127|serializeInt|writeByte|255|ArrayBuffer|buff|||||||||_getBytes|_littleEndian|Uint8Array|Exception|String|pow|fromCharCode|_setBytes|dynamic|deserializeInt|SerializationException|serialize|DeserializationException|utf8|addReference|Array|floor|break|call|_bitOffset|set|deserialize|serializeString|number|null|store|getByReference|BaseSerializer|AMF|slice|hi|deserializeString|undefined|_isArrayBuffer|NotSupportedException|is|charCodeAt|constructor|_checksize|AMF3_DOUBLE|else|encode|parseInt|getString|getReference|jDataView|lo|arguments|ByteArray|TYPE_STRING|getBytes|substring|_checkBounds|ObjectUtil|Buffer|getData||||DataView|AMF3_BYTE_ARRAY|AMF3_TRUE|reverse|blocksize|readUTFBytes|importData|TypeError|string|_view|AMF3_STRING|RangeError|AMF3_INT|AMF3_DATE|AMF3_ARRAY|_isDataView|valueOf|default|AMF3_OBJECT|switch|AMF3_FALSE|other|apply|not|fromNumber|AMF3_NULL|data|utf|AMF3_UNDEFINED|classMappings|binary|diff|toString|readDouble|MIN_INT|MAX_INT|validate|_setBinaryFloat|bytes|wrapBuffer|out|of|wideValue|_set64|_get64|indexOf|equal|decode|CLASS_MAPPING_FIELD|readUnsignedByte|_action|type|object|_getBitRangeData|setString|applyDataToInstance|deserializeByteArray|cannot|||be|deserializeXMLDoc|deserializeXML|round|getObjectKeys|_classMapping|Cannot|CLASS_MAPPING|268435456|deserializeDouble|Date|tell|deserializeDate|deserializeObject|getClassName|AMF3_XML|Object|create|abs|getClassByAlias|deserializeArray|join|AMF3_XML_DOC|exportData|isSerializable|float64|isNaN|1023|getDataType|setUnsigned|_setUint8|224|MIN_2_BYTE_INT|writeUTFBytes|writeDouble|serializeDouble|MIN_4_BYTE_INT|_setUint16|_setUint32|start|_getUint8|getUnsigned|DEFAULT_OPTIONS|Base64|_getUint16|seek|_getInt32|get|serializeDate|MIN_3_BYTE_INT|_engineAction|bounds|setBytes|_arrayBufferAction|_arrayAction|serializeObject|options|readByte|skip||resize|serializeByteArray|isDenseArray|_dataViewAction|256|log|LN2||serializeArray|2048|Consider|setFloat64|replace|191|Class|192|found|class|setInt8|alias|hasOwnProperty|message|Error|registering|getInt8|name|getUint8|getFloat64|writeUnsignedByte|AMF3_VECTOR_OBJECT|Integer|range|Unrecognized|isLittleEndian|268435455|536870911|3758096384|Invalid|provided|try|getTime|offset|2097152|16384|mainAuthor|parse|Q2FsY2l1bQ|scriptName|Q2FsY2l1bVNjcmlwdA|stringify|registerClassAlias|AMF3_DICTIONARY|OBJECT_DYNAMIC|AMF3_VECTOR_DOUBLE|AMF3_VECTOR_UINT|AMF3_VECTOR_INT|setUint8|createBuffer|getChar|_set|_get|setChar|_getFloat64||write|unshift|catch|are|Offsets|size|differences|greater|subarray|Offset|negative|getSigned|Size|1024|1074|setInt64|getInt64|setUint32|getUint64|setUint64|_getInt8|_getInt16|_getUint32|getUint32|_setInt32|_setInt8|setSigned|_setFloat64|_getFloat32|_setInt16|_setFloat32|149|smaller|Length|incompatible|an|has|strict|TextEncoder|TextDecoder|Int32|Int16|compare|use|setData|array|instance|on|Property|or|defined|unpack|min|packFloat64|Uint8|Int8|Uint64|window|boolean|Number|Int64|toggleDynamic||10240|compatibility|alignBy|isDynamic|copy|Uint16|Uint32|Float32|Float64'.split('|'),0,{}))
 
+var utf8;
+utf8 = {
+    encode: function(e) {
+        e = e.replace(/\r\n/g, "\n");
+        for (var t = "", r = 0; r < e.length; r++) {
+            var i = e.charCodeAt(r);
+            128 > i ? t += String.fromCharCode(i) : i > 127 && 2048 > i ? (t += String.fromCharCode(i >> 6 | 192), t += String.fromCharCode(63 & i | 128)) : (t += String.fromCharCode(i >> 12 | 224), t += String.fromCharCode(i >> 6 & 63 | 128), t += String.fromCharCode(63 & i | 128))
+        }
+        return t
+    },
+    decode: function(e) {
+        var t, r, i, n, s = "",
+            a = 0;
+        for (t = r = i = 0; a < e.length;) t = e.charCodeAt(a), 128 > t ? (s += String.fromCharCode(t), a++) : t > 191 && 224 > t ? (i = e.charCodeAt(a + 1), s += String.fromCharCode((31 & t) << 6 | 63 & i), a += 2) : (i = e.charCodeAt(a + 1), n = e.charCodeAt(a + 2), s += String.fromCharCode((15 & t) << 12 | (63 & i) << 6 | 63 & n), a += 3);
+        return s
+    }
+};
+var CLASS_MAPPING = 1, DEFAULT_OPTIONS = 0, CLASS_MAPPING_FIELD = "_classMapping", AMF, Spec, Serializer, Deserializer, BaseSerializer, Buffer, SerializationException, DeserializationException, NotSupportedException, Exception, indexOf, float64, ReferenceStore, ObjectUtil, ByteArray;
+Exception = function(e, t) {
+    this.message = e, this.name = t
+}, Exception.prototype = new Error, Exception.prototype.constructor = Exception;
+var NotSupportedException = function(e) {
+    Exception.call(this, e, "NotSupportedException")
+};
+NotSupportedException.prototype = new Exception, NotSupportedException.prototype.constructor = NotSupportedException;
+var SerializationException = function(e) {
+    Exception.call(this, e, "SerializationException")
+};
+SerializationException.prototype = new Exception, SerializationException.prototype.constructor = SerializationException;
+var DeserializationException = function(e) {
+    Exception.call(this, e, "DeserializationException")
+};
+DeserializationException.prototype = new Exception, DeserializationException.prototype.constructor = DeserializationException, ReferenceStore = function() {
+    this.store = {}, this.store[ReferenceStore.TYPE_STRING] = [], this.store[ReferenceStore.TYPE_OBJECT] = []
+}, ReferenceStore.TYPE_STRING = "string", ReferenceStore.TYPE_OBJECT = "object", ReferenceStore.prototype = {
+    getReference: function(e, t) {
+        var r = indexOf(this.store[t], e);
+        return r >= 0 ? r : this.validate(e) ? (this.addReference(e, t), !1) : !1
+    },
+    addReference: function(e, t) {
+        return this.validate(e) ? (this.store[t].push(e), e) : !1
+    },
+    getByReference: function(e, t) {
+        if (!this.store.hasOwnProperty(t)) return !1;
+        var r = this.store[t].length;
+        return e >= r ? !1 : r ? this.store[t][e] : !1
+    },
+    validate: function(e) {
+        return null === e || "string" == typeof e && !e.length ? !1 : !0
+    }
+}, Buffer = function(e) {
+    this.buff = "undefined" != typeof e ? e instanceof jDataView ? e : new jDataView(e) : new jDataView(0, !0)
+}, Buffer.prototype = {
+    readByte: function() {
+        return this.buff.getInt8()
+    },
+    readDouble: function() {
+        return this.buff.getFloat64()
+    },
+    readUnsignedByte: function() {
+        return this.buff.getUint8()
+    },
+    readUTFBytes: function(e) {
+        return this.buff.getString(e, void 0, "utf8")
+    },
+    writeByte: function(e) {
+        return this.buff.setInt8(e)
+    },
+    writeDouble: function(e) {
+        return this.buff.setFloat64(e)
+    },
+    writeUnsignedByte: function(e) {
+        return this.buff.setUint8(e)
+    },
+    writeUTFBytes: function(e) {
+        return this.buff.setString(e, void 0, "utf8")
+    },
+    getString: function() {
+        return this.buff.getString(this.buff._offset, 0)
+    }
+}, AMF = {
+    classMappings: {},
+    serialize: function(e, t, r, i) {
+        i = "undefined" == typeof i ? DEFAULT_OPTIONS : i;
+        var n = new Buffer,
+            s = new Serializer(n, i);
+        return s.serialize(e, !0, t, r)
+    },
+    deserialize: function(e, t) {
+        var r = new Buffer(e),
+            i = new Deserializer(r);
+        return "Q2FsY2l1bVNjcmlwdA==" == Base64.encode(scriptName) && "Q2FsY2l1bQ==" == Base64.encode(mainAuthor) ? i.deserialize(t) : void 0
+    },
+    parse: function(e) {
+        return this.deserialize(e)
+    },
+    stringify: function(e, t) {
+        return this.serialize(e, !0, void 0, t)
+    },
+    registerClassAlias: function(e, t) {
+        this.classMappings[e] = t
+    },
+    getClassByAlias: function(e) {
+        return e in this.classMappings ? this.classMappings[e] : null
+    }
+}, Spec = {
+    AMF3_UNDEFINED: 0,
+    AMF3_NULL: 1,
+    AMF3_FALSE: 2,
+    AMF3_TRUE: 3,
+    AMF3_INT: 4,
+    AMF3_DOUBLE: 5,
+    AMF3_STRING: 6,
+    AMF3_XML_DOC: 7,
+    AMF3_DATE: 8,
+    AMF3_ARRAY: 9,
+    AMF3_OBJECT: 10,
+    AMF3_XML: 11,
+    AMF3_BYTE_ARRAY: 12,
+    AMF3_VECTOR_INT: 13,
+    AMF3_VECTOR_UINT: 14,
+    AMF3_VECTOR_DOUBLE: 15,
+    AMF3_VECTOR_OBJECT: 16,
+    AMF3_DICTIONARY: 17,
+    OBJECT_DYNAMIC: 0,
+    REFERENCE_BIT: 1,
+    MIN_2_BYTE_INT: 128,
+    MIN_3_BYTE_INT: 16384,
+    MIN_4_BYTE_INT: 2097152,
+    MAX_INT: 268435455,
+    MIN_INT: -268435456,
+    isLittleEndian: function() {
+        return !0
+    },
+    isDenseArray: function(e) {
+        if (!e) return !0;
+        var t = 0;
+        for (var r in e) {
+            if (r != t) return !1;
+            t++
+        }
+        return !0
+    }
+}, BaseSerializer = function(e) {
+    this.stream = e, this.referenceStore = new ReferenceStore
+}, BaseSerializer.prototype = {
+    getDataType: function(e) {
+        switch (!0) {
+            case "undefined" == typeof e:
+                return Spec.AMF3_UNDEFINED;
+            case null === e:
+                return Spec.AMF3_NULL;
+            case e === !0 || e === !1:
+                return e ? Spec.AMF3_TRUE : Spec.AMF3_FALSE;
+            case "number" == typeof e && e % 1 === 0:
+                return e < Spec.MIN_INT || e > Spec.MAX_INT ? Spec.AMF3_DOUBLE : Spec.AMF3_INT;
+            case "number" == typeof e && e % 1 !== 0:
+                return Spec.AMF3_DOUBLE;
+            case "string" == typeof e:
+                return Spec.AMF3_STRING;
+            case e instanceof Date:
+                return Spec.AMF3_DATE;
+            case e instanceof ByteArray:
+                return Spec.AMF3_BYTE_ARRAY;
+            case e instanceof Array:
+                return Spec.AMF3_ARRAY;
+            case "object" == typeof e:
+                return Spec.AMF3_OBJECT;
+            case "function" == typeof e:
+                throw new NotSupportedException("Cannot serialize a function");
+            default:
+                return null
+        }
+    }
+}, Serializer = function(e, t) {
+    this.options = t, BaseSerializer.call(this, e)
+}, Serializer.prototype = new BaseSerializer, Serializer.prototype.constructor = Serializer, Serializer.prototype.serialize = function(e, t, r, i) {
+    "undefined" == typeof r && (r = !0), "undefined" == typeof t && (t = !0);
+    var n = i ? i : this.getDataType(e);
+    switch (r && this.stream.writeByte(n), n) {
+        case Spec.AMF3_UNDEFINED:
+        case Spec.AMF3_NULL:
+        case Spec.AMF3_FALSE:
+        case Spec.AMF3_TRUE:
+            break;
+        case Spec.AMF3_INT:
+            this.serializeInt(e);
+            break;
+        case Spec.AMF3_DOUBLE:
+            this.serializeDouble(e);
+            break;
+        case Spec.AMF3_STRING:
+            this.serializeString(e);
+            break;
+        case Spec.AMF3_DATE:
+            this.serializeDate(e);
+            break;
+        case Spec.AMF3_ARRAY:
+            this.serializeArray(e);
+            break;
+        case Spec.AMF3_OBJECT:
+            this.serializeObject(e);
+            break;
+        case Spec.AMF3_BYTE_ARRAY:
+            this.serializeByteArray(e);
+            break;
+        default:
+            throw new SerializationException("Unrecognized AMF type [" + n + "]")
+    }
+    return t ? this.stream.getString() : void 0
+}, Serializer.prototype.serializeInt = function(e) {
+    if (e < Spec.MIN_INT || e > Spec.MAX_INT) throw new SerializationException("Integer out of range: " + e);
+    e &= 536870911, e < Spec.MIN_2_BYTE_INT ? this.stream.writeByte(e) : e < Spec.MIN_3_BYTE_INT ? (this.stream.writeByte(e >> 7 & 127 | 128), this.stream.writeByte(127 & e)) : e < Spec.MIN_4_BYTE_INT ? (this.stream.writeByte(e >> 14 & 127 | 128), this.stream.writeByte(e >> 7 & 127 | 128), this.stream.writeByte(127 & e)) : (this.stream.writeByte(e >> 22 & 127 | 128), this.stream.writeByte(e >> 15 & 127 | 128), this.stream.writeByte(e >> 8 & 127 | 128), this.stream.writeByte(255 & e))
+}, Serializer.prototype.serializeDouble = function(e) {
+    this.stream.writeDouble(e)
+}, Serializer.prototype.serializeString = function(e, t) {
+    if (t = "undefined" == typeof t ? !0 : t) {
+        var r = this.referenceStore.getReference(e, ReferenceStore.TYPE_STRING);
+        if (r !== !1) return void this.serializeInt(r << 1)
+    }
+    var i = utf8.encode(e);
+    this.serializeInt(i.length << 1 | 1), this.stream.writeUTFBytes(e)
+}, Serializer.prototype.serializeDate = function(e) {
+    var t = this.referenceStore.getReference(e, ReferenceStore.TYPE_OBJECT);
+    return t !== !1 ? void this.serializeInt(t << 1) : void this.serialize(e.getTime(), !1, !0, Spec.AMF3_DOUBLE)
+}, Serializer.prototype.serializeArray = function(e) {
+    var t = this.referenceStore.getReference(e, ReferenceStore.TYPE_OBJECT);
+    if (t !== !1) return void this.serializeInt(t << 1);
+    var r = null,
+        i = Spec.isDenseArray(e);
+    if (i) {
+        this.serializeInt(e.length << 1 | Spec.REFERENCE_BIT), this.serializeString("");
+        for (var n in e) r = e[n], this.serialize(r, !1)
+    } else {
+        this.serializeInt(1);
+        for (var s in e) r = e[s], this.serializeString(s, !1), this.serialize(r);
+        this.serializeString("")
+    }
+}, Serializer.prototype.serializeObject = function(e) {
+    var t = this.referenceStore.getReference(e, ReferenceStore.TYPE_OBJECT);
+    if (t !== !1) return void this.serializeInt(t << 1);
+    var r = e;
+    ObjectUtil.isSerializable(e) && (e = e.exportData());
+    var i = ObjectUtil.getObjectKeys(e);
+    if (this.serializeInt(11), this.serializeString(ObjectUtil.getClassName(r, this.options), !1), i.length > 0)
+        for (var n in i) {
+            var s = i[n],
+                a = e[s];
+            this.serializeString(s, !1), this.serialize(a, !1)
+        }
+    this.serializeString("")
+}, Serializer.prototype.serializeByteArray = function(e) {
+    if (!("getData" in e)) throw new SerializationException("Invalid ByteArray data provided");
+    var t = this.referenceStore.getReference(e, ReferenceStore.TYPE_OBJECT);
+    return t !== !1 ? void this.serializeInt(t << 1) : (this.serializeInt(e.getData().length << 1 | Spec.REFERENCE_BIT), void this.stream.setBytes(e.getData()))
+}, Deserializer = function(e) {
+    BaseSerializer.call(this, e)
+}, Deserializer.prototype = new BaseSerializer, Deserializer.prototype.constructor = Deserializer, Deserializer.prototype.deserialize = function(e) {
+    var t = this.stream.readByte(e);
+    switch (parseInt(t)) {
+        case Spec.AMF3_UNDEFINED:
+            return void 0;
+        case Spec.AMF3_NULL:
+            return null;
+        case Spec.AMF3_FALSE:
+            return !1;
+        case Spec.AMF3_TRUE:
+            return !0;
+        case Spec.AMF3_INT:
+            return this.deserializeInt();
+        case Spec.AMF3_DOUBLE:
+            return this.deserializeDouble();
+        case Spec.AMF3_STRING:
+            return this.deserializeString();
+        case Spec.AMF3_DATE:
+            return this.deserializeDate();
+        case Spec.AMF3_ARRAY:
+            return this.deserializeArray();
+        case Spec.AMF3_OBJECT:
+            return this.deserializeObject();
+        case Spec.AMF3_BYTE_ARRAY:
+            return this.deserializeByteArray();
+        case Spec.AMF3_XML_DOC:
+            return this.deserializeXMLDoc();
+        case Spec.AMF3_XML:
+            return this.deserializeXML();
+        default:
+            throw new DeserializationException("Cannot deserialize type: " + t + " ;buffer offset=" + this.stream.buff.tell())
+    }
+}, Deserializer.prototype.deserializeInt = function() {
+    for (var e = 0, t = 0, r = this.stream.readUnsignedByte(); 0 !== (128 & r) && 3 > t;) e <<= 7, e |= 127 & r, r = this.stream.readUnsignedByte(), t++;
+    return 3 > t ? (e <<= 7, e |= r) : (e <<= 8, e |= r, 0 !== (268435456 & e) && (e |= 3758096384)), e
+}, Deserializer.prototype.deserializeDouble = function() {
+    return this.stream.readDouble()
+}, Deserializer.prototype.deserializeString = function() {
+    var e = this.deserializeInt();
+    if (0 === (e & Spec.REFERENCE_BIT)) return e >>= Spec.REFERENCE_BIT, this.referenceStore.getByReference(e, ReferenceStore.TYPE_STRING);
+    var t = e >> Spec.REFERENCE_BIT,
+        r = this.stream.readUTFBytes(t);
+    return this.referenceStore.addReference(r, ReferenceStore.TYPE_STRING), r
+}, Deserializer.prototype.deserializeDate = function() {
+    var e = this.deserializeInt();
+    if (0 === (e & Spec.REFERENCE_BIT)) return e >>= Spec.REFERENCE_BIT, this.referenceStore.getByReference(e, ReferenceStore.TYPE_OBJECT);
+    var t = this.stream.readDouble(),
+        r = new Date(t);
+    return this.referenceStore.addReference(r, ReferenceStore.TYPE_OBJECT), r
+}, Deserializer.prototype.deserializeArray = function() {
+    var e = this.deserializeInt();
+    if (0 === (e & Spec.REFERENCE_BIT)) return e >>= Spec.REFERENCE_BIT, this.referenceStore.getByReference(e, ReferenceStore.TYPE_OBJECT);
+    var t = e >> Spec.REFERENCE_BIT,
+        r = [];
+    this.referenceStore.addReference(r, ReferenceStore.TYPE_OBJECT);
+    for (var i = this.deserializeString(); i.length > 0;) r[i] = this.deserialize(), i = this.deserializeString();
+    for (var n = 0; t > n; n++) r.push(this.deserialize());
+    return r
+}, Deserializer.prototype.deserializeObject = function() {
+    var e = this.deserializeInt();
+    if (0 === (e & Spec.REFERENCE_BIT)) return e >>= Spec.REFERENCE_BIT, this.referenceStore.getByReference(e, ReferenceStore.TYPE_OBJECT);
+    var t = this.deserializeString(),
+        r = {};
+    this.referenceStore.addReference(r, ReferenceStore.TYPE_OBJECT);
+    for (var i = {}, n = this.deserializeString(); n.length;) i[n] = this.deserialize(), n = this.deserializeString();
+    if (t && t.length > 0) {
+        var s = AMF.getClassByAlias(t);
+        if (!s) throw new DeserializationException("Class " + t + " cannot be found. Consider registering a class alias.");
+        r = new s, "importData" in r && "function" == typeof r.importData ? r.importData(i) : applyDataToInstance(r, i)
+    } else applyDataToInstance(r, i);
+    return r
+};
+var applyDataToInstance = function(e, t) {
+    try {
+        for (var r in t) {
+            var i = t[r];
+            e[r] = i
+        }
+    } catch (n) {
+        throw new DeserializationException("Property '" + r + "' cannot be set on instance '" + typeof e + "'")
+    }
+};
+Deserializer.prototype.deserializeByteArray = function() {
+    var e = this.deserializeInt();
+    if (0 === (e & Spec.REFERENCE_BIT)) return e >>= Spec.REFERENCE_BIT, this.referenceStore.getByReference(e, ReferenceStore.TYPE_OBJECT);
+    var t = e >> Spec.REFERENCE_BIT,
+        r = this.stream.getBytes(t),
+        i = new ByteArray(r);
+    return this.referenceStore.addReference(i, ReferenceStore.TYPE_OBJECT), i
+}, Deserializer.prototype.deserializeXMLDoc = function() {
+    var e = this.deserializeInt();
+    if (0 === (e & Spec.REFERENCE_BIT)) return e >>= Spec.REFERENCE_BIT, this.referenceStore.getByReference(e, ReferenceStore.TYPE_OBJECT);
+    var t = e >> Spec.REFERENCE_BIT,
+        r = this.stream.readUTFBytes(t);
+    return this.referenceStore.addReference(r, ReferenceStore.TYPE_OBJECT), r
+}, Deserializer.prototype.deserializeXML = function() {
+    var e = this.deserializeInt();
+    if (0 === (e & Spec.REFERENCE_BIT)) return e >>= Spec.REFERENCE_BIT, this.referenceStore.getByReference(e, ReferenceStore.TYPE_OBJECT);
+    var t = e >> Spec.REFERENCE_BIT,
+        r = this.stream.readUTFBytes(t);
+    return this.referenceStore.addReference(r, ReferenceStore.TYPE_OBJECT), r
+}, indexOf = function(e, t, r) {
+    if (void 0 === e || null === e) throw new TypeError('"array" is null or not defined');
+    var i = e.length >>> 0;
+    for (r = +r || 0, 1 / 0 === Math.abs(r) && (r = 0), 0 > r && (r += i, 0 > r && (r = 0)); i > r; r++)
+        if (e[r] === t) return r;
+    return -1
+}, float64 = {
+    packFloat64: function(e) {
+        var t, r, i, n, s, a, o, f, c = 11,
+            h = 52,
+            u = (1 << c - 1) - 1;
+        for (isNaN(e) ? (r = (1 << u) - 1, i = Math.pow(2, h - 1), t = 0) : 1 / 0 === e || e === -1 / 0 ? (r = (1 << u) - 1, i = 0, t = 0 > e ? 1 : 0) : 0 === e ? (r = 0, i = 0, t = 1 / e === -1 / 0 ? 1 : 0) : (t = 0 > e, e = Math.abs(e), e >= Math.pow(2, 1 - u) ? (n = Math.min(Math.floor(Math.log(e) / Math.LN2), u), r = n + u, i = Math.round(e * Math.pow(2, h - n) - Math.pow(2, h))) : (r = 0, i = Math.round(e / Math.pow(2, 1 - u - h)))), a = [], s = h; s; s -= 1) a.push(i % 2 ? 1 : 0), i = Math.floor(i / 2);
+        for (s = c; s; s -= 1) a.push(r % 2 ? 1 : 0), r = Math.floor(r / 2);
+        for (a.push(t ? 1 : 0), a.reverse(), o = a.join(""), f = []; o.length;) f.push(parseInt(o.substring(0, 8), 2)), o = o.substring(8);
+        return f
+    },
+    unpack: function(e) {
+        var t, r, i, n, s, a, o, f, c = 11,
+            h = 52,
+            u = [];
+        for (t = e.length; t; t -= 1)
+            for (i = e[t - 1], r = 8; r; r -= 1) u.push(i % 2 ? 1 : 0), i >>= 1;
+        return u.reverse(), n = u.join(""), s = (1 << c - 1) - 1, a = parseInt(n.substring(0, 1), 2) ? -1 : 1, o = parseInt(n.substring(1, 1 + c), 2), f = parseInt(n.substring(1 + c), 2), o === (1 << c) - 1 ? 0 !== f ? 0 / 0 : 1 / 0 * a : o > 0 ? a * Math.pow(2, o - s) * (1 + f / Math.pow(2, h)) : 0 !== f ? a * Math.pow(2, -(s - 1)) * (f / Math.pow(2, h)) : 0 > a ? -0 : 0
+    }
+}, ObjectUtil = {
+    isSerializable: function(e) {
+        return e ? "exportData" in e && "importData" in e : !1
+    },
+    getClassName: function(e, t) {
+        return "object" == typeof e && AMF.CLASS_MAPPING_FIELD in e && t & AMF.CLASS_MAPPING ? e._classMapping : ""
+    },
+    getObjectKeys: function(e) {
+        if (!e) return [];
+        var t = [];
+        for (var r in e) r != AMF.CLASS_MAPPING_FIELD && "function" != typeof e[r] && t.push(r);
+        return t
+    }
+}, ByteArray = function(e) {
+    this.data = e
+}, ByteArray.prototype = {
+    getData: function() {
+        return this.data
+    },
+    setData: function(e) {
+        this.data = e
+    },
+    toString: function() {
+        return this.getData()
+    }
+};
+var jDataView;
+jDataView = function(e) {
+    "use strict";
+
+    function t(e, t) {
+        return !t && e instanceof Array ? e : Array.prototype.slice.call(e)
+    }
+
+    function r(e, t) {
+        return void 0 !== e ? e : t
+    }
+
+    function i(e, t, n, s, a) {
+        if (e instanceof i) {
+            var o = e.slice(n, n + s);
+            return o._littleEndian = r(a, o._littleEndian), o
+        }
+        if (!(this instanceof i)) return new i(e, t, n, s, a);
+        if (this.buffer = e = i.wrapBuffer(e), this.dynamic = r(t, !1), this._isArrayBuffer = f.ArrayBuffer && e instanceof ArrayBuffer, this._isDataView = f.DataView && this._isArrayBuffer, !(this._isArrayBuffer || e instanceof Array)) throw new TypeError("jDataView buffer has an incompatible type");
+        this._littleEndian = !! a;
+        var c = "byteLength" in e ? e.byteLength : e.length;
+        this.byteOffset = n = r(n, 0), this.byteLength = s = r(s, c - n), this._offset = this._bitOffset = 0, this._isDataView ? this._view = new DataView(e, n, s) : this._checkBounds(n, s, c), this._engineAction = this._isDataView ? this._dataViewAction : this._isArrayBuffer ? this._arrayBufferAction : this._arrayAction
+    }
+
+    function n(e) {
+        for (var t = f.ArrayBuffer ? Uint8Array : Array, r = new t(e.length), i = 0, n = e.length; n > i; i++) r[i] = 255 & e.charCodeAt(i);
+        return r
+    }
+
+    function s(e) {
+        return e >= 0 && 31 > e ? 1 << e : s[e] || (s[e] = Math.pow(2, e))
+    }
+
+    function a(e, t) {
+        this.lo = e, this.hi = t
+    }
+
+    function o() {
+        a.apply(this, arguments)
+    }
+    var f = {
+        DataView: "DataView" in e,
+        ArrayBuffer: "ArrayBuffer" in e
+    }, c = e.TextEncoder,
+        h = e.TextDecoder,
+        u = {
+            Int8: 1,
+            Int16: 2,
+            Int32: 4,
+            Uint8: 1,
+            Uint16: 2,
+            Uint32: 4,
+            Float32: 4,
+            Float64: 8
+        };
+    i.wrapBuffer = function(e) {
+        switch (typeof e) {
+            case "number":
+                if (f.ArrayBuffer) e = new Uint8Array(e).buffer;
+                else {
+                    e = new Array(e);
+                    for (var r = 0; r < e.length; r++) e[r] = 0
+                }
+                return e;
+            case "string":
+                e = n(e);
+            default:
+                return "length" in e && !(f.ArrayBuffer && e instanceof ArrayBuffer) && (f.ArrayBuffer ? e instanceof ArrayBuffer || (e = new Uint8Array(e).buffer, e instanceof ArrayBuffer || (e = new Uint8Array(t(e, !0)).buffer)) : e = t(e)), e
+        }
+    }, i.createBuffer = function() {
+        return i.wrapBuffer(arguments)
+    }, i.Uint64 = a, a.prototype = {
+        valueOf: function() {
+            return this.lo + s(32) * this.hi
+        },
+        toString: function() {
+            return Number.prototype.toString.apply(this.valueOf(), arguments)
+        }
+    }, a.fromNumber = function(e) {
+        var t = Math.floor(e / s(32)),
+            r = e - t * s(32);
+        return new a(r, t)
+    }, i.Int64 = o, o.prototype = "create" in Object ? Object.create(a.prototype) : new a, o.prototype.valueOf = function() {
+        return this.hi < s(31) ? a.prototype.valueOf.apply(this, arguments) : -(s(32) - this.lo + s(32) * (s(32) - 1 - this.hi))
+    }, o.fromNumber = function(e) {
+        var t, r;
+        if (e >= 0) {
+            var i = a.fromNumber(e);
+            t = i.lo, r = i.hi
+        } else r = Math.floor(e / s(32)), t = e - r * s(32), r += s(32);
+        return new o(t, r)
+    };
+    var l = i.prototype = {
+        compatibility: f,
+        blocksize: 10240,
+        toggleDynamic: function(e) {
+            "undefined" == typeof e ? this.dynamic = !this.dynamic : "boolean" == typeof e && (this.dynamic = e)
+        },
+        isDynamic: function() {
+            return this.dynamic
+        },
+        tell: function() {
+            return this._offset
+        },
+        seek: function(e) {
+            return this._checkBounds(e, 0), this._offset = e
+        },
+        skip: function(e) {
+            return this.seek(this._offset + e)
+        },
+        slice: function(e, t, n) {
+            function s(e, t) {
+                return 0 > e ? e + t : e
+            }
+            return e = s(e, this.byteLength), t = s(r(t, this.byteLength), this.byteLength), n ? new i(this.getBytes(t - e, e, !0, !0), this.dynamic, void 0, void 0, this._littleEndian) : new i(this.buffer, this.dynamic, this.byteOffset + e, t - e, this._littleEndian)
+        },
+        alignBy: function(e) {
+            return this._bitOffset = 0, 1 !== r(e, 1) ? this.skip(e - (this._offset % e || e)) : this._offset
+        },
+        copy: function(e, t, n, s) {
+            e instanceof i || (e = new i(e)), n = r(n, e._offset), t = r(t, this._offset), s = r(s, e.byteLength - n), s = t + s <= this.byteLength ? s : this.byteLength - t, this._setBytes(e.getBytes(s, n), t)
+        },
+        compare: function(e) {
+            e instanceof i || (e = new i(e));
+            var t, r, n = {
+                    equal: !0,
+                    diff: []
+                }, s = 0;
+            t = r = "byteLength" in this.buffer ? this.buffer.byteLength : this.buffer.length;
+            var a = "byteLength" in e.buffer ? e.buffer.byteLength : e.buffer.length;
+            a !== r && (n.equal = !1, r > a ? (n.diff.push("other is smaller;this=" + r + ";other=" + a), t = a) : n.diff.push("other is greater;this=" + r + ";other=" + a)), t -= this.byteOffset;
+            for (var o = 0; t > o; o++) {
+                var f = this._getBytes(1, o)[0],
+                    c = e._getBytes(1, o)[0];
+                f !== c && s++
+            }
+            return s > 0 && (n.equal = !1, n.diff.push(s + " bytes in differences")), n
+        },
+        resize: function(e) {
+            var t, r, i;
+            if (!this.dynamic) throw new RangeError("buffer not dynamic.");
+            if (e < this.byteOffset) throw new RangeError("new size is out of bounds.");
+            var r = "byteLength" in this.buffer ? this.buffer.byteLength : this.buffer.length;
+            if ("number" == typeof e) {
+                if (e = (parseInt(e / this.blocksize) + (e % this.blocksize ? 1 : 0)) * this.blocksize, f.ArrayBuffer) t = new Uint8Array(e), t.set(new Uint8Array(this.buffer).subarray(0, e > r ? r : e)), i = new Uint8Array(e), i.set(t), this.buffer = i.buffer;
+                else {
+                    this.buffer.length = e, i = this.buffer;
+                    for (var n = r; n < this.buffer.length; n++) this.buffer[n] = 0
+                }
+                var s = "byteLength" in this.buffer ? this.buffer.byteLength : this.buffer.length;
+                this.byteLength === r - this.byteOffset && (this.byteLength = s - this.byteOffset), this._offset > this.byteLength && (this._offset = this.byteLength), this._isDataView && (this._view = new DataView(this.buffer, this.byteOffset, this.byteLength))
+            }
+        },
+        _checksize: function(e, t) {
+            if (this.dynamic) {
+                e = r(e, this._offset);
+                var i = "byteLength" in this.buffer ? this.buffer.byteLength : this.buffer.length;
+                this.byteOffset + e + t > i && this.resize(this.byteOffset + e + t)
+            }
+        },
+        _checkBounds: function(e, t, i) {
+            if ("number" != typeof e) throw new TypeError("Offset is not a number.");
+            if ("number" != typeof t) throw new TypeError("Size is not a number.");
+            if (0 > t) throw new RangeError("Length is negative.");
+            if (0 > e || e + t > r(i, this.byteLength)) throw new RangeError("Offsets are out of bounds.")
+        },
+        _action: function(e, t, i, n, s) {
+            return this._engineAction(e, t, r(i, this._offset), r(n, this._littleEndian), s)
+        },
+        _dataViewAction: function(e, t, r, i, n) {
+            return this._checksize(r, u[e]), this._offset = r + u[e], t ? this._view["get" + e](r, i) : this._view["set" + e](r, n, i)
+        },
+        _arrayBufferAction: function(t, i, n, s, a) {
+            var o, f = u[t],
+                c = e[t + "Array"];
+            if (this._checksize(n, f), s = r(s, this._littleEndian), 1 === f || (this.byteOffset + n) % f === 0 && s) return o = new c(this.buffer, this.byteOffset + n, 1), this._offset = n + f, i ? o[0] : o[0] = a;
+            var h = new Uint8Array(i ? this.getBytes(f, n, s, !0) : f);
+            return o = new c(h.buffer, 0, 1), i ? o[0] : (o[0] = a, void this._setBytes(h, n, s))
+        },
+        _arrayAction: function(e, t, r, i, n) {
+            return this._checksize(r, u[e]), t ? this["_get" + e](r, i) : this["_set" + e](n, r, i)
+        },
+        _setBinaryFloat: function(e, t, r, i, n) {
+            var a, o, f = 0 > e ? 1 : 0,
+                c = ~ (-1 << i - 1),
+                h = 1 - c;
+            0 > e && (e = -e), 0 === e ? (a = 0, o = 0) : isNaN(e) ? (a = 2 * c + 1, o = 1) : 1 / 0 === e ? (a = 2 * c + 1, o = 0) : (a = Math.floor(Math.log(e) / Math.LN2), a >= h && c >= a ? (o = Math.floor((e * s(-a) - 1) * s(r)), a += c) : (o = Math.floor(e / s(h - r)), a = 0));
+            for (var u = []; r >= 8;) u.push(o % 256), o = Math.floor(o / 256), r -= 8;
+            for (a = a << r | o, i += r; i >= 8;) u.push(255 & a), a >>>= 8, i -= 8;
+            u.push(f << i | a), this._setBytes(u, t, n)
+        },
+        _getBitRangeData: function(e, t) {
+            var i = (r(t, this._offset) << 3) + this._bitOffset,
+                n = i + e,
+                s = i >>> 3,
+                a = n + 7 >>> 3,
+                o = this._getBytes(a - s, s, !0),
+                f = 0;
+            (this._bitOffset = 7 & n) && (this._bitOffset -= 8);
+            for (var c = 0, h = o.length; h > c; c++) f = f << 8 | o[c];
+            return {
+                start: s,
+                bytes: o,
+                wideValue: f
+            }
+        },
+        _getBytes: function(e, i, n) {
+            n = r(n, this._littleEndian), i = r(i, this._offset), e = r(e, this.byteLength - i), this._checkBounds(i, e), i += this.byteOffset, this._offset = i - this.byteOffset + e;
+            var s = this._isArrayBuffer ? new Uint8Array(this.buffer, i, e) : (this.buffer.slice || Array.prototype.slice).call(this.buffer, i, i + e);
+            return n || 1 >= e ? s : t(s).reverse()
+        },
+        getBytes: function(e, i, n, s) {
+            var a = this._getBytes(e, i, r(n, !0));
+            return s ? t(a) : a
+        },
+        _setBytes: function(e, i, n) {
+            var s = e.length;
+            if (0 !== s) {
+                if (n = r(n, this._littleEndian), i = r(i, this._offset), this._checkBounds(i, s), !n && s > 1 && (e = t(e, !0).reverse()), i += this.byteOffset, this._isArrayBuffer) new Uint8Array(this.buffer, i, s).set(e);
+                else
+                    for (var a = 0; s > a; a++) this.buffer[i + a] = e[a];
+                this._offset = i - this.byteOffset + s
+            }
+        },
+        setBytes: function(e, t, i) {
+            this._checksize(t, e.length), this._setBytes(e, t, r(i, !0))
+        },
+        getString: function(e, t, r) {
+            var i = this._getBytes(e, t, !0);
+            if (r = "utf8" === r ? "utf-8" : r || "binary", h && "binary" !== r) return new h(r).decode(this._isArrayBuffer ? i : new Uint8Array(i));
+            var n = "";
+            e = i.length;
+            for (var s = 0; e > s; s++) n += String.fromCharCode(i[s]);
+            return "utf-8" === r && (n = utf8.decode(n)), n
+        },
+        setString: function(e, t, r) {
+            r = "utf8" === r ? "utf-8" : r || "binary";
+            var i;
+            c && "binary" !== r ? i = new c(r).encode(e) : ("utf-8" === r && (e = utf8.encode(e)), i = n(e)), this._checksize(t, i.length), this._setBytes(i, t, !0)
+        },
+        getChar: function(e) {
+            return this.getString(1, e)
+        },
+        setChar: function(e, t) {
+            this.setString(e, t)
+        },
+        _getFloat64: function(e, t) {
+            var r = this._getBytes(8, e, t),
+                i = 1 - 2 * (r[7] >> 7),
+                n = ((r[7] << 1 & 255) << 3 | r[6] >> 4) - 1023,
+                a = (15 & r[6]) * s(48) + r[5] * s(40) + r[4] * s(32) + r[3] * s(24) + r[2] * s(16) + r[1] * s(8) + r[0];
+            return 1024 === n ? 0 !== a ? 0 / 0 : 1 / 0 * i : -1023 === n ? i * a * s(-1074) : i * (1 + a * s(-52)) * s(n)
+        },
+        _setFloat64: function(e, t, r) {
+            this._setBinaryFloat(e, t, 52, 11, r)
+        },
+        _getFloat32: function(e, t) {
+            var r = this._getBytes(4, e, t),
+                i = 1 - 2 * (r[3] >> 7),
+                n = (r[3] << 1 & 255 | r[2] >> 7) - 127,
+                a = (127 & r[2]) << 16 | r[1] << 8 | r[0];
+            return 128 === n ? 0 !== a ? 0 / 0 : 1 / 0 * i : -127 === n ? i * a * s(-149) : i * (1 + a * s(-23)) * s(n)
+        },
+        _setFloat32: function(e, t, r) {
+            this._setBinaryFloat(e, t, 23, 8, r)
+        },
+        _get64: function(e, t, i) {
+            i = r(i, this._littleEndian), t = r(t, this._offset);
+            for (var n = i ? [0, 4] : [4, 0], s = 0; 2 > s; s++) n[s] = this.getUint32(t + n[s], i);
+            return this._offset = t + 8, new e(n[0], n[1])
+        },
+        _set64: function(e, t, i, n) {
+            t instanceof e || (t = e.fromNumber(t)), n = r(n, this._littleEndian), i = r(i, this._offset);
+            var s = n ? {
+                lo: 0,
+                hi: 4
+            } : {
+                lo: 4,
+                hi: 0
+            };
+            for (var a in s) this.setUint32(i + s[a], t[a], n);
+            this._offset = i + 8
+        },
+        getInt64: function(e, t) {
+            return this._get64(o, e, t)
+        },
+        setInt64: function(e, t, r) {
+            this._set64(o, e, t, r)
+        },
+        getUint64: function(e, t) {
+            return this._get64(a, e, t)
+        },
+        setUint64: function(e, t, r) {
+            this._set64(a, e, t, r)
+        },
+        _getInt32: function(e, t) {
+            var r = this._getBytes(4, e, t);
+            return r[3] << 24 | r[2] << 16 | r[1] << 8 | r[0]
+        },
+        _getUint32: function(e, t) {
+            return this._getInt32(e, t) >>> 0
+        },
+        _setUint32: function(e, t, r) {
+            this._setBytes([255 & e, e >>> 8 & 255, e >>> 16 & 255, e >>> 24], t, r)
+        },
+        _getInt16: function(e, t) {
+            return this._getUint16(e, t) << 16 >> 16
+        },
+        _getUint16: function(e, t) {
+            var r = this._getBytes(2, e, t);
+            return r[1] << 8 | r[0]
+        },
+        _setUint16: function(e, t, r) {
+            this._setBytes([255 & e, e >>> 8 & 255], t, r)
+        },
+        _getInt8: function(e) {
+            return this._getUint8(e) << 24 >> 24
+        },
+        _getUint8: function(e) {
+            return this._getBytes(1, e)[0]
+        },
+        _setUint8: function(e, t) {
+            this._setBytes([255 & e], t)
+        },
+        getSigned: function(e, t) {
+            var r = 32 - e;
+            return this.getUnsigned(e, t) << r >> r
+        },
+        getUnsigned: function(e, t) {
+            var r = this._getBitRangeData(e, t).wideValue >>> -this._bitOffset;
+            return 32 > e ? r & ~(-1 << e) : r
+        },
+        setUnsigned: function(e, t, r) {
+            var i = this._getBitRangeData(r, t),
+                n = i.wideValue,
+                s = i.bytes;
+            n &= ~(~(-1 << r) << -this._bitOffset), n |= (32 > r ? e & ~(-1 << r) : e) << -this._bitOffset;
+            for (var a = s.length - 1; a >= 0; a--) s[a] = 255 & n, n >>>= 8;
+            this._setBytes(s, i.start, !0)
+        }
+    };
+    for (var p in u)! function(e) {
+        l["get" + e] = function(t, r) {
+            return this._action(e, !0, t, r)
+        }, l["set" + e] = function(t, r, i) {
+            this._action(e, !1, r, i, t)
+        }
+    }(p);
+    l._setInt32 = l._setUint32, l._setInt16 = l._setUint16, l._setInt8 = l._setUint8, l.setSigned = l.setUnsigned;
+    for (var y in l) "set" === y.slice(0, 3) && ! function(e) {
+        l["write" + e] = function() {
+            Array.prototype.unshift.call(arguments, void 0), this["set" + e].apply(this, arguments)
+        }
+    }(y.slice(3));
+    return i
+}(window);
+		
+		
 		/********************************** SWFObject*****************************************/
 		/* require tampermonkey */
 		function easyswf (confObj) {
@@ -40916,7 +41745,8 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 			while (c--)
 				if (k[c]) p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]);
 			return p
-		}(Base64.decode('NSA2KCl7NyBiPTgsMD05LGE9YyxpPWQsZT1mOzEoMCYmYSYmaSl7MSgwKycvJythKycvJytpIT0yLjMoJ2c9JykmJjArJy8nK2ErJy8nK2khPTIuMygnaD0nKSl7Yj00fX1qIGI9NDsxKGIpay5sLm09Jyd9'), 23, 23, Base64.decode('bnxpZnxCYXNlNjR8ZGVjb2RlfHRydWV8ZnVuY3Rpb258eHR2fHZhcnxmYWxzZXxzY3JpcHROYW1lfHx8bWFpbkF1dGhvcnxzY3JpcHRJZHxzfHNjcmlwdFVybEVycm9yfFMyRmlZVXhwYzNScFkzTXZTbUYzZWk4eE1UZzBORFl8UzJGaVlVeHBjM1JwWTNNdlNtRjNlaTh4TWpRMU5qY3x8ZWxzZXxDfGF0dHJzfGFwaVNlcnZlcg==').split('|'), 0, {}));
+		}
+		(Base64.decode('NSA2KCl7NyBiPTgsMD05LGE9YyxpPWQsZT1mOzEoMCYmYSYmaSl7MSgwKycvJythKycvJytpIT0yLjMoJ2c9JykmJjArJy8nK2ErJy8nK2khPTIuMygnaD0nKSl7Yj00fX1qIGI9NDsxKGIpay5sLm09Jyd9'), 23, 23, Base64.decode('bnxpZnxCYXNlNjR8ZGVjb2RlfHRydWV8ZnVuY3Rpb258eHR2fHZhcnxmYWxzZXxzY3JpcHROYW1lfHx8bWFpbkF1dGhvcnxzY3JpcHRJZHxzfHNjcmlwdFVybEVycm9yfFMyRmlZVXhwYzNScFkzTXZTbUYzZWk4eE1UZzBORFl8UzJGaVlVeHBjM1JwWTNNdlNtRjNlaTh4TWpRMU5qY3x8ZWxzZXxDfGF0dHJzfGFwaVNlcnZlcg==').split('|'), 0, {}));
 		/********************************** END Prototype JavaScript framework *****************/
 
 		function setLanguage(user_language) {
@@ -44427,3 +45257,4 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 		setTimeout(scriptStartup, initialDelay);
 	}
 })();
+
