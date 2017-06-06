@@ -5,7 +5,7 @@
 (function () {
 
     
-	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.604.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.606.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = width || (document.body.offsetWidth - 50) + 'px';
@@ -1189,6 +1189,9 @@
 					 * WON'T be backup in local file
 					 */
 					stats: {
+						inventory: {
+							itemWon : {}
+						},
 						attacks: {
 							start_at: 0,
 							run_time: 0,
@@ -4029,6 +4032,11 @@
 								var tabIt = [];
 								for(var it in rslt.dat.result.items) {
 									if(rslt.dat.result.items[it] != Seed.player.items[it]) {
+										if(it in Data.stats.inventory.itemWon) {
+											Data.stats.inventory.itemWon[it] += Seed.player.items[it] - rslt.dat.result.items[it];
+										} else {
+											Data.stats.inventory.itemWon[it] = Seed.player.items[it] - rslt.dat.result.items[it];
+										}
 										verboseLog('Push : ' + translate(it));
 										tabIt.push(it);
 									}
@@ -4061,6 +4069,11 @@
 								var tabIt = [];
 								for(var it in rslt.dat.result.items) {
 									if(rslt.dat.result.items[it] != Seed.player.items[it]) {
+										if(it in Data.stats.inventory.itemWon) {
+											Data.stats.inventory.itemWon[it] += rslt.dat.result.items[it] - Seed.player.items[it];
+										} else {
+											Data.stats.inventory.itemWon[it] = rslt.dat.result.items[it] - Seed.player.items[it];
+										}
 										verboseLog('Push : ' + translate(it));
 										tabIt.push(it);
 									}
@@ -16098,6 +16111,7 @@
 						items: {},
 						resources: {}
 					};
+					Data.stats.inventory.itemWon = {};
 					showStats();
 				}
 
@@ -16132,6 +16146,28 @@
 							desc: translate(name),
 							qty: Data.stats.total.items[name]
 						});
+					if (items.length > 0) {
+						items.sort(function(a, b) {
+							a = a.desc.toLowerCase();
+							b = b.desc.toLowerCase();
+							if (a > b) return 1;
+							if (a < b) return -1;
+							return 0;
+						});
+						for (var i = 0; i < items.length; i++) {
+							var perHour = Math.round(items[i].qty / trueRunTime);
+							if (i > 0) m += '<tr align=right><td></td>';
+							m += '		<td>' + items[i].desc + ':</td>' + '		<td>' + numf(items[i].qty, ' ') + '</td>' + '		<td>(' + numf(perHour, ' ') + ' /' + translate('h') + ')</td>' + '	</tr>';
+						}
+					}
+					m += '<tr valign=top align=right>' + '		<td class=right>' + translate('items-panel') + ': </td>';
+					items = [];
+					for (var name in Data.stats.inventory.itemWon) {
+						items.push({
+							desc: translate(name),
+							qty: Data.stats.inventory.itemWon[name]
+						});
+					}
 					if (items.length > 0) {
 						items.sort(function(a, b) {
 							a = a.desc.toLowerCase();
