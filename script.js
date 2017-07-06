@@ -5,7 +5,7 @@
 (function () {
 
     
-	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.606.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.706.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = width || (document.body.offsetWidth - 50) + 'px';
@@ -478,7 +478,7 @@
 		var sanctuaryDragonRank = new Array('common', 'lesser', 'heightened', 'royal', 'exalted', 'omniscient', 'legendary');
 		/* Troops arrays */
 		var all_dragon_list =		['GreatDragon', 'WaterDragon', 'StoneDragon', 'FireDragon', 'WindDragon', 'IceDragon', 'SwampDragon', 'ForestDragon', 'DesertDragon', 'ChronoDragon', 'SpectralDragon', 'KaiserDragon', 'CaveDragon', 'LunaDragon', 'ColossusDragon','LeviathanDragon', 'TempestDragon'];
-		var all_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren','DragonWarrior','TempestCabal','Cyclops'];
+		var all_unit_types =		['Porter', 'Conscript', 'Spy', 'Halberdsman', 'Minotaur', 'Longbowman', 'SwiftStrikeDragon', 'BattleDragon', 'ArmoredTransport', 'Giant', 'FireMirror', 'PackDragon', 'DarkSlayer', 'LightningCannon', 'ChargeTroop', 'VengeWyrm', 'AquaTroop', 'StoneTroop', 'FireTroop', 'WindTroop', 'IceTroop', 'FrostGiant', 'SwampTroop', 'ForestTroop', 'DesertTroop', 'DimensionalRuiner', 'ArcticLeviathan', 'Harrier', 'Defendo', 'ShadowStalker', 'Shaman', 'WarScarab', 'VoltRanger','DragonRider','ColossalMite','AbyssalRavager','SeaSiren','DragonWarrior','TempestCabal','Cyclops','Gorgon'];
 		var attack_unit_types =		all_unit_types;
 		var wave_unit_types =		all_unit_types;
 		var spy_unit_types =		['Spy'];
@@ -9956,7 +9956,8 @@
                     [53, 'DragonWarrior', 'DrgWar'],
                     [54, 'TempestCabal', 'Cabal'],
                     [55, 'Cyclops', 'Cycl'],
-                    [56, 'TempestDragon', 'TpestDrg']
+                    [56, 'TempestDragon', 'TpestDrg'],
+					[57, 'Gorgon', 'Gorg']
 				]
 			},
 
@@ -30075,7 +30076,7 @@
 				for (i = 0; i < all_unit_types.length; i++) {
 					var num = toNum(Data.options.wall.preset.units[all_unit_types[i]]);
 					var numTroops = getTroopNumbers(city, all_unit_types[i]);
-					m += '<tr><td class=right width=25%>' + translate(Names.troops.byName[all_unit_types[i]][1]) + ':</td>' + '	<td width=15%><input type=text id=' + UIDTrp + '_' + i + ' maxlength=9 style="width:55px" size=2 value="' + num + '"\></td>' + '	<td width=10%><input class=small id=' + UIDMax + '_' + i + ' ref=' + i + ' type=button  style="width:auto !important;" value=" Max " \></td>' + '	<td align=right width=15%>' + numf(numTroops.total, ' ') + '</td>' + '	<td align=right width=15%>' + numf(numTroops.indefense, ' ') + '</td>' + '	<td align=right width=15%>' + numf(numTroops.incity, ' ') + '</td>' + '	<td align=right width=15%>' + (numTroops.marches ? '&nbsp;+&nbsp;<b>' + numf(numTroops.marches, ' ') + '</b>' : '') + '</td>' + '</tr>';
+					m += '<tr><td class=right width=25%>' + translate(Names.troops.byName[all_unit_types[i]][1]) + ':</td>' + '	<td width=15%><input type=text id=' + UIDTrp + '_' + i + ' maxlength=10 style="width:55px" size=2 value="' + num + '"\></td>' + '	<td width=10%><input class=small id=' + UIDMax + '_' + i + ' ref=' + i + ' type=button  style="width:auto !important;" value=" Max " \></td>' + '	<td align=right width=15%>' + numf(numTroops.total, ' ') + '</td>' + '	<td align=right width=15%>' + numf(numTroops.indefense, ' ') + '</td>' + '	<td align=right width=15%>' + numf(numTroops.incity, ' ') + '</td>' + '	<td align=right width=15%>' + (numTroops.marches ? '&nbsp;+&nbsp;<b>' + numf(numTroops.marches, ' ') + '</b>' : '') + '</td>' + '</tr>';
 				}
 
 				m += '<tr><td colspan=4 class=jewel>' + translate('Enter -1 as troop quantity to use the maximum available') + '</td></tr>' + '</table><br>';
