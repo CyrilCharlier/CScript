@@ -5,7 +5,7 @@
 (function () {
 
     
-	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.709.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.710.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = width || (document.body.offsetWidth - 50) + 'px';
@@ -15809,11 +15809,13 @@
 				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:10px !important">' + '<div class=' + UID['subtitle'] + '><table class=' + UID['table'] + '>' + '<tr><td align=left width=35%>' + Seed.player.name + ' / ' + city.name + '</td>' + '<td align=center width=30%>' + city.x + ',' + city.y + '</td>' + '<td align=center width=200px><font color=yellow>' + alliance_name + '</font></td>' + '<td width=35% align=right><font color=yellow>' + numf(Seed.player.might) + '</font></td>' + '</tr></table></div>' + '<table class=' + UID['row_style'] + ' style="margin-top:3px" width=100%>' + '	<tr class=' + UID['row_headers'] + ' align=center>' + '		<td width=40%>' + translate('Troops') + '</td>' + '		<td width=20%>' + translate('Quantity') + '</td>' + '		<td width=10%>' + translate('Might') + '</td>' + '		<td width=30%>' + translate('Total') + '</td>' + '	</tr>';
 				var total = 0;
 				for (var i = 0; i < all_unit_types.length; i++) {
-					var numTroops = getTroopNumbers(CAPITAL.id, all_unit_types[i]);
-					var unit_might = Seed.stats.unit[all_unit_types[i]].power;
-					var total_might = numTroops.total * unit_might;
-					total += total_might;
-					m += '	<tr valign=top>' + '		<td class=right>' + translate(all_unit_types[i]) + ' :</td>' + '		<td align=right>' + numf(numTroops.total, ' ') + '</td>' + '		<td align=right>' + numf(unit_might, ' ') + '</td>' + '		<td align=right>' + numf(total_might, ' ') + '</td>' + '	</tr>';
+					if(Seed.stats.unit[all_unit_types[i]]) {
+						var numTroops = getTroopNumbers(CAPITAL.id, all_unit_types[i]);
+						var unit_might = Seed.stats.unit[all_unit_types[i]].power;
+						var total_might = numTroops.total * unit_might;
+						total += total_might;
+						m += '	<tr valign=top>' + '		<td class=right>' + translate(all_unit_types[i]) + ' :</td>' + '		<td align=right>' + numf(numTroops.total, ' ') + '</td>' + '		<td align=right>' + numf(unit_might, ' ') + '</td>' + '		<td align=right>' + numf(total_might, ' ') + '</td>' + '	</tr>';
+					}
 				}
 				m += '	<tr><td colspan=4>&nbsp</td></tr>' + '	<tr><td>&nbsp</td><td colspan=3 align=center><hr></td></tr>' + '	<tr valign=top>' + '		<td class=right>' + translate('Troops') + ' :</td>' + '		<td align=right></td>' + '		<td align=right></td>' + '		<td align=right><b>' + numf(total, ' ') + '</b></td>' + '	</tr>' + '	<tr valign=top>' + '		<td class=right>' + translate('Building') + ' + ' + translate('Quests') + ' :</td>' + '		<td align=right></td>' + '		<td align=right></td>' + '		<td align=right><b>' + numf(Seed.player.might - total, ' ') + '</b></td>' + '	</tr>' + '	<tr><td>&nbsp</td><td colspan=3 align=center><hr></td></tr>' + '	<tr valign=top>' + '		<td class=right>' + translate('Total') + ' :</td>' + '		<td align=right></td>' + '		<td align=right></td>' + '		<td align=right><font color=red><b>' + numf(Seed.player.might) + '</b></font></td>' + '	</tr>' + '</table></div>';
 				document.getElementById(UID['tabInfoTroops_Content']).innerHTML = m;
@@ -15836,13 +15838,15 @@
 				var total = 0;
 				var total_incity = 0;
 				for (var i = 0; i < all_unit_types.length; i++) {
-					var numTroops = getTroopNumbers(CAPITAL.id, all_unit_types[i]);
-					var unit_upkeep = Seed.stats.unit[all_unit_types[i]].upkeep.food;
-					var total_upkeep = numTroops.total * unit_upkeep;
-					var incity_upkeep = (numTroops.incity + numTroops.indefense) * unit_upkeep;
-					total += total_upkeep;
-					total_incity += incity_upkeep;
-					m += '	<tr valign=top>' + '		<td class=right>' + translate(all_unit_types[i]) + ' :</td>' + '		<td align=right>' + numf((Data.options.info.consumption_sel == 1) ? (numTroops.incity + numTroops.indefense) : numTroops.total) + '</td>' + '		<td align=right>' + numf(unit_upkeep, ' ') + '</td>' + '		<td align=right>' + numf((Data.options.info.consumption_sel == 1) ? incity_upkeep : total_upkeep) + '</td>' + '	</tr>';
+					if(Seed.stats.unit[all_unit_types[i]]) {
+						var numTroops = getTroopNumbers(CAPITAL.id, all_unit_types[i]);
+						var unit_upkeep = Seed.stats.unit[all_unit_types[i]].upkeep.food;
+						var total_upkeep = numTroops.total * unit_upkeep;
+						var incity_upkeep = (numTroops.incity + numTroops.indefense) * unit_upkeep;
+						total += total_upkeep;
+						total_incity += incity_upkeep;
+						m += '	<tr valign=top>' + '		<td class=right>' + translate(all_unit_types[i]) + ' :</td>' + '		<td align=right>' + numf((Data.options.info.consumption_sel == 1) ? (numTroops.incity + numTroops.indefense) : numTroops.total) + '</td>' + '		<td align=right>' + numf(unit_upkeep, ' ') + '</td>' + '		<td align=right>' + numf((Data.options.info.consumption_sel == 1) ? incity_upkeep : total_upkeep) + '</td>' + '	</tr>';
+					}
 				}
 				var unit_upkeep = Seed.greatDragons.GreatDragon[city.great_dragon.level].upkeep.food;
 				m += '	<tr valign=top>' + '		<td class=right>' + translate('GreatDragon') + ' :</td>' + '		<td align=right></td>' + '		<td align=right>' + numf(unit_upkeep, ' ') + '</td>' + '		<td align=right>' + numf(unit_upkeep, ' ') + '</td>' + '	</tr>';
@@ -15881,17 +15885,19 @@
 				var m = '<div class=' + UID['status_ticker'] + ' style="margin-top:10px !important">' + '<div class=' + UID['subtitle'] + '><table class=' + UID['table'] + '>' + '<tr><td align=left width=35%>' + Seed.player.name + ' / ' + city.name + '</td>' + '<td align=center width=30%>' + city.x + ',' + city.y + '</td>' + '<td align=center width=200px><font color=yellow>' + alliance_name + '</font></td>' + '<td width=35% align=right><font color=yellow>' + numf(Seed.player.might) + '</font></td>' + '</tr></table></div>' + '<table class=' + UID['row_style'] + ' style="margin-top:3px; overflow:auto; white-space:nowrap" width=100%>' + '	<tr class=' + UID['row_headers'] + '>' + '		<td valign=middle width=29%><b>' + translate('Troops') + '</b></td>' + '		<td valign=middle width=12%><b>' + translate('Melee') + '</b></td>' + '		<td valign=middle width=11%><b>' + translate('Defense') + '</b></td>' + '		<td valign=middle width=11%><b>' + translate('Speed') + '</b></td>' + '		<td valign=middle width=11%><b>' + translate('Range') + '</b></td>' + '		<td valign=middle width=12%><b>' + translate('Ranged') + '</b></td>' + '		<td valign=middle width=14%><b>' + translate('Life') + '</b></td>' + '	</tr>';
 				var total = 0;
 				for (var i = 0; i < all_unit_types.length; i++) {
-					var stats = Seed.stats.unit[all_unit_types[i]];
-					var statsforge = Forge.getStatByUnit(all_unit_types[i]);
-					m += '	<tr valign=top>'
-					  + '		<td class=right>' + translate(all_unit_types[i]) + ' :</td>'
-					  + '		<td align=right>' + ( statsforge.melee==0 ? numf(stats.melee, ' ') : '<font style="color:#00CD00">'+numf(stats.melee+statsforge.melee, ' ')+'</font>' )+ '</td>'
-					  + '		<td align=right>' + ( statsforge.defense==0 ? numf(stats.defense, ' ') : '<font style="color:#00CD00">'+numf(stats.defense+statsforge.defense, ' ')+'</font>' ) + '</td>'
-					  + '		<td align=right>' + ( statsforge.speed==0 ? numf(stats.speed, ' ') : '<font style="color:#00CD00">'+numf(stats.speed+statsforge.speed, ' ')+'</font>' ) + '</td>'
-					  + '		<td align=right>' + ( statsforge.range==0 ? numf(stats.range, ' ') : '<font style="color:#00CD00">'+numf(stats.range+statsforge.range, ' ')+'</font>' ) + '</td>'
-					  + '		<td align=right>' + ( statsforge.ranged==0 ? numf(stats.ranged, ' ') : '<font style="color:#00CD00">'+numf(stats.ranged+statsforge.ranged, ' ')+'</font>' ) + '</td>'
-					  + '		<td align=right>' + ( statsforge.life==0 ? numf(stats.melee, ' ') : '<font style="color:#00CD00">'+numf(stats.life+statsforge.life, ' ')+'</font>' ) + '</td>'
-					  + '	</tr>';
+					if(Seed.stats.unit[all_unit_types[i]]) {
+						var stats = Seed.stats.unit[all_unit_types[i]];
+						var statsforge = Forge.getStatByUnit(all_unit_types[i]);
+						m += '	<tr valign=top>'
+						  + '		<td class=right>' + translate(all_unit_types[i]) + ' :</td>'
+						  + '		<td align=right>' + ( statsforge.melee==0 ? numf(stats.melee, ' ') : '<font style="color:#00CD00">'+numf(stats.melee+statsforge.melee, ' ')+'</font>' )+ '</td>'
+						  + '		<td align=right>' + ( statsforge.defense==0 ? numf(stats.defense, ' ') : '<font style="color:#00CD00">'+numf(stats.defense+statsforge.defense, ' ')+'</font>' ) + '</td>'
+						  + '		<td align=right>' + ( statsforge.speed==0 ? numf(stats.speed, ' ') : '<font style="color:#00CD00">'+numf(stats.speed+statsforge.speed, ' ')+'</font>' ) + '</td>'
+						  + '		<td align=right>' + ( statsforge.range==0 ? numf(stats.range, ' ') : '<font style="color:#00CD00">'+numf(stats.range+statsforge.range, ' ')+'</font>' ) + '</td>'
+						  + '		<td align=right>' + ( statsforge.ranged==0 ? numf(stats.ranged, ' ') : '<font style="color:#00CD00">'+numf(stats.ranged+statsforge.ranged, ' ')+'</font>' ) + '</td>'
+						  + '		<td align=right>' + ( statsforge.life==0 ? numf(stats.melee, ' ') : '<font style="color:#00CD00">'+numf(stats.life+statsforge.life, ' ')+'</font>' ) + '</td>'
+						  + '	</tr>';
+					}
 				}
 				for (var i = 0; i < all_dragon_list.length; i++) {
 					var in_list = true;
