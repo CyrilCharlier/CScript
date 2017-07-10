@@ -5,7 +5,7 @@
 (function () {
 
     
-	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.706.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.709.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = width || (document.body.offsetWidth - 50) + 'px';
@@ -12456,11 +12456,13 @@
 			return result;
 		};
 		var isTrainable = function(cityIdx, unit) {
-			var trainables = Seed.stats.unit[unit].trainable,
-				found = false;
-			var city_type = getCityShortType(cityIdx);
-			for (i = 0; i < trainables.length && !found; i++) {
-				if (city_type == trainables[i]) found = true;
+			var found = false;
+			if(Seed.stats.unit[unit]) {			
+				var trainables = Seed.stats.unit[unit].trainable;
+				var city_type = getCityShortType(cityIdx);
+				for (i = 0; i < trainables.length && !found; i++) {
+					if (city_type == trainables[i]) found = true;
+				}
 			}
 			return found;
 		};
