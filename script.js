@@ -5,7 +5,7 @@
 (function () {
 
     
-	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.710.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.804.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = width || (document.body.offsetWidth - 50) + 'px';
@@ -12945,10 +12945,14 @@
 					}
 				}
 			}
+			
 			if(req_type == 'manifest') {
 				url = ((url.indexOf('http') == -1) ? C.attrs.apiServer.substring(0, C.attrs.apiServer.length-4) + '/' + url : url);
 			} else {
 				url = ((url.indexOf('http') == -1) ? C.attrs.apiServer + '/' + url : url);
+			}
+			if(url.indexOf('https') == -1) {
+				url = 'https' + url.substring(4);
 			}
 			/* Parse request parameters */
 			params = typeof opts === 'string' ? opts.parameters : Object.toQueryString(opts.parameters).replace(/\_/g, '%5F').replace(/\(/g, '%28').replace(/\)/g, '%29');
@@ -13918,6 +13922,19 @@
 		var nvl = function(obj, val) {
 			if (typeof obj == 'undefined' || obj === undefined || obj === null || obj === '') return val;
 			return obj;
+		};
+		var numS = function(nNombre) {
+			if(nNombre < 1000) {
+				return nNombre;
+			} else if(nNombre < 1000000) {
+				return Math.trunc(nNombre/1000) + ' K';
+			} else if(nNombre < 1000000000) {
+				return Math.trunc(nNombre/1000000) + ' M';
+			} else if(nNombre < 1000000000000) {
+				return Math.trunc(nNombre/1000000000) + ' MM';
+			} else {
+				return Math.trunc(nNombre/1000000000000) + ' B';
+			}
 		};
 		var reloadTools = function() {
 			var serverId = SERVER_ID;
@@ -15293,7 +15310,7 @@
 					m += '			</table>' + '		</td>' + '		<td width="345px">' + '			<div id=' + setUID('tabInfo_Unitsbox') + ' style="width:345px; max-width:345px; overflow-x:auto;">' + '			<div id=' + setUID('tabInfo_UnitsTable') + ' style="width:560px; max-width:560px">' + '			<table class=' + UID['row_style'] + ' width=100% id=' + setUID('tabInfoUnits_Detail') + '>' + '				<tr class=' + UID['row_headers'] + '>' + '					<td width="70px">' + translate('Army') + '</td>' + '					<td width="70px">' + translate('Defense') + '</td>' + '					<td width="70px">' + translate('In city') + '</td>' + '					<td width="70px">' + translate('In march') + '</td>' + '					<td width="80px">' + translate('Total') + '</td>' + '					<td width="70px">' + translate('Train') + '</td>' + '					<td width="70px">' + translate('Resurrect') + '</td>' + '					<td width="60px">' + translate('Souls') + '</td>' + '				</tr>';
 					for (var i = 0; i < all_unit_types.length; i++) {
 						var numTroops = getTroopNumbers(city, all_unit_types[i]);
-						m += '			<tr valign=top>' + '				<td align=right class=jewel>' + numf(numTroops.total, ' ') + '</td>' + '				<td align=right class=jewel>' + numf(numTroops.indefense, ' ') + '</td>' + '				<td align=right class=jewel>' + numf(numTroops.incity, ' ') + '</td>' + '				<td align=right class=jewel>' + (numTroops.marches ? '&nbsp;+&nbsp;<b>' + numf(numTroops.marches, ' ') + '</b>' : '') + '</td>' + '				<td align=right class=jewel><b>' + numf(numTroops.all, ' ') + '</b></td>' + '				<td align=right class=jewel>' + (numTroops.intraining ? numf(numTroops.intraining, ' ') : '') + '</td>' + '				<td align=right class=jewel>' + (numTroops.inresurrection ? numf(numTroops.inresurrection, ' ') : '') + '</td>' + '				<td align=right class=jewel>' + (numTroops.souls ? numf(numTroops.souls, ' ') : '') + '</td>' + '			</tr>';
+						m += '			<tr valign=top>' + '				<td align=right class=jewel>' + numS(numTroops.total) + '</td>' + '				<td align=right class=jewel>' + numS(numTroops.indefense) + '</td>' + '				<td align=right class=jewel>' + numS(numTroops.incity) + '</td>' + '				<td align=right class=jewel>' + (numTroops.marches ? '&nbsp;+&nbsp;<b>' + numS(numTroops.marches) + '</b>' : '') + '</td>' + '				<td align=right class=jewel><b>' + numS(numTroops.all) + '</b></td>' + '				<td align=right class=jewel>' + (numTroops.intraining ? numS(numTroops.intraining) : '') + '</td>' + '				<td align=right class=jewel>' + (numTroops.inresurrection ? numS(numTroops.inresurrection) : '') + '</td>' + '				<td align=right class=jewel>' + (numTroops.souls ? numS(numTroops.souls) : '') + '</td>' + '			</tr>';
 					}
 					m += '			</table>' + '			</div></div>' + '		</td>' + '	</tr>' + '</table>';
 					return m;
