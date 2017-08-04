@@ -367,8 +367,7 @@
 		 */
 		var api_version = 'overarch',
 			scriptName = 'CalciumScript',
-			mainAuthor = 'Calcium',
-			CPT_SEARCH = {  players:'playerSearchName', playersHisto:'playerSearchHistoName', playerDetail: 'detailPlayer', alliances:'allianceSearchName', allianceDetail: 'detailAlliance' };
+			mainAuthor = 'Calcium';
 
 		/* Skins */
 		var urlBackgroundImage = '',
@@ -396,7 +395,6 @@
 			MULTI_TAB_ORDER = 31,
 			SPY_TAB_ORDER = 32,
 			INBOX_TAB_ORDER = 50,
-            CPT_TAB_ORDER = 60,
             CITY_TAB_ORDER = 55,
 			LOG_TAB_ORDER = 99;
 
@@ -417,8 +415,7 @@
 			TOWER_TAB_ENABLE = true,
 			WALL_TAB_ENABLE = true,
 			WAVE_TAB_ENABLE = true,
-			CITY_TAB_ENABLE = true,
-            CPT_TAB_ENABLE = true;
+			CITY_TAB_ENABLE = true;
 
 		/* Global variables */
 		var DEBUG_MARCHES = false,
@@ -492,16 +489,16 @@
 		var confirmationTimeMaxForUse = 86400;
 
 		var time_item_list =
-		   [{name: 'Blink', 				text: '1m',		type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
-			{name: 'Hop',					text: '5m',		type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
-			{name: 'Skip',					text: '15m',	type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
-			{name: 'Jump',					text: '1h',		type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
-			{name: 'Leap', 					text: '2h30',	type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
-			{name: 'Bounce',				text: '8h',		type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
-			{name: 'Bore',					text: '15h',	type: 'JMTR',	confirmation: false,	classCss: 'btn_green'},
-			{name: 'Bolt',					text: '24h',	type: 'JMTR',	confirmation: true,		classCss: 'btn_green'},
-			{name: 'Blast',					text: '60h',	type: 'JMTR',	confirmation: true,		classCss: 'btn_green'},
-			{name: 'Blitz',					text: '96h',	type: 'JMTR',	confirmation: true,		classCss: 'btn_green'},
+		   [{name: 'Blink', 				text: '1m',		type: 'BJMTR',	confirmation: false,	classCss: 'btn_green'},
+			{name: 'Hop',					text: '5m',		type: 'BJMTR',	confirmation: false,	classCss: 'btn_green'},
+			{name: 'Skip',					text: '15m',	type: 'BJMTR',	confirmation: false,	classCss: 'btn_green'},
+			{name: 'Jump',					text: '1h',		type: 'BJMTR',	confirmation: false,	classCss: 'btn_green'},
+			{name: 'Leap', 					text: '2h30',	type: 'BJMTR',	confirmation: false,	classCss: 'btn_green'},
+			{name: 'Bounce',				text: '8h',		type: 'BJMTR',	confirmation: false,	classCss: 'btn_green'},
+			{name: 'Bore',					text: '15h',	type: 'BJMTR',	confirmation: false,	classCss: 'btn_green'},
+			{name: 'Bolt',					text: '24h',	type: 'BJMTR',	confirmation: true,		classCss: 'btn_green'},
+			{name: 'Blast',					text: '60h',	type: 'BJMTR',	confirmation: true,		classCss: 'btn_green'},
+			{name: 'Blitz',					text: '96h',	type: 'BJMTR',	confirmation: true,		classCss: 'btn_green'},
 			{name: 'ForcedMarchDrops',		text: '25%',	type: 'M',		confirmation: false,	classCss: 'btn_cyan'},
 			{name: 'TranceMarchDrops',		text: '50%',	type: 'M',		confirmation: false,	classCss: 'btn_cyan'},
 			{name: 'TestroniusPowder',		text: '30%',	type: 'T',		confirmation: false,	classCss: 'btn_blue'},
@@ -509,7 +506,9 @@
 			{name: 'TestroniusDeluxe',		text: '50%',	type: 'T',		confirmation: false,	classCss: 'btn_blue'},
 			{name: 'DarkTestroniusDeluxe',	text: '50%',	type: 'R',		confirmation: false,	classCss: 'btn_black'},
 			{name: 'TestroniusInfusion',	text: '99%',	type: 'T',		confirmation: true,		classCss: 'btn_blue'},
-			{name: 'DarkTestroniusInfusion',text: '99%',	type: 'R',		confirmation: true,		classCss: 'btn_black'}];
+			{name: 'DarkTestroniusInfusion',text: '99%',	type: 'R',		confirmation: true,		classCss: 'btn_black'},
+			{name: 'MasterworkMortar'	   ,text: '50%',	type: 'B',		confirmation: true,		classCss: 'btn_black'},
+			{name: 'MysticMortar'		   ,text: '99%',	type: 'B',		confirmation: true,		classCss: 'btn_black'}];
 
 		/* TRANSLATIONS */
 		var LANG_CODE = navigator.language.substring(0, 2).toLowerCase();
@@ -660,7 +659,6 @@
 						disable_single: !SINGLE_TAB_ENABLE,
 						disable_wheel: !WHEEL_TAB_ENABLE,
 						disable_log: !LOG_TAB_ENABLE,
-                        disable_cpt: !CPT_TAB_ENABLE,
                         disable_city: false,//!CITY_TAB_ENABLE,
 						enable_notifications_fortuna: false,
 						enable_notifications_spy: false,
@@ -4130,29 +4128,6 @@
 					}
 					return;
 				}
-			},
-			searchCPT: function(type, search, callback) {
-				var t = MyAjax;
-				var p = {};
-				p['realmId'] = SERVER_ID;
-				p['type'] = type;
-				p['search'] = search;
-                p['version'] = api_version;
-				p['timestamp'] = toNum(serverTime());
-				new MyAjaxRequest('other', racineURL+'index.php/Json/search', p, mycb, true);
-
-				function mycb(rslt) {
-					if (rslt.ok) {
-
-					}
-					else {
-						verboseLog(translate('CPT search error') + ': ' + rslt.errmsg);
-					}
-					if (callback) {
-						callback(rslt);
-					}
-					return;
-				}
 			}
 		};
 		var AutoUse = {
@@ -5226,7 +5201,8 @@
 							var type = 'N';
 							if ((jobtype == 'jobs' && time_item_list[i].type.indexOf('J') == -1) ||
 								(jobtype == 'units' && time_item_list[i].type.indexOf('T') == -1) ||
-								(jobtype == 'resurrection' && time_item_list[i].type.indexOf('R') == -1)) type = 'C';
+								(jobtype == 'resurrection' && time_item_list[i].type.indexOf('R') == -1) ||
+								(jobtype == 'build' && time_item_list[i].type.indexOf('B') == -1)) type = 'C';
 							Jobs.addSingleButton(i, type, jCell, id, num, time_item_list[i].classCss);
 						}
 					}
@@ -5236,7 +5212,8 @@
 				var type = time_item_list[item].type;
 				if ((type.indexOf('T') >= 0 && chkType == 'units') ||
 					(type.indexOf('R') >= 0 && chkType == 'resurrection') ||
-					(type.indexOf('J') >= 0 && chkType == 'jobs')
+					(type.indexOf('J') >= 0 && chkType == 'jobs') ||
+					(type.indexOf('B') >= 0 && chkType == 'build')
 				) return (true);
 				else return (false);
 			},
@@ -5327,7 +5304,7 @@
 									iCell.style.width = '25%';
 									iCell.innerHTML = '<font color=' + TIMER_COLOR + '>' + timeRemaining + '</font>';
 									if (!jobs[0].cancelled && Data.options.jobs_speedups_enabled)
-										Jobs.addSpeedUpButtons(table, 'tabJobsBuild_speedups_0', 'jobs', cityIdx + '_' + jobs[0].id);
+										Jobs.addSpeedUpButtons(table, 'tabJobsBuild_speedups_0', 'build', cityIdx + '_' + jobs[0].id);
 
 									Tabs.Jobs.buildStatFetch = false;
 									try {
@@ -5409,7 +5386,7 @@
 									iCell.style.width = '25%';
 									iCell.innerHTML = '<font color=' + TIMER_COLOR + '>' + timeRemaining + '</font>';
 									if (!jobsTD[0].cancelled && Data.options.jobs_speedups_enabled)
-										Jobs.addSpeedUpButtons(table, 'tabJobsBuild_speedups_0', 'jobs', cityIdx + '_' + jobsTD[0].id);
+										Jobs.addSpeedUpButtons(table, 'tabJobsBuild_speedups_0', 'build', cityIdx + '_' + jobsTD[0].id);
 
 									Tabs.Jobs.buildStatFetch = false;
 									try {
@@ -5491,48 +5468,12 @@
 								/* Building cancel Button */
 								iCell = iRow.insertCell(-1);
 								iCell.style.width = '10%';
-								/*
-								 * var button = document.createElement('input');
-								 * button.type = 'button';
-								 * button.setAttribute('ref', cityIdx + '_' +
-								 * jobs[0].id); button.value = 'X'; if
-								 * (jobs[0].cancelled) { button.disabled = true;
-								 * button.className = UID['btn_disabled'] + '
-								 * thin'; } else { button.className =
-								 * UID['btn_red'] + ' thin';
-								 * button.addEventListener('click',
-								 * function(event) { var self = event.target;
-								 * self.disabled = true; self.className =
-								 * UID['btn_disabled'] + ' thin'; var ids =
-								 * self.getAttribute('ref').split('_'); var job =
-								 * Seed.jobs[Seed.cities[ids[0]].id][ids[1]]; if
-								 * (job) { job.cancelled = true; var desc =
-								 * translate(job.city_building_type) + ' ' +
-								 * job.level; MyAjax.cancelTraining(ids[1],
-								 * function(r) { if (r.ok &&
-								 * r.dat.result.success) {
-								 * verboseLog(translate('Building job
-								 * cancelled') + ' (' + desc + ')'); } }); } },
-								 * false); } iCell.appendChild(button);
-								 */
 								iCell = iRow.insertCell(-1);
 								iCell.style.textAlign = 'left';
 								iCell.style.width = '25%';
 								iCell.innerHTML = '<font color=' + TIMER_COLOR + '>' + timeRemaining + '</font>';
 								if (!jobs[0].cancelled && Data.options.jobs_speedups_enabled)
 									Jobs.addSpeedUpButtons(table, 'tabJobsDragon_speedups_0', 'jobs', cityIdx + '_' + jobs[0].id);
-
-								// Tabs.Jobs.buildStatFetch = false;
-								try {
-									// document.getElementById(UID['tabJobDragon_FB_'
-									// + cityIdx + '_' +
-									// jobs[0].city_building_type]).innerHTML =
-									// '<font color=#000>' +
-									// translate('Building') + ': ' +
-									// translate(jobs[0].city_building_type) + '
-									// ' + translate('Level').toLowerCase() + '
-									// ' + jobs[0].level + '</font>';
-								} catch (e) {}
 							}
 							iRow = table.insertRow(-1);
 							iCell = iRow.insertCell(-1);
@@ -13425,8 +13366,7 @@
 						(k == 'Single' && nvl(Data.options.disable_single, !SINGLE_TAB_ENABLE)) ||
 						(k == 'Wall' && nvl(Data.options.disable_wall, !WALL_TAB_ENABLE)) ||
 						(k == 'Wheel' && nvl(Data.options.disable_wheel, !WHEEL_TAB_ENABLE)) ||
-						(k == 'Log' && nvl(Data.options.disable_log, !LOG_TAB_ENABLE)) ||
-						(k == 'CPT' && nvl(Data.options.disable_cpt, !CPT_TAB_ENABLE))) {
+						(k == 'Log' && nvl(Data.options.disable_log, !LOG_TAB_ENABLE)) ) {
 							Tabs[k].tabDisabled = true;
 						}
 					else {
@@ -13807,25 +13747,6 @@
 				}
 			}
 		};
-		var addMaterialDesign = function() {
-			/*var scr = document.createElement('script');
-			scr.src = 'https://code.jquery.com/jquery-2.1.1.min.js';
-			document.body.appendChild(scr);
-            
-            var target = document.getElementsByTagName('head')[0];
-			if (target.getElementsByTagName('style').length > 0) {
-				target.removeChild(target.getElementsByTagName('style')[0]);
-            }
-			var obj = document.createElement('style');
-			obj.rel = 'stylesheet';
-			obj.href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css';
-			target.appendChild(obj);*/
-		};
-        var addScript = function(scriptText) {
-			var scr = document.createElement('script');
-			scr.innerHTML = scriptText;
-			document.body.appendChild(scr);
-		};
 		var addStyle = function(css) {
 			var target = document.getElementsByTagName('head')[0];
 			if (target.getElementsByTagName('style').length > 0)
@@ -14014,29 +13935,6 @@
 			setTimeout(function() {
 				document.getElementById('xxpbButReload').click();
 			}, 0);
-		};
-		var searchDOM = function(node, condition, maxLevel, doMult) {
-			var found = [];
-			eval('var compFunc = function (node) { return (' + condition + ') }');
-			doOne(node, 1);
-			if (!doMult) {
-				if (found.length == 0) return null;
-				return found[0];
-			}
-			return found;
-
-			function doOne(node, curLevel) {
-				try {
-					if (compFunc(node)) found.push(node);
-				} catch (e) {}
-
-				if (!doMult && found.length > 0) return;
-				if (++curLevel < maxLevel && node.childNodes != undefined) {
-					for (var c = 0; c < node.childNodes.length; c++) {
-						doOne(node.childNodes[c], curLevel);
-					}
-				}
-			}
 		};
 		var sendNewVersionMsg = function() {
 			var localStorageVersion = localStorage.getItem('118446_sendMessage');
@@ -15382,15 +15280,20 @@
 					return m;
 				}
 				function dispUnits(cityIdx) {
-					var m = '<table width=100% style="margin-top:3px;">' + '	<tr valign=top>' + '		<td width="180px">' + '			<table class=' + UID['row_style'] + ' width=100% id=' + setUID('tabInfoUnits_Unit') + '>' + '				<tr class=' + UID['row_headers'] + ' align=center>' + '					<td width="180px">' + translate('Troops') + '</td>' + '				</tr>';
+					var m = '<table width=100% style="margin-top:3px;">' 
+							+ '	<tr valign=top>' 
+							+ '		<td width="180px">' 
+							+ '			<table class=' + UID['row_style'] + ' width=100% id=' + setUID('tabInfoUnits_Unit') + '>' 
+							+ '				<tr class=' + UID['row_headers'] + ' align=center>' 
+							+ '					<td width="180px">' + translate('Troops') + '</td>' 
+							+ '				</tr>';
 					for (var i = 0; i < all_unit_types.length; i++) {
-						var numTroops = getTroopNumbers(city, all_unit_types[i]);
 						m += '			<tr valign=top>' + '				<td class=right>' + translate(all_unit_types[i]) + ':</td>' + '			</tr>';
 					}
 					m += '			</table>' + '		</td>' + '		<td width="345px">' + '			<div id=' + setUID('tabInfo_Unitsbox') + ' style="width:345px; max-width:345px; overflow-x:auto;">' + '			<div id=' + setUID('tabInfo_UnitsTable') + ' style="width:560px; max-width:560px">' + '			<table class=' + UID['row_style'] + ' width=100% id=' + setUID('tabInfoUnits_Detail') + '>' + '				<tr class=' + UID['row_headers'] + '>' + '					<td width="70px">' + translate('Army') + '</td>' + '					<td width="70px">' + translate('Defense') + '</td>' + '					<td width="70px">' + translate('In city') + '</td>' + '					<td width="70px">' + translate('In march') + '</td>' + '					<td width="80px">' + translate('Total') + '</td>' + '					<td width="70px">' + translate('Train') + '</td>' + '					<td width="70px">' + translate('Resurrect') + '</td>' + '					<td width="60px">' + translate('Souls') + '</td>' + '				</tr>';
 					for (var i = 0; i < all_unit_types.length; i++) {
 						var numTroops = getTroopNumbers(city, all_unit_types[i]);
-						m += '			<tr valign=top>' + '				<td align=right>' + numf(numTroops.total, ' ') + '</td>' + '				<td align=right>' + numf(numTroops.indefense, ' ') + '</td>' + '				<td align=right>' + numf(numTroops.incity, ' ') + '</td>' + '				<td align=right>' + (numTroops.marches ? '&nbsp;+&nbsp;<b>' + numf(numTroops.marches, ' ') + '</b>' : '') + '</td>' + '				<td align=right><b>' + numf(numTroops.all, ' ') + '</b></td>' + '				<td align=right>' + (numTroops.intraining ? numf(numTroops.intraining, ' ') : '') + '</td>' + '				<td align=right>' + (numTroops.inresurrection ? numf(numTroops.inresurrection, ' ') : '') + '</td>' + '				<td align=right>' + (numTroops.souls ? numf(numTroops.souls, ' ') : '') + '</td>' + '			</tr>';
+						m += '			<tr valign=top>' + '				<td align=right class=jewel>' + numf(numTroops.total, ' ') + '</td>' + '				<td align=right class=jewel>' + numf(numTroops.indefense, ' ') + '</td>' + '				<td align=right class=jewel>' + numf(numTroops.incity, ' ') + '</td>' + '				<td align=right class=jewel>' + (numTroops.marches ? '&nbsp;+&nbsp;<b>' + numf(numTroops.marches, ' ') + '</b>' : '') + '</td>' + '				<td align=right class=jewel><b>' + numf(numTroops.all, ' ') + '</b></td>' + '				<td align=right class=jewel>' + (numTroops.intraining ? numf(numTroops.intraining, ' ') : '') + '</td>' + '				<td align=right class=jewel>' + (numTroops.inresurrection ? numf(numTroops.inresurrection, ' ') : '') + '</td>' + '				<td align=right class=jewel>' + (numTroops.souls ? numf(numTroops.souls, ' ') : '') + '</td>' + '			</tr>';
 					}
 					m += '			</table>' + '			</div></div>' + '		</td>' + '	</tr>' + '</table>';
 					return m;
@@ -32730,256 +32633,6 @@
 				});
 			}
 		};
-		Tabs.Cpt = {
-			tabOrder: CPT_TAB_ORDER,
-			tabLabel: 'CPT',
-			tabDisabled: !CPT_TAB_ENABLE,
-			container: null,
-            contentType: 0,
-
-			init: function(div) {
-				var t = Tabs.Cpt;
-				t.container = div;
-				var m = '<div class=' + UID['title'] + '>Calcium Pro Tool ' + translate('search') + '</div>'
-                + '<ul class=tabs>'
-                + '	<li class="tab first"><a id=' + setUID('tabCptSearchPlayer') + '>' + translate('search') + ' ' + translate('players') + '</a></li>'
-                + '	<li class=tab><a id=' + setUID('tabCptSearchAlliance') + '>' + translate('search') + ' ' + translate('alliances') + '</a></li>'
-                + '</ul>'
-                + '<div id=' + setUID('tabCpt_Content') + ' class="' + UID['status_ticker'] + '" style="height:665px; max-height:665px; overflow-y:auto;"></div>';
-				t.container.innerHTML = m;
-				document.getElementById(UID['tabCptSearchPlayer']).addEventListener('click', t.tabCptSearchPlayer);
-				document.getElementById(UID['tabCptSearchAlliance']).addEventListener('click', t.tabCptSearchAlliance);
-				t.show();
-			},
-
-			tabCptSearchPlayer: function(lunchSearch, idUser) {
-				var t = Tabs.Cpt;
-                document.getElementById(UID['tabCptSearchAlliance']).className = '';
-				document.getElementById(UID['tabCptSearchAlliance']).style.zIndex = 0;
-				document.getElementById(UID['tabCptSearchPlayer']).className = 'selected';
-				document.getElementById(UID['tabCptSearchPlayer']).style.zIndex = 1;
-                t.contentType = 0;
-
-                var m =  '<div class=' + UID['title'] + '>' + translate('search') + ' ' + translate('players') + '</div>'
-                    + ' <div class=' + UID['content'] + '>'
-                    + '   <div id='+setUID('tabCPT_divSearch')+'>'
-                    + '     <center>'
-                    + '         <label for='+setUID('tabCPT_playerToSearch')+'>' + translate('name') + '</label> : <input id='+UID['tabCPT_playerToSearch']+' maxlength="50" type="text" value="" />'
-                    + '         <input id='+setUID('tabCPT_btnSearch')+' type=button value=' + translate('search') + ' class=' + UID['btn_blue'] + ' /><br />'
-                    + '         <label for='+setUID('tabCPT_playerSearchHisto')+'>' + translate('Search for old name') + '</label> : <input id='+UID['tabCPT_playerSearchHisto']+' type="checkbox" />'
-                    + '     </center>'
-                    + '   </div><br />'
-                    + '   <div class=' + UID['subtitle'] + '>' + translate('players') + '</div><br />'
-                    + '   <div id='+setUID('tabCPT_divResult')+'></div><br />'
-                    + '   <div class=' + UID['subtitle'] + '>' + translate('view') + '</div>'
-                    + '   <div id='+setUID('tabCPT_divPlayerDetail')+'></div>'
-                    + '</div>';
-                document.getElementById(UID['tabCpt_Content']).innerHTML = (m);
-
-                document.getElementById(UID['tabCPT_btnSearch']).addEventListener('click', searchPlayer);
-
-                function searchPlayer() {
-                    var strSearch = document.getElementById(UID['tabCPT_playerToSearch']).value.trim();
-
-                    new MyAjax.searchCPT(( document.getElementById(UID['tabCPT_playerSearchHisto']).checked ? CPT_SEARCH.playersHisto : CPT_SEARCH.players ), strSearch, function(rslt) {
-                        if(rslt.dat.result) {
-                            var m = '<table class=' + UID['row_style'] + ' width=100%><tr>';
-                            var tb = [];
-                            for(var i=0; i < rslt.dat.players.length ; i++) {
-                                m +=  '<td>' + rslt.dat.players[i].name + '</td>'
-                                    + '<td><input id=' + setUID('tabCPT_' + rslt.dat.players[i].id) + ' ref=' +  rslt.dat.players[i].id + ' class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value="' + translate('view') + '" /></td>';
-                                if((i+1)%2 == 0) {
-                                    m += '</tr><tr>'
-                                }
-                                tb.push('tabCPT_' + rslt.dat.players[i].id);
-                            }
-                            m += '</tr></table>';
-                            document.getElementById(UID['tabCPT_divResult']).innerHTML = (m);
-                            for(i=0; i < tb.length ; i++) {
-                                document.getElementById(UID[tb[i]]).addEventListener('click', searchDetailPlayer);
-                            }
-                        } else {
-                            document.getElementById(UID['tabCPT_divResult']).innerHTML = (rslt.dat.msg);
-                        }
-                    });
-
-                }
-                function searchDetailPlayer(event) {
-                    var id = event.target.getAttribute('ref');
-                    new MyAjax.searchCPT(CPT_SEARCH.playerDetail, id, function(rslt) {
-                        if(rslt.dat.result) {
-                        	var bs = [], bb = [];
-                            var player = rslt.dat.player;
-                            var m = '<table width=100%>';
-                               m += '   <tr><td align=center><b>' + player.name + ' / ' + (player.alliance ? player.alliance.name : '---') + '</b> - ' + translate('might') + ' : ' + numf(player.might) + '</td></tr>';
-                               m += '   <tr><td align=center>';
-                               m += '       <input id=' + setUID('tabCPT_GoCptPlayer' + player.id) + ' ref="' +  player.id + '" class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value="  ' + translate('go') + ' CPT  " />  ';
-                               m += '       <input class=class="' + UID['btn_blue'] + '" id="' + setUID('tabCPT_MsgUser') + '" ref="' + player.id  + '_' + player.name + '" type=button  style="width:auto !important;" value="  ' + translate('Msg') + '  " \>';
-                               m += '      </td></tr>';
-                               m += '</table><br /><br />';
-                               m += '<table class=' + UID['row_style'] + ' width=100%>';
-                               m += '   <tr class=' + UID['row_headers'] + '><td colspan=2 align=center>' + translate('outposts') + '</td><td>' + translate('action') + '</td></tr>';
-                               for(var i=0 ; i < player.ops.length ; i++) {
-                                m += '  <tr><td align=center>' + player.ops[i].type + ' </td>';
-                                m += '		<td align=center>' + player.ops[i].x + ' / ' + player.ops[i].y + '</td>';
-                                m += '<td align=center>';
-                                m += '<input id="' + setUID('tabCpt_SpyNow_' + i) + '" ref="'+player.name+'('+player.ops[i].type+')_' + player.ops[i].x + '_' + player.ops[i].y + '" class="'+(player.ops[i].type === 'Spectral' ? UID['btn_disabled'] : UID['btn_red'])+ '" style="width:auto !important;" type=button value="  ' + translate('Spy') + ' !  " '+( player.ops[i].type === 'Spectral' ? 'disabled' : '')+' />  ';
-                                m += '  <input id=' + setUID('tabCpt_Bookmark_' + i) + ' ref="' + i + '_' + player.ops[i].x + '_' + player.ops[i].y + '_'+player.name+'" class="' + UID['btn_blue'] + '" style="width:auto !important;" type=submit value="  ' + translate('Bookmark') + '  " />';
-                                m += '</td>';
-                                m += '	</tr>';
-                                if(player.ops[i].type !== 'Spectral')
-                                    bs.push('tabCpt_SpyNow_' + i);
-                                bb.push('tabCpt_Bookmark_' + i);
-                               }
-                               m += '</table>';
-                            document.getElementById(UID['tabCPT_divPlayerDetail']).innerHTML = (m);
-                            document.getElementById(UID['tabCPT_MsgUser']).addEventListener('click', onClickMsg);
-                            document.getElementById(UID['tabCPT_GoCptPlayer' + player.id]).addEventListener('click', function(event) {
-                                var id = event.target.getAttribute('ref');
-                                window.open(racineURL+'index.php/Players/view/'+id);
-                            });
-                            for(var j=0; j < bs.length; j++) {
-                            	document.getElementById(UID[bs[j]]).addEventListener('click', cptSpyNow);
-                            }
-                            for(var k=0; k < bb.length; k++) {
-                            	document.getElementById(UID[bb[k]]).addEventListener('click', addBookmark);
-                            }
-
-                            function cptSpyNow(event) {
-                                var args = event.target.getAttribute('ref').split('_'),
-                                    targ = { n:args[0], x:args[1], y:args[2] };
-                                buttonSpyNow(t.container, targ);
-                            }
-                            function addBookmark(event) {
-                                var args = event.target.getAttribute('ref').split('_');
-                                saveBookmark(t.container,
-                                    toNum(args[1]),
-                                    toNum(args[2]),
-                                    0,
-                                    0,
-                                    0,
-                                    toNum(args[0]),
-                                    {},
-                                    '',
-                                    false, true,
-                                    false,
-                                    '',
-                                    args[3]);
-                            }
-                        } else {
-                            document.getElementById(UID['tabCPT_divPlayerDetail']).innerHTML = (rslt.dat.msg);
-                        }
-                    });
-                }
-			},
-			tabCptSearchAlliance: function(lunchSearch, idAlliance) {
-				var t = Tabs.Cpt;
-                document.getElementById(UID['tabCptSearchPlayer']).className = '';
-				document.getElementById(UID['tabCptSearchPlayer']).style.zIndex = 0;
-				document.getElementById(UID['tabCptSearchAlliance']).className = 'selected';
-				document.getElementById(UID['tabCptSearchAlliance']).style.zIndex = 1;
-                t.contentType = 1;
-
-                var m =  '<div class=' + UID['title'] + '>' + translate('search') + ' ' + translate('alliances') + '</div>'
-                    + ' <div class=' + UID['content'] + '>'
-                    + '   <div id='+setUID('tabCPT_divSearch')+'>'
-                    + '     <center>'
-                    + '         <label for='+setUID('tabCPT_allianceToSearch')+'>' + translate('name') + '</label> : <input id='+UID['tabCPT_allianceToSearch']+' maxlength="50" type="text" value="" />'
-                    + '         <input id='+setUID('tabCPT_btnAllianceSearch')+' type=button value=' + translate('search') + ' class=' + UID['btn_blue'] + ' />'
-                    + '     </center>'
-                    + '   </div><br />'
-                    + '   <div class=' + UID['subtitle'] + '>' + translate('alliances') + '</div><br />'
-                    + '   <div id='+setUID('tabCPT_divAllianceResult')+'></div><br />'
-                    + '   <div class=' + UID['subtitle'] + '>' + translate('view') + '</div>'
-                    + '   <div id='+setUID('tabCPT_divAllianceDetail')+'></div>'
-                    + '</div>';
-                document.getElementById(UID['tabCpt_Content']).innerHTML = (m);
-
-                document.getElementById(UID['tabCPT_btnAllianceSearch']).addEventListener('click', searchAlliance);
-
-                function searchAlliance() {
-                    var strSearch = document.getElementById(UID['tabCPT_allianceToSearch']).value.trim();
-                    new MyAjax.searchCPT(CPT_SEARCH.alliances, strSearch, function(rslt) {
-                        if(rslt.dat.result) {
-                            var m = '<table class=' + UID['row_style'] + ' width=100%><tr>';
-                            var tb = [];
-                            for(var i=0; i < rslt.dat.alliances.length ; i++) {
-                                m +=  '<td>' + rslt.dat.alliances[i].name + '</td>'
-                                    + '<td><input id=' + setUID('tabCPT_' + rslt.dat.alliances[i].id) + ' ref=' +  rslt.dat.alliances[i].id + ' class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value="' + translate('view') + '" /></td>';
-                                if((i+1)%2 == 0) {
-                                    m += '</tr><tr>'
-                                }
-                                tb.push('tabCPT_' + rslt.dat.alliances[i].id);
-                            }
-                            m += '</tr></table>';
-                            document.getElementById(UID['tabCPT_divAllianceResult']).innerHTML = (m);
-                            for(i=0; i < tb.length ; i++) {
-                                document.getElementById(UID[tb[i]]).addEventListener('click', searchDetailAlliance);
-                            }
-                        } else {
-                            document.getElementById(UID['tabCPT_divAllianceResult']).innerHTML = (rslt.dat.msg);
-                        }
-                    });
-
-                }
-                function searchDetailAlliance(event) {
-                    var id = event.target.getAttribute('ref');
-                    new MyAjax.searchCPT(CPT_SEARCH.allianceDetail, id, function(rslt) {
-                        if(rslt.dat.result) {
-                            var alliance = rslt.dat.alliance;
-                            var tcpt = [], bm = [];
-                            var m = '<table width=100%>';
-                            m += '   <tr><td align=center><b>' + alliance.name + '</b> - ' + translate('might') + ' : ' + numf(alliance.might) + '</td></tr>';
-                            m += '   <tr><td align=center><input id=' + setUID('tabCPT_GoCptAlliance' + alliance.id) + ' ref=' +  alliance.id + ' class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value="' + translate('go') + ' CPT" /></td></tr>';
-                            m += '</table><br />';
-                            m += '<table class=' + UID['row_style'] + ' width=100%>';
-                            m += '   <tr class=' + UID['row_headers'] + '><td colspan=4 align=center>' + translate('members') + '</td></tr>';
-                            m += '   <tr class=' + UID['row_headers'] + '><td align=center>' + translate('members') + '</td><td align=center>' + translate('might') + '</td><td align=center>' + translate('Role') + '</td><td align=center>' + translate('action') + '</td></tr>';
-                            for(var i=0 ; i < alliance.players.length ; i++) {
-                                m += '  <tr><td>' + alliance.players[i].name + '</td><td align=right>' + numf(alliance.players[i].might) + '</td>';
-                                m += '      <td>' + translate('role-'+alliance.players[i].role) + '</td>';
-                                m += '      <td align=center>';
-                                m += '          <input id=' + setUID('tabCPT_GoCptPlayer' + alliance.players[i].id) + ' ref=' +  alliance.players[i].id + ' class="Xtrasmall ' + UID['btn_green'] + '" style="width:auto !important;" type=submit value="' + translate('go') + ' CPT"/>';
-                                m += '          <input class=class="' + UID['btn_blue'] + '" id="' + setUID('tabCPT_MsgUser_'+i) + '" ref="' + alliance.players[i].id  + '_' + alliance.players[i].name + '" type=button  style="width:auto !important;" value="  ' + translate('Msg') + '  " \>';
-                                m += '      </td>';
-                                m += '  </tr>';
-                                tcpt.push('tabCPT_GoCptPlayer' + alliance.players[i].id);
-                                bm.push('tabCPT_MsgUser_'+i);
-                            }
-                            m += '</table>';
-                            document.getElementById(UID['tabCPT_divAllianceDetail']).innerHTML = (m);
-                            for(var j=0 ; j<tcpt.length ; j++) {
-                                document.getElementById(UID[tcpt[j]]).addEventListener('click', function(event) {
-                                    var id = event.target.getAttribute('ref');
-                                    window.open(racineURL+'index.php/Players/view/'+id);
-                                });
-                                document.getElementById(UID[bm[j]]).addEventListener('click', onClickMsg);
-                            }
-                            document.getElementById(UID['tabCPT_GoCptAlliance' + alliance.id]).addEventListener('click', function(event) {
-                                var id = event.target.getAttribute('ref');
-                                window.open(racineURL+'index.php/Alliances/view/'+id);
-                            });
-                        } else {
-                            document.getElementById(UID['tabCPT_divAllianceDetail']).innerHTML = (rslt.dat.msg);
-                        }
-                    });
-                }
-			},
-			hide: function() {
-				var t = Tabs.Cpt;
-			},
-			show: function() {
-				var t = Tabs.Cpt;
-                switch (toNum(t.contentType)) {
-					case 0:
-						t.tabCptSearchPlayer(false, 0);
-						break;
-					case 1:
-						t.tabCptSearchAlliance(false, 0);
-						break;
-				}
-			}
-        };
 		Tabs.City = {
 			tabOrder: CITY_TAB_ORDER,
 			tabLabel: 'city',
@@ -45290,7 +44943,6 @@ jDataView = function(e) {
 
 
 		setMainStyles();
-        addMaterialDesign();
 		var initialDelay = Math.randRange(5000, 8000);
 		progressBar.init(800 + Math.randRange(1, 50), 100, 450, 150, translate('Initialization'), 400, false);
 		progressBar.start({
@@ -45302,4 +44954,3 @@ jDataView = function(e) {
 		setTimeout(scriptStartup, initialDelay);
 	}
 })();
-
