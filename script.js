@@ -5,7 +5,7 @@
 (function () {
 
     
-	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.804.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
+	var racineURL = 'https://deliverycontent.ovh/CS/', CHROME_EXT = true, scriptVersion = '2017.807.1', scriptId = '173473', REALM_URL = '', REALM_NAME, chrome_extensions = 'chrome://chrome/extensions/', userscripts_src = 'http://userscripts.org:8080/scripts/source/' + scriptId + '.user.js', UID = {}, UIDN = {}, REMOVE_HD = false;
 
 	function make_space_for_kongregate(frame, width) {
 		var maxWidth = width || (document.body.offsetWidth - 50) + 'px';
@@ -2807,6 +2807,45 @@
 					return;
 				}
 			},
+			leviathanUseMarketPlace: function (id, callback) {
+				var t = MyAjax;
+				var p = {};
+				p = t.addMainParams();
+
+				new MyAjaxRequest('player', 'marketplace/trade/'+id, p, mycb, true);
+
+				function mycb(rslt) {
+					if (rslt.ok) {
+						Seed.leviathanTrade.doubloons_left = rslt.dat.result.doubloons_left;
+						Seed.leviathanTrade.free_trades_left = rslt.dat.result.free_trades_left;
+					} else {
+						verboseLog('Ajax.leviathanTrade ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
+					}
+					if(callback) {
+						callback(rslt.dat.result);
+					}
+					return;
+				}
+			},
+			leviathanTrade: function(callback) {
+				var t = MyAjax;
+				var p = {};
+				p = t.addMainParams();
+
+				new MyAjaxRequest('player', 'marketplace/list', p, mycb, false);
+
+				function mycb(rslt) {
+					if (rslt.ok) {
+						Seed.leviathanTrade = rslt.dat.result;
+					} else {
+						verboseLog('Ajax.leviathanTrade ' + translate('was returned with a status of') + ' ' + rslt.ok + ' - ' + rslt.errmsg);
+					}
+					if(callback) {
+						callback();
+					}
+					return;
+				}
+			},
 			allChallenges: function(callback) {
 				var t = MyAjax;
 				var p = {};
@@ -4323,7 +4362,7 @@
 					t.timer = setTimeout(t.onTimeout, 30000);
 				}
 			}
-		}
+		};
 		var Buildings = {
 			getCount: function(cityIdx, type) {
 				var nb = 0;
@@ -16771,7 +16810,7 @@
 					desc = transportable_resource_types[p];
 					if (transportable_resource_types[p] == 'blue_energy') desc = 'blueenergy250k';
 					if(desc != 'lunar_energy' && desc != 'blueenergy250k') {
-						m += '<tr><td class=right width=70px>' + translate(desc) + ' :</td>' + '	<td width=90px>' + '		<input type=text id=' + UIDRes + '_' + p + ' maxlength=10 style="width:70px" size=2 value="' + num + '"\></td>' + '	<td width=30px>' + '		<input class=small id=' + UIDMax + '_' + p + ' ref=' + p + ' type=button style="width:auto !important;" value=" Max " \></td>' + '	<td align=right width=90px>' + actualStock + '</td>' + '	<td align=right width=90px><span id=' + UIDRem + '_' + p + ' ref=' + i + '>' + remaining + '</span></td>' + '<td></td></tr>';
+						m += '<tr><td class=right width=70px>' + translate(desc) + ' :</td>' + '	<td width=90px>' + '		<input type=text id=' + UIDRes + '_' + p + ' maxlength=15 style="width:70px" size=15 value="' + num + '"\></td>' + '	<td width=30px>' + '		<input class=small id=' + UIDMax + '_' + p + ' ref=' + p + ' type=button style="width:auto !important;" value=" Max " \></td>' + '	<td align=right width=90px>' + actualStock + '</td>' + '	<td align=right width=90px><span id=' + UIDRem + '_' + p + ' ref=' + i + '>' + remaining + '</span></td>' + '<td></td></tr>';
 					}
 				}
 				m += '<tr><td align=right class=right>' + translate('Load capacity') + '&nbsp:</td>' + '		<td colspan=4 align=left><div id=' + setUID('tabAlliance_Total') + '></div></td>' + '	</tr>' + '</table><br>' + '<table class=' + UID['table'] + ' style="margin-top:3px" width=60%>' + '	<tr valign=top><td style="font-size:2px">&nbsp</td>' + '	</tr><tr valign=top align=center>' + '		<td width=25%><label><input id=' + setUID('tabAlliance_AdaptTrsp') + ' type=button class="' + UID['btn_green'] + '" value="' + translate('Adapt Transport') + '" /></label></td>' + '		<td width=25%><label><input id=' + setUID('tabAlliance_AdaptTSpeed') + ' type=button class="' + UID['btn_green'] + '" value="' + translate('Adapt Transp. by speed') + '" /></label></td>' + '	</tr><tr valign=top><td style="font-size:2px">&nbsp</td>' + '	</tr><tr valign=top align=center>' + '		<td width=25%><label><input id=' + setUID('tabAlliance_clearAll') + ' type=button class="' + UID['btn_green'] + '" value="' + translate('Clear all') + '" /></label></td>' + '		<td width=25%><label><input id=' + setUID('tabAlliance_Launch') + ' type=button value="' + translate('Send transport') + '" /></label></td>' + '	</tr>' + '</table>' + '<br></div>' + '<div id=' + setUID('tabAlliance_TFeedbackBox') + ' class=' + UID['status_ticker'] + ' style="margin-top:5px; margin-bottom:5px !important">' + '	<div id=' + setUID('tabAlliance_TReport') + ' style="margin-top:5px;height:165px; max-height:165px; width:540px; max-width:540px; overflow:auto;">' + '		<table id=' + setUID('tabAlliance_TMarches') + ' class=' + UID['table'] + '>' + '		</table>' + '	</div>' + '</div></div>';
@@ -31774,6 +31813,11 @@
 					+ '		<td width=40%><label><input id=' + setUID('tabOptions_btnRestore') + ' type=button value="' + translate('Restore') + '" title="' + translate('Restore script settings from local file') + '" /></label>'
 					+ '		<input id=' + setUID('tabOptions_storage_file') + ' type="file" multiple style="opacity:0;position:absolute;z-index:-1"/></td>'
 					+ '	</tr>'
+					+ '	</tr><tr valign=top>'
+					+ '		<td width=30%><label><input id=' + setUID('tabOptions_btnBackupXml') + ' type=button value="' + translate('Backup') + '" title="' + translate('Save current language in a local file') + '" /></label></td>'
+					+ '		<td width=30%>&nbsp;</td>'
+					+ '		<td width=40%>&nbsp;</td>'
+					+ '	</tr>'
 					+ '</table><br>'
 					+ '</div>';
 					t.container.innerHTML = m;
@@ -31843,6 +31887,7 @@
 					document.getElementById(UID['tabOptions_btnSave']).addEventListener('click', t.onClickSaveSetting, false);
 					document.getElementById(UID['tabOptions_btnClean']).addEventListener('click', t.onClickClearStorage, false);
 					document.getElementById(UID['tabOptions_btnInspect']).addEventListener('click', t.onClickInspect, false);
+					document.getElementById(UID['tabOptions_btnBackupXml']).addEventListener('click', t.onClickBackupXmlFile, false);
 					document.getElementById(UID['tabOptions_btnBackup']).addEventListener('click', t.onClickBackupFile, false);
 					document.getElementById(UID['tabOptions_btnBackupMap']).addEventListener('click', t.onClickBackupMap, false);
 					document.getElementById(UID['tabOptions_btnBackupManifest']).addEventListener('click', t.onClickBackupManifest, false);
@@ -32178,6 +32223,41 @@
 								json_data += '}';
 								downloadDataURI({
 									filename: "doa_realm" + [SERVER_ID, Seed.player.name].join('_') + ".txt",
+									data: "data:application/text;base64," + Base64.encode(json_data)
+								});
+								/* window.open(jsondata,'Backup','width=300,height=200,toolbar=no,resizable=0'); */
+							}, 1000);
+						} catch (e) {}
+					},
+					/* Cancel */
+
+					function() {}, true
+				);
+			},
+			onClickBackupXmlFile: function() {
+				var t = Tabs.Options;
+				dialogConfirm(translate('Do you want to save Translation in local file') + ' ?',
+					function() {
+						try {
+							setTimeout(function() {
+								var keys = getKeys(Translation.xml);
+								for (var i = 0; i < keys.length; i++) {
+									if (/(marches|requests)/i.test(keys[i]))
+										keys.splice(i, 1);
+								}
+								var json_data = '{';
+								for (var i = 0; i < keys.length; i++) {
+									var name = keys[i];
+									try {
+										json_data += '"' + name + '":' + JSON.stringify(Translation.xml[name]);
+									} catch (e) {
+										debugLog(e);
+									}
+									if (i < keys.length - 1) json_data += ','
+								}
+								json_data += '}';
+								downloadDataURI({
+									filename: "doa_realm_language" + [SERVER_ID, Seed.player.name].join('_') + ".txt",
 									data: "data:application/text;base64," + Base64.encode(json_data)
 								});
 								/* window.open(jsondata,'Backup','width=300,height=200,toolbar=no,resizable=0'); */
@@ -32665,41 +32745,18 @@
 				+ '	<li class=tab><a id=' + setUID('tabCity_Capital') + '>' + Seed.cities[CAPITAL.id].name + '</a></li>'
                 //+ '	<li class="tab first"><a id=' + setUID('tabCity_LunarOutpost') + '>' + translate('luna-outpost') + '</a></li>'
                 //+ '	<li class=tab><a id=' + setUID('tabCity_ColossusOutPost') + '>' + translate('colossus-outpost') + '</a></li>'
+				+ '	<li class=tab><a id=' + setUID('tabCity_LeviathanOutPost') + '>' + translate('leviathan-outpost') + '</a></li>'
                 + '</ul>'
                 + '<div id="' + setUID('tabCity_Content') + '" class="' + UID['status_ticker'] + '" style="height:665px; max-height:665px; overflow-y:auto;"></div>';
 				t.container.innerHTML = m;
 				document.getElementById(UID['tabCity_Capital']).addEventListener('click', t.tabCity_Capital);
 				//document.getElementById(UID['tabCity_LunarOutpost']).addEventListener('click', t.tabCity_LunarOutpost);
 				//document.getElementById(UID['tabCity_ColossusOutPost']).addEventListener('click', t.tabCity_ColossusOutPost);
+				document.getElementById(UID['tabCity_LeviathanOutPost']).addEventListener('click', t.tabCity_LeviathanOutPost);
 				t.show();
 			},
 
 			tabCity_Capital: function() {
-				var t = Tabs.City;
-                //document.getElementById(UID['tabCity_ColossusOutPost']).className = '';
-				//document.getElementById(UID['tabCity_ColossusOutPost']).style.zIndex = 0;
-				document.getElementById(UID['tabCity_Capital']).className = 'selected';
-				document.getElementById(UID['tabCity_Capital']).style.zIndex = 1;
-				//document.getElementById(UID['tabCity_LunarOutpost']).className = '';
-				//document.getElementById(UID['tabCity_LunarOutpost']).style.zIndex = 0;
-                t.contentType = 2;
-
-				var m =  ''
-					+ ' <div class=' + UID['content'] + '>'
-					+ '   <div id="'+setUID('tabCity_capitalDiv')+'">'
-					+ '		<div id="'+setUID('tabCapitalCity_challengesAccord')+'" ref="tabCapitalCity_challengesContent" class='+UID['title_main']+' style="padding-top:3px; padding-bottom:3px;text-align:center;color:#ffffff;">'+translate('competition')+ ' - <input class="'+UID['btn_green']+'" id="'+setUID('btnCityCapital_Challenges')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
-					+ '		<div class='+UID['content']+' id='+setUID('tabCapitalCity_challengesContent')+'></div>'
-					+ '		<div id="'+setUID('tabCapitalCity_loginMessageAccord')+'" ref="tabCapitalCity_loginMessage" class='+UID['title_main']+' style="padding-top:3px; padding-bottom:3px;text-align:center;color:#ffffff;">'+translate('newsfeed')+' - <input class="'+UID['btn_green']+'" id="'+setUID('btnCityCapital_LoginMessage')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
-					+ '		<div class='+UID['content']+' id='+setUID('tabCapitalCity_loginMessage')+'></div>'
-					+ '		<div id="'+setUID('tabCapitalCity_treasureAccord')+'" ref="tabCapitalCity_treasureContent" class='+UID['title_main']+' style="padding-top:3px; padding-bottom:3px;text-align:center;color:#ffffff;">'+translate('treasure-hold')+' - <input class="'+UID['btn_green']+'" id="'+setUID('btnCityCapital_TreasureHold')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
-					+ '		<div class='+UID['content']+' id='+setUID('tabCapitalCity_treasureContent')+'></div>'
-					+ '   </div>'
-                    + '</div>';
-                document.getElementById(UID['tabCity_Content']).innerHTML = (m);
-				document.getElementById(UID['btnCityCapital_Challenges']).addEventListener('click', clickToUpdateChallenges);
-				document.getElementById(UID['btnCityCapital_LoginMessage']).addEventListener('click', clickToUpdateLoginMessages);
-				setButtonStyle(document.getElementById(UID['btnCityCapital_TreasureHold']), false, 'btn_green', 'btn_disabled');
-				
 				function updateChallenges() {
 					var m = '', tT = [], timeRemaining=0;
 					if(Seed.challenges.active) {
@@ -32787,6 +32844,33 @@
 					var div_el = document.getElementById(UID[element.getAttribute('ref')]);
 					Effect.toggle(div_el, 'blind', { duration: 1.0 });
 				}
+			
+				var t = Tabs.City;
+                
+				//document.getElementById(UID['tabCity_ColossusOutPost']).className = '';
+				//document.getElementById(UID['tabCity_ColossusOutPost']).style.zIndex = 0;
+				//document.getElementById(UID['tabCity_LunarOutpost']).className = '';
+				//document.getElementById(UID['tabCity_LunarOutpost']).style.zIndex = 0;
+				document.getElementById(UID['tabCity_LeviathanOutPost']).className = '';
+				document.getElementById(UID['tabCity_LeviathanOutPost']).style.zIndex = 0;
+				document.getElementById(UID['tabCity_Capital']).className = 'selected';
+				document.getElementById(UID['tabCity_Capital']).style.zIndex = 1;
+				
+                t.contentType = 2;
+
+				var m =  ''
+					+ ' <div class=' + UID['content'] + '>'
+					+ '   <div id="'+setUID('tabCity_capitalDiv')+'">'
+					+ '		<div id="'+setUID('tabCapitalCity_challengesAccord')+'" ref="tabCapitalCity_challengesContent" class='+UID['title_main']+' style="padding-top:3px; padding-bottom:3px;text-align:center;color:#ffffff;">'+translate('competition')+ ' - <input class="'+UID['btn_green']+'" id="'+setUID('btnCityCapital_Challenges')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
+					+ '		<div class='+UID['content']+' id='+setUID('tabCapitalCity_challengesContent')+'></div>'
+					+ '		<div id="'+setUID('tabCapitalCity_loginMessageAccord')+'" ref="tabCapitalCity_loginMessage" class='+UID['title_main']+' style="padding-top:3px; padding-bottom:3px;text-align:center;color:#ffffff;">'+translate('newsfeed')+' - <input class="'+UID['btn_green']+'" id="'+setUID('btnCityCapital_LoginMessage')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
+					+ '		<div class='+UID['content']+' id='+setUID('tabCapitalCity_loginMessage')+'></div>'
+					+ '   </div>'
+                    + '</div>';
+                document.getElementById(UID['tabCity_Content']).innerHTML = (m);
+				document.getElementById(UID['btnCityCapital_Challenges']).addEventListener('click', clickToUpdateChallenges);
+				document.getElementById(UID['btnCityCapital_LoginMessage']).addEventListener('click', clickToUpdateLoginMessages);
+				updateChallenges();
 			},
 			tabCity_LunarOutpost: function() {
 				var t = Tabs.City;
@@ -32858,6 +32942,8 @@
 				var t = Tabs.City;
                 document.getElementById(UID['tabCity_Capital']).className = '';
 				document.getElementById(UID['tabCity_Capital']).style.zIndex = 0;
+				document.getElementById(UID['tabCity_LeviathanOutPost']).className = '';
+				document.getElementById(UID['tabCity_LeviathanOutPost']).style.zIndex = 0;
 				document.getElementById(UID['tabCity_ColossusOutPost']).className = 'selected';
 				document.getElementById(UID['tabCity_ColossusOutPost']).style.zIndex = 1;
 				document.getElementById(UID['tabCity_LunarOutpost']).className = '';
@@ -32869,28 +32955,102 @@
                     + '   <div id='+setUID('tabCity_colossusDiv')+'>'
                     + '   </div><br />'
                     + '</div>';
-                document.getElementById(UID['tabCity_Content']).innerHTML = (m);
+                document.getElementById(UID['tabCity_Content']).innerHTML = m;
 
 			},
+			tabCity_LeviathanOutPost: function() {
+				function lunchTradeLeviathan(event) {
+					function cb(result) {
+						setButtonStyle(document.getElementById(UID['btnLeviathanCity_trade'+result.trade_id]), true, 'btn_green', 'btn_off');
+						document.getElementById(UID['btnLeviathanCity_trade'+result.trade_id]).disabled = false;
+						updateTrade();
+					}
+					var id = toNum(event.target.getAttribute('ref'));
+					setButtonStyle(document.getElementById(UID['btnLeviathanCity_trade'+id]), false, 'btn_green', 'btn_off');
+					document.getElementById(UID['btnLeviathanCity_trade'+id]).disabled = true;
+					MyAjax.leviathanUseMarketPlace(id, cb);
+				}
+				function updateTrade() {
+					var lTrade = Seed.leviathanTrade, t = Tabs.City, m, tt=[];
+					
+					m = '<div><table>' 
+						+ '<tr><td colspan=7>' + translate('coraldoubloon') + ' : ' + lTrade.doubloons_left + '</td></tr>'
+						+ '<tr><td colspan=7>' + translate('marketplace-free-trades-left').replace('%num%', lTrade.free_trades_left) + '</td></tr>'
+						+ '<tr><td colspan=7>&nbsp;</td></tr>';
+					
+					for(var i=0; i<lTrade.trades.length;i++) {
+						var trade = lTrade.trades[i];
+						if(trade.output[0] !== null) {
+							m += '<tr>' 
+								+ '	<td align=right>' + trade.requirement[1] + ' </td>' 
+								+ '	<td> x ' + translate(trade.requirement[0]) + '</td>' 
+								+ '	<td> => </td>' 
+								+ '	<td align=right>' + trade.output[1] + ' </td>' 
+								+ '	<td> x ' + translate(trade.output[0]) + '</td>' 
+								+ '	<td> <input ref="'+trade.id+'" class="'+UID['btn_green']+'" id="'+setUID('btnLeviathanCity_trade'+trade.id)+'" type="button" style="width:auto !important;" value="'+translate('use')+'" /> </td>'
+								+ ' <td> (Encore ' + Math.trunc(Player.Inventory.getNbItem(trade.requirement[0])/trade.requirement[1]) +  ')</td>'
+								+ '</tr>';
+							tt.push('btnLeviathanCity_trade'+trade.id);
+						}
+					}
+					
+					m+='</table></div>';			
+					document.getElementById(UID['tabLeviathanCity_tradeContent']).innerHTML = m;
+					for(var i=0;i<tt.length;i++) {
+					  $(UID[tt[i]]).observe('click', lunchTradeLeviathan);
+					}
+				}
+				function clickToUpdateTrade() {
+					MyAjax.leviathanTrade(updateTrade);
+				}
+				
+				var t = Tabs.City;
+                document.getElementById(UID['tabCity_Capital']).className = '';
+				document.getElementById(UID['tabCity_Capital']).style.zIndex = 0;
+				document.getElementById(UID['tabCity_LeviathanOutPost']).className = 'selected';
+				document.getElementById(UID['tabCity_LeviathanOutPost']).style.zIndex = 1;
+				//document.getElementById(UID['tabCity_ColossusOutPost']).className = 'selected';
+				//document.getElementById(UID['tabCity_ColossusOutPost']).style.zIndex = 1;
+				//document.getElementById(UID['tabCity_LunarOutpost']).className = '';
+				//document.getElementById(UID['tabCity_LunarOutpost']).style.zIndex = 0;
+                t.contentType = 3;
 
+                var m =  '<div class=' + UID['title'] + '>' + translate('leviathan-outpost') + '</div>'
+                    + ' <div class=' + UID['content'] + '>'
+                    + '   <div id='+setUID('tabCity_leviathanDiv')+'>'
+					+ '		<div id="'+setUID('tabLeviathanCity_trade')+'" ref="tabLeviathanCity_tradeContent" class='+UID['title_main']+' style="padding-top:3px; padding-bottom:3px;text-align:center;color:#ffffff;">'+translate('trade')+ ' - <input class="'+UID['btn_green']+'" id="'+setUID('btnLeviathanCity_trade')+'" type="button" style="width:auto !important;" value="'+translate('Refresh')+'" /></div>'
+					+ '		<div class='+UID['content']+' id='+setUID('tabLeviathanCity_tradeContent')+'></div>'
+                    + '   </div>'
+                    + '</div>';
+                document.getElementById(UID['tabCity_Content']).innerHTML = m;
+				document.getElementById(UID['btnLeviathanCity_trade']).addEventListener('click', clickToUpdateTrade);
+				if(Seed.leviathanTrade !== undefined) {
+					updateTrade();
+				}
+			},
+			
 			hide: function() {
 				var t = Tabs.City;
 			},
 			show: function() {
 				var t = Tabs.City;
-				t.tabCity_Capital();
-				/*
+				
                 switch (toNum(t.contentType)) {
-					case 0:
-						t.tabCity_LunarOutpost();
-						break;
-					case 1:
-						t.tabCity_ColossusOutPost();
-						break;
+					//case 0:
+					//	t.tabCity_LunarOutpost();
+					//	break;
+					//case 1:
+					//	t.tabCity_ColossusOutPost();
+					//	break;
 					case 2:
 						t.tabCity_Capital();
 						break;
-				}*/
+					case 3:
+						t.tabCity_LeviathanOutPost();
+						break;
+					default:
+						t.tabCity_Capital();
+				}
 			}
     };
 
