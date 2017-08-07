@@ -31018,7 +31018,82 @@
 				t.lastSubTab = 'tabWheelPlay';
 				t.contentType = 0;
 				setUID('tabWheel_Type');
-				var m = '<div id=' + setUID('tabWheel_grid') + ' style="height:640px">' + '<div class=' + UID['title'] + '>' + translate('Play') + ' ' + translate('Fortuna\'s chance') + '</div>' + '<div class=' + UID['content'] + '>' + '	<table class=' + UID['table'] + ' style="margin-top:3px" width=100%>' + '		<tr valign=top align=left>' + '			<td width=5%><input type=radio name=' + UID['tabWheel_Type'] + ' value="regular" /></td>' + '			<td width=35% align=left><label>' + translate('FortunasTicket') + '<span id=' + setUID('tabWheel_nbTickets') + '></span></label></td>' + '			<td width=60% align=center><label><input id=' + setUID('tabWheel_Play') + ' type=button value="' + translate('Play') + '" /></label></td>' + '		</tr>' + '		<tr valign=top align=left>' + '			<td width=5%><input type=radio name=' + UID['tabWheel_Type'] + ' value="golden" /></td>' + '			<td align=left width=35%><label>' + translate('FortunasGoldenTicket') + '<span id=' + setUID('tabWheel_nbGold') + '></span></label></td>' + '			<td width=60% align=center><label><input id=' + setUID('tabWheel_Choose') + ' type=button value="' + translate('Choose') + '" /></label></td>' + '		</tr>' + '	</table><br>' + '	<center><div id=' + setUID('tabWheel_Grid') + ' style="padding-top:0px; height:311px; max-height:311px; overflow-y:auto; width:479px; max-width:479px"></div></center>' + '	<br>' + '	<table class=' + UID['table'] + ' style="margin-top:3px" width=100%>' + '		<tr valign=top align=center>' + '			<td width=30%><label><input id=' + setUID('tabWheel_Refresh') + ' type=button value="' + translate('Refresh') + '" /></label></td>' + '			<td width=40% class=jewel><div id=' + setUID('tabWheel_wait') + '></div></td>' + '			<td width=30%><label><input id=' + setUID('tabWheel_Stop') + ' type=button value="' + translate('Stop') + '" /></label></td>' + '		</tr>' + '	</table><br>' + '	<div class=' + UID['title'] + ' style="margin-bottom:10px">' + translate('Config') + '</div>' + '	<table class=' + UID['table'] + ' width=100% style="color:#000;">' + '		<tr valign=top>' + '			<td><label><input id=' + setUID('tabWheel_AutoRefresh') + ' ' + (Data.options.wheel.auto_refresh ? 'CHECKED ' : '') + ' type=checkbox /></label></td>' + '			<td><label>' + translate('Auto-refresh wheel prize list every') + '&nbsp</label>' + '				<input id=' + setUID('tabWheel_chkTime') + ' size=1 maxlength=2 type=text value="' + Data.options.wheel.delay + '" />&nbsp' + '				<select id=' + setUID('tabWheel_chkUnit') + ' size=1>' + '					<option value=1 ' + (Data.options.wheel.unit == 1 ? 'selected' : '') + '>' + translate('Seconds') + '</option>' + '					<option value=60 ' + (Data.options.wheel.unit == 60 ? 'selected' : '') + '>' + translate('minutes') + '</option>' + '					<option value=3600 ' + (Data.options.wheel.unit == 3600 ? 'selected' : '') + '>' + translate('hours') + '</option>' + '				</select>' + '			</td>' + '		</tr><tr valign=top>' + '			<td  style="font-size:2px">&nbsp</td>' + '		</tr><tr valign=top>' + '			<td></td><td><label>' + translate('Stop the wheel when found the following items') + '&nbsp' + '		</tr><tr valign=top>' + '			<td colspan=2>' + '				<table class=' + UID['table'] + ' width=100% style="color:#000;"><tr valign=top>' + '					<td width=50%><table width=100%><tr valign=top><td><div id=' + setUID('tabWheel_item1') + '></div></td></tr></table></td>' + '					<td width=50%><table width=100%><tr valign=top><td><div id=' + setUID('tabWheel_item2') + '></div></td></tr></table></td>' + '				</tr></table>' + '			</td>' + '		</tr><tr valign=top>' + '			<td width=5%></td><td><label>' + translate('And at least') + '&nbsp' + '				<select id=' + setUID('tabWheel_number') + ' size=1>' + '					<option value=1 ' + (Data.options.wheel.number == 1 ? 'selected' : '') + '>1</option>' + '					<option value=2 ' + (Data.options.wheel.number == 2 ? 'selected' : '') + '>2</option>' + '					<option value=3 ' + (Data.options.wheel.number == 3 ? 'selected' : '') + '>3</option>' + '					<option value=4 ' + (Data.options.wheel.number == 4 ? 'selected' : '') + '>4</option>' + '					<option value=5 ' + (Data.options.wheel.number == 5 ? 'selected' : '') + '>5</option>' + '					<option value=6 ' + (Data.options.wheel.number == 6 ? 'selected' : '') + '>6</option>' + '				</select>&nbsp' + translate('of the following items') + '</label></td>' + '		</tr><tr valign=top>' + '		</tr>' + '	</table>' + '	<table class=' + UID['table'] + ' width=100% style="color:#000;">' + '		<tr valign=top>' + '			<td width=50%><table width=100%>' + '				<tr valign=top><td><div id=' + setUID('tabWheel_item3') + '></div></td></tr>' + '				<tr valign=top><td><div id=' + setUID('tabWheel_item4') + '></div></td></tr>' + '				<tr valign=top><td><div id=' + setUID('tabWheel_item5') + '></div></td></tr>' + '			</table></td>' + '			<td width=50%><table width=100%>' + '				<tr valign=top><td><div id=' + setUID('tabWheel_item6') + '></div></td></tr>' + '				<tr valign=top><td><div id=' + setUID('tabWheel_item7') + '></div></td></tr>' + '				<tr valign=top><td><div id=' + setUID('tabWheel_item8') + '></div></td></tr>' + '			</table>' + '			</td>' + '		</tr>' + '	</table>' + '	<table class=' + UID['table'] + ' width=100% style="color:#000;">' + '		<tr valign=top>' + '			<td><label><input id=' + setUID('tabWheel_AutoPlay') + ' ' + (Data.options.wheel.auto_play ? 'CHECKED ' : '') + ' type=checkbox /></label></td>' + '			<td><label>' + translate('Auto-play : Maximum tickets to play ') + '&nbsp</label>' + '				<input id=' + setUID('tabWheel_AutoMax') + ' size=1 maxlength=4 type=text value="' + Data.options.wheel.max_auto + '" />&nbsp (0 = ' + translate('no max') + ')' + '			</td>' + '			<td width=20% align=right class=jewel><div id=' + setUID('tabWheel_played') + '></div></td>' + '		</tr>' + '	</table>' + '</div>';
+				var m = '<div id=' + setUID('tabWheel_grid') + ' style="height:640px">' 
+					+ '<div class=' + UID['title'] + '>' + translate('Play') + ' ' + translate('Fortuna\'s chance') + '</div>' 
+					+ '<div class=' + UID['content'] + '>' 
+					+ '	<table class=' + UID['table'] + ' style="margin-top:3px" width=100%>' 
+					+ '		<tr valign=top align=left>' 
+					+ '			<td width=5%><input type=radio name=' + UID['tabWheel_Type'] + ' value="regular" /></td>' 
+					+ '			<td width=35% align=left><label>' + translate('FortunasTicket') + '<span id=' + setUID('tabWheel_nbTickets') + '></span></label></td>' 
+					+ '			<td width=60% align=center><label><input id=' + setUID('tabWheel_Play') + ' type=button value="' + translate('Play') + '" /></label></td>' 
+					+ '		</tr>' 
+					+ '		<tr valign=top align=left>' 
+					+ '			<td width=5%><input type=radio name=' + UID['tabWheel_Type'] + ' value="golden" /></td>' 
+					+ '			<td align=left width=35%><label>' + translate('FortunasGoldenTicket') + '<span id=' + setUID('tabWheel_nbGold') + '></span></label></td>' 
+					+ '			<td width=60% align=center><label><input id=' + setUID('tabWheel_Choose') + ' type=button value="' + translate('Choose') + '" /></label></td>' 
+					+ '		</tr>' 
+					+ '	</table><br>' 
+					+ '	<center><div id=' + setUID('tabWheel_Grid') + ' style="padding-top:0px; height:311px; max-height:311px; overflow-y:auto; width:479px; max-width:479px"></div></center>' + '	<br>' 
+					+ '	<table class=' + UID['table'] + ' style="margin-top:3px" width=100%>' 
+					+ '		<tr valign=top align=center>' 
+					+ '			<td width=30%><label><input id=' + setUID('tabWheel_Refresh') + ' type=button value="' + translate('Refresh') + '" /></label></td>' 
+					+ '			<td width=40% class=jewel><div id=' + setUID('tabWheel_wait') + '></div></td>' 
+					+ '			<td width=30%><label><input id=' + setUID('tabWheel_Stop') + ' type=button value="' + translate('Stop') + '" /></label></td>' 
+					+ '		</tr>' + '	</table><br>' + '	<div class=' + UID['title'] + ' style="margin-bottom:10px">' + translate('Config') + '</div>' 
+					+ '	<table class=' + UID['table'] + ' width=100% style="color:#000;">' + '		<tr valign=top>' 
+					+ '			<td><label><input id=' + setUID('tabWheel_AutoRefresh') + ' ' + (Data.options.wheel.auto_refresh ? 'CHECKED ' : '') + ' type=checkbox /></label></td>' 
+					+ '			<td><label>' + translate('Auto-refresh wheel prize list every') + '&nbsp</label>' 
+					+ '				<input id=' + setUID('tabWheel_chkTime') + ' size=1 maxlength=2 type=text value="' + Data.options.wheel.delay + '" />&nbsp' 
+					+ '				<select id=' + setUID('tabWheel_chkUnit') + ' size=1>' 
+					+ '					<option value=1 ' + (Data.options.wheel.unit == 1 ? 'selected' : '') + '>' + translate('Seconds') + '</option>' 
+					+ '					<option value=60 ' + (Data.options.wheel.unit == 60 ? 'selected' : '') + '>' + translate('minutes') + '</option>' 
+					+ '					<option value=3600 ' + (Data.options.wheel.unit == 3600 ? 'selected' : '') + '>' + translate('hours') + '</option>' 
+					+ '				</select>' + '			</td>' + '		</tr><tr valign=top>' + '			<td  style="font-size:2px">&nbsp</td>' 
+					+ '		</tr><tr valign=top>' 
+					+ '			<td></td><td><label>' + translate('Stop the wheel when found the following items') + '&nbsp' 
+					+ '		</tr><tr valign=top>' 
+					+ '			<td colspan=2>' 
+					+ '				<table class=' + UID['table'] + ' width=100% style="color:#000;"><tr valign=top>' 
+					+ '					<td width=50%><table width=100%><tr valign=top><td><div id=' + setUID('tabWheel_item1') + '></div></td></tr></table></td>' 
+					+ '					<td width=50%><table width=100%><tr valign=top><td><div id=' + setUID('tabWheel_item2') + '></div></td></tr></table></td>' 
+					+ '				</tr></table>' 
+					+ '			</td>' 
+					+ '		</tr><tr valign=top>' 
+					+ '			<td width=5%></td><td><label>' + translate('And at least') + '&nbsp' 
+					+ '				<select id=' + setUID('tabWheel_number') + ' size=1>' 
+					+ '					<option value=1 ' + (Data.options.wheel.number == 1 ? 'selected' : '') + '>1</option>' 
+					+ '					<option value=2 ' + (Data.options.wheel.number == 2 ? 'selected' : '') + '>2</option>' 
+					+ '					<option value=3 ' + (Data.options.wheel.number == 3 ? 'selected' : '') + '>3</option>' 
+					+ '					<option value=4 ' + (Data.options.wheel.number == 4 ? 'selected' : '') + '>4</option>' 
+					+ '					<option value=5 ' + (Data.options.wheel.number == 5 ? 'selected' : '') + '>5</option>' 
+					+ '					<option value=6 ' + (Data.options.wheel.number == 6 ? 'selected' : '') + '>6</option>' 
+					+ '				</select>&nbsp' + translate('of the following items') + '</label></td>' 
+					+ '		</tr><tr valign=top>' 
+					+ '		</tr>' 
+					+ '	</table>' 
+					+ '	<table class=' + UID['table'] + ' width=100% style="color:#000;">' 
+					+ '		<tr valign=top>' + '			<td width=50%><table width=100%>' 
+					+ '				<tr valign=top><td><div id=' + setUID('tabWheel_item3') + '></div></td></tr>' 
+					+ '				<tr valign=top><td><div id=' + setUID('tabWheel_item4') + '></div></td></tr>' 
+					+ '				<tr valign=top><td><div id=' + setUID('tabWheel_item5') + '></div></td></tr>' 
+					+ '			</table></td>' + '			<td width=50%><table width=100%>' 
+					+ '				<tr valign=top><td><div id=' + setUID('tabWheel_item6') + '></div></td></tr>' 
+					+ '				<tr valign=top><td><div id=' + setUID('tabWheel_item7') + '></div></td></tr>' 
+					+ '				<tr valign=top><td><div id=' + setUID('tabWheel_item8') + '></div></td></tr>' 
+					+ '			</table>' 
+					+ '			</td>' 
+					+ '		</tr>' 
+					+ '	</table>' 
+					+ '	<table class=' + UID['table'] + ' width=100% style="color:#000;">' 
+					+ '		<tr valign=top>' 
+					+ '			<td><label><input id=' + setUID('tabWheel_AutoPlay') + ' ' + (Data.options.wheel.auto_play ? 'CHECKED ' : '') + ' type=checkbox /></label></td>' 
+					+ '			<td><label>' + translate('Auto-play : Maximum tickets to play ') + '&nbsp</label>' 
+					+ '				<input id=' + setUID('tabWheel_AutoMax') + ' size=1 maxlength=4 type=text value="' + Data.options.wheel.max_auto + '" />&nbsp (0 = ' + translate('no max') + ')' 
+					+ '			</td>' 
+					+ '			<td width=20% align=right class=jewel><div id=' + setUID('tabWheel_played') + '></div></td>' 
+					+ '		</tr>' 
+					+ '	</table>' 
+					+ '</div>';
 
 				document.getElementById(UID['tabWheel_Content']).innerHTML = (m);
 
@@ -31178,11 +31253,7 @@
 
 				function gatherObjstat(item, played, earned) {
 					var regular = ((Data.options.wheel.type == 'regular') ? 0 : 1);
-					if (!Data.stats.wheel.items[regular][item]) Data.stats.wheel.items[regular][item] = [0, 0, 0]; /*
-																													 * [displayed,
-																													 * played,
-																													 * won]
-																													 */
+					if (!Data.stats.wheel.items[regular][item]) Data.stats.wheel.items[regular][item] = [0, 0, 0]; /* [displayed,played,won] */
 					if (!played) {
 						Data.stats.wheel.items[regular][item][0]++;
 						Data.stats.wheel.total_grids[regular]++;
